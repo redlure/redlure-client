@@ -1,0 +1,26 @@
+<h3>Workspaces</h3>
+<div>
+  <label>Workspace name:
+    <input #workspaceName />
+  </label>
+  <!-- (click) passes input value to add() and then clears the input -->
+  <button (click)="add(workspaceName.value); workspaceName.value=''">
+    add
+  </button>
+  <button (click)="search(workspaceName.value)">
+    search
+  </button>
+</div>
+
+<ul class="workspaces">
+  <li *ngFor="let workspace of workspaces">
+    <a (click)="edit(workspace)">
+      <span class="card-body">{{ workspace.id || -1 }}</span>
+      <span *ngIf="workspace!==editWorkspace">{{workspace.name}}</span>
+      <input *ngIf="workspace===editWorkspace" [(ngModel)]="workspace.name"
+        (blur)="update()" (keyup.enter)="update()">
+    </a>
+    <button class="delete" title="delete workspace"
+    (click)="delete(workspace)">x</button>
+  </li>
+</ul>

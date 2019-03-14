@@ -1,22 +1,37 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { WorkspacesComponent } from './workspaces/workspaces.component';
+import { HttpErrorHandler }     from './http-error-handler.service';
+import { MessageService }       from './message.service';
 
-// General Components
-import { HeaderComponent } from '../general/header/header.component';
+import { AppRoutingModule }     from './app-routing.module';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent
+    WorkspacesComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
+    NgbModule.forRoot(),
+    HttpClientModule,
+    HttpModule,
+    FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    HttpErrorHandler,
+    MessageService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

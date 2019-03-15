@@ -7,17 +7,21 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { WorkspacesComponent } from './workspaces/workspaces.component';
+import { LoginComponent } from './login/login.component';
+import { LoginApiService } from './login/login-api.service'
 import { HttpErrorHandler }     from './http-error-handler.service';
 import { MessageService }       from './message.service';
 
 import { AppRoutingModule }     from './app-routing.module';
-import { LoginComponent } from './login/login.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { MDBBootstrapModule } from 'angular-bootstrap-md'
 
 @NgModule({
   declarations: [
     AppComponent,
     WorkspacesComponent,
-    LoginComponent
+    LoginComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -26,11 +30,13 @@ import { LoginComponent } from './login/login.component';
     HttpModule,
     FormsModule,
     ReactiveFormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MDBBootstrapModule.forRoot()
   ],
   providers: [
     HttpErrorHandler,
-    MessageService
+    MessageService,
+    LoginApiService
   ],
   bootstrap: [AppComponent]
 })

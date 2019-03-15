@@ -18,7 +18,8 @@ export class LoginApiService {
   }
 
    /** POST: login to the server*/
-   login (username: String, password: String) {
+   login(username: String, password: String) {
+    console.log(username, password)
     return this.http.post(this.loginUrl, { username, password })
   }
         

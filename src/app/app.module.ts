@@ -31,7 +31,8 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md'
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    MDBBootstrapModule.forRoot()
+    MDBBootstrapModule.forRoot(),
+    MDBBootstrapModule
   ],
   providers: [
     HttpErrorHandler,

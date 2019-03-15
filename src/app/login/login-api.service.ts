@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {catchError} from 'rxjs/operators'
 import {API_URL} from '../env';
 import { HttpErrorHandler, HandleError } from '../http-error-handler.service';
+import { map } from 'rxjs/operators';
 
 
 @Injectable()
@@ -19,8 +20,11 @@ export class LoginApiService {
 
    /** POST: login to the server*/
    login(username: String, password: String) {
-    console.log(username, password)
-    return this.http.post(this.loginUrl, { username, password })
+    let formData: FormData = new FormData()
+    formData.append('Username', 'admin')
+    formData.append('Password', 'redlure')
+    return this.http.post<any>(this.loginUrl, formData)
+      .pipe(map((resp => console.log('hi'))))
   }
         
         

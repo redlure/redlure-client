@@ -1,27 +1,16 @@
 <navbar></navbar>
-<h3>Workspaces</h3>
-<div>
-  <label>Workspace name:
-    <input #workspaceName />
-  </label>
-  <!-- (click) passes input value to add() and then clears the input -->
-  <button (click)="add(workspaceName.value); workspaceName.value=''">
-    add
-  </button>
-  <button (click)="search(workspaceName.value)">
-    search
-  </button>
-</div>
-
-<ul class="workspaces">
-  <li *ngFor="let workspace of workspaces">
-    <a (click)="edit(workspace)">
-      <span class="card-body">{{ workspace.id || -1 }}</span>
-      <span *ngIf="workspace!==editWorkspace">{{workspace.name}}</span>
-      <input *ngIf="workspace===editWorkspace" [(ngModel)]="workspace.name"
-        (blur)="update()" (keyup.enter)="update()">
-    </a>
-    <button class="delete" title="delete workspace"
-    (click)="delete(workspace)">x</button>
-  </li>
-</ul>
+<body style="margin: 20px">
+  <div>
+    <h3 style="display:inline-block">Workspaces</h3>
+    <button class="btn btn-outline-dark login_btn" style="float: right;">New</button>
+  </div>
+  <br>
+  <div class="card-deck">
+    <div *ngFor="let workspace of workspaces" class="card" style="max-width: 18rem">
+      <div class="card-body">
+        <h5 class="card-title">{{workspace.name}}</h5>
+        <a href="workspaces/{{workspace.id}}" class="btn btn-outline-dark login_btn">Enter</a>
+      </div>
+    </div>
+  </div>
+</body>

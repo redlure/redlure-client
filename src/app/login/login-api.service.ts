@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 import {catchError} from 'rxjs/operators'
 import {API_URL} from '../env';
 import { HttpErrorHandler, HandleError } from '../http-error-handler.service';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 
 @Injectable()
@@ -23,8 +23,12 @@ export class LoginApiService {
     let formData: FormData = new FormData()
     formData.append('Username', 'admin')
     formData.append('Password', 'redlure')
-    return this.http.post<any>(this.loginUrl, formData)
-      .pipe(map((resp => console.log('hi'))))
+    return this.http.post<any>(this.loginUrl, formData, {withCredentials: true})
+      .pipe(
+        tap(
+          response => console.log(response.headers),
+        )
+      )
   }
         
         

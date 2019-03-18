@@ -14,14 +14,16 @@ import { MessageService }       from './message.service';
 
 import { AppRoutingModule }     from './app-routing.module';
 import { NavbarComponent } from './navbar/navbar.component';
-import { MDBBootstrapModule } from 'angular-bootstrap-md'
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { WorkspaceNavbarComponent } from './workspace-navbar/workspace-navbar.component'
 
 @NgModule({
   declarations: [
     AppComponent,
     WorkspacesComponent,
     LoginComponent,
-    NavbarComponent
+    NavbarComponent,
+    WorkspaceNavbarComponent
   ],
   imports: [
     BrowserModule,

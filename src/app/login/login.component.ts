@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loading = false;
   submitted = false;
-  returnUrl: string;
+  returnUrl = 'workspaces';
   
   constructor(
     private formBuilder: FormBuilder,
@@ -46,6 +46,7 @@ export class LoginComponent implements OnInit {
         .pipe(first())
         .subscribe(
             data => {
+                console.log(data)
                 this.router.navigate([this.returnUrl]);
             },
             error => {

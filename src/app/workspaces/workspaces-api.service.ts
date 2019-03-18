@@ -23,7 +23,7 @@ export class WorkspacesApiService {
   getWorkspaces(): Observable<Workspace[]> {
     let headers = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json')
-    return this.http.get<Workspace[]>(this.workspacesUrl, {headers: headers, withCredentials: true})
+    return this.http.get<Workspace[]>(this.workspacesUrl, {withCredentials: true})
       .pipe(
         catchError(this.handleError('getWorkspaces', []))
       );

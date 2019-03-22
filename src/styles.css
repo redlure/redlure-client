@@ -2,8 +2,63 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 @import "~font-awesome/css/font-awesome.css";
 
+@font-face {
+    font-family: 'sans-forgetica';
+    src: url(assets/font/SansForgetica-Regular.otf) format("opentype");
+  }
+
+h3 {
+    font-family: 'sans-forgetica';
+}
+
+.h3-prefix {
+    color: red
+}
+
+.h3-suffix {
+    color: black;
+}
+
+@media (min-width: 768px) {
+    .h-md-100 { 
+        height: 100vh;
+        vertical-align: text-top;
+    }
+}
+
 .card-deck {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     grid-gap: 2rem;
+}
+
+.nav-item {
+    color: white;
+}
+
+.vertical-center {
+    min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+    min-height: 100vh; /* These two lines are counted as one :-)       */
+  
+    display: flex;
+    align-items: center;
+  }
+
+  .btn-right {
+      float: right;
+  }
+
+.span-domain {
+    float: left;
+    width: 130px;
+}
+
+.span-login {
+    float: left;
+    width: 100px;
+}
+
+.span-server {
+    float: left;
+    width: 100px;
 }

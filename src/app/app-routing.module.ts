@@ -3,11 +3,17 @@ import { RouterModule, Routes } from '@angular/router';
  
 import { WorkspacesComponent }   from './workspaces/workspaces.component';
 import { LoginComponent } from './login/login.component'
+import { WorkspaceComponent } from './workspaces/workspace/workspace.component'
+import { ProfilesComponent } from './profiles/profiles.component'
+import { DomainsServersComponent } from './domains-servers/domains-servers.component'
  
 const routes: Routes = [
-  { path: '', redirectTo: '/workspaces', pathMatch: 'full' },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: 'login',  component: LoginComponent},
   { path: 'workspaces', component: WorkspacesComponent },
-  { path: 'login',  component: LoginComponent}
+  { path: 'domains-servers', component:  DomainsServersComponent},
+  { path: 'workspaces/:workspaceId', component: WorkspaceComponent},
+  { path: 'workspaces/:workspaceId/profiles', component: ProfilesComponent},
 ];
  
 @NgModule({

@@ -1,0 +1,19 @@
+<workspace-navbar></workspace-navbar>
+<body style="margin: 20px">
+  <div>
+    <h3 style="display:inline-block">
+      <b class="h3-prefix">PRO</b>
+      <b class="h3-suffix">FILES</b>
+    </h3>
+    <button class="btn btn-outline-dark login_btn" style="float: right;" (click)="openFormModal()">New Profile</button>
+  </div>
+  <br>
+  <div class="card-deck">
+    <div *ngFor="let profile of profiles" class="card" style="max-width: 18rem">
+      <div class="card-body">
+        <h5 class="card-title">{{ profile.name }}</h5>
+        <a href="{{ baseUrl }}/{{ profile.id }}" class="btn btn-outline-dark login_btn">Enter</a>
+      </div>
+    </div>
+  </div>
+</body>

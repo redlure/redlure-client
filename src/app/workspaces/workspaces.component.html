@@ -1,15 +1,19 @@
-<navbar></navbar>
-<body style="margin: 20px">
+<main-navbar></main-navbar>
+<body style="margin: 20px;">
   <div>
-    <h3 style="display:inline-block">Workspaces</h3>
-    <button class="btn btn-outline-dark login_btn" style="float: right;">New</button>
+    <h3 style="display:inline-block">
+      <b class="h3-prefix">WORK</b>
+      <b class="h3-suffix">SPACES</b>
+    </h3>
+    <button class="btn btn-outline-dark login_btn" style="float: right;" (click)="openNewModal()">New Workspace</button>
   </div>
   <br>
   <div class="card-deck">
     <div *ngFor="let workspace of workspaces" class="card" style="max-width: 18rem">
       <div class="card-body">
-        <h5 class="card-title">{{workspace.name}}</h5>
-        <a href="workspaces/{{workspace.id}}" class="btn btn-outline-dark login_btn">Enter</a>
+        <h5 class="card-title">{{ workspace.name }}</h5>
+        <button class="btn btn-outline-danger" style="float: right;" (click)="openDeleteModal(workspace)">Delete</button>
+        <a href="workspaces/{{ workspace.id }}" class="btn btn-outline-dark login_btn">Enter</a>
       </div>
     </div>
   </div>

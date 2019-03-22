@@ -12,10 +12,22 @@ import { LoginApiService } from './login/login-api.service'
 import { HttpErrorHandler }     from './http-error-handler.service';
 import { MessageService }       from './message.service';
 
-import { AppRoutingModule }     from './app-routing.module';
+import { AppRoutingModule } from './app-routing.module';
 import { NavbarComponent } from './navbar/navbar.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
-import { WorkspaceNavbarComponent } from './workspace-navbar/workspace-navbar.component'
+import { WorkspaceNavbarComponent } from './workspace-navbar/workspace-navbar.component';
+import { NewWorkspaceComponent } from './workspaces/new-workspace/new-workspace.component'
+import { WorkspacesApiService } from './workspaces/workspaces-api.service';
+import { WorkspaceComponent } from './workspaces/workspace/workspace.component';
+import { ProfilesComponent } from './profiles/profiles.component';
+import { DomainsServersComponent } from './domains-servers/domains-servers.component';
+import { NewServerComponent } from './domains-servers/new-server/new-server.component';
+import { NewDomainComponent } from './domains-servers/new-domain/new-domain.component';
+import { DomainsApiService } from './domains-servers/domains-api.service'
+import { ServersApiService } from './domains-servers/servers-api.service';
+import { PagesComponent } from './pages/pages.component';
+import { DelWorkspaceComponent } from './workspaces/del-workspace/del-workspace.component'
+
 
 @NgModule({
   declarations: [
@@ -23,7 +35,15 @@ import { WorkspaceNavbarComponent } from './workspace-navbar/workspace-navbar.co
     WorkspacesComponent,
     LoginComponent,
     NavbarComponent,
-    WorkspaceNavbarComponent
+    WorkspaceNavbarComponent,
+    NewWorkspaceComponent,
+    WorkspaceComponent,
+    ProfilesComponent,
+    DomainsServersComponent,
+    NewServerComponent,
+    NewDomainComponent,
+    PagesComponent,
+    DelWorkspaceComponent
   ],
   imports: [
     BrowserModule,
@@ -34,13 +54,23 @@ import { WorkspaceNavbarComponent } from './workspace-navbar/workspace-navbar.co
     ReactiveFormsModule,
     AppRoutingModule,
     MDBBootstrapModule.forRoot(),
-    MDBBootstrapModule
+    MDBBootstrapModule,
   ],
   providers: [
     HttpErrorHandler,
     MessageService,
-    LoginApiService
+    LoginApiService,
+    WorkspacesApiService,
+    WorkspaceComponent,
+    ServersApiService,
+    DomainsApiService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    NewWorkspaceComponent,
+    NewDomainComponent,
+    NewServerComponent,
+    DelWorkspaceComponent
+  ]
 })
 export class AppModule { }

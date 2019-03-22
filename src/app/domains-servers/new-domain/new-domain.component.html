@@ -1,0 +1,42 @@
+<div class="modal-header">
+    <h4 class="modal-title">New Domain</h4>
+    <button class="btn btn-outline-danger" (click)="closeModal()">Close</button>
+  </div>
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    <div class="modal-body">
+      <div class="container">
+
+        <!--Domain Name Field-->
+        <div class="input-group form-group">
+          <div class="input-group-prepend">
+            <span class="span-domain input-group-text">Domain Name</span>
+          </div>
+          <input type="text" formControlName="domain" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.domain.errors }"/>
+          <div *ngIf="submitted && f.domain.errors" class="invalid-feedback">
+            <div *ngIf="f.domain.errors.required">Domain Name is required</div>
+          </div>
+        </div>
+        
+          
+        <!--Cert Path Field-->
+        <div class="input-group form-group">
+          <div class="input-group-prepend">
+              <span class="span-domain input-group-text">Certificate Path</span>
+          </div>
+          <input type="text" formControlName="certPath" class="form-control"/>
+        </div>
+          
+        <!--Key Path Field-->
+        <div class="input-group form-group">
+          <div class="input-group-prepend">
+              <span class="span-domain input-group-text">Key Path</span>
+          </div>
+          <input type="text" formControlName="keyPath" class="form-control"/>
+        </div>
+
+        </div>
+      </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline-dark float-right login_btn">Create</button>
+    </div>
+  </form>

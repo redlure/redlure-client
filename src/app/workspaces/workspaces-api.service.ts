@@ -10,7 +10,6 @@ import { RequestOptions, Headers } from '@angular/http';
 
 @Injectable()
 export class WorkspacesApiService {
-  workspacesUrl = `${API_URL}/workspaces`;
   private handleError: HandleError;
 
   constructor(
@@ -21,14 +20,40 @@ export class WorkspacesApiService {
 
   // GET list of all workspaces from the server
   getWorkspaces(): Observable<Workspace[]> {
-    let headers = new HttpHeaders();
-    headers = headers.append('Content-Type', 'application/json')
-    return this.http.get<Workspace[]>(this.workspacesUrl, {withCredentials: true})
+    const url = `${API_URL}/workspaces`;
+    return this.http.get<Workspace[]>(url, {withCredentials: true})
       .pipe(
         catchError(this.handleError('getWorkspaces', []))
-      );
-        
-        
-      
+      );  
   }
+
+  // POST a new workspace to the server
+  postWorkspace(name: String): Observable<Workspace> {
+    const url = `${API_URL}/workspaces`;
+    let formData: FormData = new FormData()
+    formData.append('Name', String(name))
+    return this.http.post<any>(url, formData, {withCredentials: true})
+      .pipe(
+        catchError(this.handleError('postWorkspace', name))
+      );  
+  }
+
+  // DELETE a workspace from the server
+  deleteWorkspace(id: Number): Observable<Workspace> {
+    const url = `${API_URL}/workspaces/${id}`;
+    return this.http.delete<any>(url, {withCredentials: true})
+      .pipe(
+        catchError(this.handleError('deleteWorkspace'))
+      );  
+  }
+
+  /*/ GET a specific workspace from the server
+  getWorkspace(id: String): Observable<Workspace> {
+    const url = `${API_URL}/workspaces/${id}`;
+    return this.http.get<Workspace>(url + '/'  + id, {withCredentials: true})
+      .pipe(
+        catchError(this.handleError('getWorkspace'))
+      );  
+  }*/
+
 }

@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
   loading = false;
   submitted = false;
   returnUrl = 'workspaces';
+  invalidLogon = false;
   
   constructor(
     private formBuilder: FormBuilder,
@@ -46,10 +47,16 @@ export class LoginComponent implements OnInit {
         .pipe(first())
         .subscribe(
             data => {
-                console.log(data)
-                this.router.navigate([this.returnUrl]);
+                if(data['success']){
+                  this.router.navigate([this.returnUrl]);
+                  this.invalidLogon = false;
+                } else {
+                  this.invalidLogon = true;
+                  this.loading = false;
+                }
             },
             error => {
+                //console.log(error)
                 this.loading = false;
             });
 }

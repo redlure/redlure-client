@@ -1,0 +1,22 @@
+<div class="modal-header">
+  <h4 class="modal-title">New Workspace</h4>
+  <button class="btn btn-outline-danger" (click)="closeModal()">Close</button>
+</div>
+<form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+  <div class="modal-body">
+    <div class="container">
+      <div class="input-group form-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Name</span>
+        </div>
+        <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.name.errors }"/>
+        <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+            <div *ngIf="f.name.errors.required">Name is required</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-outline-dark float-right login_btn">Create</button>
+  </div>
+</form>

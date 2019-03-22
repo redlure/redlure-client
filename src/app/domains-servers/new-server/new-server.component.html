@@ -1,0 +1,48 @@
+<div class="modal-header">
+    <h4 class="modal-title">New Server</h4>
+    <button class="btn btn-outline-danger" (click)="closeModal()">Close</button>
+  </div>
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    <div class="modal-body">
+      <div class="container">
+        
+        <!--IP Field-->
+        <div class="input-group form-group">
+          <div class="input-group-prepend">
+            <span class="span-server input-group-text">IP Address</span>
+          </div>
+          <input type="text" formControlName="ip" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.ip.errors }"/>
+          <div *ngIf="submitted && f.ip.errors" class="invalid-feedback">
+            <div *ngIf="f.ip.errors.required">IP Address is required</div>
+          </div>
+        </div>
+
+        <!--Alias Field-->
+        <div class="input-group form-group">
+          <div class="input-group-prepend">
+            <span class="span-server input-group-text">Alias</span>
+          </div>
+          <input type="text" formControlName="alias" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.alias.errors }"/>
+          <div *ngIf="submitted && f.alias.errors" class="invalid-feedback">
+            <div *ngIf="f.alias.errors.required">Alias is required</div>
+          </div>
+        </div>
+
+          <!--Port Field-->
+        <div class="input-group form-group">
+          <div class="input-group-prepend">
+            <span class="span-server input-group-text">Port</span>
+          </div>
+          <input type="text" formControlName="port" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.port.errors }"/>
+          <div *ngIf="submitted && f.port.errors" class="invalid-feedback">
+            <div *ngIf="f.port.errors.required">Port is required</div>
+            <div *ngIf="f.port.errors.pattern">Port must be numeric</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline-dark float-right login_btn">Create</button>
+    </div>
+  </form>

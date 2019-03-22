@@ -1,0 +1,89 @@
+<main-navbar></main-navbar>
+<div class="d-md-flex h-md-100">
+
+  <!-- First Half -->
+
+  <div class="container bg-secondary">
+    <div class="row" style="margin-top: 20px;">
+      <div class="col-md">
+        <div class="d-flex justify-content-start">
+          <h3>
+            <b class="h3-prefix">SER</b>
+            <b class="h3-suffix">VERS</b>
+          </h3>
+        </div>
+      </div>
+      <div class="col-md">
+        <div class="d-flex justify-content-end">
+          <button class="btn btn-danger btn-right" (click)="openServerModal()">New Server</button> 
+        </div>
+      </div>
+    </div>
+
+    <br>
+
+    <div class="table-responsive">
+        <table class="table table-hover table-dark">
+          <thead class="thead-light">
+            <tr>
+                <th *ngFor="let head of serverHeaders; let i = index" scope="col">{{ head }}</th>
+            </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let server of servers; let i = index">
+              <th scope="row">{{ i +1 }}</th>
+              <td>{{ server.alias }}</td>
+              <td>{{ server.ip }}</td>
+              <td>{{ server.port }}</td>
+              <td>{{ server.status }}</td>
+              <td><button class="btn btn-primary">(refresh)</button></td>
+              <td><button class="btn btn-danger">(del)</button></td>
+          </tbody>
+        </table>
+      </div>
+
+  </div>
+
+  
+  <!-- Second Half -->
+  
+  <div class="container">
+      <div class="row" style="margin-top: 20px;">
+        <div class="col-md">
+          <div class="d-flex justify-content-start">
+            <h3>
+              <b class="h3-prefix">DO</b>
+              <b class="h3-suffix">MAINS</b>
+            </h3>
+          </div>
+        </div>
+        <div class="col-md">
+          <div class="d-flex justify-content-end">
+            <button class="btn btn-outline-dark btn-right" (click)="openDomainModal()">New Domain</button> 
+          </div>
+        </div>
+      </div>
+      
+      <br>
+
+      <div class="table-responsive">
+        <table class="table table-hover table-secondary">
+          <thead class="thead-dark">
+            <tr>
+                <th *ngFor="let head of domainHeaders; let i = index" scope="col">{{ head }}</th>
+            </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let domain of domains; let i = index">
+              <th scope="row">{{ i +1 }}</th>
+              <td>{{ domain.domain }}</td>
+              <td>{{ domain.ip }}</td>
+              <td>{{ domain.certPath }}</td>
+              <td>{{ domain.keyPath }}</td>
+          </tbody>
+        </table>
+      </div>
+    
+    </div>
+
+</div>

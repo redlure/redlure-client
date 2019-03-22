@@ -10,6 +10,7 @@ import { map, tap } from 'rxjs/operators';
 @Injectable()
 export class LoginApiService {
   loginUrl = `${API_URL}/login`;
+  logoutUrl = `${API_URL}/logout`
   private handleError: HandleError;
 
   constructor(
@@ -18,17 +19,24 @@ export class LoginApiService {
       this.handleError = httpErrorHandler.createHandleError('LoginApiService');
   }
 
-   /** POST: login to the server*/
+
+   // POST: login to the server
    login(username: String, password: String) {
     let formData: FormData = new FormData()
-    formData.append('Username', 'admin')
-    formData.append('Password', 'redlure')
+    formData.append('Username', String(username))
+    formData.append('Password', String(password))
     return this.http.post<any>(this.loginUrl, formData, {withCredentials: true})
-      .pipe(
-        tap(
-          response => console.log(response.headers),
-        )
-      )
+    .pipe(
+      catchError(this.handleError('login'))
+    );  
+  }
+
+  // GET: logout from the server
+  logout() {
+    return this.http.get<any>(this.logoutUrl, {withCredentials: true})
+    .pipe(
+      catchError(this.handleError('logout'))
+    );  
   }
         
         

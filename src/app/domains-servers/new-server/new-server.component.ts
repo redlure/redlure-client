@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ServersApiService } from '../servers-api.service'
 import { first } from 'rxjs/operators'
+import { Server } from '../server.model'
 
 @Component({
   selector: 'app-new-server',
@@ -12,7 +13,10 @@ import { first } from 'rxjs/operators'
 })
 export class NewServerComponent implements OnInit {
   myForm: FormGroup;
+  loading = false;
   submitted = false;
+  newServer: Server;
+  @Output() emitter: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -43,14 +47,19 @@ export class NewServerComponent implements OnInit {
         return;
     }
     
-    this.serversApiService.postServer(this.f.name.value)
+    this.loading = true;
+    this.serversApiService.postServer(this.f.ip.value, this.f.alias.value, this.f.port.value)
       .pipe(first())
         .subscribe(
             data => {
-                this.closeModal()
+                this.newServer = data;
+                this.emitter.emit(this.newServer);
+                this.loading = false;
+                this.closeModal();
                 //this.router.navigate(['workspaces/' + data['id']])
             },
             error => {
+                this.loading = false;
                 console.log(error)
             });
     }

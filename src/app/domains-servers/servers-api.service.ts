@@ -31,14 +31,32 @@ export class ServersApiService {
   postServer(ip: String, alias: String, port: Number): Observable<Server> {
     const url = `${API_URL}/servers`;
     let formData: FormData = new FormData()
-    //formData.append('Alias', String(alias))
-    //formData.append('IP', String(alias))
-    //formData.append('Port', String(port))
+    formData.append('Alias', String(alias))
+    formData.append('IP', String(ip))
+    formData.append('Port', String(port))
     return this.http.post<any>(url, formData, {withCredentials: true})
       .pipe(
-        catchError(this.handleError('postServer', name))
+        catchError(this.handleError('postServer'))
       );  
   }
+
+    // DELETE a server (worker) from the server
+    deleteServer(id: Number): Observable<Server> {
+      const url = `${API_URL}/servers/${id}`;
+      return this.http.delete<any>(url, {withCredentials: true})
+        .pipe(
+          catchError(this.handleError('deleteServer'))
+        );  
+    }
+
+    // GET the status of a server (worker)
+    refreshServerStatus(id: Number): Observable<Server> {
+      const url = `${API_URL}/servers/${id}/status`;
+      return this.http.get<any>(url, {withCredentials: true})
+        .pipe(
+          catchError(this.handleError('refreshServer'))
+        );  
+    }
 
 
 }

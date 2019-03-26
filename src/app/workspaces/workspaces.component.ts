@@ -31,12 +31,21 @@ export class WorkspacesComponent implements OnInit {
 
   openNewModal() {
     const modalRef = this.modalService.open(NewWorkspaceComponent);
+    modalRef.componentInstance.emitter.subscribe(data => this.workspaces.unshift(data));
   }
 
   openDeleteModal(workspace) {
     this.onSelect(workspace)
     const modalRef = this.modalService.open(DelWorkspaceComponent);
     modalRef.componentInstance.editWorkspace = this.editWorkspace;
+    modalRef.componentInstance.emitter.subscribe( 
+      data => {
+        const index: number = this.workspaces.indexOf(data);
+        if (index !== -1) {
+          this.workspaces.splice(index, 1);
+        }        
+      }
+    );
   }
 
   getWorkspaces(): void {

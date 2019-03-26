@@ -1,0 +1,101 @@
+<div class="modal-header">
+    <h4 class="modal-title">New Profile</h4>
+    <button class="btn btn-outline-danger" (click)="closeModal()">Close</button>
+  </div>
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    <div class="modal-body">
+      <div class="container">
+        
+        <!--Name Field-->
+        <div class="input-group form-group">
+          <div class="input-group-prepend">
+            <span class="span-profile input-group-text">Name</span>
+          </div>
+          <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.name.errors }"/>
+          <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+            <div *ngIf="f.name.errors.required">Name is required</div>
+          </div>
+        </div>
+
+        <!--From Address Field-->
+        <div class="input-group form-group">
+          <div class="input-group-prepend">
+            <span class="span-profile input-group-text">Email</span>
+          </div>
+          <input type="text" formControlName="fromAddress" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.fromAddress.errors }"/>
+          <div *ngIf="submitted && f.fromAddress.errors" class="invalid-feedback">
+            <div *ngIf="f.fromAddress.errors.required">Email is required</div>
+            <div *ngIf="f.fromAddress.errors.email">Email must be an formatted as an email address</div>
+          </div>
+        </div>
+
+        <br>
+        <h5>SMTP Configs</h5>
+
+        <!--SMTP Host Field-->
+        <div class="input-group form-group">
+          <div class="input-group-prepend">
+            <span class="span-profile input-group-text">Host</span>
+          </div>
+          <input type="text" formControlName="smtpHost" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.smtpHost.errors }"/>
+          <div *ngIf="submitted && f.smtpHost.errors" class="invalid-feedback">
+            <div *ngIf="f.smtpHost.errors.required">SMTP Host is required</div>
+          </div>
+        </div>
+
+         <!--SMTP Port Field-->
+         <div class="input-group form-group">
+          <div class="input-group-prepend">
+            <span class="span-profile input-group-text">Port</span>
+          </div>
+          <input type="text" formControlName="smtpPort" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.smtpPort.errors }"/>
+          <div *ngIf="submitted && f.smtpPort.errors" class="invalid-feedback">
+            <div *ngIf="f.smtpPort.errors.required">SMTP Port is required</div>
+            <div *ngIf="f.smtpPort.errors.pattern">SMTP Port is required</div>
+          </div>
+        </div>
+
+        <!--Username Field-->
+        <div class="input-group form-group">
+          <div class="input-group-prepend">
+            <span class="span-profile input-group-text">Username</span>
+          </div>
+          <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }"/>
+          <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+            <div *ngIf="f.username.errors.required">Username is required</div>
+          </div>
+        </div>
+
+        <!--Password Field-->
+        <div class="input-group form-group">
+          <div class="input-group-prepend">
+            <span class="span-profile input-group-text">Password</span>
+          </div>
+          <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }"/>
+          <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+            <div *ngIf="f.password.errors.required">Password is required</div>
+          </div>
+        </div>
+
+        <!--TLS Field-->
+        <div class="custom-control custom-checkbox custom-control-inline">
+          <input type="checkbox" class="custom-control-input" id="tls" (change)="tlsChange($event)">
+          <label class="custom-control-label" for="tls">Use TLS</label>
+        </div>
+
+
+         <!--SSL Field-->
+        <div class="custom-control custom-checkbox custom-control-inline">
+          <input type="checkbox" class="custom-control-input" id="ssl" (change)="sslChange($event)">
+          <label class="custom-control-label" for="ssl">Use SSL</label>
+        </div>
+
+        
+
+      </div>
+    </div>
+    <div class="form-group modal-footer">
+      <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+      <button ngbAutofocus [disabled]="loading" class="btn btn-outline-dark float-right">Create</button>
+    </div>
+  </form>

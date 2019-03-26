@@ -20,7 +20,6 @@ export class ProfilesApiService {
 
   // GET list of all workspaces from the server
   getProfiles(id: String): Observable<Profile[]> {
-    console.log('hitting')
     const url = `${API_URL}/workspaces/${id}/profiles`;
     return this.http.get<Profile[]>(url, {withCredentials: true})
       .pipe(
@@ -28,24 +27,34 @@ export class ProfilesApiService {
       );  
   }
 
-  // POST a new workspace to the server
-  postProfiles(id: String, name: String): Observable<Profile> {
-    const url = `${API_URL}/workspaces/${id}/profiles`;
-    let formData: FormData = new FormData()
-    formData.append('Name', String(name))
-    return this.http.post<any>(url, formData, {withCredentials: true})
-      .pipe(
-        catchError(this.handleError('postProfiles', name))
-      );  
+  // POST a new profile to the server
+  postProfile(workspaceId: String, name: String, fromAddress: String, smtpHost: String, smtpPort: number, username: String,
+    password: String, tls: boolean, ssl: boolean): Observable<Profile> {
+
+      const url = `${API_URL}/workspaces/${workspaceId}/profiles`;
+      let formData: FormData = new FormData()
+      formData.append('Name', String(name))
+      formData.append('From_Address', String(fromAddress))
+      formData.append('SMTP_Host', String(smtpHost))
+      formData.append('SMTP_Port', String(smtpPort))
+      formData.append('Username', String(username))
+      formData.append('Password', String(password))
+      formData.append('TLS', String(tls))
+      formData.append('SSL', String(ssl))
+
+      return this.http.post<any>(url, formData, {withCredentials: true})
+        .pipe(
+          catchError(this.handleError('postProfiles', name))
+        );  
   }
 
-  /*/ GET a specific workspace from the server
-  getProfile(id: String): Observable<Profile> {
-    const url = `${API_URL}/workspaces/${id}`;
-    return this.http.get<Profile>(url + '/'  + id, {withCredentials: true})
-      .pipe(
-        catchError(this.handleError('getProfile'))
-      );  
-  }*/
+    // DELETE a profile from the server
+    deleteProfile(workspaceId: String, id: String): Observable<Profile> {
+      const url = `${API_URL}/workspaces/${workspaceId}/profiles/${id}`;
+      return this.http.delete<any>(url, {withCredentials: true})
+        .pipe(
+          catchError(this.handleError('deleteProfile'))
+        );  
+    }
 
 }

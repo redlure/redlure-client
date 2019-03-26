@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { WorkspacesApiService } from '../workspaces-api.service'
 import { first } from 'rxjs/operators'
+import { Workspace } from '../workspace.model'
 
 
 @Component({
@@ -14,6 +15,10 @@ import { first } from 'rxjs/operators'
 export class NewWorkspaceComponent implements OnInit {
   myForm: FormGroup;
   submitted = false;
+  loading = false;
+  newWorkspace: Workspace;
+  @Output() emitter: EventEmitter<any> = new EventEmitter<any>();
+
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -42,14 +47,19 @@ export class NewWorkspaceComponent implements OnInit {
         return;
     }
     
+    this.loading = true;
     this.workspacesApiService.postWorkspace(this.f.name.value)
       .pipe(first())
         .subscribe(
             data => {
+                this.loading = false;
+                this.newWorkspace = data;
+                this.emitter.emit(this.newWorkspace);
                 this.closeModal()
-                this.router.navigate(['workspaces/' + data['id']])
+                //this.router.navigate(['workspaces/' + data['id']])
             },
             error => {
+                this.loading = false;
                 console.log(error)
             });
             

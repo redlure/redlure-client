@@ -41,5 +41,14 @@ export class DomainsApiService {
       );  
   }
 
+  // DELETE a domain from the server
+  deleteDomain(id: Number): Observable<Domain> {
+    const url = `${API_URL}/domains/${id}`;
+    return this.http.delete<any>(url, {withCredentials: true})
+      .pipe(
+        catchError(this.handleError('deleteDomain'))
+      );  
+  }
+
 
 }

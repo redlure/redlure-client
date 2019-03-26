@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { WorkspacesApiService } from '../workspaces-api.service'
@@ -14,6 +14,7 @@ import { Workspace } from '../workspace.model'
 export class DelWorkspaceComponent implements OnInit {
 
   @Input() editWorkspace: Workspace;
+  @Output() emitter: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -22,7 +23,6 @@ export class DelWorkspaceComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.editWorkspace.name)
   }
 
   closeModal() {
@@ -34,6 +34,7 @@ export class DelWorkspaceComponent implements OnInit {
       .pipe(first())
         .subscribe(
             data => {
+                this.emitter.emit(this.editWorkspace)
                 this.closeModal()
             },
             error => {

@@ -26,7 +26,13 @@ import { NewDomainComponent } from './domains-servers/new-domain/new-domain.comp
 import { DomainsApiService } from './domains-servers/domains-api.service'
 import { ServersApiService } from './domains-servers/servers-api.service';
 import { PagesComponent } from './pages/pages.component';
-import { DelWorkspaceComponent } from './workspaces/del-workspace/del-workspace.component'
+import { DelWorkspaceComponent } from './workspaces/del-workspace/del-workspace.component';
+import { DelServerComponent } from './domains-servers/del-server/del-server.component';
+import { DelDomainComponent } from './domains-servers/del-domain/del-domain.component';
+import { NewProfileComponent } from './profiles/new-profile/new-profile.component';
+import { DelProfileComponent } from './profiles/del-profile/del-profile.component';
+import { EditProfileComponent } from './profiles/edit-profile/edit-profile.component'
+import { ProfilesApiService } from './profiles/profiles-api.service'
 
 
 @NgModule({
@@ -43,7 +49,12 @@ import { DelWorkspaceComponent } from './workspaces/del-workspace/del-workspace.
     NewServerComponent,
     NewDomainComponent,
     PagesComponent,
-    DelWorkspaceComponent
+    DelWorkspaceComponent,
+    DelServerComponent,
+    DelDomainComponent,
+    NewProfileComponent,
+    DelProfileComponent,
+    EditProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -63,14 +74,20 @@ import { DelWorkspaceComponent } from './workspaces/del-workspace/del-workspace.
     WorkspacesApiService,
     WorkspaceComponent,
     ServersApiService,
-    DomainsApiService
+    DomainsApiService,
+    ProfilesApiService
   ],
   bootstrap: [AppComponent],
   entryComponents: [
     NewWorkspaceComponent,
     NewDomainComponent,
     NewServerComponent,
-    DelWorkspaceComponent
+    DelWorkspaceComponent,
+    DelServerComponent,
+    DelDomainComponent,
+    DelProfileComponent,
+    NewProfileComponent,
+    EditProfileComponent
   ]
 })
 export class AppModule { }

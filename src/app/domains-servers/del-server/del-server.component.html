@@ -1,0 +1,11 @@
+<div class="modal-header">
+  <h4 class="modal-title">Delete Server</h4>
+</div>
+<div class="modal-body">
+  Are you sure you want to delete <div style="font-style: italic; display: inline;">{{editServer.alias}} ({{editServer.ip}})</div>?
+</div>
+<div class="modal-footer">
+  <button class="btn btn-outline-danger float-left" (click)="deleteServer()">Delete</button>
+  <button class="btn btn-outline-dark" (click)="closeModal()">Close</button>
+</div>
+  

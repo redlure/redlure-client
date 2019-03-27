@@ -61,9 +61,6 @@
           <span class="span-profile input-group-text">Username</span>
         </div>
         <input value="{{ editProfile.username }}" type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }"/>
-        <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-          <div *ngIf="f.username.errors.required">Username is required</div>
-        </div>
       </div>
 
       <!--Password Field-->
@@ -72,23 +69,22 @@
           <span class="span-profile input-group-text">Password</span>
         </div>
         <input value="{{ editProfile.password }}" type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }"/>
-        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-          <div *ngIf="f.password.errors.required">Password is required</div>
-        </div>
       </div>
 
       <!--TLS Field-->
       <div class="custom-control custom-checkbox custom-control-inline">
-        <input type="checkbox" class="custom-control-input" id="tls" (change)="tlsChange($event)" checked="{{ editProfile.tls }}">
+        <input type="checkbox" class="custom-control-input" id="tls" (change)="tlsChange($event)" [checked]="editProfile.tls">
         <label class="custom-control-label" for="tls">Use TLS</label>
       </div>
 
 
         <!--SSL Field-->
       <div class="custom-control custom-checkbox custom-control-inline">
-        <input type="checkbox" class="custom-control-input" id="ssl" (change)="sslChange($event)" checked="{{ editProfile.ssl }}">
+        <input type="checkbox" class="custom-control-input" id="ssl" (change)="sslChange($event)" [checked]="editProfile.ssl">
         <label class="custom-control-label" for="ssl">Use SSL</label>
       </div>
+
+      <i class="fa fa-info-circle" placement="right" triggers="mouseenter:mouseleave" ngbPopover="SMTP servers typically use TLS over port 587 and SSL over port 465"></i>
 
       
 

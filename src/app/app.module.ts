@@ -32,7 +32,8 @@ import { DelDomainComponent } from './domains-servers/del-domain/del-domain.comp
 import { NewProfileComponent } from './profiles/new-profile/new-profile.component';
 import { DelProfileComponent } from './profiles/del-profile/del-profile.component';
 import { EditProfileComponent } from './profiles/edit-profile/edit-profile.component'
-import { ProfilesApiService } from './profiles/profiles-api.service'
+import { ProfilesApiService } from './profiles/profiles-api.service';
+import { TestProfileComponent } from './profiles/test-profile/test-profile.component'
 
 
 @NgModule({
@@ -54,7 +55,8 @@ import { ProfilesApiService } from './profiles/profiles-api.service'
     DelDomainComponent,
     NewProfileComponent,
     DelProfileComponent,
-    EditProfileComponent
+    EditProfileComponent,
+    TestProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -87,7 +89,8 @@ import { ProfilesApiService } from './profiles/profiles-api.service'
     DelDomainComponent,
     DelProfileComponent,
     NewProfileComponent,
-    EditProfileComponent
+    EditProfileComponent,
+    TestProfileComponent
   ]
 })
 export class AppModule { }

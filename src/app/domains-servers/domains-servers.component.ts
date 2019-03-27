@@ -74,7 +74,6 @@ export class DomainsServersComponent implements OnInit {
     modalRef.componentInstance.editDomain = this.editDomain
     modalRef.componentInstance.emitter.subscribe(
       data => {
-        console.log(data)
         const index: number = this.domains.indexOf(data);
         if (index !== -1) {
           this.domains.splice(index, 1);
@@ -90,7 +89,7 @@ export class DomainsServersComponent implements OnInit {
 
   getDomains(): void {
     this.domainsApiService.getDomains()
-      .subscribe(domains => { console.log(domains); this.domains = domains });
+      .subscribe(domains => this.domains = domains);
   }
 
   refreshStatus(server: Server): void {

@@ -15,6 +15,8 @@
         <p class="small"><b>From: </b>{{ profile.from_address }}</p>
         <p class="small"><b>SMTP: </b>{{ profile.smtp_host }}</p>
         <button class="btn btn-outline-danger fa fa-times" style="float: right;" (click)="openDelete(profile)"></button>
+        <button class="btn btn-outline-dark fa fa-clone" style="float: right; margin-right: 1vh" (click)="cloneProfile(profile)"></button>
+        <button class="btn btn-outline-dark fa fa-envelope-o" style="float: right; margin-right: 1vh" (click)="openTest(profile)"></button>
         <button class="btn btn-outline-dark fa fa-pencil-square-o" style="float: right; margin-right: 1vh" (click)="openEdit(profile)"></button>
       </div>
     </div>

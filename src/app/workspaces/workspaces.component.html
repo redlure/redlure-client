@@ -14,7 +14,7 @@
         <h5 class="card-title">{{ workspace.name }}</h5>
         <button class="btn btn-outline-danger fa fa-times" style="float: right;"
           (click)="openDeleteModal(workspace)"></button>
-        <a href="workspaces/{{ workspace.id }}" style="float: right; margin-right: 1vh"
+        <a routerLink="{{ workspace.id }}" style="float: right; margin-right: 1vh"
           class="btn btn-outline-dark fa fa-sign-in"></a>
       </div>
     </div>

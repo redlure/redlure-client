@@ -8,7 +8,8 @@ import { Profile } from './profile.model';
 import { DelProfileComponent } from './del-profile/del-profile.component'
 import { EditProfileComponent } from './edit-profile/edit-profile.component'
 import { NewProfileComponent } from './new-profile/new-profile.component'
-
+import { TestProfileComponent } from './test-profile/test-profile.component'
+import { first } from 'rxjs/operators'
 
 @Component({
   selector: 'app-profiles',
@@ -20,7 +21,6 @@ export class ProfilesComponent implements OnInit {
   workspaceId: String;
   profiles: Profile[];
   editProfile: Profile; // the Workspace currently being edited
-  baseUrl: String;
 
 
   constructor(
@@ -29,7 +29,6 @@ export class ProfilesComponent implements OnInit {
     private modalService: NgbModal
   ) {
     this.route.params.subscribe(params => this.workspaceId = params['workspaceId'])
-    this.baseUrl = `workspaces/${this.workspaceId}/profiles`
    }
 
   ngOnInit() {
@@ -49,6 +48,20 @@ export class ProfilesComponent implements OnInit {
     this.onSelect(profile)
     const modalRef = this.modalService.open(EditProfileComponent);
     modalRef.componentInstance.editProfile = this.editProfile;
+    modalRef.componentInstance.emitter.subscribe( 
+      data => {
+        const index: number = this.profiles.indexOf(this.editProfile);
+        if (index !== -1) {
+          this.profiles[index] = data
+        }        
+      }
+    );
+  }
+
+  openTest(profile){
+    this.onSelect(profile)
+    const modalRef = this.modalService.open(TestProfileComponent);
+    modalRef.componentInstance.editProfile = this.editProfile;
   }
 
   openDelete(profile){
@@ -63,6 +76,23 @@ export class ProfilesComponent implements OnInit {
         }        
       }
     );
+  }
+
+  cloneProfile(profile){
+    this.onSelect(profile)
+    const newProfile = Object.assign({}, this.editProfile);
+    newProfile.name = "Copy - " + newProfile.name;
+    this.profilesApiService.postProfile(
+      this.workspaceId, newProfile.name, newProfile.from_address, newProfile.smtp_host, newProfile.smtp_port,
+      newProfile.username, newProfile.password, newProfile.tls, newProfile.ssl
+    ).pipe(first())
+    .subscribe(
+        data => {
+          this.profiles.unshift(newProfile)
+        },
+        error => {
+            console.log(error)
+        });
   }
 
   getProfiles(): void {

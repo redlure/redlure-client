@@ -28,7 +28,7 @@ export class ProfilesApiService {
   }
 
   // POST a new profile to the server
-  postProfile(workspaceId: String, name: String, fromAddress: String, smtpHost: String, smtpPort: number, username: String,
+  postProfile(workspaceId: String, name: String, fromAddress: String, smtpHost: String, smtpPort: Number, username: String,
     password: String, tls: boolean, ssl: boolean): Observable<Profile> {
 
       const url = `${API_URL}/workspaces/${workspaceId}/profiles`;
@@ -49,11 +49,45 @@ export class ProfilesApiService {
   }
 
     // DELETE a profile from the server
-    deleteProfile(workspaceId: String, id: String): Observable<Profile> {
-      const url = `${API_URL}/workspaces/${workspaceId}/profiles/${id}`;
+    deleteProfile(workspaceId: String, profileId: String): Observable<Profile> {
+      const url = `${API_URL}/workspaces/${workspaceId}/profiles/${profileId}`;
       return this.http.delete<any>(url, {withCredentials: true})
         .pipe(
           catchError(this.handleError('deleteProfile'))
+        );  
+    }
+
+    // POST a new profile to the server
+    putProfile(workspaceId: String, profileId: String, name: String, fromAddress: String, smtpHost: String, smtpPort: number, username: String,
+      password: String, tls: boolean, ssl: boolean): Observable<Profile> {
+
+        const url = `${API_URL}/workspaces/${workspaceId}/profiles/${profileId}`;
+        let formData: FormData = new FormData()
+        formData.append('Name', String(name))
+        formData.append('From_Address', String(fromAddress))
+        formData.append('SMTP_Host', String(smtpHost))
+        formData.append('SMTP_Port', String(smtpPort))
+        formData.append('Username', String(username))
+        formData.append('Password', String(password))
+        formData.append('TLS', String(tls))
+        formData.append('SSL', String(ssl))
+
+        return this.http.put<any>(url, formData, {withCredentials: true})
+          .pipe(
+            catchError(this.handleError('postProfiles', name))
+          );  
+    }
+
+    // POST an email address to the server to have a test email sent to
+    testProfile(workspaceId: String, id: String, email: String): Observable<Profile> {
+      const url = `${API_URL}/workspaces/${workspaceId}/profiles/${id}`;
+      
+      let formData: FormData = new FormData()
+      formData.append('Address', String(email))
+
+      return this.http.post<any>(url, formData, {withCredentials: true})
+        .pipe(
+          catchError(this.handleError('testProfile'))
         );  
     }
 

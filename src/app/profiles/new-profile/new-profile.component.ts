@@ -36,8 +36,8 @@ export class NewProfileComponent implements OnInit {
       fromAddress: ['', Validators.compose([Validators.email, Validators.required])],
       smtpHost: ['', Validators.required],
       smtpPort: ['', Validators.compose([Validators.pattern('[0-9]*'), Validators.required])],
-      username: ['', Validators.required],
-      password: ['', Validators.required]
+      username: [''],
+      password: ['']
     });
     
     this.workspaceId = this.router.url.split('/')[2];

@@ -15,19 +15,19 @@ export class NavbarComponent implements OnInit {
     private router: Router,
   ) { }
 
-  ngOnInit() {
+  logout() {
+    this.loginApiService.logout()
+      .pipe(first())
+      .subscribe(
+        data => {
+          this.router.navigate(['/login'])
+        },
+        error => {
+          console.log(error)
+        });
   }
 
-  logout(){
-    this.loginApiService.logout()
-    .pipe(first())
-        .subscribe(
-            data => {
-              this.router.navigate(['/login'])
-            },
-            error => {
-                console.log(error)
-            });
+  ngOnInit() {
   }
 
 }

@@ -7,8 +7,8 @@ import { ServersApiService } from './servers-api.service'
 import { DomainsApiService } from './domains-api.service'
 import { Domain } from './domain.model'
 import { Server } from './server.model'
-import { DelServerComponent }  from './del-server/del-server.component'
-import { DelDomainComponent }  from './del-domain/del-domain.component'
+import { DelServerComponent } from './del-server/del-server.component'
+import { DelDomainComponent } from './del-domain/del-domain.component'
 
 
 @Component({
@@ -17,29 +17,24 @@ import { DelDomainComponent }  from './del-domain/del-domain.component'
   providers: [
     DomainsApiService,
     ServersApiService
-   ],
+  ],
   styleUrls: ['./domains-servers.component.css']
 })
 export class DomainsServersComponent implements OnInit {
   servers: Server[];
-  @Input() editServer: Server; // the Server currently being edited
   domains: Domain[];
-  @Input() editDomain: Domain; // the Domain currently being edited
   serverLoading = false;
+  domainHeaders = ['#', 'Domain', 'DNS Lookup', 'Cert Path', 'Key Path', 'Generate Cert', 'Delete']
+  serverHeaders = ['#', 'Alias', 'IP', 'Port', 'Status', 'Refresh Status', 'Delete']
 
-  domainHeaders = ['', 'Domain', 'DNS Lookup', 'Cert Path', 'Key Path', 'Generate Cert', 'Delete']
-  serverHeaders = ['', 'Alias', 'IP', 'Port', 'Status', 'Refresh Status', 'Delete']
+  @Input() editServer: Server; // the Server currently being edited
+  @Input() editDomain: Domain; // the Domain currently being edited
 
   constructor(
     private domainsApiService: DomainsApiService,
     private serversApiService: ServersApiService,
     private modalService: NgbModal
   ) { }
-
-  ngOnInit() {
-    this.getDomains()
-    this.getServers()
-  }
 
   onServerSelect(server: Server): void {
     this.editServer = server;
@@ -63,12 +58,12 @@ export class DomainsServersComponent implements OnInit {
     this.onServerSelect(server)
     const modalRef = this.modalService.open(DelServerComponent);
     modalRef.componentInstance.editServer = this.editServer
-    modalRef.componentInstance.emitter.subscribe( 
+    modalRef.componentInstance.emitter.subscribe(
       data => {
         const index: number = this.servers.indexOf(data);
         if (index !== -1) {
           this.servers.splice(index, 1);
-        }        
+        }
       }
     );
   }
@@ -77,17 +72,16 @@ export class DomainsServersComponent implements OnInit {
     this.onDomainSelect(domain)
     const modalRef = this.modalService.open(DelDomainComponent);
     modalRef.componentInstance.editDomain = this.editDomain
-    modalRef.componentInstance.emitter.subscribe( 
+    modalRef.componentInstance.emitter.subscribe(
       data => {
         console.log(data)
         const index: number = this.domains.indexOf(data);
         if (index !== -1) {
           this.domains.splice(index, 1);
-        }        
+        }
       }
     );
   }
-
 
   getServers(): void {
     this.serversApiService.getServers()
@@ -96,7 +90,7 @@ export class DomainsServersComponent implements OnInit {
 
   getDomains(): void {
     this.domainsApiService.getDomains()
-      .subscribe(domains => {console.log(domains);this.domains = domains});
+      .subscribe(domains => { console.log(domains); this.domains = domains });
   }
 
   refreshStatus(server: Server): void {
@@ -107,12 +101,14 @@ export class DomainsServersComponent implements OnInit {
           server.status = data['status']
           this.serverLoading = false;
         },
-
         error => {
           this.serverLoading = false;
         }
       )
-
   }
 
+  ngOnInit() {
+    this.getDomains()
+    this.getServers()
+  }
 }

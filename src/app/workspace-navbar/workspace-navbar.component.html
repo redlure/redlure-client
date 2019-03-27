@@ -1,46 +1,42 @@
 <!--Navbar-->
 <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom border-dark">
 
-    <!-- Navbar brand -->
-    <a class="navbar-brand pt-0 waves-effect" href="/">
-        <img src="assets/text-logo.PNG" height="30" alt="mdb logo">
-    </a>
-  
-    <!-- Links -->
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="/workspaces">Workspaces</a>
-      </li>
-      <li class="nav-item">
-          <a class="nav-link" href="/domains-servers">Domains & Servers</a>
-        </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ baseUrl }}/results">Results</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ baseUrl }}/campaigns">Campaigns</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ baseUrl }}/targets">Campaigns</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ baseUrl }}/emails">Emails</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ baseUrl }}/pages">Pages</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ baseUrl }}/profiles">Profiles</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/users">Users & Roles</a>
-      </li>
+  <!-- Navbar brand -->
+  <a class="navbar-brand pt-0 waves-effect" href="/">
+    <img src="assets/text-logo.PNG" height="30" alt="mdb logo">
+  </a>
 
-     
-  
-      </ul>
-      <!-- Links -->
-
-      <button class="btn btn-outline-danger float-right login_btn">Logout</button>
-  </nav>
-  <!--/.Navbar-->
+  <!-- Links -->
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/workspaces">Workspaces</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/domains-servers">Domains & Servers</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="{{ baseUrl }}/results">Results</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="{{ baseUrl }}/campaigns">Campaigns</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="{{ baseUrl }}/targets">Campaigns</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="{{ baseUrl }}/emails">Emails</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="{{ baseUrl }}/pages">Pages</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="{{ baseUrl }}/profiles">Profiles</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/users">Users & Roles</a>
+    </li>
+  </ul>
+  <!-- Links -->
+  <button class="btn btn-outline-danger float-right login_btn">Logout</button>
+</nav>
+<!--/.Navbar-->

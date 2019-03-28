@@ -15,7 +15,7 @@ export class ServersApiService {
   constructor(
     private http: HttpClient,
     httpErrorHandler: HttpErrorHandler) {
-      this.handleError = httpErrorHandler.createHandleError('WorkspacesApiService');
+      this.handleError = httpErrorHandler.createHandleError('ServersApiService');
   }
 
   // GET list of all servers from the server

@@ -1,0 +1,72 @@
+<main-navbar></main-navbar>
+<div class="d-md-flex h-md-100">
+  <!-- First Half -->
+  <div class="container" style="border-right: solid 1px">
+    <div class="row" style="margin-top: 20px;">
+      <div class="col-md d-flex justify-content-start">
+        <h3>
+          <b class="h3-prefix">US</b>
+          <b class="h3-suffix">ERS</b>
+        </h3>
+        <img class="text-center" style="max-height: 19px; padding-inline-start: 2vh;" *ngIf="userLoading"
+          src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+      </div>
+      <div class="col d-flex justify-content-end">
+        <button class="btn btn-outline-dark btn-right" (click)="openUserModal()">New User</button>
+      </div>
+    </div>
+    <br>
+
+    <div class="table-responsive">
+      <table class="table table-hover table-striped col-auto">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col" *ngFor="let head of userHeaders; let i = index">{{ head }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users; let i = index">
+            <th scope="row">{{ i +1 }}</th>
+            <td>{{ user.username }}</td>
+            <td>{{ user.role.name }}</td>
+            <td><button class="btn btn-danger fa fa-times" (click)="deleteServerModal(server)"></button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+  <!-- Second Half -->
+  <div class="container">
+    <div class="row" style="margin-top: 20px;">
+      <div class="col-md d-flex justify-content-start">
+        <h3>
+          <b class="h3-prefix">RO</b>
+          <b class="h3-suffix">LES</b>
+        </h3>
+      </div>
+      <div class="col-md d-flex justify-content-end">
+        <button class="btn btn-outline-dark btn-right" (click)="openRoleModal()">New Role</button>
+      </div>
+    </div>
+    <br>
+
+    <div class="table-responsive">
+      <table class="table table-hover table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <th *ngFor="let head of roleHeaders; let i = index" scope="col">{{ head }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let role of roles; let i = index">
+            <th scope="row">{{ i +1 }}</th>
+            <td>{{ role.name }}</td>
+            <td>{{ role.role_type }}</td>
+            <td><button class="btn btn-danger fa fa-times" (click)="deleteDomainModal(domain)"></button></td>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

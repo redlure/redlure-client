@@ -15,7 +15,7 @@ export class DomainsApiService {
   constructor(
     private http: HttpClient,
     httpErrorHandler: HttpErrorHandler) {
-      this.handleError = httpErrorHandler.createHandleError('WorkspacesApiService');
+      this.handleError = httpErrorHandler.createHandleError('DomainsApiService');
   }
 
   // GET list of all domains from the server

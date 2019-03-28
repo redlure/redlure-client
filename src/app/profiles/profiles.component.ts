@@ -9,6 +9,7 @@ import { DelProfileComponent } from './del-profile/del-profile.component'
 import { EditProfileComponent } from './edit-profile/edit-profile.component'
 import { NewProfileComponent } from './new-profile/new-profile.component'
 import { TestProfileComponent } from './test-profile/test-profile.component'
+import { AlertComponent } from '../alert/alert.component'
 import { first } from 'rxjs/operators'
 
 @Component({
@@ -22,11 +23,11 @@ export class ProfilesComponent implements OnInit {
   profiles: Profile[];
   editProfile: Profile; // the Workspace currently being edited
 
-
   constructor(
     private profilesApiService: ProfilesApiService,
     private route: ActivatedRoute,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private alertComponent: AlertComponent,
   ) {
     this.route.params.subscribe(params => this.workspaceId = params['workspaceId'])
    }
@@ -88,7 +89,11 @@ export class ProfilesComponent implements OnInit {
     ).pipe(first())
     .subscribe(
         data => {
-          this.profiles.unshift(newProfile)
+          if (data['success'] == false) {
+            this.alertComponent.newAlert("warning", "something")
+          } else {
+            this.profiles.unshift(data)
+          }
         },
         error => {
             console.log(error)

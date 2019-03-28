@@ -33,7 +33,11 @@ import { NewProfileComponent } from './profiles/new-profile/new-profile.componen
 import { DelProfileComponent } from './profiles/del-profile/del-profile.component';
 import { EditProfileComponent } from './profiles/edit-profile/edit-profile.component'
 import { ProfilesApiService } from './profiles/profiles-api.service';
-import { TestProfileComponent } from './profiles/test-profile/test-profile.component'
+import { TestProfileComponent } from './profiles/test-profile/test-profile.component';
+import { AlertComponent } from './alert/alert.component';
+import { UsersRolesComponent } from './users-roles/users-roles.component'
+import { UsersApiService } from './users-roles/users-api.service';
+import { RolesApiService } from './users-roles/roles-api.service'
 
 
 @NgModule({
@@ -56,7 +60,9 @@ import { TestProfileComponent } from './profiles/test-profile/test-profile.compo
     NewProfileComponent,
     DelProfileComponent,
     EditProfileComponent,
-    TestProfileComponent
+    TestProfileComponent,
+    AlertComponent,
+    UsersRolesComponent
   ],
   imports: [
     BrowserModule,
@@ -77,7 +83,10 @@ import { TestProfileComponent } from './profiles/test-profile/test-profile.compo
     WorkspaceComponent,
     ServersApiService,
     DomainsApiService,
-    ProfilesApiService
+    ProfilesApiService,
+    AlertComponent,
+    UsersApiService,
+    RolesApiService
   ],
   bootstrap: [AppComponent],
   entryComponents: [
@@ -90,7 +99,7 @@ import { TestProfileComponent } from './profiles/test-profile/test-profile.compo
     DelProfileComponent,
     NewProfileComponent,
     EditProfileComponent,
-    TestProfileComponent
+    TestProfileComponent,
   ]
 })
 export class AppModule { }

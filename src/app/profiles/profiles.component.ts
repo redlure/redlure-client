@@ -9,7 +9,7 @@ import { DelProfileComponent } from './del-profile/del-profile.component'
 import { EditProfileComponent } from './edit-profile/edit-profile.component'
 import { NewProfileComponent } from './new-profile/new-profile.component'
 import { TestProfileComponent } from './test-profile/test-profile.component'
-import { AlertComponent } from '../alert/alert.component'
+import { AlertService } from '../alert/alert.service'
 import { first } from 'rxjs/operators'
 
 @Component({
@@ -27,7 +27,7 @@ export class ProfilesComponent implements OnInit {
     private profilesApiService: ProfilesApiService,
     private route: ActivatedRoute,
     private modalService: NgbModal,
-    private alertComponent: AlertComponent,
+    private alertService: AlertService,
   ) {
     this.route.params.subscribe(params => this.workspaceId = params['workspaceId'])
    }
@@ -90,7 +90,7 @@ export class ProfilesComponent implements OnInit {
     .subscribe(
         data => {
           if (data['success'] == false) {
-            this.alertComponent.newAlert("warning", "something")
+            this.sendAlert(newProfile.name)
           } else {
             this.profiles.unshift(data)
           }
@@ -103,6 +103,10 @@ export class ProfilesComponent implements OnInit {
   getProfiles(): void {
     this.profilesApiService.getProfiles(this.workspaceId)
       .subscribe(profiles => this.profiles = profiles);
+  }
+
+  sendAlert(name) {
+    this.alertService.newAlert("danger", name + " is an already existing profile")
   }
 
 }

@@ -6,6 +6,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 //import { ServersApiService } from './servers-api.service'
 import { UsersApiService } from './users-api.service'
 import { RolesApiService } from './roles-api.service'
+import { NewUserComponent } from './new-user/new-user.component';
 //import { Server } from './server.model'
 //import { DelServerComponent } from './del-server/del-server.component'
 //import { DelDomainComponent } from './del-domain/del-domain.component'
@@ -25,6 +26,7 @@ export class UsersRolesComponent implements OnInit {
   constructor(
     private usersApiService: UsersApiService,
     private rolesApiService: RolesApiService,
+    private modalService: NgbModal
   ) { }
 
   getUsers(): void {
@@ -35,6 +37,11 @@ export class UsersRolesComponent implements OnInit {
   getRoles(): void {
     this.rolesApiService.getRoles()
       .subscribe(roles => { console.log(roles); this.roles = roles });
+  }
+
+  addUserModal(){
+    const modalRef = this.modalService.open(NewUserComponent);
+    modalRef.componentInstance.emitter.subscribe(data => this.users.push(data));
   }
 
   ngOnInit() {

@@ -37,7 +37,9 @@ import { TestProfileComponent } from './profiles/test-profile/test-profile.compo
 import { AlertComponent } from './alert/alert.component';
 import { UsersRolesComponent } from './users-roles/users-roles.component'
 import { UsersApiService } from './users-roles/users-api.service';
-import { RolesApiService } from './users-roles/roles-api.service'
+import { RolesApiService } from './users-roles/roles-api.service';
+import { NewUserComponent } from './users-roles/new-user/new-user.component'
+import { AlertService } from './alert/alert.service'
 
 
 @NgModule({
@@ -62,7 +64,8 @@ import { RolesApiService } from './users-roles/roles-api.service'
     EditProfileComponent,
     TestProfileComponent,
     AlertComponent,
-    UsersRolesComponent
+    UsersRolesComponent,
+    NewUserComponent
   ],
   imports: [
     BrowserModule,
@@ -86,7 +89,8 @@ import { RolesApiService } from './users-roles/roles-api.service'
     ProfilesApiService,
     AlertComponent,
     UsersApiService,
-    RolesApiService
+    RolesApiService,
+    AlertService
   ],
   bootstrap: [AppComponent],
   entryComponents: [
@@ -100,6 +104,7 @@ import { RolesApiService } from './users-roles/roles-api.service'
     NewProfileComponent,
     EditProfileComponent,
     TestProfileComponent,
+    NewUserComponent
   ]
 })
 export class AppModule { }

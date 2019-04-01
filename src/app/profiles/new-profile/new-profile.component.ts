@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { ProfilesApiService } from '../profiles-api.service'
 import { first } from 'rxjs/operators'
 import { Profile } from '../profile.model'
+import { AlertService } from '../../alert/alert.service'
 
 @Component({
   selector: 'app-new-profile',
@@ -27,6 +28,7 @@ export class NewProfileComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private profilesApiService: ProfilesApiService,
+    private alertService: AlertService,
   ) { }
 
 
@@ -79,14 +81,22 @@ export class NewProfileComponent implements OnInit {
       .pipe(first())
         .subscribe(
             data => {
-                this.newProfile = data;
-                this.emitter.emit(this.newProfile);
                 this.loading = false;
-                this.closeModal()
+                if (data['success'] == false){ 
+                  this.sendAlert(this.f.name.value)
+                } else {
+                  this.newProfile = data;
+                  this.emitter.emit(this.newProfile);
+                  this.closeModal()
+                }
             },
             error => {
                 this.loading = false;
                 console.log(error)
             });
+    }
+
+    sendAlert(name) {
+      this.alertService.newAlert("danger", name + " is an already existing profile")
     }
 }

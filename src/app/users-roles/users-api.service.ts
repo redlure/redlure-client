@@ -28,12 +28,12 @@ export class UsersApiService {
   }
 
   // POST a new user (worker) to the user
-  postUser(ip: String, alias: String, port: Number): Observable<Object> {
+  postUser(username: String, password: String, role: String): Observable<Object> {
     const url = `${API_URL}/users`;
     let formData: FormData = new FormData()
-    formData.append('Alias', String(alias))
-    formData.append('IP', String(ip))
-    formData.append('Port', String(port))
+    formData.append('Username', String(username))
+    formData.append('Password', String(password))
+    formData.append('Role', String(role))
     return this.http.post<any>(url, formData, {withCredentials: true})
       .pipe(
         catchError(this.handleError('postUser'))

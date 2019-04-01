@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertService } from './alert.service'
 
-interface Alert {
-  type: string;
-  message: string;
-}
 
 @Component({
   selector: 'app-alert',
@@ -13,20 +10,11 @@ interface Alert {
 
 export class AlertComponent implements OnInit {
 
-  alerts: Alert[] = [];
-
-  constructor() { }
+  constructor(public alertService: AlertService) { }
 
   ngOnInit() {
   }
 
-  newAlert(type: string, message: string) {
-    this.alerts.unshift({type: type, message: message})
-  }
-
-  close(alert: Alert) {
-    this.alerts.splice(this.alerts.indexOf(alert), 1);
-  }
 
 
 }

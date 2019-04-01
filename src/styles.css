@@ -15,6 +15,15 @@ h3 {
     color: red
 }
 
+logo {
+    font-family: 'sans-forgetica';
+    font-size: 60px;
+}
+
+.logo-prefix {
+    color: red;
+}
+
 .h3-suffix {
     color: black;
 }

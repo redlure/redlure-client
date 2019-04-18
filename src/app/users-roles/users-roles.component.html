@@ -1,4 +1,5 @@
 <main-navbar></main-navbar>
+<app-alert></app-alert>
 <div class="d-md-flex h-md-100">
   <!-- First Half -->
   <div class="container" style="border-right: solid 1px">
@@ -29,7 +30,7 @@
             <th scope="row">{{ i +1 }}</th>
             <td>{{ user.username }}</td>
             <td>{{ user.role.name }}</td>
-            <td><button class="btn btn-danger fa fa-times" (click)="deleteServerModal(server)"></button></td>
+            <td><button class="btn btn-danger fa fa-times" (click)="deleteUserModal(user)"></button></td>
           </tr>
         </tbody>
       </table>
@@ -47,7 +48,7 @@
         </h3>
       </div>
       <div class="col-md d-flex justify-content-end">
-        <button class="btn btn-outline-dark btn-right" (click)="openRoleModal()">New Role</button>
+        <button class="btn btn-outline-dark btn-right" (click)="addRoleModal()">New Role</button>
       </div>
     </div>
     <br>
@@ -64,7 +65,9 @@
             <th scope="row">{{ i +1 }}</th>
             <td>{{ role.name }}</td>
             <td>{{ role.role_type }}</td>
-            <td><button class="btn btn-danger fa fa-times" (click)="deleteDomainModal(domain)"></button></td>
+            <td><button class="btn btn-outline-dark fa fa-pencil-square-o" (click)="editRoleModal(role)"></button></td>
+            <td><button class="btn btn-danger fa fa-times" (click)="deleteRoleModal(role)"></button></td>
+          </tr>
         </tbody>
       </table>
     </div>

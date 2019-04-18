@@ -44,7 +44,7 @@ export class ProfilesApiService {
 
       return this.http.post<any>(url, formData, {withCredentials: true})
         .pipe(
-          catchError(this.handleError('postProfiles', name))
+          catchError(this.handleError('postProfile', name))
         );  
   }
 
@@ -57,7 +57,7 @@ export class ProfilesApiService {
         );  
     }
 
-    // POST a new profile to the server
+    // PUT: edit a profile on the server
     putProfile(workspaceId: String, profileId: String, name: String, fromAddress: String, smtpHost: String, smtpPort: number, username: String,
       password: String, tls: boolean, ssl: boolean): Observable<Profile> {
 
@@ -74,7 +74,7 @@ export class ProfilesApiService {
 
         return this.http.put<any>(url, formData, {withCredentials: true})
           .pipe(
-            catchError(this.handleError('postProfiles', name))
+            catchError(this.handleError('putProfile', name))
           );  
     }
 

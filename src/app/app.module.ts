@@ -4,6 +4,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 import { AppComponent } from './app.component';
 import { WorkspacesComponent } from './workspaces/workspaces.component';
@@ -39,7 +40,19 @@ import { UsersRolesComponent } from './users-roles/users-roles.component'
 import { UsersApiService } from './users-roles/users-api.service';
 import { RolesApiService } from './users-roles/roles-api.service';
 import { NewUserComponent } from './users-roles/new-user/new-user.component'
-import { AlertService } from './alert/alert.service'
+import { AlertService } from './alert/alert.service';
+import { DelUserComponent } from './users-roles/del-user/del-user.component';
+import { NewRoleComponent } from './users-roles/new-role/new-role.component';
+import { DelRoleComponent } from './users-roles/del-role/del-role.component';
+import { EditRoleComponent } from './users-roles/edit-role/edit-role.component';
+import { PageComponent } from './pages/page/page.component'
+import { DelPageComponent } from './pages/del-page/del-page.component'
+import { PagesApiService } from './pages/pages-api.service';
+import { CloneSiteComponent } from './pages/page/clone-site/clone-site.component';
+import { EmailsComponent } from './emails/emails.component';
+import { EmailComponent } from './emails/email/email.component';
+import { DelEmailComponent } from './emails/del-email/del-email.component';
+import { EmailsApiService } from './emails/emails-api.service';
 
 
 @NgModule({
@@ -65,7 +78,17 @@ import { AlertService } from './alert/alert.service'
     TestProfileComponent,
     AlertComponent,
     UsersRolesComponent,
-    NewUserComponent
+    NewUserComponent,
+    DelUserComponent,
+    NewRoleComponent,
+    DelRoleComponent,
+    EditRoleComponent,
+    PageComponent,
+    DelPageComponent,
+    CloneSiteComponent,
+    EmailsComponent,
+    EmailComponent,
+    DelEmailComponent
   ],
   imports: [
     BrowserModule,
@@ -77,6 +100,7 @@ import { AlertService } from './alert/alert.service'
     AppRoutingModule,
     MDBBootstrapModule.forRoot(),
     MDBBootstrapModule,
+    AngularEditorModule,
   ],
   providers: [
     HttpErrorHandler,
@@ -90,7 +114,9 @@ import { AlertService } from './alert/alert.service'
     AlertComponent,
     UsersApiService,
     RolesApiService,
-    AlertService
+    AlertService,
+    PagesApiService,
+    EmailsApiService,
   ],
   bootstrap: [AppComponent],
   entryComponents: [
@@ -104,7 +130,14 @@ import { AlertService } from './alert/alert.service'
     NewProfileComponent,
     EditProfileComponent,
     TestProfileComponent,
-    NewUserComponent
+    NewUserComponent,
+    DelUserComponent,
+    NewRoleComponent,
+    DelRoleComponent,
+    EditRoleComponent,
+    DelPageComponent,
+    CloneSiteComponent,
+    DelEmailComponent,
   ]
 })
 export class AppModule { }

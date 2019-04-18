@@ -13,8 +13,8 @@
     <div *ngFor="let profile of profiles" class="card border-dark" style="max-width: 18rem">
       <div class="card-body">
         <h5 class="card-title">{{ profile.name }}</h5>
-        <p class="small"><b>From: </b>{{ profile.from_address }}</p>
-        <p class="small"><b>SMTP: </b>{{ profile.smtp_host }}</p>
+        <p class="small">{{ profile.from_address }}</p>
+        <p class="small">{{ profile.smtp_host }}</p>
         <button class="btn btn-outline-danger fa fa-times" style="float: right;" (click)="openDelete(profile)"></button>
         <button class="btn btn-outline-dark fa fa-clone" style="float: right; margin-right: 1vh" (click)="cloneProfile(profile)"></button>
         <button class="btn btn-outline-dark fa fa-envelope-o" style="float: right; margin-right: 1vh" (click)="openTest(profile)"></button>

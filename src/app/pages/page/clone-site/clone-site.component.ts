@@ -2,22 +2,20 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { WorkspacesApiService } from '../workspaces-api.service'
 import { first } from 'rxjs/operators'
-import { Workspace } from '../workspace.model'
-import { AlertService } from '../../alert/alert.service'
-
+import { PagesApiService } from '../../pages-api.service'
 
 @Component({
-  selector: 'app-new-workspace',
-  templateUrl: './new-workspace.component.html'
+  selector: 'app-clone-site',
+  templateUrl: './clone-site.component.html',
+  styleUrls: ['./clone-site.component.css']
 })
-
-export class NewWorkspaceComponent implements OnInit {
+export class CloneSiteComponent implements OnInit {
   myForm: FormGroup;
   submitted = false;
   loading = false;
-  newWorkspace: Workspace;
+  fail = false;
+  failMsg: String;
   @Output() emitter: EventEmitter<any> = new EventEmitter<any>();
 
 
@@ -25,13 +23,12 @@ export class NewWorkspaceComponent implements OnInit {
     public activeModal: NgbActiveModal,
     private formBuilder: FormBuilder,
     private router: Router,
-    private workspacesApiService: WorkspacesApiService,
-    private alertService: AlertService,
+    private pagesApiService: PagesApiService,
   ) { }
 
   ngOnInit() {
     this.myForm = this.formBuilder.group({
-      name: ['', Validators.required]
+      link: ['', [Validators.required]]
     });
   }
 
@@ -50,21 +47,23 @@ export class NewWorkspaceComponent implements OnInit {
     }
     
     this.loading = true;
-    this.workspacesApiService.postWorkspace(this.f.name.value)
+    this.pagesApiService.cloneSite(this.f.link.value)
       .pipe(first())
         .subscribe(
             data => {
                 this.loading = false;
                 if (data['success'] == false) {
-                  this.alertService.newAlert("warning", this.f.name.value + " is an existing workspace")
+                  this.failMsg = data['message']
+                  this.fail = true
                 } else {
-                  this.newWorkspace = data;
-                  this.emitter.emit(this.newWorkspace);
+                  this.fail = false
+                  this.emitter.emit(data['html'])
                   this.closeModal()
                 }
             },
             error => {
                 this.loading = false;
+                console.log(error)
             });
             
 }

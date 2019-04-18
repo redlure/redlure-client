@@ -59,7 +59,7 @@ logo {
 
 .span-domain {
     float: left;
-    width: 130px;
+    width: 90px;
 }
 
 .span-login {
@@ -77,4 +77,9 @@ logo {
     width: 95px;
 }
 
+p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 

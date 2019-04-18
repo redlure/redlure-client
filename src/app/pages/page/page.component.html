@@ -1,0 +1,60 @@
+<workspace-navbar></workspace-navbar>
+<app-alert></app-alert>
+<body style="margin: 20px">
+  <div>
+    <h3 style="display:inline-block">
+      <b class="h3-prefix">{{ title1 }}</b>
+      <b class="h3-suffix">{{ title2 }}</b>
+    </h3>
+  </div>
+
+  <br>
+
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    <div class="container-fluid">
+      <div class="row">
+
+        <div class="col-md-3">
+           <!--Name Field-->
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="span-profile input-group-text">Name</span>
+            </div>
+            <input placeholder="Page Name" type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.name.errors }"/>
+            <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+              <div *ngIf="f.name.errors.required">Name is required</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-5">
+           <!--URL Field-->
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="span-profile input-group-text">URL Path</span>
+            </div>
+            <input placeholder="/path/after/domain" type="text" formControlName="url" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.url.errors }"/>
+            <div *ngIf="submitted && f.url.errors" class="invalid-feedback">
+              <div *ngIf="f.url.errors.required">URL is required</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm">
+          <button type="button" (click)="cloneSite()" class="btn btn-outline-primary float-right">Clone Site</button>
+        </div>
+
+        <div class="col-sm">
+          <img *ngIf="loading" class="float-right" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+          <button ngbAutofocus type="submit" [disabled]="loading" class="btn btn-outline-dark float-right">{{ saveBtnText }}</button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="container-fluid">
+          <angular-editor formControlName="htmlContent" [config]="config"></angular-editor>
+        </div>
+      </div>
+    </div>
+  </form>
+</body>

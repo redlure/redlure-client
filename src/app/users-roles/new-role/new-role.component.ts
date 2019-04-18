@@ -2,36 +2,36 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { WorkspacesApiService } from '../workspaces-api.service'
+import { RolesApiService } from '../roles-api.service'
 import { first } from 'rxjs/operators'
-import { Workspace } from '../workspace.model'
 import { AlertService } from '../../alert/alert.service'
 
-
 @Component({
-  selector: 'app-new-workspace',
-  templateUrl: './new-workspace.component.html'
+  selector: 'app-new-role',
+  templateUrl: './new-role.component.html',
 })
 
-export class NewWorkspaceComponent implements OnInit {
+export class NewRoleComponent implements OnInit {
   myForm: FormGroup;
-  submitted = false;
   loading = false;
-  newWorkspace: Workspace;
-  @Output() emitter: EventEmitter<any> = new EventEmitter<any>();
+  submitted = false;
+  newRole: Object;
+  roles: Object[];
 
+  @Output() emitter: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
     public activeModal: NgbActiveModal,
     private formBuilder: FormBuilder,
     private router: Router,
-    private workspacesApiService: WorkspacesApiService,
+    private rolesApiService: RolesApiService,
     private alertService: AlertService,
   ) { }
 
   ngOnInit() {
     this.myForm = this.formBuilder.group({
-      name: ['', Validators.required]
+      name: ['', Validators.required],
+      type: ['', Validators.required]
     });
   }
 
@@ -50,23 +50,22 @@ export class NewWorkspaceComponent implements OnInit {
     }
     
     this.loading = true;
-    this.workspacesApiService.postWorkspace(this.f.name.value)
+    this.rolesApiService.postRole(this.f.name.value, this.f.type.value)
       .pipe(first())
         .subscribe(
             data => {
                 this.loading = false;
                 if (data['success'] == false) {
-                  this.alertService.newAlert("warning", this.f.name.value + " is an existing workspace")
+                  this.alertService.newAlert("warning", this.f.name.value + " is an existing role")
                 } else {
-                  this.newWorkspace = data;
-                  this.emitter.emit(this.newWorkspace);
+                  this.newRole = data;
+                  this.emitter.emit(this.newRole);
                   this.closeModal()
                 }
             },
             error => {
                 this.loading = false;
+                console.log(error)
             });
-            
-}
-
+    }
 }

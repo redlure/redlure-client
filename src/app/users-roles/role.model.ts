@@ -1,7 +1,9 @@
+import { Workspace } from '../workspaces/workspace.model'
+
 export class Role {
     constructor(
         public id: Number,
         public name: string,
-        public workspaces: string,
+        public workspaces: Workspace[],
     ){}
 }

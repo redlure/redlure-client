@@ -58,5 +58,23 @@ export class ServersApiService {
         );  
     }
 
+    // GET the current worker API key
+    getApiKey(): Observable<String> {
+      const url = `${API_URL}/api`;
+      return this.http.get<any>(url, {withCredentials: true})
+      .pipe(
+        catchError(this.handleError('getApiKey'))
+      );  
+    }
+
+    // GET: generate a new worker API key
+    refreshApiKey(): Observable<String> {
+      const url = `${API_URL}/api/generate`;
+      return this.http.get<any>(url, {withCredentials: true})
+      .pipe(
+        catchError(this.handleError('getApiKey'))
+      );  
+    }
+
 
 }

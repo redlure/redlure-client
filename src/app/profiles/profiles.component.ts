@@ -106,7 +106,7 @@ export class ProfilesComponent implements OnInit {
   }
 
   sendAlert(name) {
-    this.alertService.newAlert("danger", name + " is an already existing profile")
+    this.alertService.newAlert("warning", name + " is an already existing profile")
   }
 
 }

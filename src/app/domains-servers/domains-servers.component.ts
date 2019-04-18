@@ -9,6 +9,7 @@ import { Domain } from './domain.model'
 import { Server } from './server.model'
 import { DelServerComponent } from './del-server/del-server.component'
 import { DelDomainComponent } from './del-domain/del-domain.component'
+import { AlertService } from '../alert/alert.service'
 
 
 @Component({
@@ -23,6 +24,7 @@ import { DelDomainComponent } from './del-domain/del-domain.component'
 export class DomainsServersComponent implements OnInit {
   servers: Server[];
   domains: Domain[];
+  apiKey: String;
   serverLoading = false;
   domainHeaders = ['#', 'Domain', 'DNS Lookup', 'Cert Path', 'Key Path', 'Generate Cert', 'Delete']
   serverHeaders = ['#', 'Alias', 'IP', 'Port', 'Status', 'Refresh Status', 'Delete']
@@ -33,7 +35,8 @@ export class DomainsServersComponent implements OnInit {
   constructor(
     private domainsApiService: DomainsApiService,
     private serversApiService: ServersApiService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private alertService: AlertService,
   ) { }
 
   onServerSelect(server: Server): void {
@@ -92,12 +95,25 @@ export class DomainsServersComponent implements OnInit {
       .subscribe(domains => this.domains = domains);
   }
 
+  getApiKey() {
+    this.serversApiService.getApiKey()
+      .subscribe(key => this.apiKey = key["key"])
+  }
+
+  refreshApiKey() {
+    this.serversApiService.refreshApiKey()
+    .subscribe(key => this.apiKey = key["key"])
+  }
+
   refreshStatus(server: Server): void {
     this.serverLoading = true;
     this.serversApiService.refreshServerStatus(server.id)
       .subscribe(
         data => {
           server.status = data['status']
+          if (server.status == 'Offline') {
+            this.alertService.newAlert("danger", "Request to " + server.alias + " timed out")
+          }
           this.serverLoading = false;
         },
         error => {
@@ -109,5 +125,6 @@ export class DomainsServersComponent implements OnInit {
   ngOnInit() {
     this.getDomains()
     this.getServers()
+    this.getApiKey()
   }
 }

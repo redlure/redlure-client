@@ -1,0 +1,11 @@
+<div class="modal-header">
+  <h4 class="modal-title">Delete Role</h4>
+</div>
+<div class="modal-body">
+  Deleting <div style="font-style: italic; display: inline;">{{editRole.name}}</div> will also delete all users assigned to it. Are you sure you want to delete?
+</div>
+<div class="modal-footer">
+  <button class="btn btn-outline-danger float-left" (click)="deleteRole()">Delete</button>
+  <button class="btn btn-outline-dark" (click)="closeModal()">Close</button>
+</div>
+        

@@ -1,23 +1,24 @@
 import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
-import { ProfilesApiService } from '../profiles-api.service'
+import { EmailsApiService } from '../emails-api.service'
 import { first } from 'rxjs/operators'
-import { Profile } from '../profile.model'
+import { Email } from '../email.model'
 
 @Component({
-  selector: 'app-del-profile',
-  templateUrl: './del-profile.component.html'
+  selector: 'app-del-email',
+  templateUrl: './del-email.component.html'
 })
-export class DelProfileComponent implements OnInit {
+
+export class DelEmailComponent implements OnInit {
   workspaceId: String;
-  @Input() editProfile: Profile;
+  @Input() editEmail: Email;
   @Output() emitter: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
     public activeModal: NgbActiveModal,
     private router: Router,
-    private profilesApiService: ProfilesApiService,
+    private emailsApiService: EmailsApiService,
   ) { }
 
   ngOnInit() {
@@ -28,12 +29,12 @@ export class DelProfileComponent implements OnInit {
     this.activeModal.close();
   }
 
-  deleteProfile() {
-    this.profilesApiService.deleteProfile(this.workspaceId, String(this.editProfile.id))
+  deleteEmail() {
+    this.emailsApiService.deleteEmail(this.workspaceId, String(this.editEmail.id))
       .pipe(first())
         .subscribe(
             data => {
-                this.emitter.emit(this.editProfile)
+                this.emitter.emit(this.editEmail)
                 this.closeModal()
             },
             error => {

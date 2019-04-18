@@ -27,7 +27,7 @@ export class UsersApiService {
       );  
   }
 
-  // POST a new user (worker) to the user
+  // POST a new user to the user
   postUser(username: String, password: String, role: String): Observable<Object> {
     const url = `${API_URL}/users`;
     let formData: FormData = new FormData()
@@ -41,7 +41,7 @@ export class UsersApiService {
   }
 
     // DELETE a user (worker) from the user
-    deleteUser(id: Number): Observable<Object> {
+    deleteUser(id: String): Observable<Object> {
       const url = `${API_URL}/users/${id}`;
       return this.http.delete<any>(url, {withCredentials: true})
         .pipe(

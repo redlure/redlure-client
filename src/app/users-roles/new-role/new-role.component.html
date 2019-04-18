@@ -1,37 +1,36 @@
 <div class="modal-header">
-    <h4 class="modal-title">New Domain</h4>
+    <h4 class="modal-title">New Role</h4>
     <button class="btn btn-outline-danger" (click)="closeModal()">Close</button>
   </div>
   <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
     <div class="modal-body">
       <div class="container">
 
-        <!--Domain Name Field-->
+        <!--name Field-->
         <div class="input-group form-group">
           <div class="input-group-prepend">
-            <span class="span-domain input-group-text">Domain</span>
+            <span class="span-login input-group-text">Name</span>
           </div>
-          <input type="text" formControlName="domain" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.domain.errors }"/>
-          <div *ngIf="submitted && f.domain.errors" class="invalid-feedback">
-            <div *ngIf="f.domain.errors.required">Domain Name is required</div>
+          <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.name.errors }"/>
+          <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+            <div *ngIf="f.name.errors.required">Name is required</div>
           </div>
         </div>
-        
           
-        <!--Cert Path Field-->
+        <!-- Type Field-->
         <div class="input-group form-group">
           <div class="input-group-prepend">
-              <span class="span-domain input-group-text">Cert Path</span>
+              <span class="span-login input-group-text">Type</span>
           </div>
-          <input type="text" formControlName="certPath" class="form-control"/>
-        </div>
-          
-        <!--Key Path Field-->
-        <div class="input-group form-group">
-          <div class="input-group-prepend">
-              <span class="span-domain input-group-text">Key Path</span>
+          <select class="form-control" formControlName="type" [ngClass]="{ 'is-invalid': submitted && f.type.errors }">
+            <option disabled selected value> -- Select a role -- </option>
+            <option>Administrator</option>
+            <option>User</option>
+            <option>Client</option>
+          </select>
+          <div *ngIf="submitted && f.type.errors" class="invalid-feedback">
+            <div *ngIf="f.type.errors.required">Type is required</div>
           </div>
-          <input type="text" formControlName="keyPath" class="form-control"/>
         </div>
 
         </div>

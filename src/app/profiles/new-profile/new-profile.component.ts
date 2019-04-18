@@ -9,8 +9,7 @@ import { AlertService } from '../../alert/alert.service'
 
 @Component({
   selector: 'app-new-profile',
-  templateUrl: './new-profile.component.html',
-  styleUrls: ['./new-profile.component.css']
+  templateUrl: './new-profile.component.html'
 })
 
 export class NewProfileComponent implements OnInit {

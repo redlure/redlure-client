@@ -4,18 +4,19 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { UsersApiService } from '../users-api.service'
 import { first } from 'rxjs/operators'
-import { User } from '../user.model'
+import { AlertService } from '../../alert/alert.service'
 
 @Component({
   selector: 'app-new-user',
-  templateUrl: './new-user.component.html',
-  styleUrls: ['./new-user.component.css']
+  templateUrl: './new-user.component.html'
 })
 export class NewUserComponent implements OnInit {
   myForm: FormGroup;
   loading = false;
   submitted = false;
   newUser: Object;
+  roles: Object[];
+
   @Output() emitter: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
@@ -23,12 +24,13 @@ export class NewUserComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private usersApiService: UsersApiService,
+    private alertService: AlertService,
   ) { }
 
   ngOnInit() {
     this.myForm = this.formBuilder.group({
       username: ['', Validators.required],
-      password: ['', Validators.required, Validators.minLength(10)],
+      password: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
       role: ['', Validators.required]
     });
   }
@@ -52,11 +54,14 @@ export class NewUserComponent implements OnInit {
       .pipe(first())
         .subscribe(
             data => {
-                this.newUser = data;
-                this.emitter.emit(this.newUser);
                 this.loading = false;
-                this.closeModal()
-                //this.router.navigate(['workspaces/' + data['id']])
+                if (data['success'] == false) {
+                  this.alertService.newAlert("warning", this.f.username.value + " is an existing user")
+                } else {
+                  this.newUser = data;
+                  this.emitter.emit(this.newUser);
+                  this.closeModal()
+                }
             },
             error => {
                 this.loading = false;

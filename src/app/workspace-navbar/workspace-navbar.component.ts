@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router'
+
 
 @Component({
   selector: 'workspace-navbar',
@@ -7,7 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WorkspaceNavbarComponent implements OnInit {
 
-  constructor() { }
+  workspaceId: String;
+
+  constructor(
+    private route: ActivatedRoute,
+  ) {
+    this.route.params.subscribe(params => this.workspaceId = params['workspaceId'])
+   }
 
   ngOnInit() {
   }

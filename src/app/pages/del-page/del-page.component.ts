@@ -1,23 +1,24 @@
 import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
-import { ProfilesApiService } from '../profiles-api.service'
+import { PagesApiService } from '../pages-api.service'
 import { first } from 'rxjs/operators'
-import { Profile } from '../profile.model'
+import { Page } from '../page.model'
 
 @Component({
-  selector: 'app-del-profile',
-  templateUrl: './del-profile.component.html'
+  selector: 'app-del-page',
+  templateUrl: './del-page.component.html'
 })
-export class DelProfileComponent implements OnInit {
+
+export class DelPageComponent implements OnInit {
   workspaceId: String;
-  @Input() editProfile: Profile;
+  @Input() editPage: Page;
   @Output() emitter: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
     public activeModal: NgbActiveModal,
     private router: Router,
-    private profilesApiService: ProfilesApiService,
+    private pagesApiService: PagesApiService,
   ) { }
 
   ngOnInit() {
@@ -28,12 +29,12 @@ export class DelProfileComponent implements OnInit {
     this.activeModal.close();
   }
 
-  deleteProfile() {
-    this.profilesApiService.deleteProfile(this.workspaceId, String(this.editProfile.id))
+  deletePage() {
+    this.pagesApiService.deletePage(this.workspaceId, String(this.editPage.id))
       .pipe(first())
         .subscribe(
             data => {
-                this.emitter.emit(this.editProfile)
+                this.emitter.emit(this.editPage)
                 this.closeModal()
             },
             error => {

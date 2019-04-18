@@ -1,3 +1,24 @@
-<p>
-  pages works!
-</p>
+<workspace-navbar></workspace-navbar>
+<app-alert></app-alert>
+<body style="margin: 20px">
+  <div>
+    <h3 style="display:inline-block">
+      <b class="h3-prefix">PA</b>
+      <b class="h3-suffix">GES</b>
+    </h3>
+    <a routerLink="new" style="float: right" class="btn btn-outline-dark">New Page</a>
+  </div>
+  <br>
+  <div class="card-deck">
+    <div *ngFor="let page of pages" class="card border-dark" style="max-width: 18rem">
+      <div class="card-body">
+        <h5 class="card-title">{{ page.name }}</h5>
+        <p class="small">{{ page.url }}</p>
+        <button class="btn btn-outline-danger fa fa-times" style="float: right;" (click)="openDelete(page)"></button>
+        <button class="btn btn-outline-dark fa fa-clone" style="float: right; margin-right: 1vh" (click)="clonePage(page)"></button>
+        <button class="btn btn-outline-dark fa fa-external-link" style="float: right; margin-right: 1vh" (click)="pagePreview(page)"></button>
+        <button class="btn btn-outline-dark fa fa-pencil-square-o" style="float: right; margin-right: 1vh" (click)="openEdit(page)"></button>
+      </div>
+    </div>
+  </div>
+</body>

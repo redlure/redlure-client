@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {map, catchError} from 'rxjs/operators'
-import {API_URL} from '../env';
+import { ApiService } from '../login/api.service'
 import { Profile } from './profile.model';
 import { HttpErrorHandler, HandleError } from '../http-error-handler.service';
 import { RequestOptions, Headers } from '@angular/http';
@@ -13,14 +13,15 @@ export class ProfilesApiService {
   private handleError: HandleError;
 
   constructor(
+    private apiService: ApiService,
     private http: HttpClient,
     httpErrorHandler: HttpErrorHandler) {
       this.handleError = httpErrorHandler.createHandleError('ProfilesApiService');
   }
 
-  // GET list of all workspaces from the server
+  // GET list of all profiles from the server
   getProfiles(id: String): Observable<Profile[]> {
-    const url = `${API_URL}/workspaces/${id}/profiles`;
+    const url = `${this.apiService.getUrl()}/workspaces/${id}/profiles`;
     return this.http.get<Profile[]>(url, {withCredentials: true})
       .pipe(
         catchError(this.handleError('getProfiles', []))
@@ -31,7 +32,7 @@ export class ProfilesApiService {
   postProfile(workspaceId: String, name: String, fromAddress: String, smtpHost: String, smtpPort: Number, username: String,
     password: String, tls: boolean, ssl: boolean): Observable<Profile> {
 
-      const url = `${API_URL}/workspaces/${workspaceId}/profiles`;
+      const url = `${this.apiService.getUrl()}/workspaces/${workspaceId}/profiles`;
       let formData: FormData = new FormData()
       formData.append('Name', String(name))
       formData.append('From_Address', String(fromAddress))
@@ -50,7 +51,7 @@ export class ProfilesApiService {
 
     // DELETE a profile from the server
     deleteProfile(workspaceId: String, profileId: String): Observable<Profile> {
-      const url = `${API_URL}/workspaces/${workspaceId}/profiles/${profileId}`;
+      const url = `${this.apiService.getUrl()}/workspaces/${workspaceId}/profiles/${profileId}`;
       return this.http.delete<any>(url, {withCredentials: true})
         .pipe(
           catchError(this.handleError('deleteProfile'))
@@ -61,7 +62,7 @@ export class ProfilesApiService {
     putProfile(workspaceId: String, profileId: String, name: String, fromAddress: String, smtpHost: String, smtpPort: number, username: String,
       password: String, tls: boolean, ssl: boolean): Observable<Profile> {
 
-        const url = `${API_URL}/workspaces/${workspaceId}/profiles/${profileId}`;
+        const url = `${this.apiService.getUrl()}/workspaces/${workspaceId}/profiles/${profileId}`;
         let formData: FormData = new FormData()
         formData.append('Name', String(name))
         formData.append('From_Address', String(fromAddress))
@@ -80,7 +81,7 @@ export class ProfilesApiService {
 
     // POST an email address to the server to have a test email sent to
     testProfile(workspaceId: String, id: String, email: String): Observable<Profile> {
-      const url = `${API_URL}/workspaces/${workspaceId}/profiles/${id}`;
+      const url = `${this.apiService.getUrl()}/workspaces/${workspaceId}/profiles/${id}`;
       
       let formData: FormData = new FormData()
       formData.append('Address', String(email))

@@ -1,0 +1,24 @@
+<workspace-navbar></workspace-navbar>
+<app-alert></app-alert>
+<body style="margin: 20px">
+  <div>
+    <h3 style="display:inline-block">
+      <b class="h3-prefix">CAM</b>
+      <b class="h3-suffix">PAIGNS</b>
+    </h3>
+    <button routerLink="new" class="btn btn-outline-dark login_btn" style="float: right;">New Campaign</button>
+  </div>
+  <br>
+  <div class="card-deck">
+    <div *ngFor="let campaign of campaigns" class="card border-dark" style="max-width: 18rem">
+      <div class="card-body">
+        <h5 class="card-title">{{ campaign.name }}</h5>
+        <p class="small">{{ campaign.status }}</p>
+        <button class="btn btn-outline-danger fa fa-times" title="Delete" style="float: right;" (click)="openDelete(campaign)"></button>
+        <button class="btn btn-outline-dark fa fa-clone" title="Clone" style="float: right; margin-right: 1vh" (click)="cloneCampaign(campaign)"></button>
+        <button *ngIf="campaign.status == 'Inactive'" title="Edit" class="btn btn-outline-dark fa fa-pencil-square-o" style="float: right; margin-right: 1vh" (click)="openEdit(campaign)"></button>
+        <button *ngIf="campaign.status != 'Inactive'" title="View" class="btn btn-outline-dark fa fa-sign-in" style="float: right; margin-right: 1vh" (click)="openView(campaign)"></button>
+      </div>
+    </div>
+  </div>
+</body>

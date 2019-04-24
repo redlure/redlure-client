@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
+import { ApiService } from './api.service'
 import { LoginApiService } from './login-api.service'
+import { API_URL } from '../env'
 
 @Component({
   selector: 'app-login',
@@ -15,18 +17,26 @@ export class LoginComponent implements OnInit {
   submitted = false;
   returnUrl = 'workspaces';
   invalidLogon = false;
+  serverUrl: String;
   
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private loginApiService: LoginApiService
+    private loginApiService: LoginApiService,
+    private apiService: ApiService
   ) { }
 
   ngOnInit() {
+    // prepopulate server field if found in localstorage
+    if (localStorage.getItem('apiUrl')){
+      this.serverUrl = localStorage.getItem('apiUrl');
+    }
+
     this.loginForm = this.formBuilder.group({
     username: ['', Validators.required],
-    password: ['', Validators.required]
+    password: ['', Validators.required],
+    server: [this.serverUrl, Validators.required]
   });
 
   }
@@ -41,6 +51,9 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.invalid) {
         return;
     }
+
+    // set the URL for the redlure server API
+    this.apiService.setUrl(this.f.server.value)
 
     this.loading = true;
     this.loginApiService.login(this.f.username.value, this.f.password.value)
@@ -59,6 +72,6 @@ export class LoginComponent implements OnInit {
                 //console.log(error)
                 this.loading = false;
             });
-}
+  }
 
 }

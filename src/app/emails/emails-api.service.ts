@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {map, catchError} from 'rxjs/operators'
-import {API_URL} from '../env';
+import { ApiService } from '../login/api.service'
 import { Email } from './email.model';
 import { HttpErrorHandler, HandleError } from '../http-error-handler.service';
 import { RequestOptions, Headers } from '@angular/http';
@@ -13,6 +13,7 @@ export class EmailsApiService {
   private handleError: HandleError;
 
   constructor(
+    private apiService: ApiService,
     private http: HttpClient,
     httpErrorHandler: HttpErrorHandler) {
       this.handleError = httpErrorHandler.createHandleError('EmailsApiService');
@@ -20,7 +21,7 @@ export class EmailsApiService {
 
   // GET list of all workspaces from the server
   getEmails(id: String): Observable<Email[]> {
-    const url = `${API_URL}/workspaces/${id}/emails`;
+    const url = `${this.apiService.getUrl()}/workspaces/${id}/emails`;
     return this.http.get<Email[]>(url, {withCredentials: true})
       .pipe(
         catchError(this.handleError('getEmails', []))
@@ -29,7 +30,7 @@ export class EmailsApiService {
 
   // POST a new email to the server
   postEmail(workspaceId: String, name: String, html: String, subject: String, track: Boolean): Observable<Email> {
-      const url = `${API_URL}/workspaces/${workspaceId}/emails`;
+      const url = `${this.apiService.getUrl()}/workspaces/${workspaceId}/emails`;
       let formData: FormData = new FormData()
       formData.append('Name', String(name))
       formData.append('HTML', String(html))
@@ -44,7 +45,7 @@ export class EmailsApiService {
 
     // DELETE a email from the server
     deleteEmail(workspaceId: String, emailId: String): Observable<Email> {
-      const url = `${API_URL}/workspaces/${workspaceId}/emails/${emailId}`;
+      const url = `${this.apiService.getUrl()}/workspaces/${workspaceId}/emails/${emailId}`;
       return this.http.delete<any>(url, {withCredentials: true})
         .pipe(
           catchError(this.handleError('deleteEmail'))
@@ -53,7 +54,7 @@ export class EmailsApiService {
 
     // PUT: edit a email on the server
     putEmail(workspaceId: String, emailId: String, name: String, html: String, subject: String, track: Boolean): Observable<Email> {
-        const url = `${API_URL}/workspaces/${workspaceId}/emails/${emailId}`;
+        const url = `${this.apiService.getUrl()}/workspaces/${workspaceId}/emails/${emailId}`;
         let formData: FormData = new FormData()
         formData.append('Name', String(name))
         formData.append('HTML', String(html))

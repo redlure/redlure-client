@@ -1,0 +1,93 @@
+<div class="modal-header">
+    <h4 class="modal-title">New List</h4>
+    <button class="btn btn-outline-danger" (click)="closeModal()">Close</button>
+</div>
+<form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+  <div class="modal-body">
+    <div class="container">
+
+      <div class="row">
+        <!--Name Field-->
+        <div class="input-group form-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Name</span>
+          </div>
+          <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.name.errors }"/>
+          <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+            <div *ngIf="f.name.errors.required">Name is required</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-header">
+    <h5 class="modal-title">Targets</h5>
+    <input value="Upload List" class="btn btn-outline-primary" (click)="file.click()" type="button"/>
+    <input style="display: none" type="file" id="browse" accept=".csv" (change)="onFileSelect($event)" #file>
+  </div>
+
+  <div class="modal-body">
+    <div class="container">
+      <div class="row">
+        <div class="col-3">
+          <!--First Name Field-->
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">First</span>
+            </div>
+            <input formControlName="first_name" type="text" class="form-control" name="first_name"/>
+          </div>
+        </div>
+
+        <div class="col-3">
+          <!--Last Name Field-->
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Last</span>
+            </div>
+            <input formControlName="last_name" type="text" class="form-control" name="last_name"/>
+          </div>
+        </div>
+
+        <div class="col-5">
+          <!--Email Field-->
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Email</span>
+            </div>
+            <input formControlName="email" type="text" class="form-control" name="email"/>
+          </div>
+        </div>
+
+        <div class="col-1">
+          <button class="btn btn-outline-dark fa fa-plus" style="height: 67%" type="button" (click)="insertTarget()"></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-hover table-striped col-auto table-sm">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col" *ngFor="let head of headers; let i = index">{{ head }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let target of targets; let i = index">
+            <th scope="row">{{ i +1 }}</th>
+            <td>{{ target.first_name }}</td>
+            <td>{{ target.last_name }}</td>
+            <td>{{ target.email }}</td>
+            <td><a style="cursor: pointer;" title="Delete" data-toggle="tooltip" (click)="deleteTarget(target)"><i class="text-danger fa fa-trash"></i></a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+  <div class="form-group modal-footer">
+    <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+    <button ngbAutofocus [disabled]="loading" class="btn btn-outline-dark float-right">Create</button>
+  </div>
+</form>

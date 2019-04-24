@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {map, catchError} from 'rxjs/operators'
-import {API_URL} from '../env';
+import { ApiService } from '../login/api.service'
 import { Page } from './page.model';
 import { HttpErrorHandler, HandleError } from '../http-error-handler.service';
 import { RequestOptions, Headers } from '@angular/http';
@@ -13,6 +13,7 @@ export class PagesApiService {
   private handleError: HandleError;
 
   constructor(
+    private apiService: ApiService,
     private http: HttpClient,
     httpErrorHandler: HttpErrorHandler) {
       this.handleError = httpErrorHandler.createHandleError('PagesApiService');
@@ -20,7 +21,7 @@ export class PagesApiService {
 
   // GET list of all workspaces from the server
   getPages(id: String): Observable<Page[]> {
-    const url = `${API_URL}/workspaces/${id}/pages`;
+    const url = `${this.apiService.getUrl()}/workspaces/${id}/pages`;
     return this.http.get<Page[]>(url, {withCredentials: true})
       .pipe(
         catchError(this.handleError('getPages', []))
@@ -29,7 +30,7 @@ export class PagesApiService {
 
   // POST a new page to the server
   postPage(workspaceId: String, name: String, html: String, urlPath: String): Observable<Page> {
-      const url = `${API_URL}/workspaces/${workspaceId}/pages`;
+      const url = `${this.apiService.getUrl()}/workspaces/${workspaceId}/pages`;
       let formData: FormData = new FormData()
       formData.append('Name', String(name))
       formData.append('HTML', String(html))
@@ -43,7 +44,7 @@ export class PagesApiService {
 
     // DELETE a page from the server
     deletePage(workspaceId: String, pageId: String): Observable<Page> {
-      const url = `${API_URL}/workspaces/${workspaceId}/pages/${pageId}`;
+      const url = `${this.apiService.getUrl()}/workspaces/${workspaceId}/pages/${pageId}`;
       return this.http.delete<any>(url, {withCredentials: true})
         .pipe(
           catchError(this.handleError('deletePage'))
@@ -52,7 +53,7 @@ export class PagesApiService {
 
     // PUT: edit a page on the server
     putPage(workspaceId: String, pageId: String, name: String, html: String, urlPath: String): Observable<Page> {
-        const url = `${API_URL}/workspaces/${workspaceId}/pages/${pageId}`;
+        const url = `${this.apiService.getUrl()}/workspaces/${workspaceId}/pages/${pageId}`;
         let formData: FormData = new FormData()
         formData.append('Name', String(name))
         formData.append('HTML', String(html))
@@ -66,7 +67,7 @@ export class PagesApiService {
 
     // POST: get the source HTML of the posted link
     cloneSite(link: String){
-        const url = `${API_URL}/clone`;
+        const url = `${this.apiService.getUrl()}/clone`;
         let formData: FormData = new FormData()
         formData.append('Link', String(link))
 

@@ -1,0 +1,23 @@
+<workspace-navbar></workspace-navbar>
+<app-alert></app-alert>
+<body style="margin: 20px">
+  <div>
+    <h3 style="display:inline-block">
+      <b class="h3-prefix">TARG</b>
+      <b class="h3-suffix">ET LISTS</b>
+    </h3>
+    <button class="btn btn-outline-dark login_btn" style="float: right;" (click)="openNew()">New List</button>
+  </div>
+  <br>
+  <div class="card-deck">
+    <div *ngFor="let list of lists" class="card border-dark" style="max-width: 18rem">
+      <div class="card-body">
+        <h5 class="card-title">{{ list.name }}</h5>
+        <p class="small">{{ list.targets.length }} targets</p>
+        <button class="btn btn-outline-danger fa fa-times" title="Delete" style="float: right;" (click)="openDelete(list)"></button>
+        <button class="btn btn-outline-dark fa fa-clone" title="Clone" style="float: right; margin-right: 1vh" (click)="cloneList(list)"></button>
+        <button class="btn btn-outline-dark fa fa-pencil-square-o" title="Edit" style="float: right; margin-right: 1vh" (click)="openEdit(list)"></button>
+      </div>
+    </div>
+  </div>
+</body>

@@ -11,6 +11,9 @@ import { PagesComponent } from './pages/pages.component';
 import { PageComponent } from './pages/page/page.component'
 import { EmailsComponent } from './emails/emails.component';
 import { EmailComponent } from './emails/email/email.component';
+import { ListsComponent } from './lists/lists.component'
+import { CampaignsComponent } from './campaigns/campaigns.component'
+import { CampaignComponent } from './campaigns/campaign/campaign.component'
  
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -24,6 +27,9 @@ const routes: Routes = [
   { path: 'workspaces/:workspaceId/pages/:pageId', component: PageComponent },
   { path: 'workspaces/:workspaceId/emails', component: EmailsComponent },
   { path: 'workspaces/:workspaceId/emails/:emailId', component: EmailComponent },
+  { path: 'workspaces/:workspaceId/lists', component: ListsComponent },
+  { path: 'workspaces/:workspaceId/campaigns', component: CampaignsComponent },
+  { path: 'workspaces/:workspaceId/campaigns/:campaignId', component: CampaignComponent }
 ];
  
 @NgModule({

@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {map, catchError} from 'rxjs/operators'
-import {API_URL} from '../env';
+import { ApiService } from '../login/api.service'
 import { Role } from './role.model';
 import { HttpErrorHandler, HandleError } from '../http-error-handler.service';
 import { RequestOptions, Headers } from '@angular/http';
@@ -13,6 +13,7 @@ export class RolesApiService {
   private handleError: HandleError;
 
   constructor(
+    private apiService: ApiService,
     private http: HttpClient,
     httpErrorHandler: HttpErrorHandler) {
       this.handleError = httpErrorHandler.createHandleError('RolesApiService');
@@ -20,7 +21,7 @@ export class RolesApiService {
 
   // GET list of all roles from the role
   getRoles(): Observable<Object[]> {
-    const url = `${API_URL}/roles`;
+    const url = `${this.apiService.getUrl()}/roles`;
     return this.http.get<Object[]>(url, {withCredentials: true})
       .pipe(
         catchError(this.handleError('getRoles', []))
@@ -29,7 +30,7 @@ export class RolesApiService {
 
   // POST a new role (worker) to the role
   postRole(name: String, type: String): Observable<Object> {
-    const url = `${API_URL}/roles`;
+    const url = `${this.apiService.getUrl()}/roles`;
     let formData: FormData = new FormData()
     formData.append('Name', String(name))
     formData.append('Role_Type', String(type))
@@ -41,7 +42,7 @@ export class RolesApiService {
 
     // DELETE a role (worker) from the role
     deleteRole(id: String): Observable<Object> {
-      const url = `${API_URL}/roles/${id}`;
+      const url = `${this.apiService.getUrl()}/roles/${id}`;
       return this.http.delete<any>(url, {withCredentials: true})
         .pipe(
           catchError(this.handleError('deleteRole'))
@@ -50,7 +51,7 @@ export class RolesApiService {
 
     // PUT: add/remove workspace access from a role
     putRole(id: String, workspaceIds: Number[]): Observable<Role> {
-      const url = `${API_URL}/roles/${id}`;
+      const url = `${this.apiService.getUrl()}/roles/${id}`;
       let formData: FormData = new FormData()
       workspaceIds.forEach(id => {
         formData.append('Workspace_ID[]', String(id))

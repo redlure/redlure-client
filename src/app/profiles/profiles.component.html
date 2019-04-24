@@ -15,10 +15,10 @@
         <h5 class="card-title">{{ profile.name }}</h5>
         <p class="small">{{ profile.from_address }}</p>
         <p class="small">{{ profile.smtp_host }}</p>
-        <button class="btn btn-outline-danger fa fa-times" style="float: right;" (click)="openDelete(profile)"></button>
-        <button class="btn btn-outline-dark fa fa-clone" style="float: right; margin-right: 1vh" (click)="cloneProfile(profile)"></button>
-        <button class="btn btn-outline-dark fa fa-envelope-o" style="float: right; margin-right: 1vh" (click)="openTest(profile)"></button>
-        <button class="btn btn-outline-dark fa fa-pencil-square-o" style="float: right; margin-right: 1vh" (click)="openEdit(profile)"></button>
+        <button class="btn btn-outline-danger fa fa-times" title="Delete" style="float: right;" (click)="openDelete(profile)"></button>
+        <button class="btn btn-outline-dark fa fa-clone" title="Clone" style="float: right; margin-right: 1vh" (click)="cloneProfile(profile)"></button>
+        <button class="btn btn-outline-dark fa fa-envelope-o" title="Test" style="float: right; margin-right: 1vh" (click)="openTest(profile)"></button>
+        <button class="btn btn-outline-dark fa fa-pencil-square-o" title="Edit" style="float: right; margin-right: 1vh" (click)="openEdit(profile)"></button>
       </div>
     </div>
   </div>

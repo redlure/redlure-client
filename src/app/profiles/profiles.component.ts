@@ -41,13 +41,13 @@ export class ProfilesComponent implements OnInit {
   }
 
   openNew(){
-    const modalRef = this.modalService.open(NewProfileComponent);
+    const modalRef = this.modalService.open(NewProfileComponent, { size: 'lg' });
     modalRef.componentInstance.emitter.subscribe(data => this.profiles.unshift(data));
   }
 
   openEdit(profile){
     this.onSelect(profile)
-    const modalRef = this.modalService.open(EditProfileComponent);
+    const modalRef = this.modalService.open(EditProfileComponent, { size: 'lg' });
     modalRef.componentInstance.editProfile = this.editProfile;
     modalRef.componentInstance.emitter.subscribe( 
       data => {

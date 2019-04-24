@@ -79,6 +79,10 @@ export class PageComponent implements OnInit {
     });
   }
 
+  return() {
+    this.router.navigate([`/workspaces/${this.workspaceId}/pages`])
+  }
+
   cloneSite() {
     const modalRef = this.modalService.open(CloneSiteComponent);
     modalRef.componentInstance.emitter.subscribe( 

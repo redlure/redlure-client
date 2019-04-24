@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {map, catchError} from 'rxjs/operators'
-import {API_URL} from '../env';
+import { ApiService } from '../login/api.service'
 import { Server } from './server.model';
 import { HttpErrorHandler, HandleError } from '../http-error-handler.service';
 import { RequestOptions, Headers } from '@angular/http';
@@ -13,6 +13,7 @@ export class ServersApiService {
   private handleError: HandleError;
 
   constructor(
+    private apiService: ApiService,
     private http: HttpClient,
     httpErrorHandler: HttpErrorHandler) {
       this.handleError = httpErrorHandler.createHandleError('ServersApiService');
@@ -20,7 +21,7 @@ export class ServersApiService {
 
   // GET list of all servers from the server
   getServers(): Observable<Server[]> {
-    const url = `${API_URL}/servers`;
+    const url = `${this.apiService.getUrl()}/servers`;
     return this.http.get<Server[]>(url, {withCredentials: true})
       .pipe(
         catchError(this.handleError('getServers', []))
@@ -29,7 +30,7 @@ export class ServersApiService {
 
   // POST a new server (worker) to the server
   postServer(ip: String, alias: String, port: Number): Observable<Server> {
-    const url = `${API_URL}/servers`;
+    const url = `${this.apiService.getUrl()}/servers`;
     let formData: FormData = new FormData()
     formData.append('Alias', String(alias))
     formData.append('IP', String(ip))
@@ -42,7 +43,7 @@ export class ServersApiService {
 
     // DELETE a server (worker) from the server
     deleteServer(id: Number): Observable<Server> {
-      const url = `${API_URL}/servers/${id}`;
+      const url = `${this.apiService.getUrl()}/servers/${id}`;
       return this.http.delete<any>(url, {withCredentials: true})
         .pipe(
           catchError(this.handleError('deleteServer'))
@@ -51,7 +52,7 @@ export class ServersApiService {
 
     // GET the status of a server (worker)
     refreshServerStatus(id: Number): Observable<Server> {
-      const url = `${API_URL}/servers/${id}/status`;
+      const url = `${this.apiService.getUrl()}/servers/${id}/status`;
       return this.http.get<any>(url, {withCredentials: true})
         .pipe(
           catchError(this.handleError('refreshServer'))
@@ -60,7 +61,7 @@ export class ServersApiService {
 
     // GET the current worker API key
     getApiKey(): Observable<String> {
-      const url = `${API_URL}/api`;
+      const url = `${this.apiService.getUrl()}/api`;
       return this.http.get<any>(url, {withCredentials: true})
       .pipe(
         catchError(this.handleError('getApiKey'))
@@ -69,7 +70,7 @@ export class ServersApiService {
 
     // GET: generate a new worker API key
     refreshApiKey(): Observable<String> {
-      const url = `${API_URL}/api/generate`;
+      const url = `${this.apiService.getUrl()}/api/generate`;
       return this.http.get<any>(url, {withCredentials: true})
       .pipe(
         catchError(this.handleError('getApiKey'))

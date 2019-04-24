@@ -2,26 +2,32 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {catchError} from 'rxjs/operators'
-import {API_URL} from '../env';
 import { HttpErrorHandler, HandleError } from '../http-error-handler.service';
 import { map, tap } from 'rxjs/operators';
+import { ApiService } from './api.service'
 
 
 @Injectable()
 export class LoginApiService {
-  loginUrl = `${API_URL}/login`;
-  logoutUrl = `${API_URL}/logout`
+  loginUrl: string;
+  logoutUrl: string;
   private handleError: HandleError;
 
   constructor(
+    private apiService: ApiService,
     private http: HttpClient,
-    httpErrorHandler: HttpErrorHandler) {
+    httpErrorHandler: HttpErrorHandler
+    ) {
       this.handleError = httpErrorHandler.createHandleError('LoginApiService');
   }
 
+  ngOnInit() {
+
+  }
 
    // POST: login to the server
    login(username: String, password: String) {
+    this.loginUrl = `${this.apiService.getUrl()}/login`
     let formData: FormData = new FormData()
     formData.append('Username', String(username))
     formData.append('Password', String(password))
@@ -33,6 +39,7 @@ export class LoginApiService {
 
   // GET: logout from the server
   logout() {
+    this.logoutUrl = `${this.apiService.getUrl()}/logout`
     return this.http.get<any>(this.logoutUrl, {withCredentials: true})
     .pipe(
       catchError(this.handleError('logout'))
@@ -40,4 +47,13 @@ export class LoginApiService {
   }
         
         
+}
+
+@Injectable()
+export class ApiUrl {
+  url: String;
+
+  setUrl(url) {
+    this.url = url;
+  }
 }

@@ -51,7 +51,7 @@
           <input type="text" formControlName="smtpPort" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.smtpPort.errors }"/>
           <div *ngIf="submitted && f.smtpPort.errors" class="invalid-feedback">
             <div *ngIf="f.smtpPort.errors.required">SMTP Port is required</div>
-            <div *ngIf="f.smtpPort.errors.pattern">SMTP Port is required</div>
+            <div *ngIf="f.smtpPort.errors.pattern">SMTP Port must be a number</div>
           </div>
         </div>
 

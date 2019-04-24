@@ -35,7 +35,6 @@
           <div class="input-group-prepend">
               <span class="span-login input-group-text">Role</span>
           </div>
-          <!--<input type="text" formControlName="role" class="form-control"/>-->
           <select class="form-control" formControlName="role" [ngClass]="{ 'is-invalid': submitted && f.role.errors }">
             <option disabled selected value> -- Select a role -- </option>
             <option *ngFor="let role of roles">{{ role.name }}</option>

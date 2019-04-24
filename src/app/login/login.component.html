@@ -7,8 +7,10 @@
                         <logo class="logo-prefix">RED</logo>
                         <logo>LURE</logo>
                     </span><br/>
-                <div class="card-body">
+                <div class="card-body login-card">
                 <form class="form-signin" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+                    <!-- Username Field -->
                     <div class="input-group form-group">
                         <div class="input-group-prepend">
                             <span class="span-login input-group-text">Username</span>
@@ -18,6 +20,8 @@
                             <div *ngIf="f.username.errors.required">Username is required</div>
                         </div>
                     </div>
+
+                    <!-- Password Field -->
                     <div class="input-group form-group">
                         <div class="input-group-prepend">
                             <span class="span-login input-group-text">Password</span>
@@ -25,12 +29,22 @@
                         <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
                         <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
                             <div *ngIf="f.password.errors.required">Password is required</div>
-                        </div>   
+                        </div>
+                        <!--Invalid username/password -->
+                        <div *ngIf="invalidLogon" class="invalid-login">
+                            <div *ngIf="invalidLogon">Invalid username or password</div>
+                        </div>
                     </div>
 
-                    <!--Invalid username/password-->
-                    <div *ngIf="invalidLogon" >
-                        <div *ngIf="invalidLogon">Invalid username or password</div>
+                    <!--Server Field-->
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="span-login input-group-text">Server</span>
+                        </div>
+                        <input placeholder="https://10.1.2.3:5000" type="text" formControlName="server" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.server.errors }"/>
+                        <div *ngIf="submitted && f.server.errors" class="invalid-feedback">
+                            <div *ngIf="f.server.errors.required">Server is required</div>
+                        </div>
                     </div>
 
                     <div class="form-group">

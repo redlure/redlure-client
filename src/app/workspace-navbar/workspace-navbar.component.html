@@ -8,32 +8,32 @@
 
   <!-- Links -->
   <ul class="navbar-nav mr-auto">
-    <li class="nav-item">
+    <li class="nav-item" [routerLinkActive]="['active']">
       <a class="nav-link" routerLink="/workspaces">Workspaces</a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" [routerLinkActive]="['active']">
       <a class="nav-link" routerLink="/domains-servers">Domains & Servers</a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" [routerLinkActive]="['active']">
+      <a class="nav-link" routerLink="/users-roles">Users & Roles</a>
+    </li>
+    <li class="nav-item" [routerLinkActive]="['active']">
       <a class="nav-link" routerLink="/workspaces/{{ workspaceId }}/results">Results</a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" [routerLinkActive]="['active']">
       <a class="nav-link" routerLink="/workspaces/{{ workspaceId }}/campaigns">Campaigns</a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" [routerLinkActive]="['active']">
       <a class="nav-link" routerLink="/workspaces/{{ workspaceId }}/emails">Emails</a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" [routerLinkActive]="['active']">
       <a class="nav-link" routerLink="/workspaces/{{ workspaceId }}/pages">Pages</a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" [routerLinkActive]="['active']">
       <a class="nav-link" routerLink="/workspaces/{{ workspaceId }}/lists">Target Lists</a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" [routerLinkActive]="['active']">
       <a class="nav-link" routerLink="/workspaces/{{ workspaceId }}/profiles">Profiles</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" routerLink="/users-roles">Users & Roles</a>
     </li>
   </ul>
   <!-- Links -->

@@ -81,6 +81,10 @@ export class EmailComponent implements OnInit {
     });
   }
 
+  return() {
+    this.router.navigate([`/workspaces/${this.workspaceId}/emails`])
+  }
+
   trackChange(event){
     this.track = event.target.checked;
   }

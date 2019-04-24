@@ -6,6 +6,7 @@ import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 
+import { ApiService } from './login/api.service'
 import { AppComponent } from './app.component';
 import { WorkspacesComponent } from './workspaces/workspaces.component';
 import { LoginComponent } from './login/login.component';
@@ -53,6 +54,15 @@ import { EmailsComponent } from './emails/emails.component';
 import { EmailComponent } from './emails/email/email.component';
 import { DelEmailComponent } from './emails/del-email/del-email.component';
 import { EmailsApiService } from './emails/emails-api.service';
+import { EditCertsComponent } from './domains-servers/edit-certs/edit-certs.component';
+import { ListsComponent } from './lists/lists.component';
+import { NewListComponent } from './lists/new-list/new-list.component';
+import { EditListComponent } from './lists/edit-list/edit-list.component';
+import { DelListComponent } from './lists/del-list/del-list.component';
+import { ListsApiService } from './lists/lists-api.service';
+import { CampaignsComponent } from './campaigns/campaigns.component';
+import { CampaignComponent } from './campaigns/campaign/campaign.component';
+import { DateTimePickerComponent } from './date-time-picker/date-time-picker.component';
 
 
 @NgModule({
@@ -88,7 +98,15 @@ import { EmailsApiService } from './emails/emails-api.service';
     CloneSiteComponent,
     EmailsComponent,
     EmailComponent,
-    DelEmailComponent
+    DelEmailComponent,
+    EditCertsComponent,
+    ListsComponent,
+    NewListComponent,
+    EditListComponent,
+    DelListComponent,
+    CampaignsComponent,
+    CampaignComponent,
+    DateTimePickerComponent,
   ],
   imports: [
     BrowserModule,
@@ -103,6 +121,7 @@ import { EmailsApiService } from './emails/emails-api.service';
     AngularEditorModule,
   ],
   providers: [
+    ApiService,
     HttpErrorHandler,
     MessageService,
     LoginApiService,
@@ -117,6 +136,7 @@ import { EmailsApiService } from './emails/emails-api.service';
     AlertService,
     PagesApiService,
     EmailsApiService,
+    ListsApiService,
   ],
   bootstrap: [AppComponent],
   entryComponents: [
@@ -138,6 +158,10 @@ import { EmailsApiService } from './emails/emails-api.service';
     DelPageComponent,
     CloneSiteComponent,
     DelEmailComponent,
+    EditCertsComponent,
+    NewListComponent,
+    DelListComponent,
+    EditListComponent,
   ]
 })
 export class AppModule { }

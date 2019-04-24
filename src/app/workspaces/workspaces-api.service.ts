@@ -3,6 +3,7 @@ import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {map, catchError} from 'rxjs/operators'
 import {API_URL} from '../env';
+import { ApiService } from '../login/api.service'
 import {Workspace} from './workspace.model';
 import { HttpErrorHandler, HandleError } from '../http-error-handler.service';
 import { RequestOptions, Headers } from '@angular/http';
@@ -13,6 +14,7 @@ export class WorkspacesApiService {
   private handleError: HandleError;
 
   constructor(
+    private apiService: ApiService,
     private http: HttpClient,
     httpErrorHandler: HttpErrorHandler) {
       this.handleError = httpErrorHandler.createHandleError('WorkspacesApiService');
@@ -20,7 +22,8 @@ export class WorkspacesApiService {
 
   // GET list of all workspaces from the server
   getWorkspaces(): Observable<Workspace[]> {
-    const url = `${API_URL}/workspaces`;
+    console.log(`${this.apiService.getUrl()}/workspaces`)
+    const url = `${this.apiService.getUrl()}/workspaces`;
     return this.http.get<Workspace[]>(url, {withCredentials: true})
       .pipe(
         catchError(this.handleError('getWorkspaces', []))

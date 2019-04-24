@@ -10,6 +10,7 @@ import { Server } from './server.model'
 import { DelServerComponent } from './del-server/del-server.component'
 import { DelDomainComponent } from './del-domain/del-domain.component'
 import { AlertService } from '../alert/alert.service'
+import { EditCertsComponent } from './edit-certs/edit-certs.component'
 
 
 @Component({
@@ -18,15 +19,14 @@ import { AlertService } from '../alert/alert.service'
   providers: [
     DomainsApiService,
     ServersApiService
-  ],
-  styleUrls: ['./domains-servers.component.css']
+  ]
 })
 export class DomainsServersComponent implements OnInit {
   servers: Server[];
   domains: Domain[];
-  apiKey: String;
+  apiKey: string;
   serverLoading = false;
-  domainHeaders = ['#', 'Domain', 'DNS Lookup', 'Cert Path', 'Key Path', 'Generate Cert', 'Delete']
+  domainHeaders = ['#', 'Domain', 'DNS Lookup', 'Certs', 'Generate Cert', 'Delete']
   serverHeaders = ['#', 'Alias', 'IP', 'Port', 'Status', 'Refresh Status', 'Delete']
 
   @Input() editServer: Server; // the Server currently being edited
@@ -47,13 +47,35 @@ export class DomainsServersComponent implements OnInit {
     this.editDomain = domain;
   }
 
+  hasCerts(domain) {
+    if (domain.cert_path != "null" && domain.key_path != "null") {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  editCerts(domain) {
+    this.onDomainSelect(domain)
+    const modalRef = this.modalService.open(EditCertsComponent, { size: 'lg' });
+    modalRef.componentInstance.editDomain = this.editDomain
+    modalRef.componentInstance.emitter.subscribe(
+      data => {
+        const index: number = this.domains.indexOf(this.editDomain);
+        if (index !== -1) {
+          this.domains[index] = data;
+        }
+      }
+    );
+  }
+
   openServerModal() {
-    const modalRef = this.modalService.open(NewServerComponent);
+    const modalRef = this.modalService.open(NewServerComponent, { size: 'lg' });
     modalRef.componentInstance.emitter.subscribe(data => this.servers.push(data));
   }
 
   openDomainModal() {
-    const modalRef = this.modalService.open(NewDomainComponent);
+    const modalRef = this.modalService.open(NewDomainComponent, { size: 'lg' });
     modalRef.componentInstance.emitter.subscribe(data => this.domains.push(data));
   }
 
@@ -103,6 +125,15 @@ export class DomainsServersComponent implements OnInit {
   refreshApiKey() {
     this.serversApiService.refreshApiKey()
     .subscribe(key => this.apiKey = key["key"])
+  }
+
+  copyApiKey() {
+    document.addEventListener('copy', (e: ClipboardEvent) => {
+      e.clipboardData.setData('text/plain', (this.apiKey));
+      e.preventDefault();
+      document.removeEventListener('copy', null);
+    });
+    document.execCommand('copy');
   }
 
   refreshStatus(server: Server): void {

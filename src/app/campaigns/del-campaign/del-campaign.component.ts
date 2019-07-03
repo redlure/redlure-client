@@ -1,38 +1,39 @@
 import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
-import { ServersApiService } from '../servers-api.service'
+import { CampaignsApiService } from '../campaigns-api.service'
 import { first } from 'rxjs/operators'
-import { Server } from '../server.model'
+import { Campaign } from '../campaign.model'
 
 @Component({
-  selector: 'app-del-server',
-  templateUrl: './del-server.component.html'
+  selector: 'app-del-campaign',
+  templateUrl: './del-campaign.component.html'
 })
-export class DelServerComponent implements OnInit {
-
-  @Input() editServer: Server;
+export class DelCampaignComponent implements OnInit {
+  workspaceId: String;
+  @Input() editCampaign: Campaign;
   @Output() emitter: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
     public activeModal: NgbActiveModal,
     private router: Router,
-    private serversApiService: ServersApiService,
+    private campaignsApiService: CampaignsApiService,
   ) { }
 
   ngOnInit() {
+    this.workspaceId = this.router.url.split('/')[2];
   }
 
   closeModal() {
     this.activeModal.close();
   }
 
-  deleteServer() {
-    this.serversApiService.deleteServer(this.editServer.id)
+  deleteCampaign() {
+    this.campaignsApiService.deleteCampaign(this.workspaceId, String(this.editCampaign.id))
       .pipe(first())
         .subscribe(
             data => {
-                this.emitter.emit(this.editServer)
+                this.emitter.emit(this.editCampaign)
                 this.closeModal()
             },
             error => {

@@ -21,8 +21,8 @@
         <i style="margin-right: 1vh" class="fa fa-info-circle" placement="right" triggers="mouseenter:mouseleave" ngbPopover="Paste this value into the redlure-worker configs. If you refresh this value you will have to edit each worker's configs and restart the worker."></i>
         <b style="padding-right: 5px">API Key:</b>
         <input  style="width: 38vh; border: 0; margin-right: 1vh" type="text" value="{{ apiKey }}" readonly/>
-        <button title="Copy" style="font-size: 12px; margin-right: 1px" class="btn btn-outline-dark fa fa-clipboard" (click)="copyApiKey()" ngbPopover="Copied to clipboard" triggers="click"></button>
-        <button title="Refresh" style="font-size: 12px" class="btn btn-outline-danger fa fa-refresh" (click)="refreshApiKey()"></button>
+        <a style="cursor: pointer;" title="Copy" data-toggle="tooltip" (click)="copyApiKey()"><i class="ico text-dark fa fa-clipboard"></i></a>
+        <a style="cursor: pointer;" title="Regenerate" data-toggle="tooltip" (click)="refreshApiKey()"><i class="ico text-danger fa fa-refresh"></i></a>
       </div>
     <br>
 
@@ -40,8 +40,10 @@
             <td>{{ server.ip }}</td>
             <td>{{ server.port }}</td>
             <td>{{ server.status }}</td>
-            <td><button class="btn btn-outline-primary fa fa-refresh" (click)="refreshStatus(server)"></button></td>
-            <td><button class="btn btn-danger fa fa-times" (click)="deleteServerModal(server)"></button></td>
+            <td>
+              <a style="cursor: pointer;" title="Refresh Status" data-toggle="tooltip" (click)="refreshStatus(server)"><i class="ico text-primary fa fa-refresh"></i></a>
+              <a style="cursor: pointer;" title="Delete" data-toggle="tooltip" (click)="deleteServerModal(server)"><i class="ico text-danger fa fa-trash"></i></a>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -80,10 +82,12 @@
               <div *ngIf="hasCerts(domain);then set else unset">here is ignored</div>    
               <ng-template #set>Set</ng-template>
               <ng-template #unset>Unset</ng-template>
-              <button class="btn btn-outline-dark fa fa-pencil-square-o" style="float: left; margin-right: 1vh" (click)="editCerts(domain)"></button>
             </td>
-            <td><button class="btn btn-outline-success fa fa-lock" (click)="genDomainCert(domain)"></button></td>
-            <td><button class="btn btn-danger fa fa-times" (click)="deleteDomainModal(domain)"></button></td>
+            <td>
+              <a style="cursor: pointer;" title="Edit Certs" data-toggle="tooltip" (click)="editCerts(domain)"><i class="ico text-dark fa fa-pencil-square-o"></i></a>
+              <a style="cursor: pointer;" title="Generate Certs" data-toggle="tooltip" (click)="genDomainCert(domain)"><i class="ico text-success fa fa-lock"></i></a>
+              <a style="cursor: pointer;" title="Delete" data-toggle="tooltip" (click)="deleteDomainModal(domain)"><i class="ico text-danger fa fa-trash"></i></a>
+            </td>
         </tbody>
       </table>
     </div>

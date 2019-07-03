@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {map, catchError} from 'rxjs/operators'
-import {API_URL} from '../env';
 import { ApiService } from '../login/api.service'
 import {Workspace} from './workspace.model';
 import { HttpErrorHandler, HandleError } from '../http-error-handler.service';
@@ -22,7 +21,6 @@ export class WorkspacesApiService {
 
   // GET list of all workspaces from the server
   getWorkspaces(): Observable<Workspace[]> {
-    console.log(`${this.apiService.getUrl()}/workspaces`)
     const url = `${this.apiService.getUrl()}/workspaces`;
     return this.http.get<Workspace[]>(url, {withCredentials: true})
       .pipe(
@@ -32,7 +30,7 @@ export class WorkspacesApiService {
 
   // POST a new workspace to the server
   postWorkspace(name: String): Observable<Workspace> {
-    const url = `${API_URL}/workspaces`;
+    const url = `${this.apiService.getUrl()}/workspaces`;
     let formData: FormData = new FormData()
     formData.append('Name', String(name))
     return this.http.post<any>(url, formData, {withCredentials: true})
@@ -43,20 +41,20 @@ export class WorkspacesApiService {
 
   // DELETE a workspace from the server
   deleteWorkspace(id: Number): Observable<Workspace> {
-    const url = `${API_URL}/workspaces/${id}`;
+    const url = `${this.apiService.getUrl()}/workspaces/${id}`;
     return this.http.delete<any>(url, {withCredentials: true})
       .pipe(
         catchError(this.handleError('deleteWorkspace'))
       );  
   }
 
-  /*/ GET a specific workspace from the server
-  getWorkspace(id: String): Observable<Workspace> {
-    const url = `${API_URL}/workspaces/${id}`;
-    return this.http.get<Workspace>(url + '/'  + id, {withCredentials: true})
+  //GET a specific workspace from the server
+  getWorkspace(id: String): Observable<Workspace[]> {
+    const url = `${this.apiService.getUrl()}/workspaces/${id}`;
+    return this.http.get<Workspace[]>(url, {withCredentials: true})
       .pipe(
-        catchError(this.handleError('getWorkspace'))
+        catchError(this.handleError('getWorkspaces', []))
       );  
-  }*/
+  }
 
 }

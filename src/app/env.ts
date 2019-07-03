@@ -1,1 +1,5 @@
-export const API_URL = 'https://10.1.2.13:5000'
+export var wsName: String;
+
+export function setName(name){
+    wsName = name;
+}

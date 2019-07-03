@@ -11,7 +11,7 @@ import { DelServerComponent } from './del-server/del-server.component'
 import { DelDomainComponent } from './del-domain/del-domain.component'
 import { AlertService } from '../alert/alert.service'
 import { EditCertsComponent } from './edit-certs/edit-certs.component'
-
+import { NewKeyComponent } from './new-key/new-key.component'
 
 @Component({
   selector: 'app-domains-servers',
@@ -26,8 +26,8 @@ export class DomainsServersComponent implements OnInit {
   domains: Domain[];
   apiKey: string;
   serverLoading = false;
-  domainHeaders = ['#', 'Domain', 'DNS Lookup', 'Certs', 'Generate Cert', 'Delete']
-  serverHeaders = ['#', 'Alias', 'IP', 'Port', 'Status', 'Refresh Status', 'Delete']
+  domainHeaders = ['#', 'Domain', 'DNS Lookup', 'Certs', 'Actions']
+  serverHeaders = ['#', 'Alias', 'IP', 'Port', 'Status', 'Actions']
 
   @Input() editServer: Server; // the Server currently being edited
   @Input() editDomain: Domain; // the Domain currently being edited
@@ -123,8 +123,8 @@ export class DomainsServersComponent implements OnInit {
   }
 
   refreshApiKey() {
-    this.serversApiService.refreshApiKey()
-    .subscribe(key => this.apiKey = key["key"])
+    const modalRef = this.modalService.open(NewKeyComponent, { size: 'lg' });
+    modalRef.componentInstance.emitter.subscribe(data => this.apiKey = data);
   }
 
   copyApiKey() {

@@ -63,6 +63,10 @@ import { ListsApiService } from './lists/lists-api.service';
 import { CampaignsComponent } from './campaigns/campaigns.component';
 import { CampaignComponent } from './campaigns/campaign/campaign.component';
 import { DateTimePickerComponent } from './date-time-picker/date-time-picker.component';
+import { ResultsComponent } from './results/results.component';
+import { DelCampaignComponent } from './campaigns/del-campaign/del-campaign.component';
+import { NewKeyComponent } from './domains-servers/new-key/new-key.component';
+import { ResultsApiService } from './results/results-api.service'
 
 
 @NgModule({
@@ -107,6 +111,9 @@ import { DateTimePickerComponent } from './date-time-picker/date-time-picker.com
     CampaignsComponent,
     CampaignComponent,
     DateTimePickerComponent,
+    ResultsComponent,
+    DelCampaignComponent,
+    NewKeyComponent,
   ],
   imports: [
     BrowserModule,
@@ -137,6 +144,7 @@ import { DateTimePickerComponent } from './date-time-picker/date-time-picker.com
     PagesApiService,
     EmailsApiService,
     ListsApiService,
+    ResultsApiService,
   ],
   bootstrap: [AppComponent],
   entryComponents: [
@@ -162,6 +170,8 @@ import { DateTimePickerComponent } from './date-time-picker/date-time-picker.com
     NewListComponent,
     DelListComponent,
     EditListComponent,
+    DelCampaignComponent,
+    NewKeyComponent,
   ]
 })
 export class AppModule { }

@@ -14,6 +14,7 @@ import { EmailComponent } from './emails/email/email.component';
 import { ListsComponent } from './lists/lists.component'
 import { CampaignsComponent } from './campaigns/campaigns.component'
 import { CampaignComponent } from './campaigns/campaign/campaign.component'
+import { ResultsComponent } from './results/results.component';
  
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -29,7 +30,8 @@ const routes: Routes = [
   { path: 'workspaces/:workspaceId/emails/:emailId', component: EmailComponent },
   { path: 'workspaces/:workspaceId/lists', component: ListsComponent },
   { path: 'workspaces/:workspaceId/campaigns', component: CampaignsComponent },
-  { path: 'workspaces/:workspaceId/campaigns/:campaignId', component: CampaignComponent }
+  { path: 'workspaces/:workspaceId/campaigns/:campaignId', component: CampaignComponent },
+  { path: 'workspaces/:workspaceId/results', component: ResultsComponent}
 ];
  
 @NgModule({

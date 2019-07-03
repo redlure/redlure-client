@@ -8,8 +8,7 @@ import { Server } from '../server.model'
 
 @Component({
   selector: 'app-new-server',
-  templateUrl: './new-server.component.html',
-  styleUrls: ['./new-server.component.css']
+  templateUrl: './new-server.component.html'
 })
 export class NewServerComponent implements OnInit {
   myForm: FormGroup;

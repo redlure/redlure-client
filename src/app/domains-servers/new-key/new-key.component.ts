@@ -3,15 +3,13 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { ServersApiService } from '../servers-api.service'
 import { first } from 'rxjs/operators'
-import { Server } from '../server.model'
 
 @Component({
-  selector: 'app-del-server',
-  templateUrl: './del-server.component.html'
+  selector: 'app-new-key',
+  templateUrl: './new-key.component.html'
 })
-export class DelServerComponent implements OnInit {
-
-  @Input() editServer: Server;
+export class NewKeyComponent implements OnInit {
+  apiKey: String;
   @Output() emitter: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
@@ -27,18 +25,16 @@ export class DelServerComponent implements OnInit {
     this.activeModal.close();
   }
 
-  deleteServer() {
-    this.serversApiService.deleteServer(this.editServer.id)
+  refreshApiKey() {
+    this.serversApiService.refreshApiKey()
       .pipe(first())
         .subscribe(
-            data => {
-                this.emitter.emit(this.editServer)
-                this.closeModal()
-            },
-            error => {
-                console.log(error)
-            });
-            
-}
+          data => {
+            this.apiKey = data["key"]
+            this.emitter.emit(this.apiKey)
+            this.closeModal()
+          }
+        )
+  } 
 
 }

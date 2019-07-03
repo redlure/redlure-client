@@ -7,8 +7,7 @@ import { Domain } from '../domain.model'
 
 @Component({
   selector: 'app-del-domain',
-  templateUrl: './del-domain.component.html',
-  styleUrls: ['./del-domain.component.css']
+  templateUrl: './del-domain.component.html'
 })
 export class DelDomainComponent implements OnInit {
 

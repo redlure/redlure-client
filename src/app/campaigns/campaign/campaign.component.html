@@ -35,7 +35,7 @@
             </div>
             <select class="form-control" formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
               <option disabled selected value> -- Select a email -- </option>
-              <option *ngFor="let email of emails">{{ email.name }}</option>
+              <option *ngFor="let email of emails">{{ email }}</option>
             </select>
             <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
               <div *ngIf="f.email.errors.required">Email is required</div>
@@ -44,7 +44,8 @@
         </div>
   
       </div>
-
+      
+      <hr>
       <div class="row">
         <h4>Sending Options</h4>
       </div>
@@ -58,7 +59,7 @@
             </div>
             <select class="form-control" formControlName="profile" [ngClass]="{ 'is-invalid': submitted && f.profile.errors }">
               <option disabled selected value> -- Select a profile -- </option>
-              <option *ngFor="let profile of profile">{{ profile.name }}</option>
+              <option *ngFor="let profile of profiles">{{ profile }}</option>
             </select>
             <div *ngIf="submitted && f.profile.errors" class="invalid-feedback">
               <div *ngIf="f.profile.errors.required">Profile is required</div>
@@ -74,7 +75,7 @@
             </div>
             <select class="form-control" formControlName="targetList" [ngClass]="{ 'is-invalid': submitted && f.targetList.errors }">
               <option disabled selected value> -- Select a list -- </option>
-              <option *ngFor="let list of lists">{{ targetList.name }}</option>
+              <option *ngFor="let list of lists">{{ list }}</option>
             </select>
             <div *ngIf="submitted && f.targetList.errors" class="invalid-feedback">
               <div *ngIf="f.targetList.errors.required">List is required</div>
@@ -116,13 +117,14 @@
             </div>
             <app-date-time-picker formControlName="startDate" name="startDate" [ngClass]="{ 'is-invalid': submitted && f.startDate.errors }"></app-date-time-picker>   
             <div *ngIf="submitted && f.startDate.errors" class="invalid-feedback">
-              <div *ngIf="f.startDate.errors.isValid">Must be a valid date time</div>
+              <div *ngIf="f.startDate.errors.invalid">Must be a valid date time</div>
             </div>          
           </div>
         </div>
 
       </div>
 
+      <hr>
       <div class="row">
         <h4>Hosting</h4>
       </div>
@@ -136,7 +138,7 @@
             </div>
             <select class="form-control" formControlName="domain" [ngClass]="{ 'is-invalid': submitted && f.domain.errors }">
               <option disabled selected value> -- Select a domain -- </option>
-              <option *ngFor="let domain of domains">{{ domains.domain }}</option>
+              <option *ngFor="let domain of domains">{{ domain }}</option>
             </select>
             <div *ngIf="submitted && f.domain.errors" class="invalid-feedback">
               <div *ngIf="f.domain.errors.required">Domain is required</div>
@@ -152,7 +154,7 @@
             </div>
             <select class="form-control" formControlName="server" [ngClass]="{ 'is-invalid': submitted && f.server.errors }">
               <option disabled selected value> -- Select a server -- </option>
-              <option *ngFor="let server of servers">{{ server.alias }}</option>
+              <option *ngFor="let server of servers">{{ server }}</option>
             </select>
             <div *ngIf="submitted && f.server.errors" class="invalid-feedback">
               <div *ngIf="f.server.errors.required">Server is required</div>
@@ -180,12 +182,66 @@
             <i class="fa fa-info-circle" placement="right" triggers="mouseenter:mouseleave" ngbPopover="Host pages over SSL using certs supplied with your domain"></i>
           </div>
         </div>
+
+      </div>
+
+      <hr>
+      <div class="row">
+        <h4>Web Pages</h4>
       </div>
 
       <div class="row">
+          <div *ngFor="let p of pageCount; let i = index" class="col-2">
+            <!--Page Field-->
+            <div class="input-group form-group">
+              <div class="input-group-prepend">
+                  <span class="input-group-text">Page {{ i + 1 }}</span>
+              </div>
+              <select class="form-control" formControlName="page{{ i+1 }}">
+                <option disabled selected value> -- Select a page -- </option>
+                <option [ngValue]="page" *ngFor="let page of pages">{{ page }}</option>
+              </select>
+              <div *ngIf="i == pageCount.length - 1 && i > 0" class="input-group-append">
+               <button class="btn btn-outline-danger fa fa-times"type="button" (click)="deletePage(i)"></button>
+              </div>
+            </div>
+        </div>
+
+        <div *ngIf="pageCount.length < 4" class="col-1">
+          <button class="btn btn-outline-dark fa fa-plus" style="height: 67%" type="button" (click)="addPage()"></button>
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col-5">
+          <!--Redirect URL Field-->
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Redirect URL</span>
+            </div>
+            <input type="text" formControlName="redirectUrl" class="form-control"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-5">
+          <!--Payload URL Field-->
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Payload URL</span>
+            </div>
+            <input type="text" formControlName="payloadUrl" class="form-control"/>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row">
         <div class="col-sm">
+          <button ngbAutofocus style="margin-left: 1vh" class="float-right" type="submit" [disabled]="loading" class="btn btn-outline-dark float-right">{{ saveBtnText }}</button>
           <img *ngIf="loading" class="float-right" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-          <button ngbAutofocus type="submit" [disabled]="loading" class="btn btn-outline-dark float-right">{{ saveBtnText }}</button>
         </div>
       </div>
     </div>

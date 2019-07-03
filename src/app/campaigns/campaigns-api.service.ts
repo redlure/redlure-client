@@ -28,4 +28,60 @@ export class CampaignsApiService {
         catchError(this.handleError('getCampaigns', []))
       );  
   }
+
+
+  // POST a new campaign to the server
+  postCampaign(id: String, name: String, email: String, profile: String, list: String, batchNumber: Number,
+    batchInterval: Number, startTime: Date, domain: String, server: String, port: Number, ssl: Boolean,
+    pages: String[], redirectUrl: String, payloadUrl: String) {
+
+    const url = `${this.apiService.getUrl()}/workspaces/${id}/campaigns`;
+    let formData: FormData = new FormData();
+    formData.append('Name', String(name));
+    formData.append('Email_Name', String(email));
+    formData.append('Profile_Name', String(profile));
+    formData.append('List_Name', String(list));
+    formData.append('Domain_Name', String(domain));
+    formData.append('Server_Alias', String(server));
+    formData.append('Port', String(port));
+    formData.append('SSL', String(ssl));
+    formData.append('Redirect_URL', String(redirectUrl));
+
+    pages.forEach(page => {
+      formData.append('Page_Names[]', String(page));
+    });
+
+    return this.http.post<any>(url, formData, {withCredentials: true})
+      .pipe(
+        catchError(this.handleError('postCampaign'))
+      );  
+  }
+
+
+  // GET list of page names, email names etc from the server available to create campaigns with
+  getAllModules(id: String): Observable<any> {
+    const url = `${this.apiService.getUrl()}/workspaces/${id}/campaigns/modules`;
+    return this.http.get<any>(url, {withCredentials: true})
+      .pipe(
+        catchError(this.handleError('getAllModules', []))
+      );  
+  }
+
+  // DELETE a campaign from the server
+  deleteCampaign(workspaceId: String, campaignId: String): Observable<Campaign> {
+    const url = `${this.apiService.getUrl()}/workspaces/${workspaceId}/campaigns/${campaignId}`;
+    return this.http.delete<any>(url, {withCredentials: true})
+      .pipe(
+        catchError(this.handleError('deleteCampaign'))
+      );  
+  }
+
+  // start a campaign
+  launchCampaign(workspaceId: String, campaignId: String){
+    const url = `${this.apiService.getUrl()}/workspaces/${workspaceId}/campaigns/${campaignId}/cast`;
+    return this.http.get(url, {withCredentials: true})
+      .pipe(
+        catchError(this.handleError('getCampaigns', []))
+      );  
+  }
 }

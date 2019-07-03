@@ -3,8 +3,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Workspace } from './workspace.model';
 import { WorkspacesApiService } from './workspaces-api.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { NewWorkspaceComponent } from './new-workspace/new-workspace.component'
-import { DelWorkspaceComponent } from './del-workspace/del-workspace.component'
+import { NewWorkspaceComponent } from './new-workspace/new-workspace.component';
+import { DelWorkspaceComponent } from './del-workspace/del-workspace.component';
 
 @Component({
   selector: 'app-workspaces',

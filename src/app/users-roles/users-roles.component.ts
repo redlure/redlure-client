@@ -25,8 +25,8 @@ export class UsersRolesComponent implements OnInit {
   @Input() editUser: Object; // the User currently being edited
   @Input() editRole: Object; // the Role currently being edited
 
-  userHeaders = ["#", "Username", "Role", "Delete"]
-  roleHeaders = ["#", "Name", "Type", "Permissions", "Delete"]
+  userHeaders = ["#", "Username", "Role", "Actions"]
+  roleHeaders = ["#", "Name", "Type", "Actions"]
 
   constructor(
     private usersApiService: UsersApiService,

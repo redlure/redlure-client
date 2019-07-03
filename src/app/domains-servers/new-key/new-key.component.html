@@ -1,0 +1,11 @@
+<div class="modal-header">
+    <h4 class="modal-title">Regenerate API key</h4>
+  </div>
+  <div class="modal-body">
+    Generating a new API key will disrupt communications between exisitng redlure workers and this server. Workers will need to be restarted after the new API key is added to the config file. Are you sure you want a new API key?
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-outline-danger float-left" (click)="refreshApiKey()">Yes</button>
+    <button class="btn btn-outline-dark" (click)="closeModal()">No</button>
+  </div>
+    

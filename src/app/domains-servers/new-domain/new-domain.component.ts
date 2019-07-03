@@ -8,8 +8,7 @@ import { Domain } from '../domain.model'
 
 @Component({
   selector: 'app-new-domain',
-  templateUrl: './new-domain.component.html',
-  styleUrls: ['./new-domain.component.css']
+  templateUrl: './new-domain.component.html'
 })
 export class NewDomainComponent implements OnInit {
   myForm: FormGroup;

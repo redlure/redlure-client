@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { ApiService } from './api.service'
 import { LoginApiService } from './login-api.service'
-import { API_URL } from '../env'
 
 @Component({
   selector: 'app-login',

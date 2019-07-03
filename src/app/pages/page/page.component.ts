@@ -88,7 +88,6 @@ export class PageComponent implements OnInit {
     modalRef.componentInstance.emitter.subscribe( 
       data => {
         this.f.htmlContent.setValue(data);
-        console.log(data)
       }        
     );
   }

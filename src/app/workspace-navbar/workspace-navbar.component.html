@@ -17,6 +17,9 @@
     <li class="nav-item" [routerLinkActive]="['active']">
       <a class="nav-link" routerLink="/users-roles">Users & Roles</a>
     </li>
+    <li class="nav-item">
+      <p class="nav-link">|</p>
+    </li>
     <li class="nav-item" [routerLinkActive]="['active']">
       <a class="nav-link" routerLink="/workspaces/{{ workspaceId }}/results">Results</a>
     </li>
@@ -37,6 +40,7 @@
     </li>
   </ul>
   <!-- Links -->
+  <div class="btn btn-secondary float-right" style="margin-right: 1vh">{{ workspace.name }}</div>
   <button class="btn btn-outline-danger float-right login_btn">Logout</button>
 </nav>
 <!--/.Navbar-->

@@ -14,8 +14,9 @@
             <!--<th scope="row">{{ i +1 }}</th>-->
             <td>{{ workspace.name }}</td>
             <td>
-              <div class="custom-control custom-checkbox custom-control-inline">
-                <input type="checkbox" class="" id="ssl" (change)="accessChange($event, workspace)" [checked]="currentWorkspaceIds.includes(workspace.id)">
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="cb{{i}}" (change)="accessChange($event, workspace)" [checked]="currentWorkspaceIds.includes(workspace.id)">
+                <label class="custom-control-label" for="cb{{i}}"></label>
               </div>
             </td>
           </tr>

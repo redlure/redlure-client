@@ -7,4 +7,149 @@
       <b class="h3-suffix">ULTS</b>
     </h3>
   </div>
+
+<br>
+
+  <div class="container-fluid">
+    <div class="row justify-content-md-center">
+      <!--col with total lures-->
+      <div class="col-1 h5 text-dark mr-2" style="text-align: center;">
+        <div class="row border border-dark text-dark justify-content-md-center mb-2">
+          {{ calcProgress("Scheduled") }}
+          <br>
+          Scheduled
+        </div>
+        <div class="row border border-dark text-dark justify-content-md-center mb-2">
+          {{ calcProgress("Sent") }}
+          <br>
+          Sent
+        </div>
+        <div class="row border border-dark text-dark justify-content-md-center mb-2" style="height: 47%">
+          <br>
+          {{ results.length }}
+          <br>
+          Total Lures
+        </div>
+      </div>
+
+      <!--col with emails by status-->
+      <div class="col-1 h5 mr-2" style="text-align: center">
+        <div class="row border border-dark text-dark justify-content-md-center mb-2">
+          {{ calcUnopen() }}
+          <br>
+          Unopened
+        </div>
+        <div class="row border border-dark text-dark justify-content-md-center mb-2">
+          {{ calcProgress("Opened") }}
+          <br>
+          Opened
+        </div>
+        <div class="row border border-danger text-danger justify-content-md-center mb-2">
+          {{ calcProgress("Clicked") }}
+          <br>
+          Clicked
+        </div>
+        <div class="row border border-danger text-danger justify-content-md-center mb-2">
+          {{ calcProgress("Submitted") }}
+          <br>
+          Credentials
+        </div>
+      </div>
+      <!--col with campaigns-->
+      <div class="col-4 border border-dark mb-2 mr-2" style="text-align: center">
+        <div class="row h5 text-dark justify-content-md-center">
+          Campaigns
+        </div>
+        <div class="row">
+          <div class="table-responsive">
+            <div style="overflow: auto">
+              <table class="table table-hover table-sm">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="cbHead" class="custom-control-input" (change)="toggleSelectAll($event)" [checked]="selectAll">                            <label class="custom-control-label" for="cbHead"></label>
+                      </div>
+                    </th>
+                    <th scope="col" *ngFor="let head of campaignHeaders; let i = index">{{ head }}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let campaign of campaigns; let i = index">
+                    {{ setState(campaign) }}
+                    <td>
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="cb{{ i }}" class="custom-control-input" [(ngModel)]="campaign.state" (change)="toggleSelect($event, campaign.id)">
+                        <label class="custom-control-label" for="cb{{ i }}"></label>
+                      </div>
+                    </td>
+                    <td>{{ campaign.id }}</td>
+                    <td>{{ campaign.name }}</td>
+                    <td>{{ campaign.status }}</td>
+                    <td>{{ campaign.server.alias }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--col with cred vault-->
+      <div class="col-5 border border-dark mb-2" style="text-align: center">
+        <div class="row h5 text-dark justify-content-md-center">
+          Credential Vault
+        </div>
+        <div class="row">
+          <div class="table-responsive">
+            <div style="overflow: auto">
+              <table class="table table-hover table-sm">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col" *ngFor="let head of credHeaders; let i = index">{{ head }}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <div *ngFor="let form of forms">
+                    <div *ngIf="form.length > 0">
+                      <tr *ngFor="let x of form">
+                        <td>{{ getEmail(x.result_id) }}</td>
+                        <td>{{ getCId(x.result_id) }}</td>
+                      </tr>
+                    </div>
+                  </div>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>  
+    </div>
+
+
+    <!--Bottom half of screen with reuslts by email sent-->
+    <br>
+    <div class="row">
+      <div class="table-responsive">
+        <table class="table table-hover table-striped table-sm">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col" *ngFor="let head of headers; let i = index">{{ head }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let result of results; let i = index">
+              <th scope="row">{{ i +1 }}</th>
+              <td>{{ result.status }}</td>
+              <td>{{ result.person.email }}</td>
+              <td>{{ result.person.first_name }}</td>
+              <td>{{ result.person.last_name }}</td>
+              <td>{{ result.tracker }}</td>
+              <td>{{ result.campaign_id }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </body>

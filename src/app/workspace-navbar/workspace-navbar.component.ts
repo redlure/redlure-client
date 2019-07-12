@@ -20,12 +20,13 @@ export class WorkspaceNavbarComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.getWorkspace()
+    //this.getWorkspace()
   }
 
+  /*
   getWorkspace(): void {
     this.workspacesApiService.getWorkspace(this.workspaceId)
       .subscribe(workspace => this.workspace = workspace);
   }
-
+*/
 }

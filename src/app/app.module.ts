@@ -68,6 +68,9 @@ import { DelCampaignComponent } from './campaigns/del-campaign/del-campaign.comp
 import { NewKeyComponent } from './domains-servers/new-key/new-key.component';
 import { ResultsApiService } from './results/results-api.service'
 
+import { JoditAngularModule } from 'jodit-angular';
+import { NgxSummernoteModule } from 'ngx-summernote'
+
 
 @NgModule({
   declarations: [
@@ -126,6 +129,8 @@ import { ResultsApiService } from './results/results-api.service'
     MDBBootstrapModule.forRoot(),
     MDBBootstrapModule,
     AngularEditorModule,
+    JoditAngularModule,
+    NgxSummernoteModule
   ],
   providers: [
     ApiService,

@@ -28,7 +28,7 @@ export class PageComponent implements OnInit {
   saveBtnText: String;
 
   @Output() emitter: EventEmitter<any> = new EventEmitter<any>();
-
+  /*
   config: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
@@ -39,6 +39,15 @@ export class PageComponent implements OnInit {
     width: '95%',
     placeholder: 'Create web page here...',
     translate: 'no',
+  }
+  */
+  config = {
+    'iframe': true,
+    "disablePlugins": "table, resizer, inlinePopup, cleanHtml",
+    "height": window.innerHeight * .75,
+    "width": '100%',
+    allowResizeX: true,
+    allowResizeY: false
   }
 
   constructor(

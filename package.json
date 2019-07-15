@@ -42,6 +42,7 @@
     "@angular/compiler-cli": "~7.2.0",
     "@angular/http": "^7.2.9",
     "@angular/language-service": "~7.2.0",
+    "@fortawesome/fontawesome-free": "^5.9.0",
     "@ng-bootstrap/ng-bootstrap": "^4.1.0",
     "@types/jasmine": "~2.8.8",
     "@types/jasminewd2": "~2.0.3",

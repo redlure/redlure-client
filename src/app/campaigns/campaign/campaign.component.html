@@ -202,13 +202,13 @@
                 <option [ngValue]="page" *ngFor="let page of pages">{{ page }}</option>
               </select>
               <div *ngIf="i == pageCount.length - 1 && i > 0" class="input-group-append">
-               <button class="btn btn-outline-danger fa fa-times"type="button" (click)="deletePage(i)"></button>
+               <button class="btn btn-outline-danger fas fa-minus"type="button" (click)="deletePage(i)"></button>
               </div>
             </div>
         </div>
 
         <div *ngIf="pageCount.length < 4" class="col-1">
-          <button class="btn btn-outline-dark fa fa-plus" style="height: 67%" type="button" (click)="addPage()"></button>
+          <button class="btn btn-outline-dark fas fa-plus" style="height: 67%" type="button" (click)="addPage()"></button>
         </div>
 
       </div>

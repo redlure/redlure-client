@@ -1,0 +1,20 @@
+<div class="modal-header">
+  <h4 class="modal-title">Form Submission</h4>
+  <button class="btn btn-outline-danger" (click)="closeModal()">Close</button>
+</div>
+
+<form>
+  <div class="modal-body">
+    <div class="container">
+      <div *ngFor="let input of selectedForm.data | keyvalue">
+        <div class="input-group form-group">
+          <div class="input-group-prepend">
+            <span class="span-form input-group-text">{{ input.key }}</span>
+          </div>
+          <input value="{{ input.value }}" type="text" class="form-control" style="background-color: white" readonly/>
+          <button class="btn fas fa-copy" (click)="copyData(input.value)" title="Copy" style="margin-left: 4px;"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

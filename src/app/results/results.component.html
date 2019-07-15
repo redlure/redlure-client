@@ -61,36 +61,34 @@
           Campaigns
         </div>
         <div class="row">
-          <div class="table-responsive">
-            <div style="overflow: auto">
-              <table class="table table-hover table-sm">
-                <thead class="thead-light">
-                  <tr>
-                    <th scope="col">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" id="cbHead" class="custom-control-input" (change)="toggleSelectAll($event)" [checked]="selectAll">                            <label class="custom-control-label" for="cbHead"></label>
-                      </div>
-                    </th>
-                    <th scope="col" *ngFor="let head of campaignHeaders; let i = index">{{ head }}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let campaign of campaigns; let i = index">
-                    {{ setState(campaign) }}
-                    <td>
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" id="cb{{ i }}" class="custom-control-input" [(ngModel)]="campaign.state" (change)="toggleSelect($event, campaign.id)">
-                        <label class="custom-control-label" for="cb{{ i }}"></label>
-                      </div>
-                    </td>
-                    <td>{{ campaign.id }}</td>
-                    <td>{{ campaign.name }}</td>
-                    <td>{{ campaign.status }}</td>
-                    <td>{{ campaign.server.alias }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+          <div class="table-responsive" style="overflow-x: auto; height:300px">
+            <table class="table table-hover table-sm">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" id="cbHead" class="custom-control-input" (change)="toggleSelectAll($event)" [checked]="selectAll">                            <label class="custom-control-label" for="cbHead"></label>
+                    </div>
+                  </th>
+                  <th scope="col" *ngFor="let head of campaignHeaders; let i = index">{{ head }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let campaign of campaigns; let i = index">
+                  {{ setState(campaign) }}
+                  <td>
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" id="cb{{ i }}" class="custom-control-input" [(ngModel)]="campaign.state" (change)="toggleSelect($event, campaign.id)">
+                      <label class="custom-control-label" for="cb{{ i }}"></label>
+                    </div>
+                  </td>
+                  <td>{{ campaign.id }}</td>
+                  <td>{{ campaign.name }}</td>
+                  <td>{{ campaign.status }}</td>
+                  <td>{{ campaign.server.alias }}</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
@@ -110,14 +108,10 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <div *ngFor="let form of forms">
-                    <div *ngIf="form.length > 0">
-                      <tr *ngFor="let x of form">
-                        <td>{{ getEmail(x.result_id) }}</td>
-                        <td>{{ getCId(x.result_id) }}</td>
-                      </tr>
-                    </div>
-                  </div>
+                  <tr style="cursor: pointer;" *ngFor="let form of forms" (click)="openFormModal(form)">
+                    <td>{{ getEmail(form.result_id) }}</td>
+                    <td>{{ getCId(form.result_id) }}</td>
+                  </tr>
                 </tbody>
               </table>
             </div>

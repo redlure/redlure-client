@@ -30,7 +30,7 @@
             <th scope="row">{{ i +1 }}</th>
             <td>{{ user.username }}</td>
             <td>{{ user.role.name }}</td>
-            <td><a style="cursor: pointer;" title="Delete" data-toggle="tooltip" (click)="deleteUserModal(user)"><i class="ico text-danger fa fa-trash"></i></a></td>
+            <td><a style="cursor: pointer;" title="Delete" data-toggle="tooltip" (click)="deleteUserModal(user)"><i class="ico text-danger fas fa-trash-alt"></i></a></td>
           </tr>
         </tbody>
       </table>
@@ -66,8 +66,8 @@
             <td>{{ role.name }}</td>
             <td>{{ role.role_type }}</td>
             <td>
-              <a style="cursor: pointer;" title="Edit" data-toggle="tooltip" (click)="editRoleModal(role)"><i class="text-dark fa fa-pencil-square-o"></i></a>
-              <a style="cursor: pointer;" title="Delete" data-toggle="tooltip" (click)="deleteRoleModal(role)"><i class="ico text-danger fa fa-trash"></i></a>
+              <a style="cursor: pointer;" title="Edit" data-toggle="tooltip" (click)="editRoleModal(role)"><i class="text-dark fas fa-edit"></i></a>
+              <a style="cursor: pointer;" title="Delete" data-toggle="tooltip" (click)="deleteRoleModal(role)"><i class="ico text-danger fas fa-trash-alt"></i></a>
             </td>
           </tr>
         </tbody>

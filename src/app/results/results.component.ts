@@ -5,6 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router'
 import { Result } from './result.model'
 import { Target } from '../lists/targets/target.model';
+import { FormComponent } from './form/form.component'
 
 
 @Component({
@@ -17,6 +18,7 @@ export class ResultsComponent implements OnInit {
   forms: any[] = []; //holds submitted form data
   filtered = false;
   selectAll = true;
+  selectedForm;
   
   workspaceId: String;
   campaigns: any[];
@@ -38,12 +40,16 @@ export class ResultsComponent implements OnInit {
     this.getResults();
   }
 
+  onResultSelect(form){
+    this.selectedForm = form;
+  }
+
   getResults() {
     this.resultsApiService.getResults(this.workspaceId).subscribe(data => {
       this.allResults = data[1];
       this.campaigns = data[0];
       this.results = this.allResults;
-      this.forms = this.results.map(result => result.forms).filter(result => typeof(result.forms.length) !== 'undefined');
+      this.forms = this.getForms();
       console.log(this.forms)
     });
   }
@@ -60,7 +66,7 @@ export class ResultsComponent implements OnInit {
     this.campaigns.forEach(campaign => campaign.state = event.target.checked);
     if (event.target.checked) {
       this.results = this.allResults;
-      this.forms = this.results.map(result => result.forms).filter(result => result.forms.length > 0);
+      this.forms = this.getForms();
     } else {
       this.results = [];
       this.forms = [];
@@ -71,25 +77,42 @@ export class ResultsComponent implements OnInit {
     let results = this.allResults.filter(result => result.campaign_id === campaignId);
     if (event.target.checked) {
       this.results = this.results.concat(results);
-      this.forms = this.results.map(result => result.forms).filter(result => result.forms.length > 0);
+      this.forms = this.getForms();
     } else {
       this.results = this.results.filter(result => results.indexOf(result) < 0);
-      this.forms = this.results.map(result => result.forms).filter(result => result.forms.length > 0);
+      this.forms = this.getForms();
     }
   }
 
+  // if campaign state is undefined set to true, so that checkbox starts as checked
   setState(campaign) {
     if (typeof(campaign.state) == 'undefined') {
       campaign.state = true;
     }
   }
 
+
+  // return an email address given a result ID
   getEmail(id){
     return this.results.filter(result => result.id === id)[0].person.email;
   }
 
+  
+  // return the campaign ID given a result ID
   getCId(id){
     return this.results.filter(result => result.id === id)[0].campaign_id;
+  }
+
+
+  // get all form data arrays that are no empty and flatten all results into 1 array (vs array of arrays)
+  getForms(){
+    return [].concat.apply([], this.results.map(result => result.forms).filter(result => result.length > 0));
+  }
+
+  openFormModal(form) {
+    this.onResultSelect(form);
+    const modalRef = this.modalService.open(FormComponent, { size: 'lg' });
+    modalRef.componentInstance.selectedForm = this.selectedForm;
   }
 
 }

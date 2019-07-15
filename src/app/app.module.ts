@@ -69,7 +69,8 @@ import { NewKeyComponent } from './domains-servers/new-key/new-key.component';
 import { ResultsApiService } from './results/results-api.service'
 
 import { JoditAngularModule } from 'jodit-angular';
-import { NgxSummernoteModule } from 'ngx-summernote'
+import { NgxSummernoteModule } from 'ngx-summernote';
+import { FormComponent } from './results/form/form.component'
 
 
 @NgModule({
@@ -117,6 +118,7 @@ import { NgxSummernoteModule } from 'ngx-summernote'
     ResultsComponent,
     DelCampaignComponent,
     NewKeyComponent,
+    FormComponent,
   ],
   imports: [
     BrowserModule,
@@ -177,6 +179,7 @@ import { NgxSummernoteModule } from 'ngx-summernote'
     EditListComponent,
     DelCampaignComponent,
     NewKeyComponent,
+    FormComponent,
   ]
 })
 export class AppModule { }

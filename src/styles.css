@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.css";
-@import "~font-awesome/css/font-awesome.css";
+@import "~@fortawesome/fontawesome-free/css/all.css";
 
 @font-face {
     font-family: 'sans-forgetica';
@@ -75,6 +75,11 @@ logo {
 .span-profile {
     float: left;
     width: 95px;
+}
+
+.span-form {
+    float: left;
+    width: 120px;
 }
 
 p {

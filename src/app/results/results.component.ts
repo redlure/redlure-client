@@ -59,7 +59,11 @@ export class ResultsComponent implements OnInit {
   }
 
   calcUnopen() {
-    return (this.results.length - this.calcProgress("Opened") - this.calcProgress("Clicked") - this.calcProgress("Submitted"))
+    return (this.results.length - this.calcProgress("Opened") - this.calcProgress("Clicked") - this.calcProgress("Submitted") - this.calcProgress("Scheduled"))
+  }
+
+  calcSent() {
+    return (this.results.length - this.calcProgress("Scheduled"))
   }
 
   toggleSelectAll(event) {
@@ -113,6 +117,10 @@ export class ResultsComponent implements OnInit {
     this.onResultSelect(form);
     const modalRef = this.modalService.open(FormComponent, { size: 'lg' });
     modalRef.componentInstance.selectedForm = this.selectedForm;
+  }
+
+  sortResults(col) {
+    console.log(col)
   }
 
 }

@@ -5,6 +5,7 @@ import { WorkspacesApiService } from './workspaces-api.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NewWorkspaceComponent } from './new-workspace/new-workspace.component';
 import { DelWorkspaceComponent } from './del-workspace/del-workspace.component';
+import { setName } from '../env'
 
 @Component({
   selector: 'app-workspaces',
@@ -51,6 +52,10 @@ export class WorkspacesComponent implements OnInit {
   getWorkspaces(): void {
     this.workspacesApiService.getWorkspaces()
       .subscribe(workspaces => this.workspaces = workspaces);
+  }
+
+  enterWs(name) {
+    setName(name)
   }
   
 }

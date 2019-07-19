@@ -51,5 +51,14 @@ export class DomainsApiService {
       );  
   }
 
+  // GET cert Gen
+  getCertGen(id: Number): Observable<any> {
+    const url = `${this.apiService.getUrl()}/domains/${id}/certificates/generate`;
+    return this.http.get<any>(url, {withCredentials: true})
+      .pipe(
+        catchError(this.handleError('getCertGen'))
+      );
+  }
+
 
 }

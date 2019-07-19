@@ -49,12 +49,9 @@ export class WorkspacesApiService {
   }
 
   //GET a specific workspace from the server
-  getWorkspace(id: String): Observable<Workspace[]> {
+  getWorkspace(id: String): Observable<Workspace> {
     const url = `${this.apiService.getUrl()}/workspaces/${id}`;
-    return this.http.get<Workspace[]>(url, {withCredentials: true})
-      .pipe(
-        catchError(this.handleError('getWorkspaces', []))
-      );  
+    return this.http.get<Workspace>(url, {withCredentials: true});
   }
 
 }

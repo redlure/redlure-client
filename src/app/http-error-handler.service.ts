@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-
+import { Router } from '@angular/router'
 import { Observable, of } from 'rxjs';
 
 import { MessageService } from './message.service';
@@ -12,7 +12,10 @@ export type HandleError =
 /** Handles HttpClient errors */
 @Injectable()
 export class HttpErrorHandler {
-  constructor(private messageService: MessageService) { }
+  constructor(
+    private messageService: MessageService,
+    private router: Router,
+  ) { }
 
   /** Create curried handleError function that already knows the service name */
   createHandleError = (serviceName = '') => <T>
@@ -30,6 +33,7 @@ export class HttpErrorHandler {
     return (error: HttpErrorResponse): Observable<T> => {
       // TODO: send the error to remote logging infrastructure
       console.error(error); // log to console instead
+      //this.router.navigate(['/login'])
 
       const message = (error.error instanceof ErrorEvent) ?
         error.error.message :

@@ -26,6 +26,7 @@ export class DomainsServersComponent implements OnInit {
   domains: Domain[];
   apiKey: string;
   serverLoading = false;
+  domainLoading = false;
   domainHeaders = ['#', 'Domain', 'DNS Lookup', 'Certs', 'Actions']
   serverHeaders = ['#', 'Alias', 'IP', 'Port', 'Status', 'Actions']
 
@@ -150,7 +151,23 @@ export class DomainsServersComponent implements OnInit {
         error => {
           this.serverLoading = false;
         }
-      )
+      );
+  }
+
+  genDomainCert(domain) {
+    this.domainLoading = true;
+    this.domainsApiService.getCertGen(domain.id)
+      .subscribe(
+        data => {
+          this.domainLoading = false;
+          console.log(data)
+          if (!data.success) {
+            this.alertService.newAlert('warning', data.msg)
+          } else {
+            this.alertService.newAlert('success', 'SSL certs generated for ' + domain.domain)
+          }
+        }
+      );
   }
 
   ngOnInit() {

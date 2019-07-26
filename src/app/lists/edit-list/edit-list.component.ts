@@ -7,6 +7,7 @@ import { first } from 'rxjs/operators'
 import { List } from '../list.model'
 import { AlertService } from '../../alert/alert.service'
 import { Target } from '../targets/target.model';
+import { parse } from 'papaparse';
 
 
 @Component({
@@ -17,11 +18,12 @@ import { Target } from '../targets/target.model';
 export class EditListComponent implements OnInit {
   myForm: FormGroup;
   loading = false;
-  submitted = false;
+  submitted = false
+  list: List;
   editList: List;
-  tls: false;
-  ssl: false;
+
   workspaceId: String;
+
   targets: Target[] = [];
   newTarget: Target;
   csvContent: String;
@@ -52,12 +54,80 @@ export class EditListComponent implements OnInit {
       email: ['', Validators.email]
     });
     
-    this.targets = this.editList.targets
+    this.list = this.editList
+    this.targets = this.list.targets
     this.workspaceId = this.router.url.split('/')[2];
   }
 
   onFileSelect(file) {
     this.file = file.target.files[0];
+    let reader = new FileReader();
+    reader.onload = () => {
+      var csv:string = reader.result as string;
+      parse(csv, {complete: (result) => this.csvToTable(result.data)});
+    }
+    reader.readAsText(this.file);
+  }
+
+
+  csvToTable(csv) {
+    var emailCol: number;
+    var fnameCol: number;
+    var lnameCol: number;
+    var exit = false;
+
+    let headers = csv[0];
+
+    // check which header is in which column; exit for unrecognized header
+    headers.forEach((txt, index) => {
+      txt = txt.toLowerCase();
+
+      if(txt == 'email') {
+        emailCol = index;
+
+      } else if(txt == 'first') {
+        fnameCol = index;
+
+      } else if(txt == 'last') {
+        lnameCol = index;
+
+      } else {
+        this.alertService.newAlert('danger', 'Unrecognized column: ' + txt);
+        exit = true;
+      }
+    });
+
+    if(emailCol == null) {
+      this.alertService.newAlert('danger', 'CSV does not include email column');
+      exit= true; 
+    }
+
+    if(exit){
+      return;
+    }
+    
+    csv.forEach((row, index) => {
+      var email: string = '';
+      var fname: string = '';
+      var lname: string = '';
+
+      if(index != 0){
+        row.forEach((txt, index) => {
+         if(index == emailCol) { email = txt; }
+         if(index == fnameCol) { fname = txt; }
+         if(index == lnameCol) { lname = txt; }
+        });
+
+        this.newTarget = {
+          id: null,
+          first_name: fname,
+          last_name: lname,
+          email: email
+        }
+        
+        if(this.newTarget.email != '') {this.targets.push(this.newTarget);}
+      }
+    });
   }
 
   deleteTarget(target){
@@ -75,6 +145,8 @@ export class EditListComponent implements OnInit {
       }
 
       this.targets.push(this.newTarget);
+      console.log(this.targets)
+      console.log(this.editList.targets)
       this.f.first_name.setValue("");
       this.f.last_name.setValue("");
       this.f.email.setValue("");

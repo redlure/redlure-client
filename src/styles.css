@@ -128,3 +128,7 @@ p {
  .highlighted {
      background: lightblue;
  }
+
+ .card-deck {
+     grid-template-columns: repeat(6, minmax(250px, 1fr));
+ }

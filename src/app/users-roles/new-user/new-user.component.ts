@@ -30,7 +30,7 @@ export class NewUserComponent implements OnInit {
   ngOnInit() {
     this.myForm = this.formBuilder.group({
       username: ['', Validators.required],
-      password: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
+      password: ['', Validators.required],
       role: ['', Validators.required]
     });
   }

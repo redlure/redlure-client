@@ -34,7 +34,7 @@ export class NewProfileComponent implements OnInit {
   ngOnInit() {
     this.myForm = this.formBuilder.group({
       name: ['', Validators.required],
-      fromAddress: ['', Validators.compose([Validators.email, Validators.required])],
+      fromAddress: ['', Validators.required],
       smtpHost: ['', Validators.required],
       smtpPort: ['', Validators.compose([Validators.pattern('[0-9]*'), Validators.required])],
       username: [''],

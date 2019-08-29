@@ -8,8 +8,7 @@ import { Profile } from '../profile.model'
 
 @Component({
   selector: 'app-edit-profile',
-  templateUrl: './edit-profile.component.html',
-  styleUrls: ['./edit-profile.component.css']
+  templateUrl: './edit-profile.component.html'
 })
 export class EditProfileComponent implements OnInit, AfterViewInit, AfterViewChecked {
   myForm: FormGroup;
@@ -31,7 +30,7 @@ export class EditProfileComponent implements OnInit, AfterViewInit, AfterViewChe
   ngOnInit() {
     this.myForm = this.formBuilder.group({
       name: ['', Validators.required],
-      fromAddress: ['', Validators.compose([Validators.email, Validators.required])],
+      fromAddress: ['', Validators.required],
       smtpHost: ['', Validators.required],
       smtpPort: ['', Validators.compose([Validators.pattern('[0-9]*'), Validators.required])],
       username: [''],

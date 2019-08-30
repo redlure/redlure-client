@@ -46,6 +46,11 @@ export class CampaignsApiService {
     formData.append('Port', String(port));
     formData.append('SSL', String(ssl));
     formData.append('Redirect_URL', String(redirectUrl));
+    formData.append('Start_Time', String(startTime));
+    formData.append('Interval', String(batchInterval));
+    formData.append('Batch_Size', String(batchNumber));
+    formData.append('Payload_URL', String(payloadUrl));
+
 
     pages.forEach(page => {
       formData.append('Page_Names[]', String(page));
@@ -81,7 +86,16 @@ export class CampaignsApiService {
     const url = `${this.apiService.getUrl()}/workspaces/${workspaceId}/campaigns/${campaignId}/cast`;
     return this.http.get(url, {withCredentials: true})
       .pipe(
-        catchError(this.handleError('getCampaigns', []))
+        catchError(this.handleError('launchCampaign', []))
       );  
+  }
+
+  // kill a campaign
+  killCampaign(workspaceId: String, campaignId: String){
+    const url = `${this.apiService.getUrl()}/workspaces/${workspaceId}/campaigns/${campaignId}/kill`;
+    return this.http.get(url, {withCredentials: true})
+      .pipe(
+        catchError(this.handleError('killCampaign', []))
+      );
   }
 }

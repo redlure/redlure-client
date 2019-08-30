@@ -60,22 +60,38 @@ export class CampaignsComponent implements OnInit {
       .subscribe(campaigns => this.campaigns = campaigns);
   }
 
-  launchCampaign(campaign){
+  launchCampaign(campaign) {
     this.loading = true
     this.campaignsApiService.launchCampaign(this.workspaceId, String(campaign.id))
-    .pipe(first())
-    .subscribe(
-      data => {
-        this.loading = false;
-        if (data['success']){
-          this.router.navigate([`/workspaces/${this.workspaceId}/results`])
-        } else {
-          if (data['reasonCode'] == 4) {
-            this.alertService.newAlert('danger', 'Failed to start campaign: the chosen server is not online');
+      .pipe(first())
+      .subscribe(
+        data => {
+          this.loading = false;
+          if (data['success']){
+            this.router.navigate([`/workspaces/${this.workspaceId}/results`])
+          } else {
+            if (data['reasonCode'] == 4) {
+              this.alertService.newAlert('danger', 'Failed to start campaign: the chosen server is not online');
+            }
           }
         }
-      }
-    )
+      );
+  }
+
+  killCampaign(campaign) {
+    this.loading = true;
+    this.campaignsApiService.killCampaign(this.workspaceId, String(campaign.id))
+      .pipe(first())
+      .subscribe(
+        data => {
+          this.loading = false;
+          if (data['success']){
+            campaign.status = 'Completed'
+          } else {
+            this.alertService.newAlert('danger', 'Failed to stop campaign on worker');
+          }
+        }
+      );
   }
 
 }

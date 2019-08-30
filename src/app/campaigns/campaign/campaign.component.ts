@@ -58,7 +58,9 @@ export class CampaignComponent implements OnInit {
       this.editCampaign.pages.forEach(element => {
         this.pageCount.push(1);
       });
-      console.log(this.editCampaign.pages)
+      // sort pages by index (order in which they are supposed to chain)
+      this.editCampaign.pages.sort((a, b) => a.index < b.index ? -1: a.name > b.name ? 1: 0)
+  
       this.track = this.editCampaign.track;
       this.title1 = "EDIT C";
       this.title2 = "AMPAIGN";
@@ -80,7 +82,8 @@ export class CampaignComponent implements OnInit {
     var page2name = ""
     var page3name = ""
     var page4name = ""
-    console.log(this.editCampaign.pages)
+
+    //console.log(this.editCampaign.pages)
     if (this.editCampaign.pages[0].page) {
       page1name = this.editCampaign.pages[0].page.name
     }

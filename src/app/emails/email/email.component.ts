@@ -4,7 +4,6 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { Email } from '../email.model'
 import { EmailsApiService } from '../emails-api.service'
 import { AlertService } from '../../alert/alert.service'
-import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { first } from 'rxjs/operators'
 

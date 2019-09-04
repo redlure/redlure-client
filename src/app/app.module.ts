@@ -4,7 +4,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AngularEditorModule } from '@kolkov/angular-editor';
 
 import { ApiService } from './login/api.service'
 import { AppComponent } from './app.component';
@@ -69,7 +68,6 @@ import { NewKeyComponent } from './domains-servers/new-key/new-key.component';
 import { ResultsApiService } from './results/results-api.service'
 
 import { JoditAngularModule } from 'jodit-angular';
-import { NgxSummernoteModule } from 'ngx-summernote';
 import { FormComponent } from './results/form/form.component'
 
 
@@ -130,9 +128,7 @@ import { FormComponent } from './results/form/form.component'
     AppRoutingModule,
     MDBBootstrapModule.forRoot(),
     MDBBootstrapModule,
-    AngularEditorModule,
     JoditAngularModule,
-    NgxSummernoteModule
   ],
   providers: [
     ApiService,

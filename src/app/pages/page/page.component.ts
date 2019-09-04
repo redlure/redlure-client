@@ -4,7 +4,6 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { Page } from '../page.model'
 import { PagesApiService } from '../pages-api.service'
 import { AlertService } from '../../alert/alert.service'
-import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { CloneSiteComponent } from './clone-site/clone-site.component'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { first } from 'rxjs/operators'

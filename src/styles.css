@@ -67,6 +67,11 @@ logo {
     width: 100px;
 }
 
+.span-user {
+    float: left;
+    width: 155px;
+}
+
 .span-server {
     float: left;
     width: 100px;

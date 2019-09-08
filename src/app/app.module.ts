@@ -68,7 +68,9 @@ import { NewKeyComponent } from './domains-servers/new-key/new-key.component';
 import { ResultsApiService } from './results/results-api.service'
 
 import { JoditAngularModule } from 'jodit-angular';
-import { FormComponent } from './results/form/form.component'
+import { FormComponent } from './results/form/form.component';
+import { PasswordResetComponent } from './users-roles/password-reset/password-reset.component';
+import { ServerProcessesComponent } from './domains-servers/server-processes/server-processes.component'
 
 
 @NgModule({
@@ -117,6 +119,8 @@ import { FormComponent } from './results/form/form.component'
     DelCampaignComponent,
     NewKeyComponent,
     FormComponent,
+    PasswordResetComponent,
+    ServerProcessesComponent,
   ],
   imports: [
     BrowserModule,
@@ -176,6 +180,8 @@ import { FormComponent } from './results/form/form.component'
     DelCampaignComponent,
     NewKeyComponent,
     FormComponent,
+    PasswordResetComponent,
+    ServerProcessesComponent,
   ]
 })
 export class AppModule { }

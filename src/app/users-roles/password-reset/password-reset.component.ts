@@ -7,33 +7,28 @@ import { first } from 'rxjs/operators'
 import { AlertService } from '../../alert/alert.service'
 
 @Component({
-  selector: 'app-new-user',
-  templateUrl: './new-user.component.html'
+  selector: 'app-password-reset',
+  templateUrl: './password-reset.component.html'
 })
-export class NewUserComponent implements OnInit {
+export class PasswordResetComponent implements OnInit {
   myForm: FormGroup;
   loading = false;
   submitted = false;
-  newUser: Object;
-  roles: Object[];
+  editUser: Object;
   match = true;
 
-  @Output() emitter: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
     public activeModal: NgbActiveModal,
     private formBuilder: FormBuilder,
-    private router: Router,
     private usersApiService: UsersApiService,
     private alertService: AlertService,
   ) { }
 
   ngOnInit() {
     this.myForm = this.formBuilder.group({
-      username: ['', Validators.required],
       password: ['', Validators.required],
-      password2: ['', Validators.required],
-      role: ['', Validators.required]
+      password2: ['', Validators.required]
     });
   }
 
@@ -51,23 +46,23 @@ export class NewUserComponent implements OnInit {
         return;
     }
 
+    // check if passwords match
     if (this.f.password.value != this.f.password2.value) {
       this.match = false;
       return;
     }
     
-    this.match = true;
     this.loading = true;
-    this.usersApiService.postUser(this.f.username.value, this.f.password.value, this.f.role.value)
+    this.match = true;
+    this.usersApiService.resetPassword(this.editUser['id'], this.f.password.value)
       .pipe(first())
         .subscribe(
             data => {
                 this.loading = false;
                 if (data['success'] == false) {
-                  this.alertService.newAlert("warning", this.f.username.value + " is an existing user")
+                  this.alertService.newAlert("warning", "Failed to reset password")
                 } else {
-                  this.newUser = data;
-                  this.emitter.emit(this.newUser);
+                  this.alertService.newAlert("success", "Password updated")
                   this.closeModal()
                 }
             },
@@ -76,4 +71,5 @@ export class NewUserComponent implements OnInit {
                 console.log(error)
             });
     }
+
 }

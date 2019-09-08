@@ -1,18 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-//import { NewDomainComponent } from './new-domain/new-domain.component'
-//import { NewServerComponent } from './new-server/new-server.component'
-//import { ServersApiService } from './servers-api.service'
 import { UsersApiService } from './users-api.service'
 import { RolesApiService } from './roles-api.service'
 import { NewUserComponent } from './new-user/new-user.component';
 import { NewRoleComponent } from './new-role/new-role.component'
-//import { Server } from './server.model'
 import { DelUserComponent } from './del-user/del-user.component'
 import { DelRoleComponent } from './del-role/del-role.component'
 import { EditRoleComponent } from './edit-role/edit-role.component'
-//import { DelDomainComponent } from './del-domain/del-domain.component'
+import { PasswordResetComponent } from './password-reset/password-reset.component'
 
 @Component({
   selector: 'app-users-roles',
@@ -70,6 +66,12 @@ export class UsersRolesComponent implements OnInit {
         }        
       }
     );
+  }
+
+  resetPassword(user){
+    this.onUserSelect(user);
+    const modalRef = this.modalService.open(PasswordResetComponent);
+    modalRef.componentInstance.editUser = this.editUser;
   }
 
   addRoleModal(){

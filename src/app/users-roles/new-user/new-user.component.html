@@ -9,7 +9,7 @@
         <!--Username Field-->
         <div class="input-group form-group">
           <div class="input-group-prepend">
-            <span class="span-login input-group-text">Username</span>
+            <span class="span-user input-group-text">Username</span>
           </div>
           <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }"/>
           <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
@@ -21,18 +21,32 @@
         <!--Password Field-->
         <div class="input-group form-group">
           <div class="input-group-prepend">
-              <span class="span-login input-group-text">Password</span>
+              <span class="span-user input-group-text">Password</span>
           </div>
           <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }"/>
           <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
             <div *ngIf="f.password.errors.required">Password is required</div>
           </div>
         </div>
+
+        <!--Confirm Password Field-->
+        <div class="input-group form-group">
+          <div class="input-group-prepend">
+              <span class="input-group-text span-user">Confirm Password</span>
+          </div>
+          <input type="password" formControlName="password2" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password2.errors }"/>
+          <div *ngIf="submitted && f.password2.errors" class="invalid-feedback">
+            <div *ngIf="f.password2.errors.required">Password is required</div>
+          </div>
+          <div *ngIf="match == false" class="invalid-login">
+            Passwords do not match
+          </div>
+        </div>
           
         <!--Role Field-->
         <div class="input-group form-group">
           <div class="input-group-prepend">
-              <span class="span-login input-group-text">Role</span>
+              <span class="span-user input-group-text">Role</span>
           </div>
           <select class="form-control" formControlName="role" [ngClass]="{ 'is-invalid': submitted && f.role.errors }">
             <option disabled selected value> -- Select a role -- </option>

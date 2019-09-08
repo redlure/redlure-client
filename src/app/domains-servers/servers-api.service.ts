@@ -59,6 +59,16 @@ export class ServersApiService {
         );  
     }
 
+
+    // GET the processes listening on a server (worker)
+    checkServerProcesses(id: Number): Observable<Server> {
+      const url = `${this.apiService.getUrl()}/servers/${id}/processes`;
+      return this.http.get<any>(url, {withCredentials: true})
+        .pipe(
+          catchError(this.handleError('refreshServer'))
+        );  
+    }
+
     // GET the current worker API key
     getApiKey(): Observable<String> {
       const url = `${this.apiService.getUrl()}/api`;

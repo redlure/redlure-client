@@ -41,6 +41,7 @@
             <td>{{ server.port }}</td>
             <td>{{ server.status }}</td>
             <td>
+              <a style="cursor: pointer;" title="Listening Ports" data-toggle="tooltip" (click)="checkNetstat(server)"><i class="ico text-dark fas fa-stream"></i></a>
               <a style="cursor: pointer;" title="Refresh Status" data-toggle="tooltip" (click)="refreshStatus(server)"><i class="ico text-primary fas fa-sync"></i></a>
               <a style="cursor: pointer;" title="Delete" data-toggle="tooltip" (click)="deleteServerModal(server)"><i class="ico text-danger fas fa-trash-alt"></i></a>
             </td>

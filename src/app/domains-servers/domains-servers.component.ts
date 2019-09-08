@@ -12,6 +12,7 @@ import { DelDomainComponent } from './del-domain/del-domain.component'
 import { AlertService } from '../alert/alert.service'
 import { EditCertsComponent } from './edit-certs/edit-certs.component'
 import { NewKeyComponent } from './new-key/new-key.component'
+import { ServerProcessesComponent } from './server-processes/server-processes.component'
 
 @Component({
   selector: 'app-domains-servers',
@@ -152,6 +153,24 @@ export class DomainsServersComponent implements OnInit {
           this.serverLoading = false;
         }
       );
+  }
+
+  checkNetstat(server: Server) {
+    this.onServerSelect(server);
+    this.serverLoading = true;
+    this.serversApiService.checkServerProcesses(server.id)
+    .subscribe(
+      data => {
+        this.serverLoading = false;
+        if (data['success'] == true) {
+          const modalRef = this.modalService.open(ServerProcessesComponent, { size: 'lg' });
+          modalRef.componentInstance.alias= this.editServer.alias
+          modalRef.componentInstance.processes = data['data']
+        } else {
+          this.alertService.newAlert('warning', 'Error enumerating processes on ' + server.alias)
+        }
+      }
+    );
   }
 
   genDomainCert(domain) {

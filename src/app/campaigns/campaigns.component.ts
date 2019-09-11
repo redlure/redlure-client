@@ -16,7 +16,7 @@ export class CampaignsComponent implements OnInit {
   workspaceId: String;
   campaigns: Campaign[];
   editCampaign: Campaign;
-  loading=false;
+  loading = false;
   
   constructor(
     private campaignsApiService: CampaignsApiService,

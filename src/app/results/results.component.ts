@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
 import { ResultsApiService } from './results-api.service'
 import { AlertService } from '../alert/alert.service'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -6,19 +6,22 @@ import { ActivatedRoute } from '@angular/router'
 import { Result } from './result.model'
 import { Target } from '../lists/targets/target.model';
 import { FormComponent } from './form/form.component'
+import { Observable } from 'rxjs';
 
 
 @Component({
   selector: 'app-results',
   templateUrl: './results.component.html'
 })
-export class ResultsComponent implements OnInit {
+export class ResultsComponent implements OnInit, OnDestroy {
   allResults: any[]; //all results returned by server
   results: any[] = []; //holds current filtered results
   forms: any[] = []; //holds submitted form data
   filtered = false;
   selectAll = true;
   selectedForm;
+  
+  intervalVar: any;
   
   workspaceId: String;
   campaigns: any[];
@@ -36,8 +39,19 @@ export class ResultsComponent implements OnInit {
     this.route.params.subscribe(params => this.workspaceId = params['workspaceId']);
    }
 
+
   ngOnInit() {
     this.getResults();
+    /*
+    this.intervalVar = setInterval(() => {
+      this.getResults();
+    }, 10000);
+    */
+  }
+
+  ngOnDestroy() {
+    clearInterval(this.intervalVar) // cancel the interval task
+    this.intervalVar = 0 // ensure the interval handle is cleared
   }
 
   onResultSelect(form){
@@ -50,7 +64,6 @@ export class ResultsComponent implements OnInit {
       this.campaigns = data[0];
       this.results = this.allResults;
       this.forms = this.getForms();
-      console.log(this.forms)
     });
   }
 

@@ -3,7 +3,7 @@ export class Domain {
         public id: Number,
         public domain: String,
         public ip: String,
-        public certPath: String,
-        public keyPath: String
+        public cert_path: String,
+        public key_path: String
     ){}
 }

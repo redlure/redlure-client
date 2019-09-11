@@ -179,11 +179,12 @@ export class DomainsServersComponent implements OnInit {
       .subscribe(
         data => {
           this.domainLoading = false;
-          console.log(data)
           if (!data.success) {
             this.alertService.newAlert('warning', data.msg)
           } else {
             this.alertService.newAlert('success', 'SSL certs generated for ' + domain.domain)
+            domain.cert_path = data.cert_path
+            domain.key_path = data.key_path
           }
         }
       );

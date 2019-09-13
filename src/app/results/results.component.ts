@@ -7,7 +7,9 @@ import { Result } from './result.model'
 import { Target } from '../lists/targets/target.model';
 import { FormComponent } from './form/form.component'
 import { Observable } from 'rxjs';
-
+import { TableComponent } from './table/table.component';
+import { GraphsComponent } from './graphs/graphs.component';
+import { DataService } from './data.service'
 
 @Component({
   selector: 'app-results',
@@ -20,21 +22,27 @@ export class ResultsComponent implements OnInit, OnDestroy {
   filtered = false;
   selectAll = true;
   selectedForm;
+
+  scheduled: number = 0;
+  sent: number = 0;
+  unopened: number = 0;
+  opened: number = 0;
+  clicked: number = 0;
+  submitted: number = 0;
   
   intervalVar: any;
   
   workspaceId: String;
   campaigns: any[];
-  headers = ["#", "Status", "Email", "First Name", "Last Name", "Tracker", "Campaign ID"];
   campaignHeaders = ["ID", "Name", "Status", "Server", "Start Date"];
   credHeaders = ["Email", "Campaign ID"]
-
 
   constructor(
     private resultsApiService: ResultsApiService,
     private alertService: AlertService,
     private modalService: NgbModal,
     private route: ActivatedRoute,
+    private dataService: DataService
   ) {
     this.route.params.subscribe(params => this.workspaceId = params['workspaceId']);
    }
@@ -47,6 +55,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
       this.getResults();
     }, 10000);
     */
+
   }
 
   ngOnDestroy() {
@@ -64,19 +73,17 @@ export class ResultsComponent implements OnInit, OnDestroy {
       this.campaigns = data[0];
       this.results = this.allResults;
       this.forms = this.getForms();
+      this.calcStats();
     });
   }
 
-  calcProgress(status) {
-    return this.results.reduce((acc, cur) => cur.status === status ? ++acc : acc, 0);
-  }
-
-  calcUnopen() {
-    return (this.results.length - this.calcProgress("Opened") - this.calcProgress("Clicked") - this.calcProgress("Submitted") - this.calcProgress("Scheduled"))
-  }
-
-  calcSent() {
-    return (this.results.length - this.calcProgress("Scheduled"))
+  calcStats() {
+    this.scheduled = this.results.reduce((acc, cur) => cur.status === 'Scheduled' ? ++acc : acc, 0);
+    this.sent = this.results.length - this.scheduled;
+    this.opened = this.results.reduce((acc, cur) => cur.status === 'Opened' ? ++acc : acc, 0);
+    this.clicked = this.results.reduce((acc, cur) => cur.status === 'Clicked' ? ++acc : acc, 0);
+    this.submitted = this.results.reduce((acc, cur) => cur.status === 'Submitted' ? ++acc : acc, 0);
+    this.unopened = this.results.length - this.opened - this.clicked - this.submitted - this.scheduled;
   }
 
   toggleSelectAll(event) {
@@ -88,6 +95,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
       this.results = [];
       this.forms = [];
     }
+    this.calcStats();
   }
 
   toggleSelect(event, campaignId) {
@@ -99,6 +107,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
       this.results = this.results.filter(result => results.indexOf(result) < 0);
       this.forms = this.getForms();
     }
+    this.calcStats();
   }
 
   // if campaign state is undefined set to true, so that checkbox starts as checked
@@ -126,14 +135,42 @@ export class ResultsComponent implements OnInit, OnDestroy {
     return [].concat.apply([], this.results.map(result => result.forms).filter(result => result.length > 0));
   }
 
+  // open the FormComponent to show submitted FormData
   openFormModal(form) {
     this.onResultSelect(form);
     const modalRef = this.modalService.open(FormComponent, { size: 'lg' });
     modalRef.componentInstance.selectedForm = this.selectedForm;
   }
 
-  sortResults(col) {
-    console.log(col)
+  // open the GraphComponent for visuals of results
+  openVisuals() {
+    // sent current results to the data service
+    this.dataService.updateData([this.unopened, this.opened, this.clicked, this.submitted])
+    //open modal
+    const modalRef = this.modalService.open(GraphsComponent, { size: 'lg' });
+  }
+
+  // open the TableComponent showing a table of results and their property values
+  openTable(status) {
+    // filter the result set based on the clicked status
+    var filteredResults: any[] = [];
+    // if status is 'Sent' we really want all results
+    if (status == 'Sent') {
+      filteredResults = this.results;
+    } else {
+      // if status is 'Unopened' we really want results whose status is still 'Sent'
+      if (status == 'Unopened') {
+        status = 'Sent'
+      }
+      // filter the array of results
+      filteredResults = this.results.filter(function(result) {
+        return result.status == status;
+      });
+    }
+
+    // open the modal and pass the filtered result set
+    const modalRef = this.modalService.open(TableComponent, { windowClass: 'hugeModal' });
+    modalRef.componentInstance.results = filteredResults;
   }
 
 }

@@ -67,10 +67,16 @@ import { DelCampaignComponent } from './campaigns/del-campaign/del-campaign.comp
 import { NewKeyComponent } from './domains-servers/new-key/new-key.component';
 import { ResultsApiService } from './results/results-api.service'
 
+import { ChartsModule } from 'ng2-charts';
 import { JoditAngularModule } from 'jodit-angular';
 import { FormComponent } from './results/form/form.component';
 import { PasswordResetComponent } from './users-roles/password-reset/password-reset.component';
-import { ServerProcessesComponent } from './domains-servers/server-processes/server-processes.component'
+import { ServerProcessesComponent } from './domains-servers/server-processes/server-processes.component';
+import { GraphsComponent } from './results/graphs/graphs.component';
+//import { TableComponent } from './results/table/table.component';
+import { PieChartComponent } from './results/graphs/pie-chart/pie-chart.component'
+import { DataService } from './results/data.service';
+import { NgbdTableSortableModule } from './results/table/table-sortable.module';
 
 
 @NgModule({
@@ -121,6 +127,9 @@ import { ServerProcessesComponent } from './domains-servers/server-processes/ser
     FormComponent,
     PasswordResetComponent,
     ServerProcessesComponent,
+    GraphsComponent,
+    //TableComponent,
+    PieChartComponent,
   ],
   imports: [
     BrowserModule,
@@ -133,6 +142,8 @@ import { ServerProcessesComponent } from './domains-servers/server-processes/ser
     MDBBootstrapModule.forRoot(),
     MDBBootstrapModule,
     JoditAngularModule,
+    ChartsModule,
+    NgbdTableSortableModule,
   ],
   providers: [
     ApiService,
@@ -152,6 +163,7 @@ import { ServerProcessesComponent } from './domains-servers/server-processes/ser
     EmailsApiService,
     ListsApiService,
     ResultsApiService,
+    DataService,
   ],
   bootstrap: [AppComponent],
   entryComponents: [
@@ -182,6 +194,8 @@ import { ServerProcessesComponent } from './domains-servers/server-processes/ser
     FormComponent,
     PasswordResetComponent,
     ServerProcessesComponent,
+    GraphsComponent,
+    //TableComponent,
   ]
 })
 export class AppModule { }

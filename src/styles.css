@@ -137,3 +137,24 @@ p {
  .card-deck {
      grid-template-columns: repeat(6, minmax(250px, 1fr));
  }
+
+ .centerBlock {
+    display: table;
+    margin: auto;
+    text-align: center;
+  }
+
+  .results {
+      font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+      font-size: 4vh;
+  }
+
+  .result-btn {
+    border-radius: 0.25rem;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+
+.hugeModal > .modal-dialog {
+    max-width: 80% !important;
+    width: 80% !important;
+}

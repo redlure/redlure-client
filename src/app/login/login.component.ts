@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
     }
 
     // set the URL for the redlure server API
-    this.apiService.setUrl(this.f.server.value)
+    this.apiService.setUrl(this.f.server.value.replace(/\/$/, ""));
 
     this.loading = true;
     this.loginApiService.login(this.f.username.value, this.f.password.value)

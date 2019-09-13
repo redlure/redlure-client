@@ -1,0 +1,11 @@
+<div class="modal-header">
+  <h4 class="modal-title">Graphs</h4>
+  <button class="btn btn-outline-danger" (click)="closeModal()">Close</button>
+</div>
+<body style="margin: 20px;">
+  <div class="btn-group btn-group-toggle" data-toggle="buttons" *ngFor="let button of buttons">
+      <button class="btn btn-secondary" style="margin-right: 2px;" type="button" (click)="showPhase(button)" [class.bg-dark]= "activeButton === button">{{button.name}}</button>
+  </div>
+  <br><br>
+  <app-pie-chart></app-pie-chart>
+</body>

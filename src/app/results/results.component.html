@@ -1,101 +1,112 @@
 <workspace-navbar></workspace-navbar>
 <app-alert></app-alert>
 <body style="margin: 20px">
-  <div>
-    <h3 style="display:inline-block">
-      <b class="h3-prefix">RES</b>
-      <b class="h3-suffix">ULTS</b>
-    </h3>
+  <!--Header row-->
+  <div class="row" style="margin-top: 20px;">
+    <div class="col-md d-flex justify-content-start">
+      <h3 style="display:inline-block">
+        <b class="h3-prefix">RES</b>
+        <b class="h3-suffix">ULTS</b>
+      </h3>
+    </div>
+    <div class="col-md d-flex justify-content-end">
+      <button (click)="openVisuals()" class="btn btn-outline-dark login_btn">Visualize</button>
+    </div>
   </div>
+  <!-- End Header-->
+  <br>
 
-<br>
-
-  <div class="container-fluid">
-    <div class="row justify-content-md-center">
-      <!--col with total lures-->
-      <div class="col-1 h5 text-dark mr-2" style="text-align: center;">
-        <div class="row border border-dark text-dark justify-content-md-center mb-2">
-          {{ calcProgress("Scheduled") }}
-          <br>
+  <div class="container">
+    <!--Stats Row-->
+    <div class="row">
+      <div *ngIf="scheduled > 0" class="col result-btn btn-outline-info" (click)="openTable('Scheduled')" style="cursor: pointer;">
+        <div class="centerBlock">
+          <p class="results">{{ scheduled }}</p>
+          <hr class="border-info">
           Scheduled
         </div>
-        <div class="row border border-dark text-dark justify-content-md-center mb-2">
-          {{ calcSent() }}
-          <br>
+      </div>
+      <div class="col result-btn btn-outline-primary" (click)="openTable('Sent')" style="cursor: pointer;">
+        <div class="centerBlock">
+          <p class="results">{{ sent }}</p>
+          <hr class="border-primary">
           Sent
         </div>
-        <div class="row border border-dark text-dark justify-content-md-center mb-2" style="height: 108px">
-          <br>
-          {{ results.length }}
-          <br>
-          Total Lures
-        </div>
       </div>
-
-      <!--col with emails by status-->
-      <div class="col-1 h5 mr-2" style="text-align: center">
-        <div class="row border border-dark text-dark justify-content-md-center mb-2">
-          {{ calcUnopen() }}
-          <br>
+      <div class="col result-btn btn-outline-success border-left border-dark" (click)="openTable('Unopened')" style="cursor: pointer;">
+        <div class="centerBlock">
+          <p class="results">{{ unopened }}</p>
+          <hr class="border-success">
           Unopened
         </div>
-        <div class="row border border-dark text-dark justify-content-md-center mb-2">
-          {{ calcProgress("Opened") }}
-          <br>
+      </div>
+      <div class="col result-btn btn-outline-secondary" (click)="openTable('Opened')" style="cursor: pointer;">
+        <div class="centerBlock">
+          <p class="results">{{ opened }}</p>
+          <hr class="border-secondary">
           Opened
         </div>
-        <div class="row border border-danger text-danger justify-content-md-center mb-2">
-          {{ calcProgress("Clicked") }}
-          <br>
+      </div>
+      <div class="col result-btn btn-outline-warning" (click)="openTable('Clicked')" style="cursor: pointer;">
+        <div class="centerBlock">
+          <p class="results">{{ clicked }}</p>
+          <hr class="border-warning">
           Clicked
         </div>
-        <div class="row border border-danger text-danger justify-content-md-center mb-2">
-          {{ calcProgress("Submitted") }}
-          <br>
-          Credentials
+      </div>
+      <div class="col result-btn btn-outline-danger" (click)="openTable('Submitted')" style="cursor: pointer;">
+        <div class="centerBlock">
+        <p class="results">{{ submitted }}</p>
+        <hr class="border-danger">
+        Submitted
         </div>
       </div>
-      <!--col with campaigns-->
-      <div class="col-4 border border-dark mb-2 mr-2" style="text-align: center">
+    </div>
+    <!-- End Stats Row-->
+  </div>
+
+  <br>
+  <hr class="border-dark">
+
+  <div class="container-fluid">
+    <!--Tables Row-->
+    <div class="row">
+      <div class="col-8" style="text-align: center">
         <div class="row h5 text-dark justify-content-md-center">
           Campaigns
         </div>
-        <div class="row">
-          <div class="table-responsive" style="overflow-x: auto; height:300px">
-            <table class="table table-hover table-sm">
-              <thead class="thead-light">
-                <tr>
-                  <th scope="col">
-                    <div class="custom-control custom-checkbox">
-                      <input type="checkbox" id="cbHead" class="custom-control-input" (change)="toggleSelectAll($event)" [checked]="selectAll">                            <label class="custom-control-label" for="cbHead"></label>
-                    </div>
-                  </th>
-                  <th scope="col" *ngFor="let head of campaignHeaders; let i = index">{{ head }}</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let campaign of campaigns; let i = index">
-                  {{ setState(campaign) }}
-                  <td>
-                    <div class="custom-control custom-checkbox">
-                      <input type="checkbox" id="cb{{ i }}" class="custom-control-input" [(ngModel)]="campaign.state" (change)="toggleSelect($event, campaign.id)">
-                      <label class="custom-control-label" for="cb{{ i }}"></label>
-                    </div>
-                  </td>
-                  <td>{{ campaign.id }}</td>
-                  <td>{{ campaign.name }}</td>
-                  <td>{{ campaign.status }}</td>
-                  <td>{{ campaign.server.alias }}</td>
-                  <td>{{ campaign.start_time }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+        <div class="table-responsive" style="overflow-x: auto;">
+          <table class="table table-hover table-sm">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" id="cbHead" class="custom-control-input" (change)="toggleSelectAll($event)" [checked]="selectAll">                            <label class="custom-control-label" for="cbHead"></label>
+                  </div>
+                </th>
+                <th scope="col" *ngFor="let head of campaignHeaders; let i = index">{{ head }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let campaign of campaigns; let i = index">
+                {{ setState(campaign) }}
+                <td>
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" id="cb{{ i }}" class="custom-control-input" [(ngModel)]="campaign.state" (change)="toggleSelect($event, campaign.id)">
+                    <label class="custom-control-label" for="cb{{ i }}"></label>
+                  </div>
+                </td>
+                <td>{{ campaign.id }}</td>
+                <td>{{ campaign.name }}</td>
+                <td>{{ campaign.status }}</td>
+                <td>{{ campaign.server.alias }}</td>
+                <td>{{ campaign.start_time }}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
-
-      <!--col with cred vault-->
-      <div class="col-5 border border-dark mb-2" style="text-align: center">
+      <div class="col" style="text-align: center">
         <div class="row h5 text-dark justify-content-md-center">
           Credential Vault
         </div>
@@ -118,33 +129,8 @@
             </div>
           </div>
         </div>
-      </div>  
-    </div>
-
-
-    <!--Bottom half of screen with reuslts by email sent-->
-    <br>
-    <div class="row">
-      <div class="table-responsive">
-        <table class="table table-hover table-striped table-sm">
-          <thead class="thead-dark">
-            <tr>
-              <th style="cursor: pointer;" scope="col" *ngFor="let head of headers; let i = index" (click)="sortResults(head)">{{ head }}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let result of results; let i = index">
-              <th scope="row">{{ i +1 }}</th>
-              <td>{{ result.status }}</td>
-              <td>{{ result.person.email }}</td>
-              <td>{{ result.person.first_name }}</td>
-              <td>{{ result.person.last_name }}</td>
-              <td>{{ result.tracker }}</td>
-              <td>{{ result.campaign_id }}</td>
-            </tr>
-          </tbody>
-        </table>
       </div>
     </div>
+
   </div>
 </body>

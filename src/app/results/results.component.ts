@@ -1,19 +1,21 @@
 import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
-import { ResultsApiService } from './results-api.service'
-import { AlertService } from '../alert/alert.service'
+import { ResultsApiService } from './results-api.service';
+import { AlertService } from '../alert/alert.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ActivatedRoute } from '@angular/router'
-import { Result } from './result.model'
+import { ActivatedRoute } from '@angular/router';
+import { Result } from './result.model';
 import { Target } from '../lists/targets/target.model';
-import { FormComponent } from './form/form.component'
+import { FormComponent } from './form/form.component';
 import { Observable } from 'rxjs';
 import { TableComponent } from './table/table.component';
 import { GraphsComponent } from './graphs/graphs.component';
-import { DataService } from './data.service'
+import { DataService } from './data.service';
+import { MessageService } from '../empty-object/message.service';
 
 @Component({
   selector: 'app-results',
-  templateUrl: './results.component.html'
+  templateUrl: './results.component.html',
+  providers: [ MessageService ]
 })
 export class ResultsComponent implements OnInit, OnDestroy {
   allResults: any[]; //all results returned by server
@@ -42,7 +44,8 @@ export class ResultsComponent implements OnInit, OnDestroy {
     private alertService: AlertService,
     private modalService: NgbModal,
     private route: ActivatedRoute,
-    private dataService: DataService
+    private dataService: DataService,
+    private messageService: MessageService,
   ) {
     this.route.params.subscribe(params => this.workspaceId = params['workspaceId']);
    }
@@ -55,7 +58,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
       this.getResults();
     }, 10000);
     */
-
+    this.messageService.setMessage('No data to show')
   }
 
   ngOnDestroy() {

@@ -16,6 +16,13 @@
     <li class="nav-item" [routerLinkActive]="['active']">
       <a class="nav-link" routerLink="/users-roles">Users & Roles</a>
     </li>
+    
+    <!-- divider between non-workspace and workspace tabs-->
+    <li class="nav-item" [routerLinkActive]="['inactive']">
+      <a class="nav-link">|</a>
+    </li>
+
+
     <li class="nav-item" [routerLinkActive]="['active']">
       <a class="nav-link" routerLink="/workspaces/{{ workspaceId }}/results">Results</a>
     </li>

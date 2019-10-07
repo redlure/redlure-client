@@ -102,8 +102,8 @@ p {
 }
 
 .login-card {
-    width: 50vh;
-    min-width: 400px
+    width: 550px;
+    min-width: 400px;
 }
 
 .modal-dialog {
@@ -157,4 +157,12 @@ p {
 .hugeModal > .modal-dialog {
     max-width: 80% !important;
     width: 80% !important;
+}
+
+.emptyObject {
+    left: 50%;
+    top: 50%;
+    position: absolute;
+    font-style: italic;
+    font-size: 18px;
 }

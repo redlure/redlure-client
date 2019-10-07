@@ -9,11 +9,13 @@ import { DelPageComponent } from './del-page/del-page.component'
 //import { NewPageComponent } from './new-page/new-page.component'
 import { AlertService } from '../alert/alert.service'
 import { first } from 'rxjs/operators'
+import { MessageService } from '../empty-object/message.service';
+
 
 @Component({
   selector: 'app-pages',
   templateUrl: './pages.component.html',
-  providers: [ PagesApiService ]
+  providers: [ PagesApiService, MessageService ]
 })
 export class PagesComponent implements OnInit {
   workspaceId: String;
@@ -26,11 +28,13 @@ export class PagesComponent implements OnInit {
     private modalService: NgbModal,
     private alertService: AlertService,
     private router: Router,
+    private messageService: MessageService
   ) {
     this.route.params.subscribe(params => this.workspaceId = params['workspaceId'])
    }
 
   ngOnInit() {
+    this.messageService.setMessage('No pages created yet')
     this.getPages()
   }
 

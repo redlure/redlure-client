@@ -71,11 +71,12 @@
   <div class="container-fluid">
     <!--Tables Row-->
     <div class="row">
-      <div class="col-8" style="text-align: center">
+      
+      <div class="col-8 border-right border-dark" style="text-align: center">
         <div class="row h5 text-dark justify-content-md-center">
           Campaigns
         </div>
-        <div class="table-responsive" style="overflow-x: auto;">
+        <div *ngIf="campaigns.length; else emptyBlock" class="table-responsive" style="overflow-x: auto;">
           <table class="table table-hover table-sm">
             <thead class="thead-light">
               <tr>
@@ -105,13 +106,19 @@
             </tbody>
           </table>
         </div>
+
+        <ng-template #emptyBlock>
+          <br>
+          <p style="font-style: italic;">No campaigns created yet</p>
+        </ng-template>
+
       </div>
+
       <div class="col" style="text-align: center">
         <div class="row h5 text-dark justify-content-md-center">
           Credential Vault
         </div>
-        <div class="row">
-          <div class="table-responsive">
+          <div *ngIf="forms.length; else emptyFormBlock" class="table-responsive">
             <div style="overflow: auto">
               <table class="table table-hover table-sm">
                 <thead class="thead-light">
@@ -128,7 +135,12 @@
               </table>
             </div>
           </div>
-        </div>
+
+          <ng-template #emptyFormBlock>
+            <br>
+            <p style="font-style: italic">No forms submitted yet</p>
+          </ng-template>
+
       </div>
     </div>
 

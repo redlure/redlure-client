@@ -1,22 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute } from '@angular/router';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ProfilesApiService } from './profiles-api.service'
+import { ProfilesApiService } from './profiles-api.service';
 import { Profile } from './profile.model';
 
-import { DelProfileComponent } from './del-profile/del-profile.component'
-import { EditProfileComponent } from './edit-profile/edit-profile.component'
-import { NewProfileComponent } from './new-profile/new-profile.component'
-import { TestProfileComponent } from './test-profile/test-profile.component'
-import { AlertService } from '../alert/alert.service'
-import { first } from 'rxjs/operators'
+import { DelProfileComponent } from './del-profile/del-profile.component';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { NewProfileComponent } from './new-profile/new-profile.component';
+import { TestProfileComponent } from './test-profile/test-profile.component';
+import { AlertService } from '../alert/alert.service';
+import { first } from 'rxjs/operators';
+import { MessageService } from '../empty-object/message.service';
 
 @Component({
   selector: 'app-profiles',
   templateUrl: './profiles.component.html',
   styleUrls: ['./profiles.component.css'],
-  providers: [ ProfilesApiService ]
+  providers: [ ProfilesApiService, MessageService ]
 })
 export class ProfilesComponent implements OnInit {
   workspaceId: String;
@@ -28,11 +29,13 @@ export class ProfilesComponent implements OnInit {
     private route: ActivatedRoute,
     private modalService: NgbModal,
     private alertService: AlertService,
+    private messageService: MessageService
   ) {
     this.route.params.subscribe(params => this.workspaceId = params['workspaceId'])
    }
 
   ngOnInit() {
+    this.messageService.setMessage('No profiles created yet')
     this.getProfiles()
   }
 

@@ -19,7 +19,6 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { WorkspaceNavbarComponent } from './workspace-navbar/workspace-navbar.component';
 import { NewWorkspaceComponent } from './workspaces/new-workspace/new-workspace.component'
 import { WorkspacesApiService } from './workspaces/workspaces-api.service';
-import { WorkspaceComponent } from './workspaces/workspace/workspace.component';
 import { ProfilesComponent } from './profiles/profiles.component';
 import { DomainsServersComponent } from './domains-servers/domains-servers.component';
 import { NewServerComponent } from './domains-servers/new-server/new-server.component';
@@ -77,7 +76,7 @@ import { GraphsComponent } from './results/graphs/graphs.component';
 import { PieChartComponent } from './results/graphs/pie-chart/pie-chart.component'
 import { DataService } from './results/data.service';
 import { NgbdTableSortableModule } from './results/table/table-sortable.module';
-
+import { EmptyObjectComponent } from './empty-object/empty-object.component';
 
 @NgModule({
   declarations: [
@@ -87,7 +86,6 @@ import { NgbdTableSortableModule } from './results/table/table-sortable.module';
     NavbarComponent,
     WorkspaceNavbarComponent,
     NewWorkspaceComponent,
-    WorkspaceComponent,
     ProfilesComponent,
     DomainsServersComponent,
     NewServerComponent,
@@ -130,6 +128,7 @@ import { NgbdTableSortableModule } from './results/table/table-sortable.module';
     GraphsComponent,
     //TableComponent,
     PieChartComponent,
+    EmptyObjectComponent,
   ],
   imports: [
     BrowserModule,
@@ -147,11 +146,11 @@ import { NgbdTableSortableModule } from './results/table/table-sortable.module';
   ],
   providers: [
     ApiService,
+    EmptyObjectComponent,
     HttpErrorHandler,
     MessageService,
     LoginApiService,
     WorkspacesApiService,
-    WorkspaceComponent,
     ServersApiService,
     DomainsApiService,
     ProfilesApiService,

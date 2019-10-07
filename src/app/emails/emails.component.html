@@ -9,7 +9,7 @@
     <a routerLink="new" style="float: right" class="btn btn-outline-dark">New Email</a>
   </div>
   <br>
-  <div class="card-deck">
+  <div *ngIf="emails.length; else emptyBlock" class="card-deck">
     <div *ngFor="let email of emails" class="card border-dark" style="max-width: 18rem">
       <div class="card-body">
         <h5 class="card-title">{{ email.name }}</h5>
@@ -20,4 +20,8 @@
       </div>
     </div>
   </div>
+
+  <ng-template #emptyBlock>
+    <app-empty-object></app-empty-object>
+  </ng-template>
 </body>

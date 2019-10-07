@@ -5,12 +5,14 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CampaignsApiService } from './campaigns-api.service'
 import { Campaign } from './campaign.model';
 import { DelCampaignComponent } from './del-campaign/del-campaign.component'
+import { MessageService } from '../empty-object/message.service';
 
 import { AlertService } from '../alert/alert.service'
 
 @Component({
   selector: 'app-campaigns',
-  templateUrl: './campaigns.component.html'
+  templateUrl: './campaigns.component.html',
+  providers: [ MessageService ]
 })
 export class CampaignsComponent implements OnInit {
   workspaceId: String;
@@ -24,11 +26,13 @@ export class CampaignsComponent implements OnInit {
     private modalService: NgbModal,
     private alertService: AlertService,
     private router: Router,
+    private messageService: MessageService
   ) {
     this.route.params.subscribe(params => this.workspaceId = params['workspaceId'])
    }
 
   ngOnInit() {
+    this.messageService.setMessage('No campaigns created yet')
     this.getCampaigns()
   }
 
@@ -70,9 +74,7 @@ export class CampaignsComponent implements OnInit {
           if (data['success']){
             this.router.navigate([`/workspaces/${this.workspaceId}/results`])
           } else {
-            if (data['reasonCode'] == 4) {
-              this.alertService.newAlert('danger', 'Failed to start campaign: the chosen server is not online');
-            }
+            this.alertService.newAlert('danger', data['msg']);
           }
         }
       );

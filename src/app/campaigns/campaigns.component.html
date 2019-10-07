@@ -14,7 +14,7 @@
     </div>
   </div>
   <br>
-  <div class="card-deck">
+  <div *ngIf="campaigns.length; else emptyBlock" class="card-deck">
     <div *ngFor="let campaign of campaigns" class="card border-dark" style="max-width: 18rem">
       <div class="card-body">
         <h5 class="card-title">{{ campaign.name }}</h5>
@@ -27,4 +27,8 @@
       </div>
     </div>
   </div>
+
+  <ng-template #emptyBlock>
+    <app-empty-object></app-empty-object>
+  </ng-template>
 </body>

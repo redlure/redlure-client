@@ -9,7 +9,7 @@
     <button class="btn btn-outline-dark login_btn" style="float: right;" (click)="openNew()">New List</button>
   </div>
   <br>
-  <div class="card-deck">
+  <div *ngIf="lists.length; else emptyBlock" class="card-deck">
     <div *ngFor="let list of lists" class="card border-dark" style="max-width: 18rem">
       <div class="card-body">
         <h5 class="card-title">{{ list.name }}</h5>
@@ -20,4 +20,8 @@
       </div>
     </div>
   </div>
+
+  <ng-template #emptyBlock>
+    <app-empty-object></app-empty-object>
+  </ng-template>
 </body>

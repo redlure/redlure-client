@@ -10,11 +10,13 @@ import { EditListComponent } from './edit-list/edit-list.component'
 import { NewListComponent } from './new-list/new-list.component'
 import { AlertService } from '../alert/alert.service'
 import { first } from 'rxjs/operators'
+import { MessageService } from '../empty-object/message.service';
+
 
 @Component({
   selector: 'app-lists',
   templateUrl: './lists.component.html',
-  providers: [ ListsApiService ]
+  providers: [ ListsApiService, MessageService ]
 })
 export class ListsComponent implements OnInit {
   workspaceId: String;
@@ -26,11 +28,13 @@ export class ListsComponent implements OnInit {
     private route: ActivatedRoute,
     private modalService: NgbModal,
     private alertService: AlertService,
+    private messageService: MessageService
   ) {
     this.route.params.subscribe(params => this.workspaceId = params['workspaceId'])
    }
 
   ngOnInit() {
+    this.messageService.setMessage('No lists created yet')
     this.getLists()
   }
 

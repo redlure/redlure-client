@@ -56,7 +56,7 @@ export class EditCertsComponent implements OnInit {
     }
     
     this.loading = true;
-    this.domainsApiService.postDomain(this.editDomain.domain, this.f.certPath.value, this.f.keyPath.value)
+    this.domainsApiService.putDomain(String(this.editDomain.id), this.editDomain.domain, this.f.certPath.value, this.f.keyPath.value)
       .pipe(first())
         .subscribe(
             data => {

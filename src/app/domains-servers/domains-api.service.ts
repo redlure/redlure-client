@@ -42,6 +42,19 @@ export class DomainsApiService {
       );  
   }
 
+  putDomain(id: String, domain: String, certPath: String, keyPath: String): Observable<Domain> {
+    const url = `${this.apiService.getUrl()}/domains/${id}`;
+    let formData: FormData = new FormData()
+    formData.append('Domain', String(domain))
+    formData.append('Cert_Path', String(certPath))
+    formData.append('Key_Path', String(keyPath))
+
+    return this.http.put<any>(url, formData, {withCredentials: true})
+      .pipe(
+        catchError(this.handleError('putDomain'))
+      );  
+  }
+
   // DELETE a domain from the server
   deleteDomain(id: Number): Observable<Domain> {
     const url = `${this.apiService.getUrl()}/domains/${id}`;

@@ -141,7 +141,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
   // open the FormComponent to show submitted FormData
   openFormModal(form) {
     this.onResultSelect(form);
-    const modalRef = this.modalService.open(FormComponent, { size: 'lg' });
+    const modalRef = this.modalService.open(FormComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.selectedForm = this.selectedForm;
   }
 
@@ -150,7 +150,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
     // sent current results to the data service
     this.dataService.updateData([this.unopened, this.opened, this.clicked, this.submitted])
     //open modal
-    const modalRef = this.modalService.open(GraphsComponent, { size: 'lg' });
+    const modalRef = this.modalService.open(GraphsComponent, { size: 'lg', backdrop: 'static' });
   }
 
   // open the TableComponent showing a table of results and their property values

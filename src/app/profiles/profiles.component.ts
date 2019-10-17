@@ -44,13 +44,13 @@ export class ProfilesComponent implements OnInit {
   }
 
   openNew(){
-    const modalRef = this.modalService.open(NewProfileComponent, { size: 'lg' });
+    const modalRef = this.modalService.open(NewProfileComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.emitter.subscribe(data => this.profiles.unshift(data));
   }
 
   openEdit(profile){
     this.onSelect(profile)
-    const modalRef = this.modalService.open(EditProfileComponent, { size: 'lg' });
+    const modalRef = this.modalService.open(EditProfileComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.editProfile = this.editProfile;
     modalRef.componentInstance.emitter.subscribe( 
       data => {
@@ -64,13 +64,13 @@ export class ProfilesComponent implements OnInit {
 
   openTest(profile){
     this.onSelect(profile)
-    const modalRef = this.modalService.open(TestProfileComponent);
+    const modalRef = this.modalService.open(TestProfileComponent, { backdrop: 'static' });
     modalRef.componentInstance.editProfile = this.editProfile;
   }
 
   openDelete(profile){
     this.onSelect(profile)
-    const modalRef = this.modalService.open(DelProfileComponent);
+    const modalRef = this.modalService.open(DelProfileComponent, { backdrop: 'static' });
     modalRef.componentInstance.editProfile = this.editProfile;
     modalRef.componentInstance.emitter.subscribe( 
       data => {

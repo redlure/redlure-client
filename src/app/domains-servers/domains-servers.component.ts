@@ -59,7 +59,7 @@ export class DomainsServersComponent implements OnInit {
 
   editCerts(domain) {
     this.onDomainSelect(domain)
-    const modalRef = this.modalService.open(EditCertsComponent, { size: 'lg' });
+    const modalRef = this.modalService.open(EditCertsComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.editDomain = this.editDomain
     modalRef.componentInstance.emitter.subscribe(
       data => {
@@ -72,18 +72,18 @@ export class DomainsServersComponent implements OnInit {
   }
 
   openServerModal() {
-    const modalRef = this.modalService.open(NewServerComponent, { size: 'lg' });
+    const modalRef = this.modalService.open(NewServerComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.emitter.subscribe(data => this.servers.push(data));
   }
 
   openDomainModal() {
-    const modalRef = this.modalService.open(NewDomainComponent, { size: 'lg' });
+    const modalRef = this.modalService.open(NewDomainComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.emitter.subscribe(data => this.domains.push(data));
   }
 
   deleteServerModal(server) {
     this.onServerSelect(server)
-    const modalRef = this.modalService.open(DelServerComponent);
+    const modalRef = this.modalService.open(DelServerComponent, { backdrop: 'static' });
     modalRef.componentInstance.editServer = this.editServer
     modalRef.componentInstance.emitter.subscribe(
       data => {
@@ -97,7 +97,7 @@ export class DomainsServersComponent implements OnInit {
 
   deleteDomainModal(domain) {
     this.onDomainSelect(domain)
-    const modalRef = this.modalService.open(DelDomainComponent);
+    const modalRef = this.modalService.open(DelDomainComponent, { backdrop: 'static' });
     modalRef.componentInstance.editDomain = this.editDomain
     modalRef.componentInstance.emitter.subscribe(
       data => {
@@ -125,7 +125,7 @@ export class DomainsServersComponent implements OnInit {
   }
 
   refreshApiKey() {
-    const modalRef = this.modalService.open(NewKeyComponent, { size: 'lg' });
+    const modalRef = this.modalService.open(NewKeyComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.emitter.subscribe(data => this.apiKey = data);
   }
 
@@ -163,7 +163,7 @@ export class DomainsServersComponent implements OnInit {
       data => {
         this.serverLoading = false;
         if (data['success'] == true) {
-          const modalRef = this.modalService.open(ServerProcessesComponent, { size: 'lg' });
+          const modalRef = this.modalService.open(ServerProcessesComponent, { size: 'lg', backdrop: 'static' });
           modalRef.componentInstance.alias= this.editServer.alias
           modalRef.componentInstance.processes = data['data']
         } else {

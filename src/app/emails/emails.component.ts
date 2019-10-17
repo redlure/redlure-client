@@ -49,7 +49,7 @@ export class EmailsComponent implements OnInit {
 
   openDelete(email){
     this.onSelect(email)
-    const modalRef = this.modalService.open(DelEmailComponent);
+    const modalRef = this.modalService.open(DelEmailComponent, { backdrop: 'static' });
     modalRef.componentInstance.editEmail = this.editEmail;
     modalRef.componentInstance.emitter.subscribe( 
       data => {

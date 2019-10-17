@@ -55,7 +55,7 @@ export class PagesComponent implements OnInit {
 
   openDelete(page){
     this.onSelect(page)
-    const modalRef = this.modalService.open(DelPageComponent);
+    const modalRef = this.modalService.open(DelPageComponent, { backdrop: 'static' });
     modalRef.componentInstance.editPage = this.editPage;
     modalRef.componentInstance.emitter.subscribe( 
       data => {

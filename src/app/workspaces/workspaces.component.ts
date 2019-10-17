@@ -31,13 +31,13 @@ export class WorkspacesComponent implements OnInit {
   }
 
   openNewModal() {
-    const modalRef = this.modalService.open(NewWorkspaceComponent);
+    const modalRef = this.modalService.open(NewWorkspaceComponent, { backdrop: 'static' });
     modalRef.componentInstance.emitter.subscribe(data => this.workspaces.unshift(data));
   }
 
   openDeleteModal(workspace) {
     this.onSelect(workspace)
-    const modalRef = this.modalService.open(DelWorkspaceComponent);
+    const modalRef = this.modalService.open(DelWorkspaceComponent, { backdrop: 'static' });
     modalRef.componentInstance.editWorkspace = this.editWorkspace;
     modalRef.componentInstance.emitter.subscribe( 
       data => {

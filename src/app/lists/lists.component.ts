@@ -43,13 +43,13 @@ export class ListsComponent implements OnInit {
   }
 
   openNew(){
-    const modalRef = this.modalService.open(NewListComponent, { size: 'lg' });
+    const modalRef = this.modalService.open(NewListComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.emitter.subscribe(data => this.lists.unshift(data));
   }
 
   openEdit(list){
     this.onSelect(list)
-    const modalRef = this.modalService.open(EditListComponent, { size: 'lg' });
+    const modalRef = this.modalService.open(EditListComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.editList = this.editList;
     modalRef.componentInstance.emitter.subscribe( 
       data => {
@@ -63,7 +63,7 @@ export class ListsComponent implements OnInit {
 
   openDelete(list){
     this.onSelect(list)
-    const modalRef = this.modalService.open(DelListComponent);
+    const modalRef = this.modalService.open(DelListComponent, { backdrop: 'static' });
     modalRef.componentInstance.editList = this.editList;
     modalRef.componentInstance.emitter.subscribe( 
       data => {

@@ -49,14 +49,14 @@ export class UsersRolesComponent implements OnInit {
   }
 
   addUserModal(){
-    const modalRef = this.modalService.open(NewUserComponent);
+    const modalRef = this.modalService.open(NewUserComponent, { backdrop: 'static' });
     modalRef.componentInstance.roles = this.roles;
     modalRef.componentInstance.emitter.subscribe(data => this.users.push(data));
   }
 
   deleteUserModal(user){
     this.onUserSelect(user);
-    const modalRef = this.modalService.open(DelUserComponent);
+    const modalRef = this.modalService.open(DelUserComponent, { backdrop: 'static' });
     modalRef.componentInstance.editUser = this.editUser;
     modalRef.componentInstance.emitter.subscribe( 
       data => {
@@ -70,18 +70,18 @@ export class UsersRolesComponent implements OnInit {
 
   resetPassword(user){
     this.onUserSelect(user);
-    const modalRef = this.modalService.open(PasswordResetComponent);
+    const modalRef = this.modalService.open(PasswordResetComponent, { backdrop: 'static' });
     modalRef.componentInstance.editUser = this.editUser;
   }
 
   addRoleModal(){
-    const modalRef = this.modalService.open(NewRoleComponent);
+    const modalRef = this.modalService.open(NewRoleComponent, { backdrop: 'static' });
     modalRef.componentInstance.emitter.subscribe(data => this.roles.push(data));
   }
 
   deleteRoleModal(role){
     this.onRoleSelect(role);
-    const modalRef = this.modalService.open(DelRoleComponent);
+    const modalRef = this.modalService.open(DelRoleComponent, { backdrop: 'static' });
     modalRef.componentInstance.editRole = this.editRole;
     modalRef.componentInstance.emitter.subscribe( 
       data => {
@@ -97,7 +97,7 @@ export class UsersRolesComponent implements OnInit {
 
   editRoleModal(role){
     this.onRoleSelect(role);
-    const modalRef = this.modalService.open(EditRoleComponent);
+    const modalRef = this.modalService.open(EditRoleComponent, { backdrop: 'static' });
     modalRef.componentInstance.editRole = this.editRole;
     modalRef.componentInstance.emitter.subscribe( 
       data => {

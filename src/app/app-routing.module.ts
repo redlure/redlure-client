@@ -12,7 +12,6 @@ import { EmailsComponent } from './emails/emails.component';
 import { EmailComponent } from './emails/email/email.component';
 import { ListsComponent } from './lists/lists.component'
 import { CampaignsComponent } from './campaigns/campaigns.component'
-import { CampaignComponent } from './campaigns/campaign/campaign.component'
 import { ResultsComponent } from './results/results.component';
  
 const routes: Routes = [

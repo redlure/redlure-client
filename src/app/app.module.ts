@@ -59,7 +59,6 @@ import { EditListComponent } from './lists/edit-list/edit-list.component';
 import { DelListComponent } from './lists/del-list/del-list.component';
 import { ListsApiService } from './lists/lists-api.service';
 import { CampaignsComponent } from './campaigns/campaigns.component';
-import { CampaignComponent } from './campaigns/campaign/campaign.component';
 import { DateTimePickerComponent } from './date-time-picker/date-time-picker.component';
 import { ResultsComponent } from './results/results.component';
 import { DelCampaignComponent } from './campaigns/del-campaign/del-campaign.component';
@@ -121,7 +120,6 @@ import { SendSelectComponent } from './campaigns/new-campaign/send-select/send-s
     EditListComponent,
     DelListComponent,
     CampaignsComponent,
-    CampaignComponent,
     DateTimePickerComponent,
     ResultsComponent,
     DelCampaignComponent,

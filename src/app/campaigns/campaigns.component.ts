@@ -51,7 +51,7 @@ export class CampaignsComponent implements OnInit {
       this.newCampaignService.initNewCampaign();
     }
     
-    const modalRef = this.modalService.open(ServerSelectComponent, { size: 'lg' });
+    const modalRef = this.modalService.open(ServerSelectComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.workspaceId = this.workspaceId;
     modalRef.componentInstance.emitter.subscribe(
       next => {
@@ -62,7 +62,7 @@ export class CampaignsComponent implements OnInit {
   }
 
   openScenario() {
-    const modalRef = this.modalService.open(ScenarioSelectComponent, { size: 'lg' });
+    const modalRef = this.modalService.open(ScenarioSelectComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.emitter.subscribe(
       data => {
         if (data == "back") {
@@ -74,7 +74,7 @@ export class CampaignsComponent implements OnInit {
   }
 
   openSending() {
-    const modalRef = this.modalService.open(SendSelectComponent, { size: 'lg' });
+    const modalRef = this.modalService.open(SendSelectComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.workspaceId = this.workspaceId;
     modalRef.componentInstance.emitter.subscribe(
       data => {

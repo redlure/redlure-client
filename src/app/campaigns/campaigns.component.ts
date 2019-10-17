@@ -1,20 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router'
-import { first } from 'rxjs/operators'
+import { first } from 'rxjs/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CampaignsApiService } from './campaigns-api.service'
 import { Campaign } from './campaign.model';
-import { DelCampaignComponent } from './del-campaign/del-campaign.component'
+import { DelCampaignComponent } from './del-campaign/del-campaign.component';
 import { MessageService } from '../empty-object/message.service';
-
-import { AlertService } from '../alert/alert.service'
+import { AlertService } from '../alert/alert.service';
+import { Subject } from 'rxjs';
+import { ServerSelectComponent } from './new-campaign/server-select/server-select.component';
+import { NewCampaignService } from './new-campaign/new-campaign.service';
+import { ScenarioSelectComponent } from './new-campaign/scenario-select/scenario-select.component';
+import { SendSelectComponent } from './new-campaign/send-select/send-select.component';
 
 @Component({
   selector: 'app-campaigns',
   templateUrl: './campaigns.component.html',
-  providers: [ MessageService ]
+  providers: [ MessageService, ServerSelectComponent ]
 })
 export class CampaignsComponent implements OnInit {
+  destroy = new Subject<any>();
   workspaceId: String;
   campaigns: Campaign[];
   editCampaign: Campaign;
@@ -26,7 +31,8 @@ export class CampaignsComponent implements OnInit {
     private modalService: NgbModal,
     private alertService: AlertService,
     private router: Router,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private newCampaignService: NewCampaignService,
   ) {
     this.route.params.subscribe(params => this.workspaceId = params['workspaceId'])
    }
@@ -37,7 +43,47 @@ export class CampaignsComponent implements OnInit {
   }
 
   onSelect(campaign){
-    this.editCampaign = campaign
+    this.editCampaign = campaign;
+  }
+
+  openNew(init) {
+    if (init) {
+      this.newCampaignService.initNewCampaign();
+    }
+    
+    const modalRef = this.modalService.open(ServerSelectComponent, { size: 'lg' });
+    modalRef.componentInstance.workspaceId = this.workspaceId;
+    modalRef.componentInstance.emitter.subscribe(
+      next => {
+        if (next) {
+          this.openScenario();
+        } 
+      });
+  }
+
+  openScenario() {
+    const modalRef = this.modalService.open(ScenarioSelectComponent, { size: 'lg' });
+    modalRef.componentInstance.emitter.subscribe(
+      data => {
+        if (data == "back") {
+          this.openNew(false);
+        } else if (data == "next") {
+          this.openSending();
+        }
+      });
+  }
+
+  openSending() {
+    const modalRef = this.modalService.open(SendSelectComponent, { size: 'lg' });
+    modalRef.componentInstance.workspaceId = this.workspaceId;
+    modalRef.componentInstance.emitter.subscribe(
+      data => {
+        if (data == "back") {
+          this.openScenario();
+        } else {
+          this.campaigns.unshift(data)
+        }
+      });
   }
 
   openEdit(campaign) {

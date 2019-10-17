@@ -72,6 +72,6 @@ export class TestProfileComponent implements OnInit {
                 console.log(error)
             });
             
-}
+  }
 
 }

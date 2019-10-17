@@ -77,6 +77,10 @@ import { PieChartComponent } from './results/graphs/pie-chart/pie-chart.componen
 import { DataService } from './results/data.service';
 import { NgbdTableSortableModule } from './results/table/table-sortable.module';
 import { EmptyObjectComponent } from './empty-object/empty-object.component';
+import { ServerSelectComponent } from './campaigns/new-campaign/server-select/server-select.component';
+import { NewCampaignService } from './campaigns/new-campaign/new-campaign.service';
+import { ScenarioSelectComponent } from './campaigns/new-campaign/scenario-select/scenario-select.component';
+import { SendSelectComponent } from './campaigns/new-campaign/send-select/send-select.component';
 
 @NgModule({
   declarations: [
@@ -129,6 +133,9 @@ import { EmptyObjectComponent } from './empty-object/empty-object.component';
     //TableComponent,
     PieChartComponent,
     EmptyObjectComponent,
+    ServerSelectComponent,
+    ScenarioSelectComponent,
+    SendSelectComponent,
   ],
   imports: [
     BrowserModule,
@@ -163,6 +170,7 @@ import { EmptyObjectComponent } from './empty-object/empty-object.component';
     ListsApiService,
     ResultsApiService,
     DataService,
+    NewCampaignService,
   ],
   bootstrap: [AppComponent],
   entryComponents: [
@@ -194,6 +202,9 @@ import { EmptyObjectComponent } from './empty-object/empty-object.component';
     PasswordResetComponent,
     ServerProcessesComponent,
     GraphsComponent,
+    ServerSelectComponent,
+    ScenarioSelectComponent,
+    SendSelectComponent,
     //TableComponent,
   ]
 })

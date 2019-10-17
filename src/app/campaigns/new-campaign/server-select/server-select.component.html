@@ -1,0 +1,65 @@
+<div class="modal-header">
+  <h4 class="modal-title">New Campaign: Hosting Options</h4>
+  <button class="btn btn-outline-danger" (click)="closeModal()">Close</button>
+</div>
+<form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+  <div class="modal-body">
+    <div class="container">
+      <div class="input-group form-group">
+        <div class="input-group-prepend">
+            <span class="span-domain input-group-text">Server</span>
+        </div>
+        <select class="form-control" formControlName="server" [ngClass]="{ 'is-invalid': submitted && f.server.errors }">
+          <option disabled selected value> -- Select a server -- </option>
+          <option *ngFor="let server of newCampaignService.allModules['servers']">{{ server.alias }}</option>
+        </select>
+        <div *ngIf="submitted && f.server.errors" class="invalid-feedback">
+          <div *ngIf="f.server.errors.required">Server is required</div>
+        </div>
+      </div>
+
+      <!--Port Field-->
+      <div class="input-group form-group">
+        <div class="input-group-prepend">
+          <span class="span-domain input-group-text">Port</span>
+        </div>
+        <input default=443 type="text" formControlName="port" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.port.errors }"/>
+        <div *ngIf="submitted && f.port.errors" class="invalid-feedback">
+          <div *ngIf="f.port.errors.required">Port is required</div>
+        </div>
+      </div>
+
+    <div class="input-group form-group">
+      <div class="input-group-prepend">
+          <span class="span-domain input-group-text">Domain</span>
+      </div>
+      <select class="form-control" formControlName="domain" [ngClass]="{ 'is-invalid': submitted && f.domain.errors }">
+        <option disabled selected value> -- Select a domain -- </option>
+        <option *ngFor="let domain of newCampaignService.allModules.domains">{{ domain }}</option>
+      </select>
+      <div *ngIf="submitted && f.domain.errors" class="invalid-feedback">
+        <div *ngIf="f.domain.errors.required">Domain is required</div>
+      </div>
+    </div>
+
+    <div class="col-lg">
+      <div class="custom-control custom-checkbox custom-control-inline">
+        <input type="checkbox" class="custom-control-input" id="ssl" (change)="sslChange($event)" [checked]="newCampaignService.newCampaign.ssl">
+        <label style="margin-right: 1vh;" class="custom-control-label" for="ssl">Use SSL</label>
+        <i class="fa fa-info-circle" placement="right" triggers="mouseenter:mouseleave" ngbPopover="Host pages over SSL using certs supplied with your domain"></i>
+      </div>
+    </div>
+
+      <div *ngIf="failed" class="text-danger">
+        <br>
+        <p style="display: inline; margin-right: 1vh">{{ failMsg }}</p>
+        <i class="fa fa-times"></i>
+      </div>
+
+    </div>
+  </div>
+  <div class="modal-footer">
+    <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+    <button ngbAutofocus class="btn btn-outline-dark float-right login_btn">Next</button>
+  </div>
+</form>

@@ -1,0 +1,88 @@
+<div class="modal-header">
+  <h4 class="modal-title">New Campaign: Scenario Options</h4>
+  <div>
+    <button class="btn btn-outline-danger" style="float: right; margin-left: 2px" (click)="closeModal()">Close</button>
+    <button class="btn btn-outline-dark" style="float: right" (click)="backModal()">Back</button>
+  </div>
+</div>
+<form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+  <div class="modal-body">
+    <div class="container">
+      
+      <!--Name Field-->
+      <div class="input-group form-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text span-redir">Name</span>
+        </div>
+        <input placeholder="Campaign Name" type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.name.errors }"/>
+        <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+          <div *ngIf="f.name.errors.required">Name is required</div>
+        </div>
+      </div>
+
+      <hr>
+
+      <!--Email Field-->
+      <div class="input-group form-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text span-redir">Email</span>
+        </div>
+        <select class="form-control" formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+          <option disabled selected value> -- Select a email -- </option>
+          <option *ngFor="let email of newCampaignService.allModules.emails">{{ email }}</option>
+        </select>
+        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+          <div *ngIf="f.email.errors.required">Email is required</div>
+        </div>
+      </div>
+
+      <hr>
+
+      <!--Pages Loop-->
+      <div *ngFor="let p of newCampaignService.newCampaign.pages; let i = index">
+        <!--Page Field-->
+        <div class="input-group form-group">
+          <div class="input-group-prepend">
+              <span class="input-group-text span-redir">Page {{ i + 1 }}</span>
+          </div>
+          <select class="form-control" formControlName="page{{ i+1 }}">
+            <option disabled selected value> -- Select a page -- </option>
+            <option [ngValue]="page" *ngFor="let page of newCampaignService.allModules.pages">{{ page }}</option>
+          </select>
+
+          <!--Minus button-->
+          <div *ngIf="i == newCampaignService.newCampaign.pages.length - 1 && i > 0" class="input-group-append">
+           <button class="btn btn-outline-danger fas fa-minus"type="button" (click)="deletePage(i)"></button>
+          </div>
+
+          <!--Plus button-->
+          <div *ngIf="i == newCampaignService.newCampaign.pages.length - 1 && newCampaignService.newCampaign.pages.length < 4" class="input-group-append">
+            <button class="btn btn-outline-dark fas fa-plus" type="button" (click)="addPage()"></button>
+          </div>
+        </div>
+      </div>
+
+      <!--Redirect URL Field-->
+      <div class="input-group form-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text span-redir">Redirect URL</span>
+        </div>
+        <input placeholder="https://google.com" type="text" formControlName="redirectUrl" class="form-control"/>
+      </div>
+
+      <!--Payload URL Field
+      <div class="input-group form-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Payload URL</span>
+        </div>
+        <input type="text" formControlName="payloadUrl" class="form-control"/>
+      </div>
+    -->
+
+    </div>
+  </div>
+  <div class="modal-footer">
+    <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+    <button ngbAutofocus class="btn btn-outline-dark float-right login_btn">Next</button>
+  </div>
+</form>

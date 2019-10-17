@@ -87,6 +87,11 @@ logo {
     width: 170px;
 }
 
+.span-redir {
+    float: left;
+    width: 120px;
+}
+
 p {
     white-space: nowrap;
     overflow: hidden;

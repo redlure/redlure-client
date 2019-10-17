@@ -98,4 +98,28 @@ export class CampaignsApiService {
         catchError(this.handleError('killCampaign', []))
       );
   }
+
+  // Valiate that domain resolves to IP of server
+  validateIps(workspaceId: String, domain: String, server: String){
+    const url = `${this.apiService.getUrl()}/workspaces/${workspaceId}/campaigns/validateips`;
+    let formData: FormData = new FormData();
+    formData.append('Domain', String(domain));
+    formData.append('Server', String(server));
+    return this.http.post<any>(url, formData, {withCredentials: true})
+      .pipe(
+        catchError(this.handleError('validateIps'))
+      );  
+  }
+
+  // Valiate that certificates for the domain exist on a server
+  validateCerts(workspaceId: String, domain: String, server: String){
+    const url = `${this.apiService.getUrl()}/workspaces/${workspaceId}/campaigns/validatecerts`;
+    let formData: FormData = new FormData();
+    formData.append('Domain', String(domain));
+    formData.append('Server', String(server));
+    return this.http.post<any>(url, formData, {withCredentials: true})
+      .pipe(
+        catchError(this.handleError('validateIps'))
+      );  
+  }
 }

@@ -28,7 +28,6 @@ const routes: Routes = [
   { path: 'workspaces/:workspaceId/emails/:emailId', component: EmailComponent },
   { path: 'workspaces/:workspaceId/lists', component: ListsComponent },
   { path: 'workspaces/:workspaceId/campaigns', component: CampaignsComponent },
-  { path: 'workspaces/:workspaceId/campaigns/:campaignId', component: CampaignComponent },
   { path: 'workspaces/:workspaceId/results', component: ResultsComponent}
 ];
  

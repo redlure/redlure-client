@@ -8,6 +8,7 @@ import { List } from '../list.model'
 import { AlertService } from '../../alert/alert.service'
 import { Target } from '../targets/target.model';
 import { parse } from 'papaparse';
+import { cloneDeep } from 'lodash';
 
 
 @Component({
@@ -54,7 +55,7 @@ export class EditListComponent implements OnInit {
       email: ['', Validators.email]
     });
     
-    this.list = this.editList
+    this.list = cloneDeep(this.editList)
     this.targets = this.list.targets
     this.workspaceId = this.router.url.split('/')[2];
   }
@@ -145,8 +146,6 @@ export class EditListComponent implements OnInit {
       }
 
       this.targets.push(this.newTarget);
-      console.log(this.targets)
-      console.log(this.editList.targets)
       this.f.first_name.setValue("");
       this.f.last_name.setValue("");
       this.f.email.setValue("");

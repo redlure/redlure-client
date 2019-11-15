@@ -25,6 +25,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
   selectAll = true;
   selectedForm;
 
+  loading = false;
   scheduled: number = 0;
   sent: number = 0;
   unopened: number = 0;
@@ -71,12 +72,14 @@ export class ResultsComponent implements OnInit, OnDestroy {
   }
 
   getResults() {
+    this.loading = true;
     this.resultsApiService.getResults(this.workspaceId).subscribe(data => {
       this.allResults = data[1];
       this.campaigns = data[0];
       this.results = this.allResults;
       this.forms = this.getForms();
       this.calcStats();
+      this.loading = false;
     });
   }
 

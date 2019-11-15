@@ -1,27 +1,29 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.css";
 @import "~@fortawesome/fontawesome-free/css/all.css";
-
+@import url('https://fonts.googleapis.com/css?family=Alegreya&display=swap');
+/*
 @font-face {
     font-family: 'sans-forgetica';
     src: url(assets/font/SansForgetica-Regular.otf) format("opentype");
   }
+*/
 
 h3 {
-    font-family: 'sans-forgetica';
+    font-family: 'Alegreya', serif;
 }
 
 .h3-prefix {
-    color: red
+    color: rgb(233, 10, 10);
 }
 
 logo {
-    font-family: 'sans-forgetica';
+    font-family: 'Alegreya', serif;
     font-size: 60px;
 }
 
 .logo-prefix {
-    color: red;
+    color: rgb(233, 10, 10);
 }
 
 .h3-suffix {

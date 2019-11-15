@@ -41,4 +41,22 @@ export class NewCampaignService {
     }
   }
 
+  cloneCampaign(campaign) {
+    this.newCampaign.name = campaign.name;
+    this.newCampaign.email = campaign.email.name;
+    this.newCampaign.profile = campaign.profile.name;
+    this.newCampaign.domain = campaign.domain.domain;
+    this.newCampaign.server = campaign.server.alias;
+    //this.newCampaign.list = campaign.list.name;
+    this.newCampaign.port = campaign.port;
+    this.newCampaign.ssl = campaign.ssl;
+    this.newCampaign.payloadUrl = campaign.payloadUrl;
+    this.newCampaign.redirectUrl = campaign.redirectUrl;
+
+    campaign.pages.forEach(element => {
+      this.newCampaign.pages[element.index] = element.page.name;
+    });
+    console.log(this.newCampaign)
+  }
+
 }

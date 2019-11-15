@@ -110,6 +110,15 @@ export class CampaignsComponent implements OnInit {
       .subscribe(campaigns => this.campaigns = campaigns);
   }
 
+  cloneCampaign(campaign) {
+    console.log(campaign)
+    this.newCampaignService.initNewCampaign();
+    this.newCampaignService.cloneCampaign(campaign);
+    this.openNew(false);
+  }
+
+  // outdated launch func
+  /*
   launchCampaign(campaign) {
     this.loading = true
     this.campaignsApiService.launchCampaign(this.workspaceId, String(campaign.id))
@@ -125,6 +134,7 @@ export class CampaignsComponent implements OnInit {
         }
       );
   }
+  */
 
   killCampaign(campaign) {
     this.loading = true;

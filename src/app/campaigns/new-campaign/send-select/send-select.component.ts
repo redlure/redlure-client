@@ -79,7 +79,6 @@ export class SendSelectComponent implements OnInit {
       .subscribe(
           data => {
             this.loading = false;
-            console.log(data);
             if (data['success'] == false) {
               this.failed = true;;
               this.failMsg = data['msg'];

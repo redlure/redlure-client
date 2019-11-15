@@ -46,15 +46,7 @@ export class ServerSelectComponent implements OnInit {
   getData(){
     this.campaignsApiService.getAllModules(this.workspaceId)
       .subscribe(data => {
-        console.log(data)
         this.newCampaignService.allModules = data;
-        console.log(this.newCampaignService.allModules)
-        /*this.domains = data['domains'];
-        this.servers = data['servers'];
-        this.pages = data['pages'];
-        this.lists = data['lists'];
-        this.profiles = data['profiles'];
-        this.emails = data['emails'];*/
       });
   }
 

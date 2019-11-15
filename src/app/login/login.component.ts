@@ -15,8 +15,9 @@ export class LoginComponent implements OnInit {
   loading = false;
   submitted = false;
   returnUrl = 'workspaces';
-  invalidLogon = false;
   serverUrl: String;
+  failed = false;
+  failMsg = "";
   
   constructor(
     private formBuilder: FormBuilder,
@@ -59,14 +60,17 @@ export class LoginComponent implements OnInit {
         .pipe(first())
         .subscribe(
             data => {
-              console.log(data)
-                if(data['success']){
-                  this.router.navigate([this.returnUrl]);
-                  this.invalidLogon = false;
-                } else {
-                  this.invalidLogon = true;
-                  this.loading = false;
-                }
+              this.loading = false;
+              if(data['success']){
+                this.router.navigate([this.returnUrl]);
+                this.failed = false;
+              } else if (data['success'] == false){
+                this.failed = true;
+                this.failMsg = "Invalid username or password"
+              } else {
+                this.failed = true;
+                this.failMsg = "Server is unreachable"
+              }
             },
             error => {
                 //console.log(error)

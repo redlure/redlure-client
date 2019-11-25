@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChildren, OnDestroy, QueryList } from '@angular/core';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UsersApiService } from './users-api.service'
@@ -9,6 +9,9 @@ import { DelUserComponent } from './del-user/del-user.component'
 import { DelRoleComponent } from './del-role/del-role.component'
 import { EditRoleComponent } from './edit-role/edit-role.component'
 import { PasswordResetComponent } from './password-reset/password-reset.component'
+import { Subject } from 'rxjs';
+import { DataTableDirective } from 'angular-datatables';
+
 
 @Component({
   selector: 'app-users-roles',
@@ -23,6 +26,11 @@ export class UsersRolesComponent implements OnInit {
 
   userHeaders = ["#", "Username", "Role", "Actions"]
   roleHeaders = ["#", "Name", "Type", "Actions"]
+
+  @ViewChildren(DataTableDirective)
+  dtElements: QueryList<DataTableDirective>;
+  dtTrigger: Subject<any>[] = [];
+  dtOptions: DataTables.Settings[] = [];
 
   constructor(
     private usersApiService: UsersApiService,
@@ -40,18 +48,27 @@ export class UsersRolesComponent implements OnInit {
 
   getUsers(): void {
     this.usersApiService.getUsers()
-      .subscribe(users => this.users = users);
+      .subscribe(users => {
+        this.users = users;
+        this.dtTrigger['new'].next();
+      });
   }
 
   getRoles(): void {
     this.rolesApiService.getRoles()
-      .subscribe(roles => this.roles = roles);
+      .subscribe(roles => { 
+        this.roles = roles;
+        this.getUsers();
+      });
   }
 
   addUserModal(){
     const modalRef = this.modalService.open(NewUserComponent, { backdrop: 'static' });
     modalRef.componentInstance.roles = this.roles;
-    modalRef.componentInstance.emitter.subscribe(data => this.users.push(data));
+    modalRef.componentInstance.emitter.subscribe(data => {
+      this.users.push(data);
+      this.rerender();
+    });
   }
 
   deleteUserModal(user){
@@ -63,6 +80,7 @@ export class UsersRolesComponent implements OnInit {
         const index: number = this.users.indexOf(data);
         if (index !== -1) {
           this.users.splice(index, 1);
+          this.rerender();
         }        
       }
     );
@@ -76,7 +94,10 @@ export class UsersRolesComponent implements OnInit {
 
   addRoleModal(){
     const modalRef = this.modalService.open(NewRoleComponent, { backdrop: 'static' });
-    modalRef.componentInstance.emitter.subscribe(data => this.roles.push(data));
+    modalRef.componentInstance.emitter.subscribe(data => {
+      this.roles.push(data);
+      this.rerender();
+    });
   }
 
   deleteRoleModal(role){
@@ -88,16 +109,17 @@ export class UsersRolesComponent implements OnInit {
         const index: number = this.roles.indexOf(data);
         if (index !== -1) {
           this.roles.splice(index, 1);
+          //refresh users, some may have been deleted when role was deleted
+          this.getUsers();
         }   
-        //refresh users, some may have been deleted when role was deleted
-        this.getUsers();     
+        this.rerender()
       }
     );
   }
 
   editRoleModal(role){
     this.onRoleSelect(role);
-    const modalRef = this.modalService.open(EditRoleComponent, { backdrop: 'static' });
+    const modalRef = this.modalService.open(EditRoleComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.editRole = this.editRole;
     modalRef.componentInstance.emitter.subscribe( 
       data => {
@@ -110,9 +132,27 @@ export class UsersRolesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getUsers()
+    this.dtTrigger["new"] = new Subject<any>();
+    this.dtOptions['new'] = {
+      pagingType: 'full_numbers',
+      destroy:true //Add to allow the datatable to destroy
+    };
+    //this.getUsers()
     this.getRoles()
   }
-  
+
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger["new"].unsubscribe();
+  }
+
+  rerender(): void {
+    this.dtElements.forEach((dtElement: DataTableDirective) => {
+      dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.destroy();   
+      });
+    });
+    this.dtTrigger['new'].next(); 
+  }  
 
 }

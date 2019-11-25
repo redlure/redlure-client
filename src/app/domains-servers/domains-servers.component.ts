@@ -1,5 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
-
+import { Component, Input, OnInit, ViewChildren, OnDestroy, QueryList } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NewDomainComponent } from './new-domain/new-domain.component'
 import { NewServerComponent } from './new-server/new-server.component'
@@ -13,6 +12,9 @@ import { AlertService } from '../alert/alert.service'
 import { EditCertsComponent } from './edit-certs/edit-certs.component'
 import { NewKeyComponent } from './new-key/new-key.component'
 import { ServerProcessesComponent } from './server-processes/server-processes.component'
+import { Subject } from 'rxjs';
+import { DataTableDirective } from 'angular-datatables';
+
 
 @Component({
   selector: 'app-domains-servers',
@@ -22,7 +24,7 @@ import { ServerProcessesComponent } from './server-processes/server-processes.co
     ServersApiService
   ]
 })
-export class DomainsServersComponent implements OnInit {
+export class DomainsServersComponent implements OnInit, OnDestroy {
   servers: Server[];
   domains: Domain[];
   apiKey: string;
@@ -33,6 +35,12 @@ export class DomainsServersComponent implements OnInit {
 
   @Input() editServer: Server; // the Server currently being edited
   @Input() editDomain: Domain; // the Domain currently being edited
+
+  @ViewChildren(DataTableDirective)
+  dtElements: QueryList<DataTableDirective>;
+  dtTrigger: Subject<any>[] = [];
+  dtOptions: DataTables.Settings[] = [];
+  
 
   constructor(
     private domainsApiService: DomainsApiService,
@@ -73,12 +81,18 @@ export class DomainsServersComponent implements OnInit {
 
   openServerModal() {
     const modalRef = this.modalService.open(NewServerComponent, { size: 'lg', backdrop: 'static' });
-    modalRef.componentInstance.emitter.subscribe(data => this.servers.push(data));
+    modalRef.componentInstance.emitter.subscribe(data => {
+      this.servers.push(data);
+      this.rerender();
+    });
   }
 
   openDomainModal() {
     const modalRef = this.modalService.open(NewDomainComponent, { size: 'lg', backdrop: 'static' });
-    modalRef.componentInstance.emitter.subscribe(data => this.domains.push(data));
+    modalRef.componentInstance.emitter.subscribe(data => {
+      this.domains.push(data);
+      this.rerender();
+    });
   }
 
   deleteServerModal(server) {
@@ -90,6 +104,7 @@ export class DomainsServersComponent implements OnInit {
         const index: number = this.servers.indexOf(data);
         if (index !== -1) {
           this.servers.splice(index, 1);
+          this.rerender();
         }
       }
     );
@@ -104,6 +119,7 @@ export class DomainsServersComponent implements OnInit {
         const index: number = this.domains.indexOf(data);
         if (index !== -1) {
           this.domains.splice(index, 1);
+          this.rerender();
         }
       }
     );
@@ -111,12 +127,18 @@ export class DomainsServersComponent implements OnInit {
 
   getServers(): void {
     this.serversApiService.getServers()
-      .subscribe(servers => this.servers = servers);
+      .subscribe(servers => { 
+        this.servers = servers
+        this.dtTrigger['new'].next(); 
+      });
   }
 
   getDomains(): void {
     this.domainsApiService.getDomains()
-      .subscribe(domains => this.domains = domains);
+      .subscribe(domains => { 
+        this.domains = domains;
+        this.getServers(); 
+      });
   }
 
   getApiKey() {
@@ -191,8 +213,33 @@ export class DomainsServersComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.dtTrigger["new"] = new Subject<any>();
+    this.dtOptions['new'] = {
+      pagingType: 'full_numbers',
+      destroy:true //Add to allow the datatable to destroy
+    };
     this.getDomains()
-    this.getServers()
+    //this.getServers()
     this.getApiKey()
+  }
+
+  /*
+  ngAfterViewInit(): void {
+    this.dtTrigger["new"].next();
+  }
+  */
+
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger["new"].unsubscribe();
+  }
+
+  rerender(): void {
+    this.dtElements.forEach((dtElement: DataTableDirective) => {
+      dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.destroy();   
+      });
+    });
+    this.dtTrigger['new'].next(); 
   }
 }

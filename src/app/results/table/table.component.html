@@ -3,34 +3,10 @@
   <button class="btn btn-outline-danger" (click)="closeModal()">Close</button>
 </div>
 <body style="margin: 20px;">
-  <table class="table table-hover table-striped col-auto">
+  <table datatable [dtTrigger]="dtTrigger"  class="table table-hover table-striped col-auto">
     <thead class="thead-dark">
     <tr>
-      <th scope="col">#</th>
-      <th scope="col" style="cursor: pointer;" sortable="status" (sort)="onSort($event)">Status
-        <i class="fa fa-chevron-up" *ngIf="direction === 'asc' && column === 'status'" ></i>
-        <i class="fa fa-chevron-down" *ngIf="direction === 'desc' && column === 'status'"></i>
-      </th>
-      <th scope="col" style="cursor: pointer;" sortable="email" (sort)="onSort($event)">Email
-        <i class="fa fa-chevron-up" *ngIf="direction === 'asc' && column === 'email'" ></i>
-        <i class="fa fa-chevron-down" *ngIf="direction === 'desc' && column === 'email'"></i>
-      </th>
-      <th scope="col" style="cursor: pointer;" sortable="first_name" (sort)="onSort($event)">First Name
-        <i class="fa fa-chevron-up" *ngIf="direction === 'asc' && column === 'first_name'" ></i>
-        <i class="fa fa-chevron-down" *ngIf="direction === 'desc' && column === 'first_name'"></i>
-      </th>
-      <th scope="col" style="cursor: pointer;" sortable="last_name" (sort)="onSort($event)">Last Name
-        <i class="fa fa-chevron-up" *ngIf="direction === 'asc' && column === 'last_name'" ></i>
-        <i class="fa fa-chevron-down" *ngIf="direction === 'desc' && column === 'last_name'"></i>
-      </th>
-      <th scope="col" style="cursor: pointer;" sortable="tracker" (sort)="onSort($event)">Tracker
-        <i class="fa fa-chevron-up" *ngIf="direction === 'asc' && column === 'tracker'" ></i>
-        <i class="fa fa-chevron-down" *ngIf="direction === 'desc' && column === 'tracker'"></i>
-      </th>
-      <th scope="col" style="cursor: pointer;" sortable="campaign_id" (sort)="onSort($event)">Campaign ID
-        <i class="fa fa-chevron-up" *ngIf="direction === 'asc' && column === 'campaign_id'" ></i>
-        <i class="fa fa-chevron-down" *ngIf="direction === 'desc' && column === 'campaign_id'"></i>
-      </th>
+      <th scope="col" *ngFor="let head of headers; let i = index">{{ head }}</th>
     </tr>
     </thead>
     <tbody>

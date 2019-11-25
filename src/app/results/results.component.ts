@@ -74,12 +74,14 @@ export class ResultsComponent implements OnInit, OnDestroy {
   getResults() {
     this.loading = true;
     this.resultsApiService.getResults(this.workspaceId).subscribe(data => {
+      console.log(data)
       this.allResults = data[1];
       this.campaigns = data[0];
       this.results = this.allResults;
       this.forms = this.getForms();
       this.calcStats();
       this.loading = false;
+      this.setState();
     });
   }
 
@@ -117,10 +119,12 @@ export class ResultsComponent implements OnInit, OnDestroy {
   }
 
   // if campaign state is undefined set to true, so that checkbox starts as checked
-  setState(campaign) {
-    if (typeof(campaign.state) == 'undefined') {
-      campaign.state = true;
-    }
+  setState() {
+    this.campaigns.forEach(campaign => {
+      if (typeof(campaign.state) == 'undefined') {
+        campaign.state = true;
+      }
+    });
   }
 
 

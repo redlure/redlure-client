@@ -2,6 +2,8 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 @import "~@fortawesome/fontawesome-free/css/all.css";
 @import url('https://fonts.googleapis.com/css?family=Alegreya&display=swap');
+
+
 /*
 @font-face {
     font-family: 'sans-forgetica';
@@ -142,7 +144,7 @@ p {
  }
 
  .card-deck {
-     grid-template-columns: repeat(6, minmax(250px, 1fr));
+     grid-template-columns: repeat(5, minmax(250px, 1fr));
  }
 
  .centerBlock {

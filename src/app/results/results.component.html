@@ -92,7 +92,6 @@
             </thead>
             <tbody>
               <tr *ngFor="let campaign of campaigns; let i = index">
-                {{ setState(campaign) }}
                 <td>
                   <div class="custom-control custom-checkbox">
                     <input type="checkbox" id="cb{{ i }}" class="custom-control-input" [(ngModel)]="campaign.state" (change)="toggleSelect($event, campaign.id)">

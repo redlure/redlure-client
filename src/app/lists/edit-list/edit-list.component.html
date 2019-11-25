@@ -67,7 +67,7 @@
   </div>
 
   <div class="table-responsive">
-    <table class="table table-hover table-striped col-auto table-sm">
+    <table datatable [dtTrigger]="dtTrigger" class="table table-hover table-striped col-auto table-sm">
       <thead class="thead-dark">
         <tr>
           <th scope="col" *ngFor="let head of headers; let i = index">{{ head }}</th>

@@ -1,70 +1,21 @@
-import { Component, Directive, EventEmitter, Input, Output, QueryList, ViewChildren, OnInit } from '@angular/core';
+import { Component, Directive, EventEmitter, Input, Output, QueryList, ViewChildren, OnInit, ViewChild, OnDestroy, AfterViewInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-
-export type SortDirection = 'asc' | 'desc' | '';
-const rotate: {[key: string]: SortDirection} = { 'asc': 'desc', 'desc': '', '': 'asc' };
-export const compare = (v1, v2) => v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
-
-export interface SortEvent {
-  column: string;
-  direction: SortDirection;
-}
-
-@Directive({
-  selector: 'th[sortable]',
-  host: {
-    '[class.asc]': 'direction === "asc"',
-    '[class.desc]': 'direction === "desc"',
-    '(click)': 'rotate()'
-  }
-})
-export class NgbdSortableHeader {
-
-  @Input() sortable: string;
-  @Input() direction: SortDirection = '';
-  @Output() sort = new EventEmitter<SortEvent>();
-
-  rotate() {
-    this.direction = rotate[this.direction];
-    this.sort.emit({column: this.sortable, direction: this.direction});
-  }
-}
-
+import { Subject } from 'rxjs';
+import { DataTableDirective } from 'angular-datatables';
 
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html'
 })
 export class TableComponent implements OnInit {
-  //headers = ["#", "Status", "Email", "First Name", "Last Name", "Tracker", "Campaign ID"];
+  headers = ["#", "Status", "Email", "First Name", "Last Name", "Tracker", "Campaign ID"];
   @Input() results: any[] = [];
   copyOfResults: any[] = []
 
-  column: String = '';
-  direction: String = '';
-
-  @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
-
-  onSort({column, direction}: SortEvent) {
-    this.column = column;
-    this.direction = direction;
-    // resetting other headers
-    this.headers.forEach(header => {
-      if (header.sortable !== column) {
-        header.direction = '';
-      }
-    });
-
-    // sorting results
-    if (direction === '') {
-      this.results = this.copyOfResults;
-    } else {
-      this.results = this.copyOfResults.sort((a, b) => {
-        const res = compare(a[column], b[column]);
-        return direction === 'asc' ? res : -res;
-      });
-    }
-  }
+  dtTrigger: Subject<any> = new Subject();
+  dtOptions: DataTables.Settings = {};
+  @ViewChild(DataTableDirective)
+  dtElement: DataTableDirective;
 
   constructor(
     public activeModal: NgbActiveModal
@@ -75,7 +26,25 @@ export class TableComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.copyOfResults = this.results.map(obj => ({...obj}));
-    console.log(this.copyOfResults)
+    //this.copyOfResults = this.results.map(obj => ({...obj}));
+    //console.log(this.copyOfResults)
+  }
+
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
+  }
+
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
+  }
+
+  rerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
+      this.dtTrigger.next();
+    });
   }
 }

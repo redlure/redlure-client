@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
@@ -8,13 +8,15 @@ import { List } from '../list.model'
 import { AlertService } from '../../alert/alert.service'
 import { Target } from '../targets/target.model';
 import { parse } from 'papaparse';
+import { Subject } from 'rxjs';
+import { DataTableDirective } from 'angular-datatables';
 
 @Component({
   selector: 'app-new-list',
   templateUrl: './new-list.component.html'
 })
 
-export class NewListComponent implements OnInit {
+export class NewListComponent implements OnInit, AfterViewInit, OnDestroy {
   myForm: FormGroup;
   loading = false;
   submitted = false;
@@ -34,6 +36,11 @@ export class NewListComponent implements OnInit {
   headers = ["#", "First Name", "Last Name", "Email", "Actions"]
 
   @Output() emitter: EventEmitter<any> = new EventEmitter<any>();
+
+  dtTrigger: Subject<any> = new Subject();
+  dtOptions: DataTables.Settings = {};
+  @ViewChild(DataTableDirective)
+  dtElement: DataTableDirective;
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -55,12 +62,34 @@ export class NewListComponent implements OnInit {
     this.workspaceId = this.router.url.split('/')[2];
   }
 
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
+  }
+
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
+  }
+
+  rerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
+      this.dtTrigger.next();
+    });
+  }
+
   onFileSelect(file) {
     this.file = file.target.files[0];
     let reader = new FileReader();
     reader.onload = () => {
       var csv:string = reader.result as string;
-      parse(csv, {complete: (result) => this.csvToTable(result.data)});
+      parse(csv, {complete: (result) => {
+        this.csvToTable(result.data)
+        this.rerender();
+        }
+      });
     }
     reader.readAsText(this.file);
   }
@@ -145,6 +174,7 @@ export class NewListComponent implements OnInit {
       this.f.first_name.setValue("");
       this.f.last_name.setValue("");
       this.f.email.setValue("");
+      this.rerender();
     }
   }
 

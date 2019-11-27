@@ -30,7 +30,7 @@ export class PieChartComponent implements OnInit {
           '#ffc107',
           '#dc3545'
         ],
-        borderWidth: 1,
+        borderWidth: 0,
         hoverBackgroundColor: [
           '#28a745',
           '#6c757d',

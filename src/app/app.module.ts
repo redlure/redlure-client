@@ -82,6 +82,7 @@ import { ScenarioSelectComponent } from './campaigns/new-campaign/scenario-selec
 import { SendSelectComponent } from './campaigns/new-campaign/send-select/send-select.component';
 import { DataTablesModule } from 'angular-datatables';
 import { TableComponent } from './results/table/table.component';
+import { ServerFilesComponent } from './domains-servers/server-files/server-files.component';
 
 
 @NgModule({
@@ -137,6 +138,7 @@ import { TableComponent } from './results/table/table.component';
     ServerSelectComponent,
     ScenarioSelectComponent,
     SendSelectComponent,
+    ServerFilesComponent,
   ],
   imports: [
     BrowserModule,
@@ -208,6 +210,7 @@ import { TableComponent } from './results/table/table.component';
     ScenarioSelectComponent,
     SendSelectComponent,
     TableComponent,
+    ServerFilesComponent
   ]
 })
 export class AppModule { }

@@ -88,4 +88,46 @@ export class ServersApiService {
     }
 
 
+    //POST file to a server
+    uploadFile(id: Number, file: File): Observable<String> {
+      const url = `${this.apiService.getUrl()}/servers/${id}/files`;
+      let formData: FormData = new FormData();
+      formData.append('file', file, file.name);
+      return this.http.post<any>(url, formData, {withCredentials: true})
+        .pipe(
+          catchError(this.handleError('uploadFile'))
+        )
+    }
+
+    // GET files on the server
+    getFiles(id: Number): Observable<any[]> {
+      const url = `${this.apiService.getUrl()}/servers/${id}/files`;
+      return this.http.get<any>(url, {withCredentials: true})
+        .pipe(
+          catchError(this.handleError('getFiles'))
+        )
+    }
+
+    // POST request to the server to delete a specified file
+    deleteFile(id: Number, fileName: String): Observable<String> {
+      console.log(fileName)
+      const url = `${this.apiService.getUrl()}/servers/${id}/files/delete`;
+      let formData: FormData = new FormData();
+      formData.append('Filename', String(fileName));
+      return this.http.post<any>(url, formData, {withCredentials: true})
+        .pipe(
+          catchError(this.handleError('deleteFile'))
+        )
+    }
+
+    // GET request to the server to delete all files in the upload folder
+    deleteFiles(id: Number): Observable<String> {
+      const url = `${this.apiService.getUrl()}/servers/${id}/files/delete`;
+      return this.http.get<any>(url, {withCredentials: true})
+        .pipe(
+          catchError(this.handleError('deleteFiles'))
+        )
+    }
+
+
 }

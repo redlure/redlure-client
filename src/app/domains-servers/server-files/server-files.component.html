@@ -1,0 +1,35 @@
+<div class="modal-header">
+  <h4 class="modal-title">Files Uploaded on {{ editServer.alias }}</h4>
+  <button class="btn btn-outline-danger" (click)="closeModal()">Close</button>
+</div>
+<div class="modal-body">
+  <div class="table-responsive">
+    <table datatable [dtTrigger]="dtTrigger" class="table table-hover table-striped table-sm">
+      <thead class="thead-dark">
+        <tr>
+          <th *ngFor="let head of headers; let i = index" scope="col">{{ head }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let file of files; let i = index">
+          <th scope="row">{{ i +1 }}</th>
+          <td>{{ file }}</td>
+          <td>
+            <a style="cursor: pointer;" title="Delete" data-toggle="tooltip" (click)="deleteFile(file)"><i class="ico text-danger fas fa-trash-alt"></i></a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="modal-footer">
+  <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+  <button [disabled]="loading" class="btn btn-outline-danger" (click)="deleteAll()">Clear Uploads <i class="fas fa-trash"></i></button>
+  <button [disabled]="loading" class="btn btn-outline-primary" (click)="file.click()">Upload File <i class="fas fa-file-upload"></i></button>
+  <input style="display: none" type="file" id="browse" (change)="uploadFile($event)" #file>
+</div>
+
+<!--
+  <a style="cursor: pointer;" title="Upload File" data-toggle="tooltip" (click)="file.click()"><i class="ico text-dark fas fa-file-upload"></i></a>
+  <input style="display: none" type="file" (change)="uploadFile($event, server)" #file>
+-->

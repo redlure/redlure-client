@@ -1,17 +1,18 @@
 import { Component, Input, OnInit, ViewChildren, OnDestroy, QueryList } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { NewDomainComponent } from './new-domain/new-domain.component'
-import { NewServerComponent } from './new-server/new-server.component'
-import { ServersApiService } from './servers-api.service'
-import { DomainsApiService } from './domains-api.service'
-import { Domain } from './domain.model'
-import { Server } from './server.model'
-import { DelServerComponent } from './del-server/del-server.component'
-import { DelDomainComponent } from './del-domain/del-domain.component'
-import { AlertService } from '../alert/alert.service'
-import { EditCertsComponent } from './edit-certs/edit-certs.component'
-import { NewKeyComponent } from './new-key/new-key.component'
-import { ServerProcessesComponent } from './server-processes/server-processes.component'
+import { NewDomainComponent } from './new-domain/new-domain.component';
+import { NewServerComponent } from './new-server/new-server.component';
+import { ServersApiService } from './servers-api.service';
+import { DomainsApiService } from './domains-api.service';
+import { Domain } from './domain.model';
+import { Server } from './server.model';
+import { DelServerComponent } from './del-server/del-server.component';
+import { DelDomainComponent } from './del-domain/del-domain.component';
+import { AlertService } from '../alert/alert.service';
+import { EditCertsComponent } from './edit-certs/edit-certs.component';
+import { NewKeyComponent } from './new-key/new-key.component';
+import { ServerProcessesComponent } from './server-processes/server-processes.component';
+import { ServerFilesComponent } from './server-files/server-files.component';
 import { Subject } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
 
@@ -32,6 +33,8 @@ export class DomainsServersComponent implements OnInit, OnDestroy {
   domainLoading = false;
   domainHeaders = ['#', 'Domain', 'DNS Lookup', 'Certs', 'Actions']
   serverHeaders = ['#', 'Alias', 'IP', 'Port', 'Status', 'Actions']
+
+  file: File;
 
   @Input() editServer: Server; // the Server currently being edited
   @Input() editDomain: Domain; // the Domain currently being edited
@@ -210,6 +213,12 @@ export class DomainsServersComponent implements OnInit, OnDestroy {
           }
         }
       );
+  }
+
+  openFiles(server) {
+    this.onServerSelect(server);
+    const modalRef = this.modalService.open(ServerFilesComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.componentInstance.editServer = this.editServer
   }
 
   ngOnInit() {

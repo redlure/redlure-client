@@ -74,7 +74,6 @@ import { GraphsComponent } from './results/graphs/graphs.component';
 //import { TableComponent } from './results/table/table.component';
 import { PieChartComponent } from './results/graphs/pie-chart/pie-chart.component'
 import { DataService } from './results/data.service';
-//import { NgbdTableSortableModule } from './results/table/table-sortable.module';
 import { EmptyObjectComponent } from './empty-object/empty-object.component';
 import { ServerSelectComponent } from './campaigns/new-campaign/server-select/server-select.component';
 import { NewCampaignService } from './campaigns/new-campaign/new-campaign.service';

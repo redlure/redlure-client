@@ -61,6 +61,10 @@ export class ServerFilesComponent implements OnInit, OnDestroy {
       .subscribe(data => {
         this.loading = false;
         if (data['success'] == true) {
+          const index: number = this.files.indexOf(this.file.name);
+          if (index !== -1) {
+            this.files.splice(index, 1);
+          }
           this.files.push(this.file.name)
           this.rerender()
         } else {

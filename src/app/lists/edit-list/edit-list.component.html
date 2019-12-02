@@ -23,8 +23,8 @@
 
 <div class="modal-header">
   <h5 class="modal-title">Targets</h5>
-  <input value="Upload List" class="btn btn-outline-primary" (click)="file.click()" type="button"/>
-  <input style="display: none" type="file" id="browse" accept=".csv" (change)="onFileSelect($event)" #file>
+  <button type="button" class="btn btn-outline-primary" (click)="file.click()">Upload File <i class="fas fa-file-csv"></i></button>
+    <input style="display: none" type="file" id="browse" accept=".csv" (change)="onFileSelect($event)" #file>
 </div>
 
 <div class="modal-body">

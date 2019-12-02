@@ -13,7 +13,7 @@ import { EditCertsComponent } from './edit-certs/edit-certs.component';
 import { NewKeyComponent } from './new-key/new-key.component';
 import { ServerProcessesComponent } from './server-processes/server-processes.component';
 import { ServerFilesComponent } from './server-files/server-files.component';
-import { Subject } from 'rxjs';
+import { Subject, forkJoin } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
 
 
@@ -86,7 +86,7 @@ export class DomainsServersComponent implements OnInit, OnDestroy {
     const modalRef = this.modalService.open(NewServerComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.emitter.subscribe(data => {
       this.servers.push(data);
-      this.rerender();
+      this.rerender('serverTable');
     });
   }
 
@@ -94,7 +94,7 @@ export class DomainsServersComponent implements OnInit, OnDestroy {
     const modalRef = this.modalService.open(NewDomainComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.emitter.subscribe(data => {
       this.domains.push(data);
-      this.rerender();
+      this.rerender('domainTable');
     });
   }
 
@@ -107,7 +107,7 @@ export class DomainsServersComponent implements OnInit, OnDestroy {
         const index: number = this.servers.indexOf(data);
         if (index !== -1) {
           this.servers.splice(index, 1);
-          this.rerender();
+          this.rerender('serverTable');
         }
       }
     );
@@ -122,12 +122,13 @@ export class DomainsServersComponent implements OnInit, OnDestroy {
         const index: number = this.domains.indexOf(data);
         if (index !== -1) {
           this.domains.splice(index, 1);
-          this.rerender();
+          this.rerender('domainTable');
         }
       }
     );
   }
 
+  // deprecated; now using forkJoin in ngInit
   getServers(): void {
     this.serversApiService.getServers()
       .subscribe(servers => { 
@@ -136,6 +137,7 @@ export class DomainsServersComponent implements OnInit, OnDestroy {
       });
   }
 
+  // deprecated; now using forkJoin in ngInit
   getDomains(): void {
     this.domainsApiService.getDomains()
       .subscribe(domains => { 
@@ -222,13 +224,19 @@ export class DomainsServersComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.dtTrigger["new"] = new Subject<any>();
-    this.dtOptions['new'] = {
-      pagingType: 'full_numbers',
-      destroy:true //Add to allow the datatable to destroy
-    };
-    this.getDomains()
+    this.dtTrigger["domainTable"] = new Subject<any>();
+    this.dtTrigger["serverTable"] = new Subject<any>();
+
+    //this.getDomains()
     //this.getServers()
+    forkJoin([this.serversApiService.getServers(), this.domainsApiService.getDomains()])
+      .subscribe(data => {
+        this.servers = data[0];
+        this.domains = data[1];
+        this.dtTrigger['serverTable'].next();
+        this.dtTrigger['domainTable'].next();
+      });
+
     this.getApiKey()
   }
 
@@ -240,15 +248,20 @@ export class DomainsServersComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
-    this.dtTrigger["new"].unsubscribe();
+    this.dtTrigger["domainTable"].unsubscribe();
+    this.dtTrigger["serverTable"].unsubscribe();
   }
 
-  rerender(): void {
+  rerender(table): void {
     this.dtElements.forEach((dtElement: DataTableDirective) => {
-      dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        dtInstance.destroy();   
+      let tableId = dtElement['el'].nativeElement.id
+        dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          if (tableId == table) {
+            dtInstance.destroy();
+            //console.log('destroying ' + table)
+          } 
+        });
       });
-    });
-    this.dtTrigger['new'].next(); 
+    this.dtTrigger[table].next(); 
   }
 }

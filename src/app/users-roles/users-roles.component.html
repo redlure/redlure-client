@@ -19,7 +19,7 @@
     <br>
 
     <div class="table-responsive">
-      <table datatable [dtTrigger]="dtTrigger['new']" class="table table-hover table-striped col-auto">
+      <table id="userTable" datatable [dtTrigger]="dtTrigger['userTable']" class="table table-hover table-striped col-auto">
         <thead class="thead-dark">
           <tr>
             <th scope="col" *ngFor="let head of userHeaders; let i = index">{{ head }}</th>
@@ -57,7 +57,7 @@
     <br>
 
     <div class="table-responsive">
-      <table datatable [dtTrigger]="dtTrigger['new']" class="table table-hover table-striped">
+      <table id="roleTable" datatable [dtTrigger]="dtTrigger['roleTable']" class="table table-hover table-striped">
         <thead class="thead-dark">
           <tr>
             <th *ngFor="let head of roleHeaders; let i = index" scope="col">{{ head }}</th>

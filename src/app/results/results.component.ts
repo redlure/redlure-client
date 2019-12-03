@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
+import { Component, OnInit, HostListener,  ViewChildren, AfterViewInit, OnDestroy, QueryList } from '@angular/core';
 import { ResultsApiService } from './results-api.service';
 import { AlertService } from '../alert/alert.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -11,13 +11,15 @@ import { TableComponent } from './table/table.component';
 import { GraphsComponent } from './graphs/graphs.component';
 import { DataService } from './data.service';
 import { MessageService } from '../empty-object/message.service';
+import { Subject } from 'rxjs';
+import { DataTableDirective } from 'angular-datatables';
 
 @Component({
   selector: 'app-results',
   templateUrl: './results.component.html',
   providers: [ MessageService ]
 })
-export class ResultsComponent implements OnInit, OnDestroy {
+export class ResultsComponent implements OnInit, AfterViewInit, OnDestroy {
   allResults: any[]; //all results returned by server
   results: any[] = []; //holds current filtered results
   forms: any[] = []; //holds submitted form data
@@ -40,6 +42,12 @@ export class ResultsComponent implements OnInit, OnDestroy {
   campaignHeaders = ["ID", "Name", "Status", "Server", "Start Date"];
   credHeaders = ["Email", "Campaign ID"]
 
+  @ViewChildren(DataTableDirective)
+  dtElements: QueryList<DataTableDirective>;
+  dtTrigger: Subject<any>[] = [];
+  dtOptions: DataTables.Settings[] = [];
+
+
   constructor(
     private resultsApiService: ResultsApiService,
     private alertService: AlertService,
@@ -53,6 +61,13 @@ export class ResultsComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
+    this.dtTrigger["formTable"] = new Subject<any>();
+    this.dtTrigger["campaignTable"] = new Subject<any>();
+    this.dtOptions["new"] = {
+      dom: "<'row'<'col-sm-6 text-left'l><'col-sm-6'f>>" +
+           "<'row'<'col-sm-12't>>" +
+           "<'row'<'col-sm-6 text-left'i><'col-sm-6'p>>"
+    }
     this.getResults();
     /*
     this.intervalVar = setInterval(() => {
@@ -62,10 +77,28 @@ export class ResultsComponent implements OnInit, OnDestroy {
     this.messageService.setMessage('No data to show')
   }
 
+  ngAfterViewInit() {
+    this.dtTrigger['new'].next();
+  }
+
   ngOnDestroy() {
     clearInterval(this.intervalVar) // cancel the interval task
     this.intervalVar = 0 // ensure the interval handle is cleared
   }
+
+  rerender(table): void {
+    this.dtElements.forEach((dtElement: DataTableDirective) => {
+      let tableId = dtElement['el'].nativeElement.id
+        dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          if (tableId == table) {
+            dtInstance.destroy();
+            //console.log('destroying ' + table)
+          } 
+        });
+      });
+    this.dtTrigger[table].next(); 
+  }
+  
 
   onResultSelect(form){
     this.selectedForm = form;
@@ -82,6 +115,8 @@ export class ResultsComponent implements OnInit, OnDestroy {
       this.calcStats();
       this.loading = false;
       this.setState();
+      this.rerender('campaignTable');
+      this.rerender('formTable');
     });
   }
 
@@ -104,6 +139,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
       this.forms = [];
     }
     this.calcStats();
+    this.rerender('formTable')
   }
 
   toggleSelect(event, campaignId) {
@@ -116,6 +152,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
       this.forms = this.getForms();
     }
     this.calcStats();
+    this.rerender('formTable')
   }
 
   // if campaign state is undefined set to true, so that checkbox starts as checked

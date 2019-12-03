@@ -79,7 +79,7 @@
           Campaigns
         </div>
         <div *ngIf="campaigns.length; else emptyBlock" class="table-responsive" style="overflow-x: auto;">
-          <table class="table table-hover table-sm">
+          <table id="campaignTable" datatable [dtOptions]="dtOptions['campaignTable']" [dtTrigger]="dtTrigger['new']" class="table table-hover table-sm">
             <thead class="thead-light">
               <tr>
                 <th scope="col">
@@ -121,7 +121,7 @@
         </div>
           <div *ngIf="forms.length; else emptyFormBlock" class="table-responsive">
             <div style="overflow: auto">
-              <table class="table table-hover table-sm">
+              <table id="formTable" datatable [dtOptions]="dtOptions['formTable']" [dtTrigger]="dtTrigger['new']" class="table table-hover table-sm">
                 <thead class="thead-light">
                   <tr>
                     <th scope="col" *ngFor="let head of credHeaders; let i = index">{{ head }}</th>

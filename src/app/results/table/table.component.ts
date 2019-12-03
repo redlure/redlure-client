@@ -2,6 +2,7 @@ import { Component, Directive, EventEmitter, Input, Output, QueryList, ViewChild
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
+import { wsName } from '../../env';
 
 @Component({
   selector: 'app-table',
@@ -13,7 +14,7 @@ export class TableComponent implements OnInit {
   copyOfResults: any[] = []
 
   dtTrigger: Subject<any> = new Subject();
-  dtOptions: DataTables.Settings = {};
+  dtOptions: any = {};
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
 
@@ -28,6 +29,19 @@ export class TableComponent implements OnInit {
   ngOnInit() {
     //this.copyOfResults = this.results.map(obj => ({...obj}));
     //console.log(this.copyOfResults)
+    this.dtOptions = {
+      dom: "<'row'<'col-sm-12' l>>" +
+           "<'row'<'col-sm-6'B><'col-sm-6'f>>" +
+           "<'row'<'col-sm-12't>>" +
+           "<'row'<'col-sm-6'i><'col-sm-6'p>>",
+      buttons: [
+        {
+          extend: "csv",
+          text: "Export to CSV",
+          title: `${wsName}-Results`
+        }
+      ]
+    }
   }
 
   ngAfterViewInit(): void {

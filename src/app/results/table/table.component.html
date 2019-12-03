@@ -3,7 +3,7 @@
   <button class="btn btn-outline-danger" (click)="closeModal()">Close</button>
 </div>
 <body style="margin: 20px;">
-  <table datatable [dtTrigger]="dtTrigger"  class="table table-hover table-striped col-auto">
+  <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"  class="table table-hover table-striped col-auto">
     <thead class="thead-dark">
     <tr>
       <th scope="col" *ngFor="let head of headers; let i = index">{{ head }}</th>

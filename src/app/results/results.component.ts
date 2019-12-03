@@ -166,7 +166,9 @@ export class ResultsComponent implements OnInit, OnDestroy {
     var filteredResults: any[] = [];
     // if status is 'Sent' we really want all results
     if (status == 'Sent') {
-      filteredResults = this.results;
+      filteredResults = this.results.filter(function(result) {
+        return result.status != 'Scheduled';
+      });
     } else {
       // if status is 'Unopened' we really want results whose status is still 'Sent'
       if (status == 'Unopened') {

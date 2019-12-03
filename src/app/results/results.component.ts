@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener,  ViewChildren, AfterViewInit, OnDestroy, QueryList } from '@angular/core';
+import { Component, OnInit, HostListener,  ViewChildren, OnDestroy, QueryList } from '@angular/core';
 import { ResultsApiService } from './results-api.service';
 import { AlertService } from '../alert/alert.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -19,7 +19,7 @@ import { DataTableDirective } from 'angular-datatables';
   templateUrl: './results.component.html',
   providers: [ MessageService ]
 })
-export class ResultsComponent implements OnInit, AfterViewInit, OnDestroy {
+export class ResultsComponent implements OnInit, OnDestroy {
   allResults: any[]; //all results returned by server
   results: any[] = []; //holds current filtered results
   forms: any[] = []; //holds submitted form data
@@ -45,7 +45,7 @@ export class ResultsComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChildren(DataTableDirective)
   dtElements: QueryList<DataTableDirective>;
   dtTrigger: Subject<any>[] = [];
-  dtOptions: DataTables.Settings[] = [];
+  dtOptions: DataTables.Settings = {}
 
 
   constructor(
@@ -63,36 +63,38 @@ export class ResultsComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit() {
     this.dtTrigger["formTable"] = new Subject<any>();
     this.dtTrigger["campaignTable"] = new Subject<any>();
-    this.dtOptions["new"] = {
+
+    // info and length components were not rendering as left-justified on the table
+    // hard coded to render there
+    this.dtOptions = {
       dom: "<'row'<'col-sm-6 text-left'l><'col-sm-6'f>>" +
            "<'row'<'col-sm-12't>>" +
            "<'row'<'col-sm-6 text-left'i><'col-sm-6'p>>"
     }
-    this.getResults();
+    this.getResults(false);
     /*
     this.intervalVar = setInterval(() => {
       this.getResults();
     }, 10000);
     */
-    this.messageService.setMessage('No data to show')
-  }
-
-  ngAfterViewInit() {
-    this.dtTrigger['new'].next();
   }
 
   ngOnDestroy() {
-    clearInterval(this.intervalVar) // cancel the interval task
-    this.intervalVar = 0 // ensure the interval handle is cleared
+    //clearInterval(this.intervalVar) // cancel the interval task
+    //this.intervalVar = 0 // ensure the interval handle is cleared
+    this.dtTrigger['campaignTable'].unsubscribe();
+    this.dtTrigger['formTable'].unsubscribe();
   }
 
   rerender(table): void {
+    console.log('hit rerender for ' + table)
     this.dtElements.forEach((dtElement: DataTableDirective) => {
       let tableId = dtElement['el'].nativeElement.id
+      console.log(tableId)
         dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           if (tableId == table) {
             dtInstance.destroy();
-            //console.log('destroying ' + table)
+            console.log('destroying ' + table)
           } 
         });
       });
@@ -104,10 +106,9 @@ export class ResultsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.selectedForm = form;
   }
 
-  getResults() {
+  getResults(rerender: Boolean) {
     this.loading = true;
     this.resultsApiService.getResults(this.workspaceId).subscribe(data => {
-      console.log(data)
       this.allResults = data[1];
       this.campaigns = data[0];
       this.results = this.allResults;
@@ -115,8 +116,13 @@ export class ResultsComponent implements OnInit, AfterViewInit, OnDestroy {
       this.calcStats();
       this.loading = false;
       this.setState();
-      this.rerender('campaignTable');
-      this.rerender('formTable');
+      if(rerender) {
+        this.rerender('campaignTable');
+        this.rerender('formTable');
+      } else {
+        this.dtTrigger['campaignTable'].next();
+        this.dtTrigger['formTable'].next();
+      }
     });
   }
 

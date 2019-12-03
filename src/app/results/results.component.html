@@ -11,7 +11,7 @@
       </h3>
     </div>
     <div class="col-md d-flex justify-content-end">
-      <button [disabled]="loading" (click)="getResults()" class="btn btn-outline-primary login_btn">Refresh <i class="fas fa-sync-alt"></i></button>
+      <button [disabled]="loading" (click)="getResults(true)" class="btn btn-outline-primary login_btn">Refresh <i class="fas fa-sync-alt"></i></button>
       <button (click)="openVisuals()" class="btn btn-outline-dark login_btn" style="margin-left: 1vh">Graph <i class="fas fa-chart-pie"></i></button>
     </div>
   </div>
@@ -78,40 +78,33 @@
         <div class="row h5 text-dark justify-content-md-center">
           Campaigns
         </div>
-        <div *ngIf="campaigns.length; else emptyBlock" class="table-responsive" style="overflow-x: auto;">
-          <table id="campaignTable" datatable [dtOptions]="dtOptions['campaignTable']" [dtTrigger]="dtTrigger['new']" class="table table-hover table-sm">
-            <thead class="thead-light">
-              <tr>
-                <th scope="col">
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" id="cbHead" class="custom-control-input" (change)="toggleSelectAll($event)" [checked]="selectAll">                            <label class="custom-control-label" for="cbHead"></label>
-                  </div>
-                </th>
-                <th scope="col" *ngFor="let head of campaignHeaders; let i = index">{{ head }}</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let campaign of campaigns; let i = index">
-                <td>
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" id="cb{{ i }}" class="custom-control-input" [(ngModel)]="campaign.state" (change)="toggleSelect($event, campaign.id)">
-                    <label class="custom-control-label" for="cb{{ i }}"></label>
-                  </div>
-                </td>
-                <td>{{ campaign.id }}</td>
-                <td>{{ campaign.name }}</td>
-                <td>{{ campaign.status }}</td>
-                <td>{{ campaign.server.alias }}</td>
-                <td>{{ campaign.start_time }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <ng-template #emptyBlock>
-          <br>
-          <p style="font-style: italic;">No campaigns created yet</p>
-        </ng-template>
+        <table id="campaignTable" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger['campaignTable']" class="table table-hover table-sm">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" id="cbHead" class="custom-control-input" (change)="toggleSelectAll($event)" [checked]="selectAll">                            <label class="custom-control-label" for="cbHead"></label>
+                </div>
+              </th>
+              <th scope="col" *ngFor="let head of campaignHeaders; let i = index">{{ head }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let campaign of campaigns; let i = index">
+              <td>
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" id="cb{{ i }}" class="custom-control-input" [(ngModel)]="campaign.state" (change)="toggleSelect($event, campaign.id)">
+                  <label class="custom-control-label" for="cb{{ i }}"></label>
+                </div>
+              </td>
+              <td>{{ campaign.id }}</td>
+              <td>{{ campaign.name }}</td>
+              <td>{{ campaign.status }}</td>
+              <td>{{ campaign.server.alias }}</td>
+              <td>{{ campaign.start_time }}</td>
+            </tr>
+          </tbody>
+        </table>
 
       </div>
 
@@ -119,28 +112,22 @@
         <div class="row h5 text-dark justify-content-md-center">
           Credential Vault
         </div>
-          <div *ngIf="forms.length; else emptyFormBlock" class="table-responsive">
-            <div style="overflow: auto">
-              <table id="formTable" datatable [dtOptions]="dtOptions['formTable']" [dtTrigger]="dtTrigger['new']" class="table table-hover table-sm">
-                <thead class="thead-light">
-                  <tr>
-                    <th scope="col" *ngFor="let head of credHeaders; let i = index">{{ head }}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr style="cursor: pointer;" *ngFor="let form of forms" (click)="openFormModal(form)">
-                    <td>{{ getEmail(form.result_id) }}</td>
-                    <td>{{ getCId(form.result_id) }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+          <div style="overflow: auto">
+            <table id="formTable" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger['formTable']" class="table table-hover table-sm">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col" *ngFor="let head of credHeaders; let i = index">{{ head }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="cursor: pointer;" *ngFor="let form of forms" (click)="openFormModal(form)">
+                  <td>{{ getEmail(form.result_id) }}</td>
+                  <td>{{ getCId(form.result_id) }}</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
 
-          <ng-template #emptyFormBlock>
-            <br>
-            <p style="font-style: italic">No forms submitted yet</p>
-          </ng-template>
 
       </div>
     </div>

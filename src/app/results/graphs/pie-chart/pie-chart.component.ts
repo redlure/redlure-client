@@ -14,7 +14,7 @@ export class PieChartComponent implements OnInit {
   public chartType:string = 'doughnut';
 
   public chartData = {
-    labels: ["Unopened", "Opened", "Clicked", "Submitted"],
+    labels: ["Unopened", "Opened", "Clicked", "Downloaded", "Submitted"],
     datasets: [{
         label: '# of Users',
         data: [],
@@ -22,12 +22,14 @@ export class PieChartComponent implements OnInit {
             '#28a745',
             '#6c757d',
             '#ffc107',
+            '#6f42c1',
             '#dc3545',
         ],
         borderColor: [
           '#28a745',
           '#6c757d',
           '#ffc107',
+          '#6f42c1',
           '#dc3545'
         ],
         borderWidth: 0,
@@ -35,6 +37,7 @@ export class PieChartComponent implements OnInit {
           '#28a745',
           '#6c757d',
           '#ffc107',
+          '#6f42c1',
           '#dc3545',
       ]
     }],

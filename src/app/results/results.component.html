@@ -56,6 +56,13 @@
           Clicked
         </div>
       </div>
+      <div class="col result-btn btn-outline-purple" (click)="openTable('Downloaded')" style="cursor: pointer;">
+        <div class="centerBlock">
+          <p class="results">{{ downloaded }}</p>
+          <hr class="border-purple">
+          Downloaded
+        </div>
+      </div>
       <div class="col result-btn btn-outline-danger" (click)="openTable('Submitted')" style="cursor: pointer;">
         <div class="centerBlock">
         <p class="results">{{ submitted }}</p>

@@ -33,6 +33,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
   unopened: number = 0;
   opened: number = 0;
   clicked: number = 0;
+  downloaded: number = 0;
   submitted: number = 0;
   
   intervalVar: any;
@@ -87,14 +88,11 @@ export class ResultsComponent implements OnInit, OnDestroy {
   }
 
   rerender(table): void {
-    console.log('hit rerender for ' + table)
     this.dtElements.forEach((dtElement: DataTableDirective) => {
       let tableId = dtElement['el'].nativeElement.id
-      console.log(tableId)
         dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           if (tableId == table) {
             dtInstance.destroy();
-            console.log('destroying ' + table)
           } 
         });
       });
@@ -111,6 +109,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
     this.resultsApiService.getResults(this.workspaceId).subscribe(data => {
       this.allResults = data[1];
       this.campaigns = data[0];
+      console.log(this.allResults)
       this.results = this.allResults;
       this.forms = this.getForms();
       this.calcStats();
@@ -131,8 +130,9 @@ export class ResultsComponent implements OnInit, OnDestroy {
     this.sent = this.results.length - this.scheduled;
     this.opened = this.results.reduce((acc, cur) => cur.status === 'Opened' ? ++acc : acc, 0);
     this.clicked = this.results.reduce((acc, cur) => cur.status === 'Clicked' ? ++acc : acc, 0);
+    this.downloaded = this.results.reduce((acc, cur) => cur.status === 'Downloaded' ? ++acc : acc, 0);
     this.submitted = this.results.reduce((acc, cur) => cur.status === 'Submitted' ? ++acc : acc, 0);
-    this.unopened = this.results.length - this.opened - this.clicked - this.submitted - this.scheduled;
+    this.unopened = this.results.length - this.opened - this.clicked - this.downloaded - this.submitted - this.scheduled;
   }
 
   toggleSelectAll(event) {
@@ -198,7 +198,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
   // open the GraphComponent for visuals of results
   openVisuals() {
     // sent current results to the data service
-    this.dataService.updateData([this.unopened, this.opened, this.clicked, this.submitted])
+    this.dataService.updateData([this.unopened, this.opened, this.clicked, this.downloaded, this.submitted])
     //open modal
     const modalRef = this.modalService.open(GraphsComponent, { size: 'lg', backdrop: 'static' });
   }

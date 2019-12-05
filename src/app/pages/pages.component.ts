@@ -19,7 +19,7 @@ import { MessageService } from '../empty-object/message.service';
 })
 export class PagesComponent implements OnInit {
   workspaceId: String;
-  pages: Page[];
+  pages: Page[] = [];
   editPage: Page; // the Workspace currently being edited
 
   constructor(

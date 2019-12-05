@@ -26,8 +26,8 @@ import { DataTableDirective } from 'angular-datatables';
   ]
 })
 export class DomainsServersComponent implements OnInit, OnDestroy {
-  servers: Server[];
-  domains: Domain[];
+  servers: Server[] = [];
+  domains: Domain[] = [];
   apiKey: string;
   serverLoading = false;
   domainLoading = false;

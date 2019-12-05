@@ -21,7 +21,7 @@ import { SendSelectComponent } from './new-campaign/send-select/send-select.comp
 export class CampaignsComponent implements OnInit {
   destroy = new Subject<any>();
   workspaceId: String;
-  campaigns: Campaign[];
+  campaigns: Campaign[] = [];
   editCampaign: Campaign;
   loading = false;
   

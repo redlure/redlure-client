@@ -21,7 +21,7 @@ import { MessageService } from '../empty-object/message.service';
 })
 export class ProfilesComponent implements OnInit {
   workspaceId: String;
-  profiles: Profile[];
+  profiles: Profile[] = [];
   editProfile: Profile; // the Workspace currently being edited
 
   constructor(

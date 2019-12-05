@@ -18,7 +18,7 @@ import { MessageService } from '../empty-object/message.service';
 })
 export class EmailsComponent implements OnInit {
   workspaceId: String;
-  emails: Email[];
+  emails: Email[] = [];
   editEmail: Email; // the Workspace currently being edited
 
   constructor(

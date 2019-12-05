@@ -20,7 +20,7 @@ import { MessageService } from '../empty-object/message.service';
 })
 export class ListsComponent implements OnInit {
   workspaceId: String;
-  lists: List[];
+  lists: List[] = [];
   editList: List; // the Workspace currently being edited
 
   constructor(

@@ -4,6 +4,8 @@ import { Injectable } from '@angular/core';
 export class NewCampaignService {
 
   allModules: any[] = [];
+  serverFiles: any[] = [];
+
   newCampaign = {
     name: "",
     email: "",
@@ -15,6 +17,7 @@ export class NewCampaignService {
     port: 443,
     ssl: true,
     payloadUrl: "",
+    payloadFile: "",
     redirectUrl: "",
     startDate: null,
     batchNumber: null,
@@ -51,12 +54,13 @@ export class NewCampaignService {
     this.newCampaign.port = campaign.port;
     this.newCampaign.ssl = campaign.ssl;
     this.newCampaign.payloadUrl = campaign.payloadUrl;
+    this.newCampaign.payloadFile = campaign.payloadFile;
     this.newCampaign.redirectUrl = campaign.redirectUrl;
 
     campaign.pages.forEach(element => {
       this.newCampaign.pages[element.index] = element.page.name;
     });
-    console.log(this.newCampaign)
+    //console.log(this.newCampaign)
   }
 
 }

@@ -128,6 +128,10 @@ export class ServerSelectComponent implements OnInit {
             data => {
                 if(data['status'] == 'Online') {
                   this.validateIps()
+                  this.serversApiService.getFiles(server.id)
+                  .subscribe(files => {
+                    this.newCampaignService.serverFiles = files['files'];
+                  });
                 } else {
                   this.loading = false
                   this.failed = true;

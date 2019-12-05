@@ -33,7 +33,7 @@ export class CampaignsApiService {
   // POST a new campaign to the server
   postCampaign(id: String, name: String, email: String, profile: String, list: String, batchNumber: Number,
     batchInterval: Number, startTime: Date, domain: String, server: String, port: Number, ssl: Boolean,
-    pages: String[], redirectUrl: String, payloadUrl: String) {
+    pages: String[], redirectUrl: String, payloadUrl: String, payloadFile: String) {
 
     const url = `${this.apiService.getUrl()}/workspaces/${id}/campaigns`;
     let formData: FormData = new FormData();
@@ -50,6 +50,7 @@ export class CampaignsApiService {
     formData.append('Interval', String(batchInterval));
     formData.append('Batch_Size', String(batchNumber));
     formData.append('Payload_URL', String(payloadUrl));
+    formData.append('Payload_File', String(payloadFile));
 
 
     pages.forEach(page => {

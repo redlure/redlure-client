@@ -28,6 +28,7 @@ export class SendSelectComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log(this.newCampaignService.newCampaign.payloadFile)
     this.myForm = this.formBuilder.group({
       profile: [this.newCampaignService.newCampaign.profile, Validators.required],
       targetList: [this.newCampaignService.newCampaign.list, Validators.required],
@@ -69,12 +70,11 @@ export class SendSelectComponent implements OnInit {
 
 
   postCampaign() {
-    console.log('posintg')
     this.loading = true;
     let nc = this.newCampaignService.newCampaign;
     this.campaignsApiService.postCampaign(this.workspaceId, nc.name, nc.email, nc.profile,
       nc.list, nc.batchNumber, nc.batchInterval, nc.startDate, nc.domain,
-      nc.server, nc.port, nc.ssl, nc.pages, nc.redirectUrl, nc.payloadUrl
+      nc.server, nc.port, nc.ssl, nc.pages, nc.redirectUrl, nc.payloadUrl, nc.payloadFile
       ).pipe(first())
       .subscribe(
           data => {

@@ -69,20 +69,31 @@
         <input placeholder="https://google.com" type="text" formControlName="redirectUrl" class="form-control"/>
       </div>
 
-      <!--Payload URL Field
+      <!-- Payload File Field -->
+      <div class="input-group form-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text span-redir">Payload</span>
+        </div>
+        <select [value]="newCampaignService.newCampaign.payloadFile" class="form-control" formControlName="payloadFile" [ngClass]="{ 'is-invalid': submitted }">
+          <option selected value> -- Select a file -- </option>
+          <option *ngFor="let file of newCampaignService.serverFiles">{{ file }}</option>
+        </select>
+      </div>
+
+      <!-- Payload URL Field -->
       <div class="input-group form-group">
         <div class="input-group-prepend">
           <span class="input-group-text">Payload URL</span>
         </div>
-        <input type="text" formControlName="payloadUrl" class="form-control"/>
+        <input placeholder="/download/file.ext" type="text" formControlName="payloadUrl" class="form-control"/>
       </div>
-    -->
+    
 
     </div>
   </div>
   <div class="modal-footer">
     <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-    <button class="btn btn-outline-dark" style="float: right" (click)="backModal()"><i class="fas fa-arrow-left"></i></button>
+    <button type="button" class="btn btn-outline-dark" style="float: right" (click)="backModal()"><i class="fas fa-arrow-left"></i></button>
     <button ngbAutofocus class="btn btn-outline-dark float-right login_btn" style="margin-left: 2px"><i class="fas fa-arrow-right"></i></button>
   </div>
 </form>

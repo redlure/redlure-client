@@ -14,6 +14,7 @@ export class ScenarioSelectComponent implements OnInit {
   failed = false;
   failMsg = "";
   workspaceId: String;
+  serverFiles = []
   @Output() emitter: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
@@ -31,6 +32,7 @@ export class ScenarioSelectComponent implements OnInit {
       page3: [this.newCampaignService.newCampaign.pages[2]],
       page4: [this.newCampaignService.newCampaign.pages[3]],
       payloadUrl: [this.newCampaignService.newCampaign.payloadUrl],
+      payloadFile: [this.newCampaignService.newCampaign.payloadFile],
       redirectUrl: [this.newCampaignService.newCampaign.redirectUrl],
     });
 
@@ -91,6 +93,7 @@ export class ScenarioSelectComponent implements OnInit {
     this.newCampaignService.newCampaign.email = this.f.email.value;
     this.newCampaignService.newCampaign.redirectUrl = this.f.redirectUrl.value;
     this.newCampaignService.newCampaign.payloadUrl = this.f.payloadUrl.value;
+    this.newCampaignService.newCampaign.payloadFile = this.f.payloadFile.value;
 
     if (this.f.page1.value) { this.newCampaignService.newCampaign.pages[0] = this.f.page1.value; }
     if (this.f.page2.value) { this.newCampaignService.newCampaign.pages[1] = this.f.page2.value; }

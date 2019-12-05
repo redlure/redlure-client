@@ -175,3 +175,39 @@ p {
     font-style: italic;
     font-size: 18px;
 }
+
+.btn-outline-purple {
+color: #6f42c1;
+border-color: #6f42c1;
+}
+
+.btn-outline-purple:hover {
+color: #fff;
+background-color: #6f42c1;
+border-color: #6f42c1;
+}
+
+.btn-outline-purple:focus, .btn-outline-purple.focus {
+box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+}
+
+.btn-outline-purple.disabled, .btn-outline-purple:disabled {
+color: #6f42c1;
+background-color: transparent;
+}
+
+.btn-outline-purple:not(:disabled):not(.disabled):active, .btn-outline-purple:not(:disabled):not(.disabled).active,
+.show > .btn-outline-purple.dropdown-toggle {
+color: #fff;
+background-color: #6f42c1;
+border-color: #6f42c1;
+}
+
+.btn-outline-purple:not(:disabled):not(.disabled):active:focus, .btn-outline-purple:not(:disabled):not(.disabled).active:focus,
+.show > .btn-outline-purple.dropdown-toggle:focus {
+box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+  }
+
+.border-purple {
+border-color: #6f42c1 !important;
+}

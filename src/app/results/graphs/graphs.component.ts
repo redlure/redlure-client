@@ -8,12 +8,6 @@ import { DataService } from '../data.service';
 })
 export class GraphsComponent implements OnInit {
   @Input() results: any[] = [];
-  buttons = [
-    {name: 'Doughnut'},
-    {name: 'Pie'},
-    {name: 'Bar'},
-  ]
-  activeButton = this.buttons[0]
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -29,8 +23,7 @@ export class GraphsComponent implements OnInit {
   }
 
   showPhase(event){
-    this.activeButton = event;
-    this.dataService.updateType(event.name.toLowerCase());
+    this.dataService.updateType(event.toLowerCase());
   }
 
 }

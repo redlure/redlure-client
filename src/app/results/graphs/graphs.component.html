@@ -3,9 +3,17 @@
   <button class="btn btn-outline-danger" (click)="closeModal()">Close</button>
 </div>
 <body style="margin: 20px;">
-  <div class="btn-group btn-group-toggle" data-toggle="buttons" *ngFor="let button of buttons">
-      <button class="btn btn-secondary" style="margin-right: 2px;" type="button" (click)="showPhase(button)" [class.bg-dark]= "activeButton === button">{{button.name}}</button>
-  </div>
+    <div class="btn-group" data-toggle="buttons">
+        <label style="cursor: pointer;" class="btn btn-outline-dark active" (click)="showPhase('Doughnut')">
+          <input style="display: none;" type="radio" name="options" id="option1" checked> Doughnut
+        </label>
+        <label style="cursor: pointer;" class="btn btn-outline-dark" (click)="showPhase('Pie')">
+          <input style="display: none;" type="radio" name="options" id="option2"> Pie
+        </label>
+        <label style="cursor: pointer;" class="btn btn-outline-dark"  (click)="showPhase('Bar')">
+          <input style="display: none;" type="radio" name="options" id="option3"> Bar
+        </label>
+      </div>
   <br><br>
   <app-pie-chart></app-pie-chart>
 </body>

@@ -18,14 +18,20 @@
     </div>
 
     <div class="row align-items-center" style="margin-left: 2px">
-        <i style="margin-right: 1vh" class="fa fa-info-circle" placement="right" triggers="mouseenter:mouseleave" ngbPopover="Paste this value into the redlure-worker configs. If you refresh this value you will have to edit each worker's configs and restart the worker."></i>
-        <b style="padding-right: 5px">API Key:</b>
-        <input  style="width: 410px; border: 0; margin-right: 1vh" type="text" value="{{ apiKey }}" readonly/>
-        <div class="btn-group">
+      <div class="input-group input-group-sm form-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">
+            <i class="fa fa-info-circle" placement="right" triggers="mouseenter:mouseleave" ngbPopover="Paste this value into the redlure-worker configs. If you refresh this value you will have to edit each worker's configs and restart the worker."></i>
+          </span>
+          <span class="input-group-text">API Key</span>
+        </div>
+        <input style="width: 415px; padding-left: 5px" type="text" value="{{ apiKey }}" readonly/>
+        <div class="input-group-append">
           <button class="btn btn-outline-dark fas fa-copy" title="Copy" (click)="copyApiKey()"></button>
           <button class="btn btn-outline-danger fas fa-sync" title="Regenerate" (click)="refreshApiKey()"></button>
         </div>
       </div>
+    </div>
     <br>
 
     <div class="table-responsive">

@@ -14,8 +14,8 @@
         <tr *ngFor="let file of files; let i = index">
           <th scope="row">{{ i +1 }}</th>
           <td>{{ file }}</td>
-          <td>
-            <a style="cursor: pointer;" title="Delete" data-toggle="tooltip" (click)="deleteFile(file)"><i class="ico text-danger fas fa-trash-alt"></i></a>
+          <td class="btn-group btn-group-sm">
+            <button class="btn btn-outline-danger fas fa-trash-alt" title="Delete" (click)="deleteFile(file)"></button>
           </td>
         </tr>
       </tbody>

@@ -40,7 +40,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
   
   workspaceId: String;
   campaigns: any[];
-  campaignHeaders = ["ID", "Name", "Status", "Server", "Start Date"];
+  campaignHeaders = ["ID", "Name", "Status", "Server", "Domain", "Start Date"];
   credHeaders = ["Email", "Campaign ID"]
 
   @ViewChildren(DataTableDirective)

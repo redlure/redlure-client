@@ -21,8 +21,10 @@
         <i style="margin-right: 1vh" class="fa fa-info-circle" placement="right" triggers="mouseenter:mouseleave" ngbPopover="Paste this value into the redlure-worker configs. If you refresh this value you will have to edit each worker's configs and restart the worker."></i>
         <b style="padding-right: 5px">API Key:</b>
         <input  style="width: 410px; border: 0; margin-right: 1vh" type="text" value="{{ apiKey }}" readonly/>
-        <a style="cursor: pointer;" title="Copy" data-toggle="tooltip" (click)="copyApiKey()"><i class="ico text-dark fas fa-copy"></i></a>
-        <a style="cursor: pointer;" title="Regenerate" data-toggle="tooltip" (click)="refreshApiKey()"><i class="ico text-danger fas fa-sync"></i></a>
+        <div class="btn-group">
+          <button class="btn btn-outline-dark fas fa-copy" title="Copy" (click)="copyApiKey()"></button>
+          <button class="btn btn-outline-danger fas fa-sync" title="Regenerate" (click)="refreshApiKey()"></button>
+        </div>
       </div>
     <br>
 
@@ -40,11 +42,11 @@
             <td>{{ server.ip }}</td>
             <td>{{ server.port }}</td>
             <td>{{ server.status }}</td>
-            <td>
-              <a style="cursor: pointer;" title="Listening Ports" data-toggle="tooltip" (click)="checkNetstat(server)"><i class="ico text-dark fas fa-stream"></i></a>
-              <a style="cursor: pointer;" title="Upload File" data-toggle="tooltip" (click)="openFiles(server)"><i class="ico text-dark far fa-folder-open"></i></a>
-              <a style="cursor: pointer;" title="Refresh Status" data-toggle="tooltip" (click)="refreshStatus(server)"><i class="ico text-primary fas fa-sync"></i></a>
-              <a style="cursor: pointer;" title="Delete" data-toggle="tooltip" (click)="deleteServerModal(server)"><i class="ico text-danger fas fa-trash-alt"></i></a>
+            <td class="btn-group">
+              <button class="btn btn-outline-dark fas fa-stream" title="Listening Ports" (click)="checkNetstat(server)"></button>
+              <button class="btn btn-outline-dark far fa-folder-open" title="Upload File" (click)="openFiles(server)"></button>
+              <button class="btn btn-outline-primary fas fa-sync" title="Refresh Status" (click)="refreshStatus(server)"></button>
+              <button class="btn btn-outline-danger far fa-trash-alt" title="Delete" (click)="deleteServerModal(server)"></button>
             </td>
           </tr>
         </tbody>
@@ -88,10 +90,10 @@
               <ng-template #set>Set</ng-template>
               <ng-template #unset>Unset</ng-template>
             </td>
-            <td>
-              <a style="cursor: pointer;" title="Edit Certs" data-toggle="tooltip" (click)="editCerts(domain)"><i class="ico text-dark fas fa-edit"></i></a>
-              <a style="cursor: pointer;" title="Generate Certs" data-toggle="tooltip" (click)="genDomainCert(domain)"><i class="ico text-success fas fa-lock"></i></a>
-              <a style="cursor: pointer;" title="Delete" data-toggle="tooltip" (click)="deleteDomainModal(domain)"><i class="ico text-danger fas fa-trash-alt"></i></a>
+            <td class="btn-group">
+              <button class="btn btn-outline-dark fas fa-edit" title="Edit Certs" (click)="editCerts(domain)"></button>
+              <button class="btn btn-outline-success fas fa-lock" title="Generate Certs" (click)="genDomainCert(domain)"></button>
+              <button class="btn btn-outline-danger far fa-trash-alt" title="Delete" (click)="deleteDomainModal(domain)"></button>
             </td>
         </tbody>
       </table>

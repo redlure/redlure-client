@@ -30,9 +30,11 @@
             <th scope="row">{{ i +1 }}</th>
             <td>{{ user.username }}</td>
             <td>{{ user.role.name }}</td>
-            <td>
-              <a style="cursor: pointer;" title="Reset Password" data-toggle="tooltip" (click)="resetPassword(user)"><i class="ico text-dark fas fa-unlock"></i></a>
-              <a style="cursor: pointer;" title="Delete" data-toggle="tooltip" (click)="deleteUserModal(user)"><i class="ico text-danger fas fa-trash-alt"></i></a>
+            <td class="btn-group">
+              <button class="btn btn-outline-dark fas fa-unlock" title="Reset Password" style="float: right;" (click)="resetPassword(user)"></button>
+              <button class="btn btn-outline-danger fas fa-trash-alt" title="Delete" style="float: right;" (click)="deleteUserModal(user)"></button>
+              <!--<a style="cursor: pointer;" title="Reset Password" data-toggle="tooltip" (click)="resetPassword(user)"><i class="ico text-dark fas fa-unlock"></i></a>
+              <a style="cursor: pointer;" title="Delete" data-toggle="tooltip" (click)="deleteUserModal(user)"><i class="ico text-danger fas fa-trash-alt"></i></a>-->
             </td>
           </tr>
         </tbody>
@@ -68,9 +70,11 @@
             <th scope="row">{{ i +1 }}</th>
             <td>{{ role.name }}</td>
             <td>{{ role.role_type }}</td>
-            <td>
-              <a style="cursor: pointer;" title="Edit" data-toggle="tooltip" (click)="editRoleModal(role)"><i class="text-dark fas fa-edit"></i></a>
-              <a style="cursor: pointer;" title="Delete" data-toggle="tooltip" (click)="deleteRoleModal(role)"><i class="ico text-danger fas fa-trash-alt"></i></a>
+            <td class="btn-group">
+              <button class="btn btn-outline-dark fas fa-edit" title="Edit" style="float: right;" (click)="editRoleModal(role)"></button>
+              <button class="btn btn-outline-danger fas fa-trash-alt" title="Delete" style="float: right;" (click)="deleteRoleModal(role)"></button>
+              <!--<a style="cursor: pointer;" title="Edit" data-toggle="tooltip" (click)="editRoleModal(role)"><i class="text-dark fas fa-edit"></i></a>
+              <a style="cursor: pointer;" title="Delete" data-toggle="tooltip" (click)="deleteRoleModal(role)"><i class="ico text-danger fas fa-trash-alt"></i></a>-->
             </td>
           </tr>
         </tbody>

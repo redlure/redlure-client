@@ -79,7 +79,9 @@
           <td>{{ target.first_name }}</td>
           <td>{{ target.last_name }}</td>
           <td>{{ target.email }}</td>
-          <td><a style="cursor: pointer;" title="Delete" data-toggle="tooltip" (click)="deleteTarget(target)"><i class="text-danger fas fa-trash-alt"></i></a></td>
+          <td class="btn-group btn-group-sm">
+            <button class="btn btn-outline-danger fas fa-trash-alt" title="Delete" (click)="deleteTarget(target)"></button>
+          </td>
         </tr>
       </tbody>
     </table>

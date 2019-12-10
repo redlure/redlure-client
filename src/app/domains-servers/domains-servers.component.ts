@@ -200,6 +200,15 @@ export class DomainsServersComponent implements OnInit, OnDestroy {
     );
   }
 
+  updateDNS(domain) {
+    this.domainLoading = true;
+    this.domainsApiService.getDomain(domain.id)
+      .subscribe(data => {
+        this.domainLoading = false;
+        domain.ip = data['ip']
+      });
+  }
+
   genDomainCert(domain) {
     this.domainLoading = true;
     this.domainsApiService.getCertGen(domain.id)

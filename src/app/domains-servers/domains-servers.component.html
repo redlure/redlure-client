@@ -91,13 +91,14 @@
             <td>{{ domain.domain }}</td>
             <td>{{ domain.ip }}</td>
             <td style="font-style: italic">
-              <div *ngIf="hasCerts(domain);then set else unset">here is ignored</div>    
+              <div *ngIf="hasCerts(domain);then set else unset"></div>    
               <ng-template #set>Set</ng-template>
               <ng-template #unset>Unset</ng-template>
             </td>
             <td class="btn-group">
               <button class="btn btn-outline-dark fas fa-edit" title="Edit Certs" (click)="editCerts(domain)"></button>
-              <button class="btn btn-outline-success fas fa-lock" title="Generate Certs" (click)="genDomainCert(domain)"></button>
+              <button class="btn btn-outline-success fas fa-lock" title="Generate Certs (LetsEncrypt)" (click)="genDomainCert(domain)"></button>
+              <button class="btn btn-outline-primary fas fa-sync" title="Refresh DNS" (click)="updateDNS(domain)"></button>
               <button class="btn btn-outline-danger far fa-trash-alt" title="Delete" (click)="deleteDomainModal(domain)"></button>
             </td>
         </tbody>

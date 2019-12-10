@@ -28,6 +28,15 @@ export class DomainsApiService {
       );  
   }
 
+  // GET a specific domain from the server (updates DNS lookup)
+  getDomain(id: Number): Observable<Domain> {
+    const url = `${this.apiService.getUrl()}/domains/${id}`;
+    return this.http.get<any>(url, {withCredentials: true})
+      .pipe(
+        catchError(this.handleError('getDomains', []))
+      );  
+  }
+
   // POST a new domain to the server
   postDomain(domain: String, certPath: String, keyPath: String): Observable<Domain> {
     const url = `${this.apiService.getUrl()}/domains`;

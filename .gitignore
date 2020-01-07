@@ -1,6 +1,4 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
-# run script
-run.sh
 
 # compiled output
 /dist
@@ -47,7 +45,7 @@ testem.log
 .DS_Store
 Thumbs.db
 
-redlure.crt
-redlure.key
+redlure-cert.pem
+redlure-key.pem
 
 __pycache__/

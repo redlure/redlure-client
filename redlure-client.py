@@ -6,7 +6,7 @@ import shlex
 
 
 def gen_certs():
-    proc = subprocess.Popen(shlex.split('openssl req -x509 -newkey rsa:4096 -nodes -subj "/" -out redlure.crt -keyout redlure.key -days 365'))
+    proc = subprocess.Popen(shlex.split('openssl req -x509 -newkey rsa:4096 -nodes -subj "/" -out redlure-cert.pem -keyout redlure-key.pem -days 365'))
     proc.wait()
 
 
@@ -18,9 +18,9 @@ def main():
     if Config.SSL:
         cmd += f' --ssl --ssl-cert {Config.CERT_PATH} --ssl-key {Config.KEY_PATH}'
 
-        if Config.CERT_PATH == 'redlure.crt' and Config.KEY_PATH == 'redlure.key':
+        if Config.CERT_PATH == 'redlure-cert.pem' and Config.KEY_PATH == 'redlure-key.pem':
             # if not generated, run OpenSSL
-            if not os.path.isfile('redlure.crt') or not os.path.isfile('redlure.key'):
+            if not os.path.isfile('redlure-cert.pem') or not os.path.isfile('redlure-key.pem'):
                 gen_certs()
 
         else:

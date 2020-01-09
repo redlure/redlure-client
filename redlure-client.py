@@ -26,6 +26,7 @@ def main():
         else:
             if not os.path.isfile(Config.CERT_PATH) or not os.path.isfile(Config.KEY_PATH):
                 print('[!] CERT_PATH or KEY_PATH file does not exist')
+                exit()
 
     try:
         # start the webserver    

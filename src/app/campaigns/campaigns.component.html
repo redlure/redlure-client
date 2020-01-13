@@ -7,10 +7,14 @@
         <b class="h3-prefix">CAM</b>
         <b class="h3-suffix">PAIGNS</b>
       </h3>
-      <img *ngIf="loading" class="text-center" style="max-height: 19px; padding-inline-start: 2vh;" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+
+      <div *ngIf="loading" class="loadingio-spinner-dual-ball-jmseu88834m"><div class="ldio-c46ivvx8kf">
+        <div></div><div></div><div></div>
+        </div></div>
+
     </div>
     <div class="col-md d-flex justify-content-end">
-      <!--<button routerLink="new" class="btn btn-outline-dark login_btn">New Campaign</button>-->
+      <button [disabled]="loading" (click)="getCampaigns()" style="margin-right: 4px;" class="btn btn-outline-primary login_btn">Refresh <i class="fas fa-sync-alt"></i></button>
       <button (click)="openNew(true)" class="btn btn-outline-dark login_btn">New Campaign <i class="fas fa-mail-bulk"></i></button>
     </div>
   </div>

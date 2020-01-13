@@ -81,7 +81,7 @@ export class CampaignsComponent implements OnInit {
         if (data == "back") {
           this.openScenario();
         } else {
-          this.campaigns.unshift(data)
+          this.campaigns.unshift(data);
         }
       });
   }
@@ -106,8 +106,13 @@ export class CampaignsComponent implements OnInit {
   }
 
   getCampaigns() {
+    this.loading = true;
     this.campaignsApiService.getCampaigns(this.workspaceId)
-      .subscribe(campaigns => this.campaigns = campaigns);
+      .subscribe(
+        campaigns => {
+          this.campaigns = campaigns;
+          this.loading = false;
+        });
   }
 
   cloneCampaign(campaign) {

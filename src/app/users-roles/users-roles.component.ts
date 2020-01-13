@@ -32,6 +32,9 @@ export class UsersRolesComponent implements OnInit {
   dtTrigger: Subject<any>[] = [];
   dtOptions: DataTables.Settings[] = [];
 
+  userLoading = false;
+  roleLoading = false;
+
   constructor(
     private usersApiService: UsersApiService,
     private rolesApiService: RolesApiService,
@@ -138,6 +141,9 @@ export class UsersRolesComponent implements OnInit {
     this.dtTrigger["roleTable"] = new Subject<any>();
     //this.getUsers()
     //this.getRoles()
+    
+    this.userLoading = true;
+    this.roleLoading = true;
 
     forkJoin([this.usersApiService.getUsers(), this.rolesApiService.getRoles()])
      .subscribe(data => {
@@ -145,6 +151,8 @@ export class UsersRolesComponent implements OnInit {
       this.roles = data[1];
       this.dtTrigger['userTable'].next();
       this.dtTrigger['roleTable'].next();
+      this.userLoading = false;
+      this.roleLoading = false;
      });
   }
 

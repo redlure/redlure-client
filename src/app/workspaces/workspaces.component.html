@@ -1,12 +1,21 @@
 <main-navbar></main-navbar>
 <app-alert></app-alert>
 <body style="margin: 20px;">
-  <div>
-    <h3 style="display:inline-block">
-      <b class="h3-prefix">WORK</b>
-      <b class="h3-suffix">SPACES</b>
-    </h3>
-    <button class="btn btn-outline-dark login_btn" style="float: right;" (click)="openNewModal()">New Workspace <i class="fas fa-layer-group"></i></button>
+  <div class="row" style="margin-top: 20px;">
+    <div class="col-md d-flex justify-content-start">
+      <h3 style="display:inline-block">
+        <b class="h3-prefix">WORK</b>
+        <b class="h3-suffix">SPACES</b>
+      </h3>
+
+      <div *ngIf="loading" class="loadingio-spinner-dual-ball-jmseu88834m"><div class="ldio-c46ivvx8kf">
+        <div></div><div></div><div></div>
+        </div></div>
+
+    </div>
+    <div class="col-md d-flex justify-content-end">
+      <button class="btn btn-outline-dark login_btn" style="float: right;" (click)="openNewModal()">New Workspace <i class="fas fa-layer-group"></i></button>
+    </div>
   </div>
   <br>
   <div class="card-deck">

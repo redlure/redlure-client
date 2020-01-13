@@ -1,12 +1,21 @@
 <workspace-navbar></workspace-navbar>
 <app-alert></app-alert>
 <body style="margin: 20px">
-  <div>
-    <h3 style="display:inline-block">
-      <b class="h3-prefix">EM</b>
-      <b class="h3-suffix">AILS</b>
-    </h3>
-    <a routerLink="new" style="float: right" class="btn btn-outline-dark">New Email <i class="fas fa-envelope-open-text"></i></a>
+  <div class="row" style="margin-top: 20px;">
+    <div class="col-md d-flex justify-content-start">
+      <h3 style="display:inline-block">
+        <b class="h3-prefix">EM</b>
+        <b class="h3-suffix">AILS</b>
+      </h3>
+      
+      <div *ngIf="loading" class="loadingio-spinner-dual-ball-jmseu88834m"><div class="ldio-c46ivvx8kf">
+        <div></div><div></div><div></div>
+        </div></div>
+    
+    </div>
+    <div class="col-md d-flex justify-content-end">
+      <a routerLink="new" style="float: right" class="btn btn-outline-dark">New Email <i class="fas fa-envelope-open-text"></i></a>
+    </div>
   </div>
   <br>
   <div *ngIf="emails.length; else emptyBlock" class="card-deck">

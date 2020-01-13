@@ -21,6 +21,7 @@ export class PagesComponent implements OnInit {
   workspaceId: String;
   pages: Page[] = [];
   editPage: Page; // the Workspace currently being edited
+  loading = false;
 
   constructor(
     private pagesApiService: PagesApiService,
@@ -89,8 +90,13 @@ export class PagesComponent implements OnInit {
   }
 
   getPages(): void {
+    this.loading = true;
     this.pagesApiService.getPages(this.workspaceId)
-      .subscribe(pages => this.pages = pages)
+      .subscribe(
+        pages => {
+          this.pages = pages;
+          this.loading = false;
+        })
   }
 
   sendAlert(name) {

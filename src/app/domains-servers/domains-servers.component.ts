@@ -238,12 +238,16 @@ export class DomainsServersComponent implements OnInit, OnDestroy {
 
     //this.getDomains()
     //this.getServers()
+    this.domainLoading = true;
+    this.serverLoading = true;
     forkJoin([this.serversApiService.getServers(), this.domainsApiService.getDomains()])
       .subscribe(data => {
         this.servers = data[0];
         this.domains = data[1];
         this.dtTrigger['serverTable'].next();
         this.dtTrigger['domainTable'].next();
+        this.domainLoading = false;
+        this.serverLoading = false;
       });
 
     this.getApiKey()

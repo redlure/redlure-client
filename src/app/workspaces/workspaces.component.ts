@@ -16,6 +16,7 @@ import { setName } from '../env'
 export class WorkspacesComponent implements OnInit {
   workspaces: Workspace[];
   @Input() editWorkspace: Workspace; // the Workspace currently being edited
+  loading = false;
 
   constructor(
     private workspacesApiService: WorkspacesApiService,
@@ -50,8 +51,13 @@ export class WorkspacesComponent implements OnInit {
   }
 
   getWorkspaces(): void {
+    this.loading = true;
     this.workspacesApiService.getWorkspaces()
-      .subscribe(workspaces => this.workspaces = workspaces);
+      .subscribe(
+        workspaces => {
+          this.workspaces = workspaces;
+          this.loading = false;
+        });
   }
 
   enterWs(name) {

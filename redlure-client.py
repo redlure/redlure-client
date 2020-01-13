@@ -12,7 +12,7 @@ def gen_certs():
 
 def main():
     # base ng command that will start the client
-    cmd = f'ng serve --host {Config.HOST} --port {Config.PORT}'
+    cmd = f'ng serve --disable-host-check --host {Config.HOST} --port {Config.PORT}'
 
     # if SSL add ssl flag
     if Config.SSL:
@@ -26,6 +26,7 @@ def main():
         else:
             if not os.path.isfile(Config.CERT_PATH) or not os.path.isfile(Config.KEY_PATH):
                 print('[!] CERT_PATH or KEY_PATH file does not exist')
+                exit()
 
     try:
         # start the webserver    

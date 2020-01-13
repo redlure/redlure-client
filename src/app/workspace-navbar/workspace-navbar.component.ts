@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router'
-import { WorkspacesApiService } from '../workspaces/workspaces-api.service'
-import { wsName, setName } from '../env'
-import { first } from 'rxjs/operators'
-import { LoginApiService } from '../login/login-api.service'
+import { ActivatedRoute, Router } from '@angular/router';
+import { WorkspacesApiService } from '../workspaces/workspaces-api.service';
+import { wsName, setName } from '../env';
+import { first } from 'rxjs/operators';
+import { LoginApiService } from '../login/login-api.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ProfileComponent } from '../navbar/profile/profile.component';
 
 @Component({
   selector: 'workspace-navbar',
@@ -20,6 +22,7 @@ export class WorkspaceNavbarComponent implements OnInit {
     private workspacesApiService: WorkspacesApiService,
     private loginApiService: LoginApiService,
     private router: Router,
+    private modalService: NgbModal,
   ) {
     this.route.params.subscribe(params => this.workspaceId = params['workspaceId'])
    }
@@ -52,4 +55,9 @@ export class WorkspaceNavbarComponent implements OnInit {
           console.log(error)
         });
   }
+
+  profile() {
+    const modalRef = this.modalService.open(ProfileComponent, { backdrop: 'static' });
+  }
+
 }

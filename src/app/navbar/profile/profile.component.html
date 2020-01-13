@@ -1,0 +1,25 @@
+<div class="modal-header">
+  <h4 class="modal-title">User Profile</h4>
+  <button class="btn btn-outline-danger float-right" (click)="closeModal()">Close</button>
+</div>
+<div class="modal-body">
+  <div class="container">
+    <div class="text-center">
+      <i class="fas fa-user-circle fa-9x"></i>
+      <br>
+      <div *ngIf="loading" class="loadingio-spinner-dual-ball-jmseu88834m"><div class="ldio-c46ivvx8kf">
+        <div></div><div></div><div></div>
+        </div></div>
+      <div style="font-size: larger;">{{ currentUser.username }}</div>
+      <div style="font-size: small;">{{ role }}</div>
+    </div>
+
+    <br>
+
+    <div class="text-center">
+      <button class="btn btn-primary" (click)=resetPassword()>Reset password <i class="fas fa-unlock"></i></button>
+    </div>
+
+  </div>
+</div>
+

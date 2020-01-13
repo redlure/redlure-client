@@ -82,6 +82,8 @@ import { SendSelectComponent } from './campaigns/new-campaign/send-select/send-s
 import { DataTablesModule } from 'angular-datatables';
 import { TableComponent } from './results/table/table.component';
 import { ServerFilesComponent } from './domains-servers/server-files/server-files.component';
+import { ProfileComponent } from './navbar/profile/profile.component';
+import { UserProfileApiService } from './navbar/profile/user-profile-api.service';
 
 
 @NgModule({
@@ -138,6 +140,7 @@ import { ServerFilesComponent } from './domains-servers/server-files/server-file
     ScenarioSelectComponent,
     SendSelectComponent,
     ServerFilesComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -174,6 +177,7 @@ import { ServerFilesComponent } from './domains-servers/server-files/server-file
     ResultsApiService,
     DataService,
     NewCampaignService,
+    UserProfileApiService
   ],
   bootstrap: [AppComponent],
   entryComponents: [
@@ -209,7 +213,8 @@ import { ServerFilesComponent } from './domains-servers/server-files/server-file
     ScenarioSelectComponent,
     SendSelectComponent,
     TableComponent,
-    ServerFilesComponent
+    ServerFilesComponent,
+    ProfileComponent
   ]
 })
 export class AppModule { }

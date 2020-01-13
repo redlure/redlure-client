@@ -22,6 +22,7 @@ export class ListsComponent implements OnInit {
   workspaceId: String;
   lists: List[] = [];
   editList: List; // the Workspace currently being edited
+  loading = false;
 
   constructor(
     private listsApiService: ListsApiService,
@@ -96,8 +97,13 @@ export class ListsComponent implements OnInit {
   }
 
   getLists(): void {
+    this.loading = true;
     this.listsApiService.getLists(this.workspaceId)
-      .subscribe(lists => this.lists = lists);
+      .subscribe(
+        lists => {
+          this.lists = lists;
+          this.loading = false;
+        });
   }
 
   sendAlert(name) {

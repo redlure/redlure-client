@@ -23,6 +23,7 @@ export class ProfilesComponent implements OnInit {
   workspaceId: String;
   profiles: Profile[] = [];
   editProfile: Profile; // the Workspace currently being edited
+  loading = false;
 
   constructor(
     private profilesApiService: ProfilesApiService,
@@ -104,8 +105,13 @@ export class ProfilesComponent implements OnInit {
   }
 
   getProfiles(): void {
+    this.loading = true;
     this.profilesApiService.getProfiles(this.workspaceId)
-      .subscribe(profiles => this.profiles = profiles);
+      .subscribe(
+        profiles => {
+          this.profiles = profiles;
+          this.loading = false;
+        });
   }
 
   sendAlert(name) {

@@ -20,6 +20,7 @@ export class EmailsComponent implements OnInit {
   workspaceId: String;
   emails: Email[] = [];
   editEmail: Email; // the Workspace currently being edited
+  loading = false;
 
   constructor(
     private emailsApiService: EmailsApiService,
@@ -83,8 +84,13 @@ export class EmailsComponent implements OnInit {
   }
 
   getEmails(): void {
+    this.loading = true;
     this.emailsApiService.getEmails(this.workspaceId)
-      .subscribe(emails => this.emails = emails)
+      .subscribe(
+        emails => {
+          this.emails = emails;
+          this.loading = false;
+        })
   }
 
   sendAlert(name) {

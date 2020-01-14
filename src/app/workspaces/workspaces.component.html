@@ -24,7 +24,7 @@
         <h5 class="card-title">{{ workspace.name }}</h5>
         <button *ngIf="workspace.id !== 1" class="btn btn-outline-danger fas fa-trash-alt" title="Delete" style="float: right;"
           (click)="openDeleteModal(workspace)"></button>
-        <a routerLink="{{ workspace.id }}/results" (click)="enterWs(workspace.name)" title="Enter" style="float: right; margin-right: 1vh"
+        <a routerLink="{{ workspace.id }}/results" (click)="enterWs(workspace.name)" title="Enter" style="float: right; margin-right: 2px"
           class="btn btn-outline-dark fas fa-sign-in-alt"></a>
       </div>
     </div>

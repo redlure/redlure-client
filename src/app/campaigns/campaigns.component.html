@@ -25,10 +25,8 @@
         <h5 class="card-title">{{ campaign.name }}</h5>
         <p class="small">{{ campaign.status }}</p>
         <button [disabled]="loading" class="btn btn-outline-danger fas fa-trash-alt" title="Delete" style="float: right;" (click)="openDelete(campaign)"></button>
-        <button [disabled]="loading" *ngIf="campaign.status == 'Active'" title="Kill Campaign" class="btn btn-outline-warning fas fa-skull" style="float: right; margin-right: 1vh" (click)="killCampaign(campaign)"></button>
-        <button [disabled]="loading" class="btn btn-outline-dark far fa-clone" title="Clone" style="float: right; margin-right: 1vh" (click)="cloneCampaign(campaign)"></button>
-        <button [disabled]="loading" *ngIf="campaign.status == 'Inactive'" title="Edit" class="btn btn-outline-dark fas fa-sign-in-alt" style="float: right; margin-right: 1vh" (click)="openEdit(campaign)"></button>
-        <button [disabled]="loading" *ngIf="campaign.status == 'Inactive'" title="Cast Lures" class="btn btn-outline-dark fas fa-fish" style="float: right; margin-right: 1vh" (click)="launchCampaign(campaign)"></button>
+        <button [disabled]="loading" *ngIf="campaign.status == 'Active'" title="Kill Campaign" class="btn btn-outline-warning fas fa-skull" style="float: right; margin-right: 2px" (click)="killCampaign(campaign)"></button>
+        <button [disabled]="loading" class="btn btn-outline-dark far fa-clone" title="Clone" style="float: right; margin-right: 2px" (click)="cloneCampaign(campaign)"></button>
       </div>
     </div>
   </div>

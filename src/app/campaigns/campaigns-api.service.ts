@@ -38,11 +38,11 @@ export class CampaignsApiService {
     const url = `${this.apiService.getUrl()}/workspaces/${id}/campaigns`;
     let formData: FormData = new FormData();
     formData.append('Name', String(name));
-    formData.append('Email_Name', String(email));
-    formData.append('Profile_Name', String(profile));
-    formData.append('List_Name', String(list));
-    formData.append('Domain_Name', String(domain));
-    formData.append('Server_Alias', String(server));
+    formData.append('Email', String(email));
+    formData.append('Profile', String(profile));
+    formData.append('List', String(list));
+    formData.append('Domain', String(domain));
+    formData.append('Server', String(server));
     formData.append('Port', String(port));
     formData.append('SSL', String(ssl));
     formData.append('Redirect_URL', String(redirectUrl));
@@ -54,7 +54,7 @@ export class CampaignsApiService {
 
 
     pages.forEach(page => {
-      formData.append('Page_Names[]', String(page));
+      formData.append('Pages[]', String(page));
     });
 
     return this.http.post<any>(url, formData, {withCredentials: true})

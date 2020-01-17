@@ -15,7 +15,7 @@
           </div>
           <select class="form-control" formControlName="targetList" [ngClass]="{ 'is-invalid': submitted && f.targetList.errors }">
             <option disabled selected value> -- Select a list -- </option>
-            <option *ngFor="let list of newCampaignService.allModules.lists">{{ list }}</option>
+            <option *ngFor="let list of newCampaignService.allModules['lists']" [value]="list.id">{{ list.name }}</option>
           </select>
           <div *ngIf="submitted && f.targetList.errors" class="invalid-feedback">
             <div *ngIf="f.targetList.errors.required">List is required</div>
@@ -31,7 +31,7 @@
             </div>
             <select class="form-control" formControlName="profile" [ngClass]="{ 'is-invalid': submitted && f.profile.errors }">
               <option disabled selected value> -- Select a profile -- </option>
-              <option *ngFor="let profile of newCampaignService.allModules.profiles">{{ profile }}</option>
+              <option *ngFor="let profile of newCampaignService.allModules['profiles']" [value]="profile.id">{{ profile.name }}</option>
             </select>
             <div *ngIf="submitted && f.profile.errors" class="invalid-feedback">
               <div *ngIf="f.profile.errors.required">Profile is required</div>

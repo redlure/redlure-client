@@ -116,7 +116,6 @@ export class CampaignsComponent implements OnInit {
   }
 
   cloneCampaign(campaign) {
-    console.log(campaign)
     this.newCampaignService.initNewCampaign();
     this.newCampaignService.cloneCampaign(campaign);
     this.openNew(false);

@@ -28,7 +28,7 @@
         </div>
         <select class="form-control" formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
           <option disabled selected value> -- Select a email -- </option>
-          <option *ngFor="let email of newCampaignService.allModules.emails">{{ email }}</option>
+          <option *ngFor="let email of newCampaignService.allModules['emails']" [value]="email.id">{{ email.name }}</option>
         </select>
         <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
           <div *ngIf="f.email.errors.required">Email is required</div>
@@ -46,7 +46,7 @@
           </div>
           <select class="form-control" formControlName="page{{ i+1 }}">
             <option disabled selected value> -- Select a page -- </option>
-            <option [ngValue]="page" *ngFor="let page of newCampaignService.allModules.pages">{{ page }}</option>
+            <option *ngFor="let page of newCampaignService.allModules['pages']" [value]="page.id">{{ page.name }}</option>
           </select>
 
           <!--Minus button-->

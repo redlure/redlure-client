@@ -121,14 +121,14 @@ export class ServerSelectComponent implements OnInit {
 
     this.loading = true;
 
-    const server = this.newCampaignService.allModules['servers'].find( ({ alias }) => alias === this.f.server.value );
-    this.serversApiService.refreshServerStatus(server.id)
+    //const server = this.newCampaignService.allModules['servers'].find( ({ alias }) => alias === this.f.server.value );
+    this.serversApiService.refreshServerStatus(this.f.server.value)
       .pipe(first())
         .subscribe(
             data => {
                 if(data['status'] == 'Online') {
                   this.validateIps()
-                  this.serversApiService.getFiles(server.id)
+                  this.serversApiService.getFiles(this.f.server.value)
                   .subscribe(files => {
                     this.newCampaignService.serverFiles = files['files'];
                   });

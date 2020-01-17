@@ -95,7 +95,7 @@ export class ScenarioSelectComponent implements OnInit {
     this.newCampaignService.newCampaign.payloadUrl = this.f.payloadUrl.value;
     this.newCampaignService.newCampaign.payloadFile = this.f.payloadFile.value;
 
-    if (this.f.page1.value) { this.newCampaignService.newCampaign.pages[0] = this.f.page1.value; }
+    if (this.f.page1.value) { this.newCampaignService.newCampaign.pages[0] = this.f.page1.value; console.log(this.f.page1.value) }
     if (this.f.page2.value) { this.newCampaignService.newCampaign.pages[1] = this.f.page2.value; }
     if (this.f.page3.value) { this.newCampaignService.newCampaign.pages[2] = this.f.page3.value; }
     if (this.f.page4.value) { this.newCampaignService.newCampaign.pages[3] = this.f.page4.value; }

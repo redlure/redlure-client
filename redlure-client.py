@@ -12,7 +12,7 @@ def gen_certs():
 
 def main():
     # base ng command that will start the client
-    cmd = f'ng serve --host {Config.HOST} --port {Config.PORT}'
+    cmd = f'ng serve --disable-host-check --host {Config.HOST} --port {Config.PORT}'
 
     # if SSL add ssl flag
     if Config.SSL:

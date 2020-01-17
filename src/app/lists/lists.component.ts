@@ -77,6 +77,7 @@ export class ListsComponent implements OnInit {
   }
 
   cloneList(list){
+    this.loading = true;
     this.onSelect(list)
     const newList = Object.assign({}, this.editList);
     newList.name = "Copy - " + newList.name;
@@ -85,6 +86,7 @@ export class ListsComponent implements OnInit {
     ).pipe(first())
     .subscribe(
         data => {
+          this.loading = false;
           if (data['success'] == false) {
             this.sendAlert(newList.name)
           } else {

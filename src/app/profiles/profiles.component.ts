@@ -84,6 +84,7 @@ export class ProfilesComponent implements OnInit {
   }
 
   cloneProfile(profile){
+    this.loading = true;
     this.onSelect(profile)
     const newProfile = Object.assign({}, this.editProfile);
     newProfile.name = "Copy - " + newProfile.name;
@@ -93,6 +94,7 @@ export class ProfilesComponent implements OnInit {
     ).pipe(first())
     .subscribe(
         data => {
+          this.loading = false;
           if (data['success'] == false) {
             this.sendAlert(newProfile.name)
           } else {

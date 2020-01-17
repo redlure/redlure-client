@@ -64,6 +64,7 @@ export class EmailsComponent implements OnInit {
   
 
   cloneEmail(email){
+    this.loading = true;
     this.onSelect(email)
     const newEmail = Object.assign({}, this.editEmail);
     newEmail.name = "Copy - " + newEmail.name;
@@ -72,6 +73,7 @@ export class EmailsComponent implements OnInit {
     ).pipe(first())
     .subscribe(
         data => {
+          this.loading = false;
           if (data['success'] == false) {
             this.sendAlert(newEmail.name)
           } else {

@@ -70,6 +70,7 @@ export class PagesComponent implements OnInit {
   
 
   clonePage(page){
+    this.loading = true;
     this.onSelect(page)
     const newPage = Object.assign({}, this.editPage);
     newPage.name = "Copy - " + newPage.name;
@@ -78,6 +79,7 @@ export class PagesComponent implements OnInit {
     ).pipe(first())
     .subscribe(
         data => {
+          this.loading = false;
           if (data['success'] == false) {
             this.sendAlert(newPage.name)
           } else {

@@ -46,7 +46,7 @@ export class EmailComponent implements OnInit {
     "disablePlugins": "table, resizer, inlinePopup, cleanHtml",
     "height": window.innerHeight * .75,
     "width": '100%',
-    allowResizeX: true,
+    allowResizeX: false,
     allowResizeY: false
   }
 

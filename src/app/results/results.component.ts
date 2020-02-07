@@ -41,7 +41,8 @@ export class ResultsComponent implements OnInit, OnDestroy {
   workspaceId: String;
   campaigns: any[];
   campaignHeaders = ["ID", "Name", "Status", "Server", "Domain", "Start Date"];
-  credHeaders = ["Email", "Campaign ID"]
+  credHeaders = ["Campaign ID", "Email"];
+  checked = []; //track which campaigns are selected
 
   @ViewChildren(DataTableDirective)
   dtElements: QueryList<DataTableDirective>;
@@ -73,16 +74,16 @@ export class ResultsComponent implements OnInit, OnDestroy {
            "<'row'<'col-sm-6 text-left'i><'col-sm-6'p>>"
     }
     this.getResults(false);
-    /*
+    
     this.intervalVar = setInterval(() => {
-      this.getResults();
-    }, 10000);
-    */
+      this.getResults(true);
+    }, 20000);
+    
   }
 
   ngOnDestroy() {
-    //clearInterval(this.intervalVar) // cancel the interval task
-    //this.intervalVar = 0 // ensure the interval handle is cleared
+    clearInterval(this.intervalVar) // cancel the interval task
+    this.intervalVar = 0 // ensure the interval handle is cleared
     this.dtTrigger['campaignTable'].unsubscribe();
     this.dtTrigger['formTable'].unsubscribe();
   }
@@ -109,12 +110,11 @@ export class ResultsComponent implements OnInit, OnDestroy {
     this.resultsApiService.getResults(this.workspaceId).subscribe(data => {
       this.allResults = data[1];
       this.campaigns = data[0];
-      console.log(this.allResults)
-      this.results = this.allResults;
-      this.forms = this.getForms();
+      this.setState();
+      //this.results = this.allResults;
+      //this.forms = this.getForms();
       this.calcStats();
       this.loading = false;
-      this.setState();
       if(rerender) {
         this.rerender('campaignTable');
         this.rerender('formTable');
@@ -136,13 +136,20 @@ export class ResultsComponent implements OnInit, OnDestroy {
   }
 
   toggleSelectAll(event) {
-    this.campaigns.forEach(campaign => campaign.state = event.target.checked);
+    this.campaigns.forEach(
+      campaign => {
+        campaign.state = event.target.checked; //set each campaign to the checked status
+        if (event.target.checked && this.checked.indexOf(campaign.id) <= -1) {
+          this.checked.push(campaign.id); //add campaign to checked tracker
+        }
+      });
     if (event.target.checked) {
       this.results = this.allResults;
       this.forms = this.getForms();
     } else {
-      this.results = [];
+      this.results = []; //empty all arrays
       this.forms = [];
+      this.checked = [];
     }
     this.calcStats();
     this.rerender('formTable')
@@ -157,17 +164,43 @@ export class ResultsComponent implements OnInit, OnDestroy {
       this.results = this.results.filter(result => results.indexOf(result) < 0);
       this.forms = this.getForms();
     }
+    
+    // if in checked tracker, remove. else add campaign
+    const index = this.checked.indexOf(campaignId, 0);
+    if (index > -1) {
+      this.checked.splice(index, 1);
+    } else { 
+      this.checked.push(campaignId);
+    }
+    
     this.calcStats();
     this.rerender('formTable')
   }
 
-  // if campaign state is undefined set to true, so that checkbox starts as checked
+  // initalize campaign state after getting results from server
   setState() {
-    this.campaigns.forEach(campaign => {
-      if (typeof(campaign.state) == 'undefined') {
+    this.results = []; //reset results array
+    // if nothing is checked, check all campaigns
+    if (this.checked.length == 0) {
+      this.campaigns.forEach(campaign => {
         campaign.state = true;
-      }
-    });
+        this.checked.push(campaign.id) //add campaign to checked tracker
+        let results = this.allResults.filter(result => result.campaign_id === campaign.id);
+        this.results = this.results.concat(results);
+      });
+    // else reset each campaign to its previous state
+    } else {
+      this.campaigns.forEach(campaign => {
+        let results = this.allResults.filter(result => result.campaign_id === campaign.id);
+        if (this.checked.indexOf(campaign.id) > -1) {
+          campaign.state = true;
+          this.results = this.results.concat(results);
+        } else {
+          campaign.state = false;
+        }
+      });
+    }
+    this.getForms();
   }
 
 

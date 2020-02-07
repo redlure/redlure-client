@@ -23,7 +23,7 @@
     <div *ngFor="let campaign of campaigns" class="card border-dark" style="max-width: 18rem">
       <div class="card-body">
         <h5 class="card-title">{{ campaign.name }}</h5>
-        <p class="small">{{ campaign.status }}</p>
+        <p class="small">{{ campaign.status }}<span *ngIf="campaign.status == 'Active'"> ({{ campaign.server.alias }}:{{ campaign.port }})</span></p>
         <button [disabled]="loading" class="btn btn-outline-danger fas fa-trash-alt" title="Delete" style="float: right;" (click)="openDelete(campaign)"></button>
         <button [disabled]="loading" *ngIf="campaign.status == 'Active'" title="Kill Campaign" class="btn btn-outline-warning fas fa-skull" style="float: right; margin-right: 2px" (click)="killCampaign(campaign)"></button>
         <button [disabled]="loading" class="btn btn-outline-dark far fa-clone" title="Clone" style="float: right; margin-right: 2px" (click)="cloneCampaign(campaign)"></button>

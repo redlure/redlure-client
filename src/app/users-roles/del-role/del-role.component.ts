@@ -12,6 +12,7 @@ import { AlertService } from '../../alert/alert.service'
 })
 
 export class DelRoleComponent implements OnInit {
+  loading = false;
   @Input() editRole: Role;
   @Output() emitter: EventEmitter<any> = new EventEmitter<any>();
 
@@ -31,10 +32,12 @@ export class DelRoleComponent implements OnInit {
   }
 
   deleteRole() {
+    this.loading = true;
     this.rolesApiService.deleteRole(String(this.editRole.id))
       .pipe(first())
         .subscribe(
             data => {
+                this.loading = false;
                 // check for delete success
                 if (data['success'] == false) {
                   this.alertService.newAlert("warning", "The role of the logged in user cannot be deleted")

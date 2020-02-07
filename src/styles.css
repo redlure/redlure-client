@@ -16,7 +16,7 @@ h3 {
 }
 
 .h3-prefix {
-    color: rgb(233, 10, 10);
+    color: #dc3545
 }
 
 logo {
@@ -25,11 +25,11 @@ logo {
 }
 
 .logo-prefix {
-    color: rgb(233, 10, 10);
+    color: #dc3545
 }
 
 .h3-suffix {
-    color: black;
+    color: #343a40
 }
 
 @media (min-width: 768px) {

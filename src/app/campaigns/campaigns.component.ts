@@ -110,6 +110,7 @@ export class CampaignsComponent implements OnInit {
     this.campaignsApiService.getCampaigns(this.workspaceId)
       .subscribe(
         campaigns => {
+          console.log(campaigns)
           this.campaigns = campaigns;
           this.loading = false;
         });

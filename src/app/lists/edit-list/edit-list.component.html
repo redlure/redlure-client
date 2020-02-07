@@ -23,8 +23,11 @@
 
 <div class="modal-header">
   <h5 class="modal-title">Targets</h5>
-  <button type="button" class="btn btn-outline-primary" (click)="file.click()">Upload File <i class="fas fa-file-csv"></i></button>
+  <span class="float-right">
+    <i class="fa fa-question-circle" style="margin-right: 4px;" triggers="mouseenter:mouseleave" ngbPopover="CSV headers: first,last,email. Email is required"></i>
+    <button type="button" class="btn btn-outline-primary" (click)="file.click()">Upload File <i class="fas fa-file-csv"></i></button>
     <input style="display: none" type="file" id="browse" accept=".csv" (change)="onFileSelect($event)" #file>
+  </span>
 </div>
 
 <div class="modal-body">

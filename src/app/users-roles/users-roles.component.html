@@ -1,6 +1,6 @@
 <main-navbar></main-navbar>
 <app-alert></app-alert>
-<div class="d-md-flex h-md-100">
+<div class="d-md-flex">
   <!-- First Half -->
   <div class="container" style="border-right: solid 1px">
     <div class="row" style="margin-top: 20px;">
@@ -22,7 +22,7 @@
     <br>
 
     <div class="table-responsive">
-      <table id="userTable" datatable [dtTrigger]="dtTrigger['userTable']" class="table table-hover table-striped col-auto">
+      <table id="userTable" datatable [dtTrigger]="dtTrigger['userTable']" class="table table-hover table-striped">
         <thead class="thead-dark">
           <tr>
             <th scope="col" *ngFor="let head of userHeaders; let i = index">{{ head }}</th>

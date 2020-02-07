@@ -11,6 +11,7 @@ import { Page } from '../page.model'
 })
 
 export class DelPageComponent implements OnInit {
+  loading = false;
   workspaceId: String;
   @Input() editPage: Page;
   @Output() emitter: EventEmitter<any> = new EventEmitter<any>();
@@ -30,10 +31,12 @@ export class DelPageComponent implements OnInit {
   }
 
   deletePage() {
+    this.loading = true;
     this.pagesApiService.deletePage(this.workspaceId, String(this.editPage.id))
       .pipe(first())
         .subscribe(
             data => {
+                this.loading = false;
                 this.emitter.emit(this.editPage)
                 this.closeModal()
             },

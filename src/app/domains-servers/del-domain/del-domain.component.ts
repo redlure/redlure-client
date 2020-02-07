@@ -10,7 +10,7 @@ import { Domain } from '../domain.model'
   templateUrl: './del-domain.component.html'
 })
 export class DelDomainComponent implements OnInit {
-
+  loading = false;
   @Input() editDomain: Domain;
   @Output() emitter: EventEmitter<any> = new EventEmitter<any>();
 
@@ -28,10 +28,12 @@ export class DelDomainComponent implements OnInit {
   }
 
   deleteDomain() {
+    this.loading = true;
     this.domainsApiService.deleteDomain(this.editDomain.id)
       .pipe(first())
         .subscribe(
             data => {
+                this.loading = false;
                 this.emitter.emit(this.editDomain)
                 this.closeModal()
             },

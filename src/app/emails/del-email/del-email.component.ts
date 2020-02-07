@@ -11,6 +11,7 @@ import { Email } from '../email.model'
 })
 
 export class DelEmailComponent implements OnInit {
+  loading = false;
   workspaceId: String;
   @Input() editEmail: Email;
   @Output() emitter: EventEmitter<any> = new EventEmitter<any>();
@@ -30,10 +31,12 @@ export class DelEmailComponent implements OnInit {
   }
 
   deleteEmail() {
+    this.loading = true;
     this.emailsApiService.deleteEmail(this.workspaceId, String(this.editEmail.id))
       .pipe(first())
         .subscribe(
             data => {
+                this.loading = false;
                 this.emitter.emit(this.editEmail)
                 this.closeModal()
             },

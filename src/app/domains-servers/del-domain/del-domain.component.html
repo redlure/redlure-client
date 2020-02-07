@@ -5,6 +5,9 @@
   Are you sure you want to delete <div style="font-style: italic; display: inline;">{{editDomain.domain}}</div>?
 </div>
 <div class="modal-footer">
+  <div *ngIf="loading" class="loadingio-spinner-dual-ball-jmseu88834m"><div class="ldio-c46ivvx8kf">
+    <div></div><div></div><div></div>
+    </div></div>
   <button class="btn btn-outline-danger float-left" (click)="deleteDomain()">Delete</button>
   <button class="btn btn-outline-dark" (click)="closeModal()">Close</button>
 </div>

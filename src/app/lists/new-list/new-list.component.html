@@ -23,8 +23,11 @@
 
   <div class="modal-header">
     <h5 class="modal-title">Targets</h5>
-    <button type="button" class="btn btn-outline-primary" (click)="file.click()">Upload File <i class="fas fa-file-csv"></i></button>
-    <input style="display: none" type="file" id="browse" accept=".csv" (change)="onFileSelect($event)" #file>
+    <span class="float-right">
+      <i class="fa fa-question-circle" style="margin-right: 4px;" triggers="mouseenter:mouseleave" ngbPopover="CSV headers: first,last,email. Email is required"></i>
+      <button type="button" class="btn btn-outline-primary" (click)="file.click()">Upload File <i class="fas fa-file-csv"></i></button>
+      <input style="display: none" type="file" id="browse" accept=".csv" (change)="onFileSelect($event)" #file>
+    </span>
   </div>
 
   <div class="modal-body">
@@ -79,7 +82,9 @@
             <td>{{ target.first_name }}</td>
             <td>{{ target.last_name }}</td>
             <td>{{ target.email }}</td>
-            <td><a style="cursor: pointer;" title="Delete" data-toggle="tooltip" (click)="deleteTarget(target)"><i class="text-danger fas fa-trash-alt"></i></a></td>
+            <td class="btn-group btn-group-sm">
+              <button class="btn btn-outline-danger fas fa-trash-alt" title="Delete" (click)="deleteTarget(target)"></button>
+            </td>
           </tr>
         </tbody>
       </table>

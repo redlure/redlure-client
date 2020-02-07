@@ -10,6 +10,7 @@ import { Profile } from '../profile.model'
   templateUrl: './del-profile.component.html'
 })
 export class DelProfileComponent implements OnInit {
+  loading = false;
   workspaceId: String;
   @Input() editProfile: Profile;
   @Output() emitter: EventEmitter<any> = new EventEmitter<any>();
@@ -29,12 +30,14 @@ export class DelProfileComponent implements OnInit {
   }
 
   deleteProfile() {
+    this.loading = true;
     this.profilesApiService.deleteProfile(this.workspaceId, String(this.editProfile.id))
       .pipe(first())
         .subscribe(
             data => {
-                this.emitter.emit(this.editProfile)
-                this.closeModal()
+                this.loading = false;
+                this.emitter.emit(this.editProfile);
+                this.closeModal();
             },
             error => {
                 console.log(error)

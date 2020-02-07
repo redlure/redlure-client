@@ -15,7 +15,7 @@
           <th scope="row">{{ i +1 }}</th>
           <td>{{ file }}</td>
           <td class="btn-group btn-group-sm">
-            <button class="btn btn-outline-danger fas fa-trash-alt" title="Delete" (click)="deleteFile(file)"></button>
+            <button class="btn btn-outline-danger fas fa-trash-alt" [disabled]="loading" title="Delete" (click)="deleteFile(file)"></button>
           </td>
         </tr>
       </tbody>

@@ -10,7 +10,7 @@ import { Server } from '../server.model'
   templateUrl: './del-server.component.html'
 })
 export class DelServerComponent implements OnInit {
-
+  loading = false;
   @Input() editServer: Server;
   @Output() emitter: EventEmitter<any> = new EventEmitter<any>();
 
@@ -28,10 +28,12 @@ export class DelServerComponent implements OnInit {
   }
 
   deleteServer() {
+    this.loading = true;
     this.serversApiService.deleteServer(this.editServer.id)
       .pipe(first())
         .subscribe(
             data => {
+                this.loading = false;
                 this.emitter.emit(this.editServer)
                 this.closeModal()
             },

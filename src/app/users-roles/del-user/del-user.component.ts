@@ -12,6 +12,7 @@ import { AlertService } from '../../alert/alert.service'
 })
 
 export class DelUserComponent implements OnInit {
+  loading = false;
   @Input() editUser: User;
   @Output() emitter: EventEmitter<any> = new EventEmitter<any>();
 
@@ -31,10 +32,12 @@ export class DelUserComponent implements OnInit {
   }
 
   deleteUser() {
+    this.loading = true;
     this.usersApiService.deleteUser(String(this.editUser.id))
       .pipe(first())
         .subscribe(
             data => {
+                this.loading = false;
                 // check for delete success
                 if (data['success'] == false) {
                   this.alertService.newAlert("warning", "The logged in user cannot be deleted")

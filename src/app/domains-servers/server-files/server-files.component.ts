@@ -55,22 +55,25 @@ export class ServerFilesComponent implements OnInit, OnDestroy {
   }
 
   uploadFile(file) {
-    this.loading = true;
-    this.file = file.target.files[0];
-    this.serversApiService.uploadFile(this.editServer.id, this.file)
-      .subscribe(data => {
-        this.loading = false;
-        if (data['success'] == true) {
-          const index: number = this.files.indexOf(this.file.name);
-          if (index !== -1) {
-            this.files.splice(index, 1);
+    if (file.target.files.length > 0) {
+      this.loading = true;
+      this.file = file.target.files[0];
+      this.serversApiService.uploadFile(this.editServer.id, this.file)
+        .subscribe(data => {
+          this.loading = false;
+          if (data['success'] == true) {
+            const index: number = this.files.indexOf(this.file.name);
+            if (index !== -1) {
+              this.files.splice(index, 1);
+            }
+            this.files.push(this.file.name)
+            this.rerender()
+          } else {
+            this.alertService.newAlert('warning', 'File failed to upload')
           }
-          this.files.push(this.file.name)
-          this.rerender()
-        } else {
-          this.alertService.newAlert('warning', 'File failed to upload')
-        }
-      });
+        });
+    }
+
   }
 
   deleteFile(file) {

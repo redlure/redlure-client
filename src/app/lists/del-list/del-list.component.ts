@@ -10,6 +10,7 @@ import { List } from '../list.model'
   templateUrl: './del-list.component.html'
 })
 export class DelListComponent implements OnInit {
+  loading = false;
   workspaceId: String;
   @Input() editList: List;
   @Output() emitter: EventEmitter<any> = new EventEmitter<any>();
@@ -29,12 +30,14 @@ export class DelListComponent implements OnInit {
   }
 
   deleteList() {
+    this.loading = true;
     this.listsApiService.deleteList(this.workspaceId, String(this.editList.id))
       .pipe(first())
         .subscribe(
             data => {
-                this.emitter.emit(this.editList)
-                this.closeModal()
+                this.loading = false;
+                this.emitter.emit(this.editList);
+                this.closeModal();
             },
             error => {
                 console.log(error)

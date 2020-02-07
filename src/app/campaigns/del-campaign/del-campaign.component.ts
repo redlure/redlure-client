@@ -13,6 +13,7 @@ export class DelCampaignComponent implements OnInit {
   workspaceId: String;
   @Input() editCampaign: Campaign;
   @Output() emitter: EventEmitter<any> = new EventEmitter<any>();
+  loading = false;
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -29,10 +30,12 @@ export class DelCampaignComponent implements OnInit {
   }
 
   deleteCampaign() {
+    this.loading = true;
     this.campaignsApiService.deleteCampaign(this.workspaceId, String(this.editCampaign.id))
       .pipe(first())
         .subscribe(
             data => {
+                this.loading = false;
                 this.emitter.emit(this.editCampaign)
                 this.closeModal()
             },

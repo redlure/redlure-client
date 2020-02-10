@@ -46,10 +46,12 @@ export class NewCampaignService {
 
   cloneCampaign(campaign) {
     this.newCampaign.name = campaign.name;
-    this.newCampaign.email = campaign.email.name;
-    this.newCampaign.profile = campaign.profile.name;
-    this.newCampaign.domain = campaign.domain.domain;
-    this.newCampaign.server = campaign.server.alias;
+
+    // if module is NULL (deleted) set to blank
+    if (campaign.email) { this.newCampaign.email = campaign.email.id; } else { this.newCampaign.email = "" }
+    if (campaign.profile) { this.newCampaign.profile = campaign.profile.id; } else { this.newCampaign.profile = "" }
+    if (campaign.domain) { this.newCampaign.domain = campaign.domain.id; } else { this.newCampaign.domain = "" }
+    if (campaign.server) { this.newCampaign.server = campaign.server.id; } else { this.newCampaign.server = "" }
     //this.newCampaign.list = campaign.list.name;
     this.newCampaign.port = campaign.port;
     this.newCampaign.ssl = campaign.ssl;
@@ -58,7 +60,7 @@ export class NewCampaignService {
     this.newCampaign.redirectUrl = campaign.redirectUrl;
 
     campaign.pages.forEach(element => {
-      this.newCampaign.pages[element.index] = element.page.name;
+      if (element) { this.newCampaign.pages[element.index] = element.page.id; } else { this.newCampaign.pages[element.index] = "" }
     });
     //console.log(this.newCampaign)
   }

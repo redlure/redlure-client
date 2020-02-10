@@ -28,7 +28,7 @@ export class SendSelectComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.newCampaignService.newCampaign.payloadFile)
+    //console.log(this.newCampaignService.newCampaign.payloadFile)
     this.myForm = this.formBuilder.group({
       profile: [this.newCampaignService.newCampaign.profile, Validators.required],
       targetList: [this.newCampaignService.newCampaign.list, Validators.required],

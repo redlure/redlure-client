@@ -13,6 +13,7 @@ import { DataService } from './data.service';
 import { MessageService } from '../empty-object/message.service';
 import { Subject } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
+import { nullSafeIsEquivalent } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-results',
@@ -112,6 +113,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
       this.allResults = data[1];
       this.campaigns = data[0];
       this.setState();
+      this.checkNulls();
       //this.results = this.allResults;
       //this.forms = this.getForms();
       this.calcStats();
@@ -176,6 +178,20 @@ export class ResultsComponent implements OnInit, OnDestroy {
     
     this.calcStats();
     this.rerender('formTable')
+  }
+
+  checkNulls() {
+    this.campaigns.forEach(campaign => {
+      if (!campaign.server) {
+        campaign.server = {}
+        campaign.server.alias = "[Deleted]"
+      }
+
+      if (!campaign.domain) {
+        campaign.domain = {}
+        campaign.domain.domain = "[Deleted]"
+      }
+    });
   }
 
   // initalize campaign state after getting results from server

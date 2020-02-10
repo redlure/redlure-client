@@ -260,6 +260,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
     // open the modal and pass the filtered result set
     const modalRef = this.modalService.open(TableComponent, { windowClass: 'hugeModal' });
     modalRef.componentInstance.results = filteredResults;
+    modalRef.componentInstance.campaigns = this.campaigns;
   }
 
 }

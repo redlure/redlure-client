@@ -9,8 +9,9 @@ import { wsName } from '../../env';
   templateUrl: './table.component.html'
 })
 export class TableComponent implements OnInit {
-  headers = ["#", "Status", "Email", "First Name", "Last Name", "Tracker", "Campaign ID"];
+  headers = ["#", "Status", "Email", "First Name", "Last Name", "Tracker", "Campaign", "Campaign ID"];
   @Input() results: any[] = [];
+  @Input() campaigns: any[] = [];
   copyOfResults: any[] = []
 
   dtTrigger: Subject<any> = new Subject();
@@ -28,7 +29,6 @@ export class TableComponent implements OnInit {
 
   ngOnInit() {
     //this.copyOfResults = this.results.map(obj => ({...obj}));
-    //console.log(this.copyOfResults)
     this.dtOptions = {
       dom: "<'row'<'col-sm-12' l>>" +
            "<'row'<'col-sm-6'B><'col-sm-6'f>>" +
@@ -60,5 +60,9 @@ export class TableComponent implements OnInit {
       // Call the dtTrigger to rerender again
       this.dtTrigger.next();
     });
+  }
+
+  getCampaignName(id) {
+    return this.campaigns.find(campaign => campaign.id === id).name
   }
 }

@@ -73,6 +73,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
            "<'row'<'col-sm-12't>>" +
            "<'row'<'col-sm-6 text-left'i><'col-sm-6'p>>"
     }
+
     this.getResults(false);
     
     this.intervalVar = setInterval(() => {
@@ -200,7 +201,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
         }
       });
     }
-    this.getForms();
+    this.forms = this.getForms();
   }
 
 
@@ -216,7 +217,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
   }
 
 
-  // get all form data arrays that are no empty and flatten all results into 1 array (vs array of arrays)
+  // get all form data arrays that are not empty and flatten all results into 1 array (vs array of arrays)
   getForms(){
     return [].concat.apply([], this.results.map(result => result.forms).filter(result => result.length > 0));
   }

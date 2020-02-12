@@ -11,7 +11,7 @@ import { NewListComponent } from './new-list/new-list.component'
 import { AlertService } from '../alert/alert.service'
 import { first } from 'rxjs/operators'
 import { MessageService } from '../empty-object/message.service';
-
+import { ImportModuleComponent } from '../import-module/import-module.component';
 
 @Component({
   selector: 'app-lists',
@@ -110,6 +110,12 @@ export class ListsComponent implements OnInit {
 
   sendAlert(name) {
     this.alertService.newAlert("warning", "A list with the name " + name + " already exists in the database")
+  }
+
+  import() {
+    const modalRef = this.modalService.open(ImportModuleComponent, { backdrop: 'static' });
+    modalRef.componentInstance.type = 'List'
+    modalRef.componentInstance.emitter.subscribe(data => this.cloneList(data));
   }
 
 }

@@ -12,6 +12,7 @@ import { TestProfileComponent } from './test-profile/test-profile.component';
 import { AlertService } from '../alert/alert.service';
 import { first } from 'rxjs/operators';
 import { MessageService } from '../empty-object/message.service';
+import { ImportModuleComponent } from '../import-module/import-module.component';
 
 @Component({
   selector: 'app-profiles',
@@ -118,6 +119,12 @@ export class ProfilesComponent implements OnInit {
 
   sendAlert(name) {
     this.alertService.newAlert("warning", name + " is an already existing profile")
+  }
+
+  import() {
+    const modalRef = this.modalService.open(ImportModuleComponent, { backdrop: 'static' });
+    modalRef.componentInstance.type = 'Profile'
+    modalRef.componentInstance.emitter.subscribe(data => this.cloneProfile(data));
   }
 
 }

@@ -1,0 +1,46 @@
+<div class="modal-header">
+  <h4 class="modal-title">Import {{ type }}</h4>
+  <button class="btn btn-outline-danger" (click)="closeModal()">Close</button>
+</div>
+<form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+  <div class="modal-body">
+    <div class="container">
+      
+      <!--Workspace Field-->
+      <div class="input-group form-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text span-redir">Workspace</span>
+        </div>
+        <select (change)="workspaceChosen()" class="form-control" formControlName="workspace" [ngClass]="{ 'is-invalid': submitted && f.workspace.errors }">
+          <option disabled selected value> -- Select a workspace -- </option>
+          <option *ngFor="let workspace of workspaces" [value]="workspace.id">{{ workspace.name }}</option>
+        </select>
+        <div *ngIf="submitted && f.workspace.errors" class="invalid-feedback">
+          <div *ngIf="f.workspace.errors.required">Workspace is required</div>
+        </div>
+      </div>
+
+      <!--Template Field-->
+      <div class="input-group form-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text span-redir">Template</span>
+        </div>
+        <select class="form-control" formControlName="template" [ngClass]="{ 'is-invalid': submitted && f.template.errors }">
+          <option disabled selected value> -- Select a workspace -- </option>
+          <option *ngFor="let template of templates" [ngValue]="template">{{ template.name }}</option>
+        </select>
+        <div *ngIf="submitted && f.template.errors" class="invalid-feedback">
+          <div *ngIf="f.template.errors.required">Template is required</div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div *ngIf="loading" class="loadingio-spinner-dual-ball-jmseu88834m float-right"><div class="ldio-c46ivvx8kf">
+      <div></div><div></div><div></div>
+      </div></div>
+    <button ngbAutofocus class="btn btn-outline-dark float-right login_btn">Import</button>
+  </div>
+</form>

@@ -84,6 +84,7 @@ import { TableComponent } from './results/table/table.component';
 import { ServerFilesComponent } from './domains-servers/server-files/server-files.component';
 import { ProfileComponent } from './navbar/profile/profile.component';
 import { UserProfileApiService } from './navbar/profile/user-profile-api.service';
+import { ImportModuleComponent } from './import-module/import-module.component';
 
 
 @NgModule({
@@ -141,6 +142,7 @@ import { UserProfileApiService } from './navbar/profile/user-profile-api.service
     SendSelectComponent,
     ServerFilesComponent,
     ProfileComponent,
+    ImportModuleComponent,
   ],
   imports: [
     BrowserModule,
@@ -214,7 +216,8 @@ import { UserProfileApiService } from './navbar/profile/user-profile-api.service
     SendSelectComponent,
     TableComponent,
     ServerFilesComponent,
-    ProfileComponent
+    ProfileComponent,
+    ImportModuleComponent
   ]
 })
 export class AppModule { }

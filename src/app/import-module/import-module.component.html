@@ -26,7 +26,7 @@
             <span class="input-group-text span-redir">Template</span>
         </div>
         <select class="form-control" formControlName="template" [ngClass]="{ 'is-invalid': submitted && f.template.errors }">
-          <option disabled selected value> -- Select a workspace -- </option>
+          <option (change)="templateChosen()" disabled selected value> -- Select a workspace -- </option>
           <option *ngFor="let template of templates" [ngValue]="template">{{ template.name }}</option>
         </select>
         <div *ngIf="submitted && f.template.errors" class="invalid-feedback">
@@ -41,6 +41,6 @@
     <div *ngIf="loading" class="loadingio-spinner-dual-ball-jmseu88834m float-right"><div class="ldio-c46ivvx8kf">
       <div></div><div></div><div></div>
       </div></div>
-    <button ngbAutofocus class="btn btn-outline-dark float-right login_btn">Import</button>
+    <button [disabled]="disableSubmit" ngbAutofocus class="btn btn-outline-dark float-right login_btn">Import</button>
   </div>
 </form>

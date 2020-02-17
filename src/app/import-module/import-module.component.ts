@@ -20,6 +20,7 @@ export class ImportModuleComponent implements OnInit {
   templates: any[] = [];
   loading = false;
   @Output() emitter: EventEmitter<any> = new EventEmitter<any>();
+  disableSubmit = true;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -97,6 +98,10 @@ export class ImportModuleComponent implements OnInit {
 
   closeModal() {
     this.activeModal.close();
+  }
+
+  templateChosen() {
+    this.disableSubmit = false;
   }
 
   workspaceChosen() {

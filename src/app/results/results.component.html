@@ -133,7 +133,7 @@
               </thead>
               <tbody>
                 <tr style="cursor: pointer;" *ngFor="let form of forms" (click)="openFormModal(form)">
-                  <td style="width: 1px;" align="right">{{ getCId(form.result_id) }}</td>
+                  <td align="right">{{ getCId(form.result_id) }}</td>
                   <td align="right">{{ getEmail(form.result_id) }}</td>
                 </tr>
               </tbody>

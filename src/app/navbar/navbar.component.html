@@ -1,25 +1,30 @@
 <!--Navbar-->
-<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom border-dark">
+<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom border-light">
   <!-- Navbar brand -->
-  <a class="navbar-brand pt-0 waves-effect" href="/">
-    <!--<img src="assets/text-logo.PNG" height="30" alt="mdb logo">-->
+  <a class="navbar-brand pt-0 waves-effect">
+    <img src="assets/redlure.png" height="50">
   </a>
 
-  <img src="assets/redlure.png" style="width: 55px; height: 50px;">
+  <!-- Toggler/collapsibe Button -->
+  <button class="navbar-toggler" type="button" style="float: right;" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
   <!-- Links -->
-  <ul class="navbar-nav mr-auto">
-    <li class="nav-item" [routerLinkActive]="['active']">
-      <a class="nav-link" routerLink="/workspaces">Workspaces</a>
-    </li>
-    <li class="nav-item" [routerLinkActive]="['active']">
-      <a class="nav-link" routerLink="/domains-servers">Domains & Servers</a>
-    </li>
-    <li class="nav-item" [routerLinkActive]="['active']">
-      <a class="nav-link" routerLink="/users-roles">Users & Roles</a>
-    </li>
-  </ul>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item" [routerLinkActive]="['active']">
+        <a class="nav-link" routerLink="/workspaces">Workspaces</a>
+      </li>
+      <li class="nav-item" [routerLinkActive]="['active']">
+        <a class="nav-link" routerLink="/domains-servers">Domains & Servers</a>
+      </li>
+      <li class="nav-item" [routerLinkActive]="['active']">
+        <a class="nav-link" routerLink="/users-roles">Users & Roles</a>
+      </li>
+    </ul>
+  </div>
   <!-- Logout -->
-  <button class="btn btn-outline-danger float-right login_btn" (click)="logout()">Logout <i class="fas fa-sign-out-alt"></i></button>
+  <button class="btn btn-outline-danger float-right login_btn" style="border-width: 0px;" (click)="logout()">Logout <i class="fas fa-sign-out-alt"></i></button>
   <button class="btn btn-outline-dark float-right" style="border-width: 0px; margin-left: 4px;" (click)="profile()"><i class="fas fa-user-circle fa-lg"></i></button>
 </nav>

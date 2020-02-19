@@ -1,52 +1,53 @@
 <!--Navbar-->
-<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom border-dark">
+<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom border-light">
   <!-- Navbar brand -->
-  <a class="navbar-brand pt-0 waves-effect" href="/">
-     <!--<img src="assets/text-logo.PNG" height="30" alt="mdb logo">-->
+  <a class="navbar-brand pt-0 waves-effect">
+    <img src="assets/redlure.png" height="50">
   </a>
 
-  <img src="assets/redlure.png" style="width: 55px; height: 50px;">
+  <!-- Toggler/collapsibe Button -->
+  <button class="navbar-toggler" type="button" style="float: right;" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
   <!-- Links -->
-  <ul class="navbar-nav mr-auto">
-    <li class="nav-item" [routerLinkActive]="['active']">
-      <a class="nav-link" routerLink="/workspaces">Workspaces</a>
-    </li>
-    <li class="nav-item" [routerLinkActive]="['active']">
-      <a class="nav-link" routerLink="/domains-servers">Domains & Servers</a>
-    </li>
-    <li class="nav-item" [routerLinkActive]="['active']">
-      <a class="nav-link" routerLink="/users-roles">Users & Roles</a>
-    </li>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item" [routerLinkActive]="['active']">
+        <a class="nav-link" routerLink="/workspaces">Workspaces</a>
+      </li>
+      <li class="nav-item" [routerLinkActive]="['active']">
+        <a class="nav-link" routerLink="/domains-servers">Domains & Servers</a>
+      </li>
+      <li class="nav-item" [routerLinkActive]="['active']">
+        <a class="nav-link" routerLink="/users-roles">Users & Roles</a>
+      </li>
     
-    <!-- divider between non-workspace and workspace tabs-->
-    <li class="nav-item" [routerLinkActive]="['inactive']">
-      <a class="nav-link">|</a>
-    </li>
-
-
-    <li class="nav-item" [routerLinkActive]="['active']">
-      <a class="nav-link" routerLink="/workspaces/{{ workspaceId }}/results">Results</a>
-    </li>
-    <li class="nav-item" [routerLinkActive]="['active']">
-      <a class="nav-link" routerLink="/workspaces/{{ workspaceId }}/campaigns">Campaigns</a>
-    </li>
-    <li class="nav-item" [routerLinkActive]="['active']">
-      <a class="nav-link" routerLink="/workspaces/{{ workspaceId }}/emails">Emails</a>
-    </li>
-    <li class="nav-item" [routerLinkActive]="['active']">
-      <a class="nav-link" routerLink="/workspaces/{{ workspaceId }}/pages">Pages</a>
-    </li>
-    <li class="nav-item" [routerLinkActive]="['active']">
-      <a class="nav-link" routerLink="/workspaces/{{ workspaceId }}/lists">Target Lists</a>
-    </li>
-    <li class="nav-item" [routerLinkActive]="['active']">
-      <a class="nav-link" routerLink="/workspaces/{{ workspaceId }}/profiles">Profiles</a>
-    </li>
-  </ul>
-  <!-- Links -->
-  <button routerLink="/workspaces" class="btn btn-dark float-right" style="margin-right: 4px">{{ workspaceName }} Workspace</button>
-  <button class="btn btn-outline-danger float-right login_btn" (click)="logout()">Logout <i class="fas fa-sign-out-alt"></i></button>
-  <button class="btn btn-outline-dark float-right" style="border-width: 0px; margin-left: 4px;" (click)="profile()"><i class="fas fa-user-circle fa-lg"></i></button>
+      <!-- divider between non-workspace and workspace tabs-->
+      <span class="navbar-text text-danger"><span class="text-dark" style="padding-right: 0.5rem;">|</span>{{ workspaceName }} <i class="fas fa-angle-double-right"></i></span>
+    
+      <li class="nav-item" [routerLinkActive]="['active']">
+        <a class="nav-link" routerLink="/workspaces/{{ workspaceId }}/results">Results</a>
+      </li>
+      <li class="nav-item" [routerLinkActive]="['active']">
+        <a class="nav-link" routerLink="/workspaces/{{ workspaceId }}/campaigns">Campaigns</a>
+      </li>
+      <li class="nav-item" [routerLinkActive]="['active']">
+        <a class="nav-link" routerLink="/workspaces/{{ workspaceId }}/emails">Emails</a>
+      </li>
+      <li class="nav-item" [routerLinkActive]="['active']">
+        <a class="nav-link" routerLink="/workspaces/{{ workspaceId }}/pages">Pages</a>
+      </li>
+      <li class="nav-item" [routerLinkActive]="['active']">
+        <a class="nav-link" routerLink="/workspaces/{{ workspaceId }}/lists">Target Lists</a>
+      </li>
+      <li class="nav-item" [routerLinkActive]="['active']">
+        <a class="nav-link" routerLink="/workspaces/{{ workspaceId }}/profiles">Profiles</a>
+      </li>
+    </ul>
+    <!-- Links -->
+    <button class="btn btn-outline-danger float-right login_btn" style="border-width: 0px;" (click)="logout()">Logout <i class="fas fa-sign-out-alt"></i></button>
+    <button class="btn btn-outline-dark float-right" style="border-width: 0px; margin-left: 4px;" (click)="profile()"><i class="fas fa-user-circle fa-lg"></i></button>
+  </div>
 </nav>
 <!--/.Navbar-->

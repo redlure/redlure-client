@@ -13,7 +13,7 @@ import { DataService } from './data.service';
 import { MessageService } from '../empty-object/message.service';
 import { Subject } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
-import { nullSafeIsEquivalent } from '@angular/compiler/src/output/output_ast';
+import { AnonymousComponent } from './anonymous/anonymous.component';
 
 @Component({
   selector: 'app-results',
@@ -23,7 +23,7 @@ import { nullSafeIsEquivalent } from '@angular/compiler/src/output/output_ast';
 export class ResultsComponent implements OnInit, OnDestroy {
   allResults: any[]; //all results returned by server
   results: any[] = []; //holds current filtered results
-  forms: any[] = []; //holds submitted form data
+  submitEvents: any[] = []; //holds submitted form data
   filtered = false;
   selectAll = true;
   selectedForm;
@@ -41,7 +41,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
   
   workspaceId: String;
   campaigns: any[];
-  campaignHeaders = ["ID", "Name", "Status", "Server", "Domain", "Start Date"];
+  campaignHeaders = ["ID", "Name", "Status", "Server", "Domain", "Start Date", "End Date"];
   credHeaders = ["Campaign ID", "Email"];
   checked = []; //track which campaigns are selected
 
@@ -103,8 +103,8 @@ export class ResultsComponent implements OnInit, OnDestroy {
   }
   
 
-  onResultSelect(form){
-    this.selectedForm = form;
+  onResultSelect(event){
+    this.selectedForm = event;
   }
 
   getResults(rerender: Boolean) {
@@ -115,7 +115,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
       this.setState();
       this.checkNulls();
       //this.results = this.allResults;
-      //this.forms = this.getForms();
+      //this.submitEvents = this.getForms();
       this.calcStats();
       this.loading = false;
       if(rerender) {
@@ -148,10 +148,10 @@ export class ResultsComponent implements OnInit, OnDestroy {
       });
     if (event.target.checked) {
       this.results = this.allResults;
-      this.forms = this.getForms();
+      this.submitEvents = this.getForms();
     } else {
       this.results = []; //empty all arrays
-      this.forms = [];
+      this.submitEvents = [];
       this.checked = [];
     }
     this.calcStats();
@@ -162,10 +162,10 @@ export class ResultsComponent implements OnInit, OnDestroy {
     let results = this.allResults.filter(result => result.campaign_id === campaignId);
     if (event.target.checked) {
       this.results = this.results.concat(results);
-      this.forms = this.getForms();
+      this.submitEvents = this.getForms();
     } else {
       this.results = this.results.filter(result => results.indexOf(result) < 0);
-      this.forms = this.getForms();
+      this.submitEvents = this.getForms();
     }
     
     // if in checked tracker, remove. else add campaign
@@ -217,7 +217,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
         }
       });
     }
-    this.forms = this.getForms();
+    this.submitEvents = this.getForms();
   }
 
 
@@ -233,16 +233,27 @@ export class ResultsComponent implements OnInit, OnDestroy {
   }
 
 
-  // get all form data arrays that are not empty and flatten all results into 1 array (vs array of arrays)
+  // get all events with formdata and make an array of those events
   getForms(){
-    return [].concat.apply([], this.results.map(result => result.forms).filter(result => result.length > 0));
+    // map filter was not working here for some reason -> resorted to writing own filter with foreach
+    var submissions = [];
+  
+    this.results.forEach(result => {
+      result.events.forEach(event =>{
+        if (event.action == "Submitted") {
+          submissions.push(event);
+        }
+      })
+    })
+
+    return submissions;
   }
 
   // open the FormComponent to show submitted FormData
-  openFormModal(form) {
-    this.onResultSelect(form);
+  openFormModal(event) {
+    this.onResultSelect(event);
     const modalRef = this.modalService.open(FormComponent, { size: 'lg', backdrop: 'static' });
-    modalRef.componentInstance.selectedForm = this.selectedForm;
+    modalRef.componentInstance.submitEvent = this.selectedForm;
   }
 
   // open the GraphComponent for visuals of results
@@ -274,9 +285,13 @@ export class ResultsComponent implements OnInit, OnDestroy {
     }
 
     // open the modal and pass the filtered result set
-    const modalRef = this.modalService.open(TableComponent, { windowClass: 'hugeModal' });
+    const modalRef = this.modalService.open(TableComponent, { windowClass: 'hugeModal', backdrop: 'static' });
     modalRef.componentInstance.results = filteredResults;
     modalRef.componentInstance.campaigns = this.campaigns;
+  }
+
+  openAnon(){
+    const modalRef = this.modalService.open(AnonymousComponent, { size: 'lg', backdrop: 'static' });
   }
 
 }

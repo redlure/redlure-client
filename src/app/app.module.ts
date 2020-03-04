@@ -85,6 +85,9 @@ import { ServerFilesComponent } from './domains-servers/server-files/server-file
 import { ProfileComponent } from './navbar/profile/profile.component';
 import { UserProfileApiService } from './navbar/profile/user-profile-api.service';
 import { ImportModuleComponent } from './import-module/import-module.component';
+import { LineChartComponent } from './results/graphs/line-chart/line-chart.component';
+import { DetailComponent } from './campaigns/detail/detail.component';
+import { AnonymousComponent } from './results/anonymous/anonymous.component';
 
 
 @NgModule({
@@ -143,6 +146,9 @@ import { ImportModuleComponent } from './import-module/import-module.component';
     ServerFilesComponent,
     ProfileComponent,
     ImportModuleComponent,
+    LineChartComponent,
+    DetailComponent,
+    AnonymousComponent,
   ],
   imports: [
     BrowserModule,
@@ -217,7 +223,10 @@ import { ImportModuleComponent } from './import-module/import-module.component';
     TableComponent,
     ServerFilesComponent,
     ProfileComponent,
-    ImportModuleComponent
+    ImportModuleComponent,
+    LineChartComponent,
+    DetailComponent,
+    AnonymousComponent
   ]
 })
 export class AppModule { }

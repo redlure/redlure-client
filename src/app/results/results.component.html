@@ -82,6 +82,12 @@
   <hr class="border-dark">
 
   <div class="container-fluid">
+    <!--<div class="row row-sm">
+      <div class="col-8 border-right border-dark" style="text-align: center"></div>
+      <div class="col" style="text-align: end;">
+        <button (click)="openAnon()" class="btn btn-sm btn-outline-dark">Anon <i class="fas fa-mask"></i></button>
+      </div>
+    </div>-->
     <!--Tables Row-->
     <div class="row">
       
@@ -94,7 +100,8 @@
             <tr>
               <th scope="col">
                 <div class="custom-control custom-checkbox">
-                  <input type="checkbox" id="cbHead" class="custom-control-input" (change)="toggleSelectAll($event)" [checked]="selectAll">                            <label class="custom-control-label" for="cbHead"></label>
+                  <input type="checkbox" id="cbHead" class="custom-control-input" (change)="toggleSelectAll($event)" [checked]="selectAll">                           
+                  <label class="custom-control-label" for="cbHead"></label>
                 </div>
               </th>
               <th scope="col" *ngFor="let head of campaignHeaders; let i = index">{{ head }}</th>
@@ -114,31 +121,35 @@
               <td align="left">{{ campaign.server.alias }}</td>
               <td align="left">{{ campaign.domain.domain }}</td>
               <td align="right">{{ campaign.start_time }}</td>
+              <td align="right">{{ campaign.end_time }}</td>
             </tr>
           </tbody>
         </table>
 
       </div>
 
-      <div class="col" style="text-align: center">
-        <div class="row h4 text-dark justify-content-md-center">
-          Credential Vault
+      <div class="col">
+        <div class="row">
+          <div class="col"></div>
+          <div class="col h4 text-dark justify-content-md-center">Credential Vault</div>
+          <div class="col" style="text-align: end;"><button (click)="openAnon()" class="btn btn-sm btn-outline-dark">Anonomyous Forms <i class="fas fa-address-card"></i></button></div>
         </div>
-          <div style="overflow: auto">
-            <table id="formTable" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger['formTable']" class="table table-bordered table-striped table-hover table-sm">
-              <thead class="thead-dark">
-                <tr>
-                  <th scope="col" *ngFor="let head of credHeaders; let i = index">{{ head }}</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr style="cursor: pointer;" *ngFor="let form of forms" (click)="openFormModal(form)">
-                  <td align="right">{{ getCId(form.result_id) }}</td>
-                  <td align="right">{{ getEmail(form.result_id) }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+
+        <div style="overflow: auto">
+          <table id="formTable" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger['formTable']" class="table table-bordered table-striped table-hover table-sm">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col" *ngFor="let head of credHeaders; let i = index">{{ head }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="cursor: pointer;" *ngFor="let event of submitEvents" (click)="openFormModal(event)">
+                <td align="right">{{ getCId(event.result_id) }}</td>
+                <td align="right">{{ getEmail(event.result_id) }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
 
       </div>

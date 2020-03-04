@@ -3,18 +3,46 @@
   <button class="btn btn-outline-danger" (click)="closeModal()">Close</button>
 </div>
 
-<form>
-  <div class="modal-body">
+<div class="modal-body">
+
+  <div class="container">
+    <div class="row">
+      
+      <div class="col">
+        <div class="input-group input-group-sm form-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Console Timestamp</span>
+          </div>
+          <input class="form-control" style="text-align: right; background-color: white" type="text" value="{{ submitEvent.time }}" readonly/>
+        </div>
+      </div>
+
+      <div class ="col">
+       <div class="input-group input-group-sm form-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">IP Address</span>
+          </div>
+          <input class="form-control" style="text-align: right; background-color: white" type="text" value="{{ submitEvent.ip_address }}" readonly/>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <br>
+
+  <form>
     <div class="container">
-      <div *ngFor="let input of selectedForm.data | keyvalue">
+      <div *ngFor="let input of submitEvent.form.data | keyvalue">
         <div class="input-group form-group">
           <div class="input-group-prepend">
             <span class="span-form input-group-text">{{ input.key }}</span>
           </div>
           <input value="{{ input.value }}" type="text" class="form-control" style="background-color: white" readonly/>
-          <button class="btn fas fa-copy" (click)="copyData(input.value)" title="Copy" style="margin-left: 4px;"></button>
+          <div class="input-group-append">
+            <button class="btn btn-sm btn-outline-dark fas fa-copy" (click)="copyData(input.value)" title="Copy"></button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</form>
+  </form>
+</div>

@@ -6,14 +6,13 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   templateUrl: './form.component.html'
 })
 export class FormComponent implements OnInit {
-  @Input() selectedForm;
+  @Input() submitEvent;
 
   constructor(
     public activeModal: NgbActiveModal,
   ) { }
 
   ngOnInit() {
-    console.log(this.selectedForm)
   }
 
   closeModal() {

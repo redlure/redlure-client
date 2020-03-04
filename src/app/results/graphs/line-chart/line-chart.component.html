@@ -1,0 +1,56 @@
+<div class="modal-header">
+  <h4 class="modal-title">Data Points</h4>
+  <button class="btn btn-outline-danger" (click)="closeModal()">Close</button>
+</div>
+<div class="modal-body">
+  <div class="btn-group" data-toggle="buttons">
+    <label style="cursor: pointer;" class="btn btn-outline-dark active" (click)="toggleTable(false)">
+      <input style="display: none;" type="radio" name="options" id="option1" checked> Line Plot
+    </label>
+    <label style="cursor: pointer;" class="btn btn-outline-dark" (click)="toggleTable(true)">
+      <input style="display: none;" type="radio" name="options" id="option2"> Table
+    </label>
+  </div>
+  <br>
+
+  <div *ngIf="!table" style="display: block; width: 100%;">
+    <canvas baseChart
+      [datasets]="lineChartData"
+      [options]="lineChartOptions"
+      [colors]="lineChartColors"
+      [legend]="lineChartLegend"
+      [chartType]="lineChartType">
+    </canvas>
+  </div>
+
+  <div [ngStyle]="currentStyle">
+    <table datatable [dtTrigger]="dtTrigger"  class="table table-hover table-striped col-auto">
+      <thead class="thead-dark">
+      <tr>
+        <th scope="col" *ngFor="let head of headers; let i = index">{{ head }}</th>
+      </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let event of result.events; let i = index">
+        <th scope="row">{{ i +1 }}</th>
+          <td>{{ event.action }}</td>
+          <td>{{ event.ip_address }}</td>
+          <td>{{ event.time }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <!--
+    <canvas baseChart width="400" height="400"
+                [datasets]="lineChartData"
+                [labels]="lineChartLabels"
+                [options]="lineChartOptions"
+                [colors]="lineChartColors"
+                [legend]="lineChartLegend"
+                [chartType]="lineChartType"
+                chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)"></canvas>
+  -->
+</div>

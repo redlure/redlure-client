@@ -10,7 +10,7 @@
     </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let result of results; let i = index">
+      <tr style="cursor: pointer;" *ngFor="let result of results; let i = index" (click)="openChart(result)">
       <th scope="row">{{ i +1 }}</th>
         <td>{{ result.status }}</td>
         <td>{{ result.person.email }}</td>

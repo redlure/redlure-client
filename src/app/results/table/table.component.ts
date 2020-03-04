@@ -1,8 +1,9 @@
 import { Component, Directive, EventEmitter, Input, Output, QueryList, ViewChildren, OnInit, ViewChild, OnDestroy, AfterViewInit } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
 import { wsName } from '../../env';
+import { LineChartComponent } from '../graphs/line-chart/line-chart.component';
 
 @Component({
   selector: 'app-table',
@@ -20,7 +21,8 @@ export class TableComponent implements OnInit {
   dtElement: DataTableDirective;
 
   constructor(
-    public activeModal: NgbActiveModal
+    public activeModal: NgbActiveModal,
+    private modalService: NgbModal,
   ) { }
 
   closeModal() {
@@ -64,5 +66,10 @@ export class TableComponent implements OnInit {
 
   getCampaignName(id) {
     return this.campaigns.find(campaign => campaign.id === id).name
+  }
+
+  openChart(result) {
+    const modalRef = this.modalService.open(LineChartComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.componentInstance.result = result;
   }
 }

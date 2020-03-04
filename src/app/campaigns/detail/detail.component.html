@@ -1,0 +1,201 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{ campaign.name }} Configuration</h4>
+  <button class="btn btn-outline-danger" (click)="closeModal()">Close</button>
+</div>
+
+<div class="modal-body">
+  <div class="container">
+
+    <!-- First Row -->
+    <div class="row">
+      
+      <div class="col">
+        <div class="input-group form-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text span-campaign-detail">Status</span>
+          </div>
+          <input class="form-control" style="text-align: right; background-color: white" type="text" value="{{ campaign.status }}" readonly/>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="input-group form-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text span-campaign-detail">Created at</span>
+          </div>
+          <input class="form-control" style="text-align: right; background-color: white" type="text" value="{{ campaign.created_at }}" readonly/>
+        </div>
+      </div>
+    </div>
+
+    <!-- Second Row -->
+    <div class="row">
+      
+      <div class ="col">
+        <div class="input-group form-group">
+           <div class="input-group-prepend">
+             <span class="input-group-text span-campaign-detail">Email</span>
+           </div>
+           <input class="form-control" style="text-align: right; background-color: white" type="text" value="{{ campaign.email.name }}" readonly/>
+         </div>
+       </div>
+
+      <div class ="col">
+       <div class="input-group form-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text span-campaign-detail">Start Time</span>
+          </div>
+          <input class="form-control" style="text-align: right; background-color: white" type="text" value="{{ campaign.start_time }}" readonly/>
+        </div>
+      </div>
+    </div>
+
+    <!-- Third Row -->
+    <div class="row">
+      
+      <div class="col">
+        <div class="input-group form-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text span-campaign-detail">Domain</span>
+          </div>
+          <input class="form-control" style="text-align: right; background-color: white" type="text" value="{{ campaign.domain.domain }}" readonly/>
+        </div>
+      </div>
+
+      <div class ="col">
+       <div class="input-group form-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text span-campaign-detail">SSL</span>
+          </div>
+          <input class="form-control" style="text-align: right; background-color: white" type="text" value="{{ campaign.ssl }}" readonly/>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fourth Row -->
+    <div class="row">
+      
+      <div class ="col">
+        <div class="input-group form-group">
+           <div class="input-group-prepend">
+             <span class="input-group-text span-campaign-detail">Server</span>
+           </div>
+           <input class="form-control" style="text-align: right; background-color: white" type="text" value="{{ campaign.server.alias }}" readonly/>
+         </div>
+       </div>
+
+      <div class ="col">
+       <div class="input-group form-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text span-campaign-detail">Port</span>
+          </div>
+          <input class="form-control" style="text-align: right; background-color: white" type="text" value="{{ campaign.port }}" readonly/>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fifth Row -->
+    <div class="row">
+      
+      <div class ="col">
+        <div class="input-group form-group">
+           <div class="input-group-prepend">
+             <span class="input-group-text span-campaign-detail">List</span>
+           </div>
+           <input class="form-control" style="text-align: right; background-color: white" type="text" value="{{ campaign.list.name }}" readonly/>
+         </div>
+       </div>
+
+       <div class ="col">
+        <div class="input-group form-group">
+           <div class="input-group-prepend">
+             <span class="input-group-text span-campaign-detail">Profile</span>
+           </div>
+           <input class="form-control" style="text-align: right; background-color: white" type="text" value="{{ campaign.profile.name }}" readonly/>
+         </div>
+       </div>
+    </div>
+
+    <!-- Sixth Row -->
+    <div class="row">
+      
+      <div class ="col">
+        <div class="input-group form-group">
+           <div class="input-group-prepend">
+             <span class="input-group-text span-campaign-detail">Payload</span>
+           </div>
+           <input class="form-control" style="text-align: right; background-color: white" type="text" value="{{ campaign.payload_file }}" readonly/>
+         </div>
+       </div>
+
+      <div class ="col">
+       <div class="input-group form-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text span-campaign-detail">Payload URL</span>
+          </div>
+          <input class="form-control" style="text-align: right; background-color: white" type="text" value="{{ campaign.payload_url }}" readonly/>
+        </div>
+      </div>
+    </div>
+
+    <!-- Seventh Row -->
+    <div class="row">
+      
+      <div class ="col">
+        <div class="input-group form-group">
+           <div class="input-group-prepend">
+             <span class="input-group-text span-campaign-detail">Page 1</span>
+           </div>
+           <input class="form-control" style="text-align: right; background-color: white" type="text" value="{{ campaign.pages[0].page.name }}" readonly/>
+         </div>
+       </div>
+
+      <div class ="col">
+       <div class="input-group form-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text span-campaign-detail">Page 2</span>
+          </div>
+          <input class="form-control" style="text-align: right; background-color: white" type="text" value="{{ campaign.pages[1].page.name }}" readonly/>
+        </div>
+      </div>
+    </div>
+
+    <!-- Eighth Row -->
+    <div class="row">
+      
+      <div class ="col">
+        <div class="input-group form-group">
+           <div class="input-group-prepend">
+             <span class="input-group-text span-campaign-detail">Page 3</span>
+           </div>
+           <input class="form-control" style="text-align: right; background-color: white" type="text" value="{{ campaign.pages[2].page.name }}" readonly/>
+         </div>
+       </div>
+
+      <div class ="col">
+       <div class="input-group form-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text span-campaign-detail">Page 4</span>
+          </div>
+          <input class="form-control" style="text-align: right; background-color: white" type="text" value="{{ campaign.pages[3].page.name }}" readonly/>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ninth Row -->
+    <div class="row">
+      
+      <div class ="col">
+        <div class="input-group form-group">
+           <div class="input-group-prepend">
+             <span class="input-group-text span-campaign-detail">Redirect URL</span>
+           </div>
+           <input class="form-control" style="text-align: left; background-color: white" type="text" value="{{ campaign.redirect_url }}" readonly/>
+         </div>
+       </div>
+
+    </div>
+
+  </div>
+</div>
+

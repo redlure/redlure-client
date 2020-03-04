@@ -96,6 +96,11 @@ logo {
     width: 120px;
 }
 
+.span-campaign-detail {
+    float: left;
+    width: 120px;
+}
+
 p {
     white-space: nowrap;
     overflow: hidden;

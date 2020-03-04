@@ -12,6 +12,7 @@ import { ServerSelectComponent } from './new-campaign/server-select/server-selec
 import { NewCampaignService } from './new-campaign/new-campaign.service';
 import { ScenarioSelectComponent } from './new-campaign/scenario-select/scenario-select.component';
 import { SendSelectComponent } from './new-campaign/send-select/send-select.component';
+import { DetailComponent } from './detail/detail.component';
 
 @Component({
   selector: 'app-campaigns',
@@ -112,6 +113,7 @@ export class CampaignsComponent implements OnInit {
         campaigns => {
           this.campaigns = campaigns;
           this.loading = false;
+          console.log(this.campaigns)
         });
   }
 
@@ -119,6 +121,12 @@ export class CampaignsComponent implements OnInit {
     this.newCampaignService.initNewCampaign();
     this.newCampaignService.cloneCampaign(campaign);
     this.openNew(false);
+  }
+
+
+  showDetails(campaign) {
+    const modalRef = this.modalService.open(DetailComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.componentInstance.campaign = campaign;
   }
 
   // outdated launch func

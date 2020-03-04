@@ -27,6 +27,7 @@
         <button [disabled]="loading" class="btn btn-outline-danger fas fa-trash-alt" title="Delete" style="float: right;" (click)="openDelete(campaign)"></button>
         <button [disabled]="loading" *ngIf="campaign.status == 'Active'" title="Kill Campaign" class="btn btn-outline-warning fas fa-skull" style="float: right; margin-right: 2px" (click)="killCampaign(campaign)"></button>
         <button [disabled]="loading" class="btn btn-outline-dark far fa-clone" title="Clone" style="float: right; margin-right: 2px" (click)="cloneCampaign(campaign)"></button>
+        <button [disabled]="loading" class="btn btn-outline-dark fas fa-info" title="Configs" style="float: right; margin-right: 2px" (click)="showDetails(campaign)"></button>
       </div>
     </div>
   </div>

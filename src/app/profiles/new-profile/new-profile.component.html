@@ -70,7 +70,11 @@
           <div class="input-group-prepend">
             <span class="span-profile input-group-text">Password</span>
           </div>
-          <input type="password" formControlName="password" placeholder="Password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }"/>
+          <input type="{{ passwordType }}" formControlName="password" placeholder="Password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }"/>
+          <div class="input-group-append">
+            <button *ngIf="passwordType == 'password'" class="btn btn-sm btn-outline-dark fas fa-eye" (click)="togglePassword('text')" title="Show password"></button>
+            <button *ngIf="passwordType == 'text'" class="btn btn-sm btn-outline-dark fas fa-eye-slash" (click)="togglePassword('password')" title="Hide password"></button>
+          </div>
           <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
             <div *ngIf="f.password.errors.required">Password is required</div>
           </div>

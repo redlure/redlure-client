@@ -11,6 +11,7 @@ import { Profile } from '../profile.model'
   templateUrl: './edit-profile.component.html'
 })
 export class EditProfileComponent implements OnInit, AfterViewInit, AfterViewChecked {
+  passwordType = "password";
   myForm: FormGroup;
   loading = false;
   submitted = false;
@@ -102,6 +103,10 @@ export class EditProfileComponent implements OnInit, AfterViewInit, AfterViewChe
                 this.loading = false;
                 console.log(error)
             });
+    }
+
+    togglePassword(setting) {
+      this.passwordType = setting;
     }
 
 }

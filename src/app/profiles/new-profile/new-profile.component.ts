@@ -13,6 +13,7 @@ import { AlertService } from '../../alert/alert.service'
 })
 
 export class NewProfileComponent implements OnInit {
+  passwordType = "password";
   myForm: FormGroup;
   loading = false;
   submitted = false;
@@ -97,5 +98,9 @@ export class NewProfileComponent implements OnInit {
 
     sendAlert(name) {
       this.alertService.newAlert("danger", name + " is an already existing profile")
+    }
+
+    togglePassword(setting) {
+      this.passwordType = setting;
     }
 }

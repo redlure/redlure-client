@@ -25,8 +25,8 @@
         <div class="input-group-prepend">
             <span class="input-group-text span-redir">Template</span>
         </div>
-        <select class="form-control" formControlName="template" [ngClass]="{ 'is-invalid': submitted && f.template.errors }">
-          <option (change)="templateChosen()" disabled selected value> -- Select a workspace -- </option>
+        <select (change)="templateChosen()" class="form-control" formControlName="template" [ngClass]="{ 'is-invalid': submitted && f.template.errors }">
+          <option disabled selected value> -- Select a template -- </option>
           <option *ngFor="let template of templates" [ngValue]="template">{{ template.name }}</option>
         </select>
         <div *ngIf="submitted && f.template.errors" class="invalid-feedback">

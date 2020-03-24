@@ -25,6 +25,8 @@
         <h5 class="card-title">{{ profile.name }}</h5>
         <p class="small">{{ profile.from_address }}</p>
         <p class="small">{{ profile.smtp_host }}</p>
+      </div>
+      <div class="card-footer">
         <button class="btn btn-outline-danger fas fa-trash-alt" title="Delete" style="float: right;" (click)="openDelete(profile)"></button>
         <button class="btn btn-outline-dark far fa-clone" title="Clone" style="float: right; margin-right: 2px" (click)="cloneProfile(profile)"></button>
         <button class="btn btn-outline-dark fas fa-envelope" title="Test" style="float: right; margin-right: 2px" (click)="openTest(profile)"></button>

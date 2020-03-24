@@ -22,6 +22,8 @@
     <div *ngFor="let workspace of workspaces" class="card border-dark" style="max-width: 18rem">
       <div class="card-body">
         <h5 class="card-title">{{ workspace.name }}</h5>
+      </div>
+      <div class="card-footer">
         <button *ngIf="workspace.id !== 1" class="btn btn-outline-danger fas fa-trash-alt" title="Delete" style="float: right;"
           (click)="openDeleteModal(workspace)"></button>
         <a routerLink="{{ workspace.id }}/results" (click)="enterWs(workspace.name)" title="Enter" style="float: right; margin-right: 2px"

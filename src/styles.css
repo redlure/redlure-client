@@ -45,6 +45,16 @@ logo {
     grid-gap: 2rem;
 }
 
+.card-footer {
+    border: none;
+    background-color: inherit;
+    padding-top: 0;
+}
+
+.card-body {
+    padding-bottom: 0;
+}
+
 .nav-item {
     color: white;
 }

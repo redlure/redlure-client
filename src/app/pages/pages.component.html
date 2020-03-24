@@ -24,6 +24,8 @@
       <div class="card-body">
         <h5 class="card-title">{{ page.name }}</h5>
         <p class="small">{{ page.url }}</p>
+      </div>
+      <div class="card-footer">
         <button class="btn btn-outline-danger fas fa-trash-alt" title="Delete" style="float: right;" (click)="openDelete(page)"></button>
         <button class="btn btn-outline-dark far fa-clone" title="Clone" style="float: right; margin-right: 2px" (click)="clonePage(page)"></button>
         <button class="btn btn-outline-dark fas fa-external-link-alt" title="Preview" style="float: right; margin-right: 2px" (click)="pagePreview(page)"></button>

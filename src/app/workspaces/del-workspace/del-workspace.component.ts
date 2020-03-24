@@ -12,7 +12,7 @@ import { Workspace } from '../workspace.model'
   styleUrls: ['./del-workspace.component.css']
 })
 export class DelWorkspaceComponent implements OnInit {
-
+  loading = false;
   @Input() editWorkspace: Workspace;
   @Output() emitter: EventEmitter<any> = new EventEmitter<any>();
 
@@ -30,10 +30,12 @@ export class DelWorkspaceComponent implements OnInit {
   }
 
   deleteWorkspace() {
+    this.loading = true;
     this.workspacesApiService.deleteWorkspace(this.editWorkspace.id)
       .pipe(first())
         .subscribe(
             data => {
+                this.loading = false;
                 this.emitter.emit(this.editWorkspace)
                 this.closeModal()
             },

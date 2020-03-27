@@ -50,6 +50,10 @@
         </div>
 
         <div class="col-sm">
+          <button type="button" (click)="previewHTML()" class="btn btn-outline-dark float-right">{{ btnText }}</button>
+        </div>
+
+        <div class="col-sm">
           <button ngbAutofocus type="submit" [disabled]="loading" class="btn btn-outline-dark float-right">{{ saveBtnText }}</button>
           <div *ngIf="loading" class="loadingio-spinner-dual-ball-jmseu88834m float-right"><div class="ldio-c46ivvx8kf">
             <div></div><div></div><div></div>
@@ -59,7 +63,14 @@
 
       <div class="row">
         <div class="container-fluid">
-          <jodit-editor formControlName="htmlContent" [config]="config"></jodit-editor>
+          <!--<jodit-editor formControlName="htmlContent" [config]="config"></jodit-editor>-->
+          <ngx-codemirror *ngIf="!preview"
+            formControlName="htmlContent"
+            [options]="options"
+          ></ngx-codemirror>
+          <div [ngStyle]="currentStyle">
+            <iframe #iframe id="frame" style="width: 100%;" sandbox="allow-scripts allow-same-origin"></iframe>
+          </div>
         </div>
       </div>
     </div>

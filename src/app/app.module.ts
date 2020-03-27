@@ -88,6 +88,7 @@ import { ImportModuleComponent } from './import-module/import-module.component';
 import { LineChartComponent } from './results/graphs/line-chart/line-chart.component';
 import { DetailComponent } from './campaigns/detail/detail.component';
 import { AnonymousComponent } from './results/anonymous/anonymous.component';
+import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 
 
 @NgModule({
@@ -163,7 +164,8 @@ import { AnonymousComponent } from './results/anonymous/anonymous.component';
     JoditAngularModule,
     ChartsModule,
     //NgbdTableSortableModule,
-    DataTablesModule
+    DataTablesModule,
+    CodemirrorModule
   ],
   providers: [
     ApiService,

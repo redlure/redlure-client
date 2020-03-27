@@ -11,6 +11,11 @@
   }
 */
 
+.CodeMirror {
+    font-size: 12px;
+    height: auto!important;
+}
+
 h3 {
     font-family: 'Alegreya', serif;
 }

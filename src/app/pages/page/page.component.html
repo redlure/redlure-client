@@ -15,7 +15,7 @@
     <div class="container-fluid">
       <div class="row">
 
-        <div class="col-md-3">
+        <div class="col-3">
            <!--Name Field-->
           <div class="input-group form-group">
             <div class="input-group-prepend">
@@ -41,8 +41,9 @@
           </div>
         </div>
 
-        <div class="col-sm">
-          <button type="button" (click)="cloneSite()" class="btn btn-outline-primary float-right">Clone Site</button>
+        <div class="col-2">
+          <button type="button" (click)="previewHTML()" class="btn btn-outline-dark float-right" style="margin-left: 4px;">{{ btnText }}</button>
+          <button type="button" (click)="cloneSite()" class="btn btn-outline-dark float-right">Clone Site</button>
         </div>
 
         <div class="col-sm">
@@ -55,7 +56,14 @@
 
       <div class="row">
         <div class="container-fluid">
-          <jodit-editor formControlName="htmlContent" [config]="config"></jodit-editor>
+          <!--<jodit-editor formControlName="htmlContent" [config]="config"></jodit-editor>-->
+          <ngx-codemirror *ngIf="!preview"
+            formControlName="htmlContent"
+            [options]="options"
+          ></ngx-codemirror>
+          <div [ngStyle]="currentStyle">
+            <iframe #iframe id="frame" style="width: 100%;" sandbox="allow-scripts allow-same-origin"></iframe>
+          </div>
         </div>
       </div>
     </div>

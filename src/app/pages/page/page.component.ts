@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router'
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Page } from '../page.model'
@@ -13,6 +13,12 @@ import { first } from 'rxjs/operators'
   templateUrl: './page.component.html'
 })
 export class PageComponent implements OnInit {
+  @ViewChild('iframe') iframe: ElementRef;
+  btnText = "Preview";
+  preview = false;
+  currentStyle = {
+    'display': 'none'
+  }
   editPage: any;
 
   workspaceId: String;
@@ -27,19 +33,15 @@ export class PageComponent implements OnInit {
   saveBtnText: String;
 
   @Output() emitter: EventEmitter<any> = new EventEmitter<any>();
-  /*
-  config: AngularEditorConfig = {
-    editable: true,
-    spellcheck: true,
-    maxHeight: '50',
-    //height: '90%',
-    minHeight: '200',
-    minWidth: '100vh',
-    width: '95%',
-    placeholder: 'Create web page here...',
-    translate: 'no',
+
+  options = {
+    lineNumbers: true,
+    theme: 'material-darker',
+    mode: 'htmlmixed',
+    indentUnit: 4,
   }
-  */
+
+  /*
   config = {
     'iframe': true,
     "disablePlugins": "table, resizer, inlinePopup, cleanHtml",
@@ -48,6 +50,7 @@ export class PageComponent implements OnInit {
     allowResizeX: false,
     allowResizeY: false
   }
+  */
 
   constructor(
     private route: ActivatedRoute,
@@ -89,6 +92,28 @@ export class PageComponent implements OnInit {
 
   return() {
     this.router.navigate([`/workspaces/${this.workspaceId}/pages`])
+  }
+
+  previewHTML() {
+    if (this.preview) {
+      this.preview = false;
+      this.btnText = "Preview";
+      this.currentStyle = {
+        'display': 'none'
+      }
+    } else {
+      this.preview = true;
+      this.btnText = "Code"
+      this.currentStyle = {
+        'display': 'block'
+      }
+        let doc =  this.iframe.nativeElement.contentDocument || this.iframe.nativeElement.contentWindow;
+      doc.open();
+      doc.write(this.f.htmlContent.value)
+      doc.close();
+      let frame = document.getElementById('frame')
+      frame.style.height = window.innerHeight * .7 + 'px'
+    }
   }
 
   cloneSite() {

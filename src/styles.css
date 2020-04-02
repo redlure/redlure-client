@@ -11,13 +11,21 @@
   }
 */
 
+@font-face {
+    font-family: 'gotham-black';
+    font-style: normal;
+    font-weight: 200;
+    src: url('assets/GothamBlackRegular.woff') format('woff');
+}
+
+
 .CodeMirror {
     font-size: 12px;
     height: auto!important;
 }
 
 h3 {
-    font-family: 'Alegreya', serif;
+    font-family: 'gotham-black';
 }
 
 .h3-prefix {

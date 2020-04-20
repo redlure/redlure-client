@@ -5,6 +5,20 @@
 <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
   <div class="modal-body">
     <div class="container">
+
+      <div class="input-group form-group">
+        <div class="input-group-prepend">
+            <span class="span-domain input-group-text">Domain</span>
+        </div>
+        <select class="form-control" formControlName="domain" [ngClass]="{ 'is-invalid': submitted && f.domain.errors }">
+          <option disabled selected value> -- Select a domain -- </option>
+          <option *ngFor="let domain of newCampaignService.allModules['domains']" [value]="domain.id" >{{ domain.domain }} ({{ domain.ip }})</option>
+        </select>
+        <div *ngIf="submitted && f.domain.errors" class="invalid-feedback">
+          <div *ngIf="f.domain.errors.required">Domain is required</div>
+        </div>
+      </div>
+
       <div class="input-group form-group">
         <div class="input-group-prepend">
             <span class="span-domain input-group-text">Server</span>
@@ -28,19 +42,6 @@
           <div *ngIf="f.port.errors.required">Port is required</div>
         </div>
       </div>
-
-    <div class="input-group form-group">
-      <div class="input-group-prepend">
-          <span class="span-domain input-group-text">Domain</span>
-      </div>
-      <select class="form-control" formControlName="domain" [ngClass]="{ 'is-invalid': submitted && f.domain.errors }">
-        <option disabled selected value> -- Select a domain -- </option>
-        <option *ngFor="let domain of newCampaignService.allModules['domains']" [value]="domain.id" >{{ domain.domain }} ({{ domain.ip }})</option>
-      </select>
-      <div *ngIf="submitted && f.domain.errors" class="invalid-feedback">
-        <div *ngIf="f.domain.errors.required">Domain is required</div>
-      </div>
-    </div>
 
     <div class="col-lg">
       <div class="custom-control custom-checkbox custom-control-inline">

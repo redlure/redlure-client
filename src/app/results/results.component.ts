@@ -29,6 +29,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
   selectedForm;
 
   loading = false;
+  errored: number = 0;
   scheduled: number = 0;
   sent: number = 0;
   unopened: number = 0;
@@ -129,6 +130,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
   }
 
   calcStats() {
+    this.errored = this.results.reduce((acc, cur) => cur.status === 'Error' ? ++acc : acc, 0);
     this.scheduled = this.results.reduce((acc, cur) => cur.status === 'Scheduled' ? ++acc : acc, 0);
     this.sent = this.results.length - this.scheduled;
     this.opened = this.results.reduce((acc, cur) => cur.status === 'Opened' ? ++acc : acc, 0);

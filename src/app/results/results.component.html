@@ -25,6 +25,13 @@
   <div class="container">
     <!--Stats Row-->
     <div class="row">
+      <div *ngIf="errored > 0" class="col result-btn btn-outline-dark" (click)="openTable('Error')" style="cursor: pointer;">
+        <div class="centerBlock">
+          <p class="results">{{ errored }}</p>
+          <hr class="border-dark">
+          Error
+        </div>
+      </div>
       <div *ngIf="scheduled > 0" class="col result-btn btn-outline-info" (click)="openTable('Scheduled')" style="cursor: pointer;">
         <div class="centerBlock">
           <p class="results">{{ scheduled }}</p>

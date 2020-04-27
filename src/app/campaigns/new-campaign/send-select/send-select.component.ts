@@ -18,6 +18,7 @@ export class SendSelectComponent implements OnInit {
   failMsg = "";
   workspaceId: String;
   @Output() emitter: EventEmitter<any> = new EventEmitter<any>();
+  consoleTime: Date = null;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -28,7 +29,9 @@ export class SendSelectComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    //console.log(this.newCampaignService.newCampaign.payloadFile)
+    var converted = new Date(new Date(this.newCampaignService.allModules["console_time"]).getTime() + new Date(this.newCampaignService.allModules["console_time"]).getTimezoneOffset()* 60000)
+    const offset = converted.valueOf() - this.newCampaignService.allModules["client_time"].valueOf()
+    this.consoleTime = new Date(Date.now() + offset);
     this.myForm = this.formBuilder.group({
       profile: [this.newCampaignService.newCampaign.profile, Validators.required],
       targetList: [this.newCampaignService.newCampaign.list, Validators.required],

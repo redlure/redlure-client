@@ -47,6 +47,7 @@ export class ServerSelectComponent implements OnInit {
     this.campaignsApiService.getAllModules(this.workspaceId)
       .subscribe(data => {
         this.newCampaignService.allModules = data;
+        this.newCampaignService.allModules["client_time"] = new Date()
       });
   }
 

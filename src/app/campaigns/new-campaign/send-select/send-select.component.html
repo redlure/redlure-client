@@ -38,6 +38,9 @@
             </div>
           </div>
 
+          <hr>
+          <p><strong>Optional Setting:</strong><br>Send emails in batches on an interval instead of all at once.</p>
+
           <!--Batch Number Field-->
           <div class="input-group form-group">
             <div class="input-group-prepend">
@@ -61,15 +64,27 @@
             </div>
           </div>
 
+          <hr>
+          <p><strong>Optional Setting:</strong><br>Schedule the campaign to start at a future date/time instead of immediately.</p>
+
           <!--Start Date/Time Field-->
           <div class="input-group form-group">
             <div class="input-group-prepend">
               <span class="input-group-text span-login">Start Time</span>
             </div>
-            <app-date-time-picker formControlName="startDate" name="startDate" [ngClass]="{ 'is-invalid': submitted && f.startDate.errors }"></app-date-time-picker>   
+            <app-date-time-picker formControlName="startDate" name="startDate" [ngClass]="{ 'is-invalid': submitted && f.startDate.errors }"></app-date-time-picker>  
+            <i class="fa fa-info-circle" style="margin-left: 4px; align-self: center;" placement="right" triggers="mouseenter:mouseleave" ngbPopover="Use time relative to the console's timezone, which may differ than your local timezone. Current console time is shown below."></i> 
             <div *ngIf="submitted && f.startDate.errors" class="invalid-feedback">
               <div *ngIf="f.startDate.errors.invalid">Must be a valid date time</div>
             </div>          
+          </div>
+
+          <!--Console Time Field-->
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Console Time</span>
+            </div>
+            <input style="text-align: right; background-color: white;" class="form-control" type="text" value="{{ consoleTime.toLocaleString() }}" readonly/>
           </div>
           
           <div *ngIf="failed" class="text-danger">

@@ -113,7 +113,6 @@ export class CampaignsComponent implements OnInit {
         campaigns => {
           this.campaigns = campaigns;
           this.loading = false;
-          console.log(this.campaigns)
         });
   }
 

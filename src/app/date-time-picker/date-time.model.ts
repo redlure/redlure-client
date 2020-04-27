@@ -18,7 +18,8 @@ export class DateTimeModel implements NgbDateTimeStruct {
     }
 
     public static fromLocalString(dateString: string): DateTimeModel {
-        const date = new Date(dateString);
+        const parsed = dateString.split("-")
+        const date = new Date(+parsed[0], +parsed[1] - 1, +parsed[2]);
 
         const isValidDate = !isNaN(date.valueOf());
 

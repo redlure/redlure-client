@@ -37,7 +37,7 @@
     "datatables.net-dt": "^1.10.20",
     "font-awesome": "^4.7.0",
     "jodit-angular": "^1.0.81",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "ng2-charts": "^2.2.5",
     "ngx-cookie-service": "^2.1.0",
     "papaparse": "^5.0.1",

@@ -3,4 +3,4 @@ The redlure-client is a web interface written with Angular 7 used to interact wi
 
 General redlure info and the main redlure wiki is on the [redlure-console](https://github.com/redlure/redlure-console) page.
 
-Visit the [wiki](https://github.com/redlure/redlure-client/wiki) in this repository for installation instructions and basic client information.
+Visit the [wiki](https://github.com/redlure/redlure-client/wiki) in this repository for [installation instructions](https://github.com/redlure/redlure-client/wiki/installation) and basic client information.

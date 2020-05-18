@@ -37,6 +37,7 @@
             <input placeholder="/path/after/domain" type="text" formControlName="url" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.url.errors }"/>
             <div *ngIf="submitted && f.url.errors" class="invalid-feedback">
               <div *ngIf="f.url.errors.required">URL is required</div>
+              <div *ngIf="f.url.errors.pattern">URL must start with /</div>
             </div>
           </div>
         </div>

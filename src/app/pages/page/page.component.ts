@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef, AfterViewChecked, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router'
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Page } from '../page.model'
@@ -59,6 +59,7 @@ export class PageComponent implements OnInit {
     private alertService: AlertService,
     private modalService: NgbModal,
     private router: Router,
+    private changeDetector: ChangeDetectorRef
   ) {
     this.route.params.subscribe(params => this.workspaceId = params['workspaceId'])
     this.route.params.subscribe(params => this.pageId = params['pageId'])
@@ -82,10 +83,14 @@ export class PageComponent implements OnInit {
     }
    }
 
+  ngAfterViewChecked() {
+    this.changeDetector.detectChanges();
+  }
+
   ngOnInit() {
     this.myForm = this.formBuilder.group({
       name: [this.editPage.name, Validators.required],
-      url: [this.editPage.url, Validators.required],
+      url: [this.editPage.url, [Validators.required, Validators.pattern(RegExp('^\/'))]],
       htmlContent: [this.editPage.html]
     });
   }

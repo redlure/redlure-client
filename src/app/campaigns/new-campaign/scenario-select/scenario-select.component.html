@@ -80,10 +80,13 @@
         <div class="input-group-prepend">
             <span class="input-group-text span-redir">Payload</span>
         </div>
-        <select [value]="newCampaignService.newCampaign.payloadFile" class="form-control" formControlName="payloadFile" [ngClass]="{ 'is-invalid': submitted }">
+        <select [value]="newCampaignService.newCampaign.payloadFile" class="form-control" formControlName="payloadFile" [required]="f.payloadUrl.value ? true : null" [ngClass]="{ 'is-invalid': submitted && f.payloadFile.errors }">
           <option selected value> -- Select a file -- </option>
           <option *ngFor="let file of newCampaignService.serverFiles">{{ file }}</option>
         </select>
+        <div *ngIf="submitted && f.payloadFile.errors" class="invalid-feedback">
+          <div *ngIf="f.payloadFile.errors.required">A payload must be provided for hosting at the given URL</div>
+        </div>
       </div>
 
       <!-- Payload URL Field -->
@@ -91,7 +94,11 @@
         <div class="input-group-prepend">
           <span class="input-group-text">Payload URL</span>
         </div>
-        <input placeholder="/download/file.ext" type="text" formControlName="payloadUrl" class="form-control"/>
+        <input placeholder="/download/file.ext" type="text" formControlName="payloadUrl" class="form-control" [required]="f.payloadFile.value ? true : null" [ngClass]="{ 'is-invalid': submitted && f.payloadUrl.errors }"/>
+        <div *ngIf="submitted && f.payloadUrl.errors" class="invalid-feedback">
+          <div *ngIf="f.payloadUrl.errors.pattern">URL must start with /</div>
+          <div *ngIf="f.payloadUrl.errors.required">URL is required to host the selected payload on</div>
+        </div>
       </div>
     
 

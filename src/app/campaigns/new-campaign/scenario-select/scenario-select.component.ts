@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, AfterViewChecked, ChangeDetectorRef } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NewCampaignService } from '../new-campaign.service';
@@ -21,7 +21,12 @@ export class ScenarioSelectComponent implements OnInit {
     private formBuilder: FormBuilder,
     public activeModal: NgbActiveModal,
     private newCampaignService: NewCampaignService,
+    private changeDetector: ChangeDetectorRef
   ) { }
+
+  ngAfterViewChecked() {
+    this.changeDetector.detectChanges();
+  }
 
   ngOnInit() {
     this.myForm = this.formBuilder.group({
@@ -31,7 +36,7 @@ export class ScenarioSelectComponent implements OnInit {
       page2: [this.newCampaignService.newCampaign.pages[1]],
       page3: [this.newCampaignService.newCampaign.pages[2]],
       page4: [this.newCampaignService.newCampaign.pages[3]],
-      payloadUrl: [this.newCampaignService.newCampaign.payloadUrl],
+      payloadUrl: [this.newCampaignService.newCampaign.payloadUrl, Validators.pattern(RegExp('^\/'))],
       payloadFile: [this.newCampaignService.newCampaign.payloadFile],
       redirectUrl: [this.newCampaignService.newCampaign.redirectUrl],
     });

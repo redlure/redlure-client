@@ -44,23 +44,24 @@
           <!--Batch Number Field-->
           <div class="input-group form-group">
             <div class="input-group-prepend">
-              <span class="input-group-text span-login">Send</span>
+              <span class="input-group-text span-form">Batch Size (Emails)</span>
             </div>
-            <input placeholder="5" type="text" formControlName="batchNumber" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.batchNumber.errors }"/>
+            <input placeholder="5" type="text" formControlName="batchNumber" class="form-control" [required]="f.batchInterval.value ? true : null" [ngClass]="{ 'is-invalid': submitted && f.batchNumber.errors }"/>
             <div *ngIf="submitted && f.batchNumber.errors" class="invalid-feedback">
               <div *ngIf="f.batchNumber.errors.pattern">Must be a number</div>
+              <div *ngIf="f.batchNumber.errors.required">Required with interval</div>
             </div>
-            <div class="input-group-append">
-              <span class="input-group-text">Emails Every</span>
-            </div>
+          </div>
 
           <!--Batch Interval Field-->
-            <input placeholder="10" type="text" formControlName="batchInterval" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.batchInterval.errors }"/>
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text span-form">Interval (Minutes)</span>
+            </div>
+            <input style="width: 100px;" placeholder="10" type="text" formControlName="batchInterval" [required]="f.batchNumber.value ? true : null" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.batchInterval.errors }"/>
             <div *ngIf="submitted && f.batchInterval.errors" class="invalid-feedback">
               <div *ngIf="f.batchInterval.errors.pattern">Must be a number</div>
-            </div>
-            <div class="input-group-append">
-              <span class="input-group-text">Minutes</span>
+              <div *ngIf="f.batchInterval.errors.required">Required with batch size</div>
             </div>
           </div>
 

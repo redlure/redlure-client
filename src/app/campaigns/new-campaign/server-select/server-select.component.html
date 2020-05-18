@@ -4,8 +4,9 @@
 </div>
 <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
   <div class="modal-body">
-    <div class="container">
+    <div class="container" style="word-break: break-all;">
 
+      <!-- Domain Field -->
       <div class="input-group form-group">
         <div class="input-group-prepend">
             <span class="span-domain input-group-text">Domain</span>
@@ -19,6 +20,8 @@
         </div>
       </div>
 
+
+      <!-- Server Field -->
       <div class="input-group form-group">
         <div class="input-group-prepend">
             <span class="span-domain input-group-text">Server</span>

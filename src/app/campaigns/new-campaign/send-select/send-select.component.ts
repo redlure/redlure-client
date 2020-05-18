@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, AfterViewChecked, ChangeDetectorRef } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { CampaignsApiService } from '../../campaigns-api.service';
 import { AlertService } from '../../../alert/alert.service';
@@ -26,7 +26,12 @@ export class SendSelectComponent implements OnInit {
     private newCampaignService: NewCampaignService,
     private campaignsApiService: CampaignsApiService,
     private alertService: AlertService,
+    private changeDetector: ChangeDetectorRef
   ) { }
+
+  ngAfterViewChecked() {
+    this.changeDetector.detectChanges();
+  }
 
   ngOnInit() {
     var converted = new Date(new Date(this.newCampaignService.allModules["console_time"]).getTime() + new Date(this.newCampaignService.allModules["console_time"]).getTimezoneOffset()* 60000)

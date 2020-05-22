@@ -1,0 +1,31 @@
+<div class="modal-header">
+  <h4 class="modal-title">Change Role: {{ editUser.username }}</h4>
+  <button class="btn btn-outline-danger" (click)="closeModal()">Close</button>
+</div>
+<form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+  <div class="modal-body">
+    <div class="container">
+        
+      <!-- Role Field -->
+      <div class="input-group form-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Role</span>
+        </div>
+        <select class="form-control" formControlName="role" [ngClass]="{ 'is-invalid': submitted && f.role.errors }">
+          <option disabled selected value>-- Select a role --</option>
+          <option *ngFor="let role of roles" [value]="role.id"> {{ role.name }}</option>
+        </select>
+        <div *ngIf="submitted && f.role.errors" class="invalid-feedback">
+          <div *ngIf="f.role.errors.required">Role is required</div>
+        </div>
+      </div>
+    
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div *ngIf="loading" class="loadingio-spinner-dual-ball-jmseu88834m"><div class="ldio-c46ivvx8kf">
+      <div></div><div></div><div></div>
+      </div></div>
+    <button ngbAutofocus class="btn btn-outline-dark float-right login_btn">Update</button>
+  </div>
+</form>

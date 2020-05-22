@@ -34,6 +34,7 @@
             <td>{{ user.username }}</td>
             <td>{{ user.role.name }}</td>
             <td class="btn-group">
+              <button class="btn btn-outline-dark fas fa-user-tag" title="Change Role" style="float: right;" (click)="changeUserRole(user)"></button>
               <button class="btn btn-outline-dark fas fa-unlock" title="Reset Password" style="float: right;" (click)="resetPassword(user)"></button>
               <button class="btn btn-outline-danger fas fa-trash-alt" title="Delete" style="float: right;" (click)="deleteUserModal(user)"></button>
               <!--<a style="cursor: pointer;" title="Reset Password" data-toggle="tooltip" (click)="resetPassword(user)"><i class="ico text-dark fas fa-unlock"></i></a>

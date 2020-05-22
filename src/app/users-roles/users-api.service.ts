@@ -50,7 +50,7 @@ export class UsersApiService {
         );  
     }
 
-    // reset a user's password
+    // POST: reset a user's password
     resetPassword(id: String, password: String):Observable<Object> {
       const url = `${this.apiService.getUrl()}/users/${id}/reset`;
       let formData: FormData = new FormData()
@@ -58,6 +58,17 @@ export class UsersApiService {
       return this.http.post<any>(url, formData, {withCredentials: true})
         .pipe(
           catchError(this.handleError('resetPassword'))
+        );  
+    }
+
+    // PUT: change a users role
+    changeUserRole(id: String, roleId: String) {
+      const url = `${this.apiService.getUrl()}/users/${id}`;
+      let formData: FormData = new FormData()
+      formData.append('RoleID', String(roleId))
+      return this.http.put<any>(url, formData, {withCredentials: true})
+        .pipe(
+          catchError(this.handleError('changeUserRole'))
         );  
     }
 

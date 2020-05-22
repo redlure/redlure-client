@@ -1,14 +1,14 @@
 import { Component, Input, OnInit, ViewChildren, OnDestroy, QueryList } from '@angular/core';
-
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { UsersApiService } from './users-api.service'
-import { RolesApiService } from './roles-api.service'
+import { UsersApiService } from './users-api.service';
+import { RolesApiService } from './roles-api.service';
 import { NewUserComponent } from './new-user/new-user.component';
-import { NewRoleComponent } from './new-role/new-role.component'
-import { DelUserComponent } from './del-user/del-user.component'
-import { DelRoleComponent } from './del-role/del-role.component'
-import { EditRoleComponent } from './edit-role/edit-role.component'
-import { PasswordResetComponent } from './password-reset/password-reset.component'
+import { NewRoleComponent } from './new-role/new-role.component';
+import { DelUserComponent } from './del-user/del-user.component';
+import { DelRoleComponent } from './del-role/del-role.component';
+import { EditRoleComponent } from './edit-role/edit-role.component';
+import { PasswordResetComponent } from './password-reset/password-reset.component';
+import { ChangeUserRoleComponent } from './change-user-role/change-user-role.component';
 import { Subject, forkJoin } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
 
@@ -64,6 +64,13 @@ export class UsersRolesComponent implements OnInit {
         this.roles = roles;
         this.getUsers();
       });
+  }
+
+  changeUserRole(user) {
+    this.onUserSelect(user);
+    const modalRef = this.modalService.open(ChangeUserRoleComponent, { backdrop: 'static' });
+    modalRef.componentInstance.editUser = this.editUser;
+    modalRef.componentInstance.roles = JSON.parse(JSON.stringify(this.roles));
   }
 
   addUserModal(){

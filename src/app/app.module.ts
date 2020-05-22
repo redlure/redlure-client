@@ -89,6 +89,7 @@ import { LineChartComponent } from './results/graphs/line-chart/line-chart.compo
 import { DetailComponent } from './campaigns/detail/detail.component';
 import { AnonymousComponent } from './results/anonymous/anonymous.component';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
+import { ChangeUserRoleComponent } from './users-roles/change-user-role/change-user-role.component';
 
 
 @NgModule({
@@ -150,6 +151,7 @@ import { CodemirrorModule } from '@ctrl/ngx-codemirror';
     LineChartComponent,
     DetailComponent,
     AnonymousComponent,
+    ChangeUserRoleComponent,
   ],
   imports: [
     BrowserModule,
@@ -228,7 +230,8 @@ import { CodemirrorModule } from '@ctrl/ngx-codemirror';
     ImportModuleComponent,
     LineChartComponent,
     DetailComponent,
-    AnonymousComponent
+    AnonymousComponent,
+    ChangeUserRoleComponent
   ]
 })
 export class AppModule { }

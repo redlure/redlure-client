@@ -47,7 +47,7 @@ export class ChangeUserRoleComponent implements OnInit {
             data => {
               this.loading = false;
               if (data['success'] == false) {
-                this.alertService.newAlert("warning", data['msg'])
+                this.alertService.newAlert("danger", data['msg'])
               } else {
                 //this.alertService.newAlert("success", "Role updated")
                 let role = this.roles.find(i => i['id'] === Number(this.f.role.value))

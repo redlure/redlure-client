@@ -90,6 +90,12 @@ export class DomainsServersComponent implements OnInit, OnDestroy {
     });
   }
 
+  editServerModal(server) {
+    this.onServerSelect(server)
+    const modalRef = this.modalService.open(NewServerComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.componentInstance.editServer = this.editServer
+  }
+
   openDomainModal() {
     const modalRef = this.modalService.open(NewDomainComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.emitter.subscribe(data => {

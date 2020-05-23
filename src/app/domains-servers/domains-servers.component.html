@@ -51,6 +51,7 @@
             <td>{{ server.port }}</td>
             <td>{{ server.status }}</td>
             <td class="btn-group">
+              <button class="btn btn-outline-dark fas fa-edit" title="Edit Server" (click)="editServerModal(server)"></button>
               <button class="btn btn-outline-dark fas fa-stream" title="Listening Ports" (click)="checkNetstat(server)"></button>
               <button class="btn btn-outline-dark far fa-folder-open" title="Upload File" (click)="openFiles(server)"></button>
               <button class="btn btn-outline-primary fas fa-sync" title="Refresh Status" (click)="refreshStatus(server)"></button>

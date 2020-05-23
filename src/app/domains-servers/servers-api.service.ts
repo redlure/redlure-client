@@ -129,5 +129,18 @@ export class ServersApiService {
         )
     }
 
+    // POST a new server (worker) to the server
+    putServer(id: Number, ip: String, alias: String, port: Number): Observable<Server> {
+      const url = `${this.apiService.getUrl()}/servers/${id}`;
+      let formData: FormData = new FormData()
+      formData.append('Alias', String(alias))
+      formData.append('IP', String(ip))
+      formData.append('Port', String(port))
+      return this.http.put<any>(url, formData, {withCredentials: true})
+        .pipe(
+          catchError(this.handleError('postServer'))
+        );  
+    }
+
 
 }

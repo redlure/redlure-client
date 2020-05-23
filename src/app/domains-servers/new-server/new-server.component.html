@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h4 class="modal-title">New Server</h4>
+    <h4 class="modal-title">{{ title }}</h4>
     <button class="btn btn-outline-danger" (click)="closeModal()">Close</button>
   </div>
   <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
@@ -11,7 +11,7 @@
           <div class="input-group-prepend">
             <span class="span-server input-group-text">IP Address</span>
           </div>
-          <input type="text" formControlName="ip" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.ip.errors }"/>
+          <input type="text" formControlName="ip" placeholder="127.0.0.1" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.ip.errors }"/>
           <div *ngIf="submitted && f.ip.errors" class="invalid-feedback">
             <div *ngIf="f.ip.errors.required">IP Address is required</div>
           </div>
@@ -22,7 +22,7 @@
           <div class="input-group-prepend">
             <span class="span-server input-group-text">Alias</span>
           </div>
-          <input type="text" formControlName="alias" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.alias.errors }"/>
+          <input type="text" formControlName="alias" placeholder="Worker-1" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.alias.errors }"/>
           <div *ngIf="submitted && f.alias.errors" class="invalid-feedback">
             <div *ngIf="f.alias.errors.required">Alias is required</div>
           </div>
@@ -46,6 +46,6 @@
       <div *ngIf="loading" class="loadingio-spinner-dual-ball-jmseu88834m"><div class="ldio-c46ivvx8kf">
         <div></div><div></div><div></div>
         </div></div>
-      <button ngbAutofocus [disabled]="loading" class="btn btn-outline-dark float-right">Create</button>
+      <button ngbAutofocus [disabled]="loading" class="btn btn-outline-dark float-right">{{ submitText }}</button>
     </div>
   </form>

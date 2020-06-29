@@ -11,7 +11,7 @@ export class LineChartComponent implements OnInit {
   @Input() result:any = {};
   timestamps = [];
   table = false;
-  headers = ["#", "Action", "IP Address", "Timestamp"]
+  headers = ["#", "Action", "IP Address", "User-Agent", "Timestamp"]
   currentStyle = {
     'display': 'none'
   }

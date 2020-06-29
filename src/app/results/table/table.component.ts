@@ -69,7 +69,7 @@ export class TableComponent implements OnInit {
   }
 
   openChart(result) {
-    const modalRef = this.modalService.open(LineChartComponent, { size: 'lg', backdrop: 'static' });
+    const modalRef = this.modalService.open(LineChartComponent, { windowClass: 'largerModal', backdrop: 'static' });
     modalRef.componentInstance.result = result;
   }
 }

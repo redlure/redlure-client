@@ -196,6 +196,11 @@ p {
     width: 80% !important;
 }
 
+.largerModal > .modal-dialog {
+    max-width: 50% !important;
+    width: 50% !important;
+}
+
 .emptyObject {
     left: 50%;
     top: 50%;

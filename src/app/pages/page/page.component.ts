@@ -7,6 +7,8 @@ import { AlertService } from '../../alert/alert.service'
 import { CloneSiteComponent } from './clone-site/clone-site.component'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { first } from 'rxjs/operators'
+import { VariableHelpComponent } from '../../variable-help/variable-help.component';
+
 
 @Component({
   selector: 'app-page',
@@ -40,6 +42,15 @@ export class PageComponent implements OnInit {
     mode: 'htmlmixed',
     indentUnit: 4,
   }
+
+  variables = [
+    { variable: "{{ next_url }}", description: "Link inlcuding unique recipient ID to the campaign's next configured page, in sequence" },
+    { variable: "{{ payload_url }}", description: "Link inlcuding unique recipient ID to a campaign's selected payload. Example: <a href=\"{{ payload_url }}\" style=\"cursor: pointer;\">Download here</a>" },
+    { variable: "{{ serve_payload }}", description: "Add this variable to anywhere to your page to have a campaign's selected payload automatically download when browsed to. Uses: <meta http-equiv=\"refresh\" content=\"0; url={{ payload_url }}\">"},
+    { variable: "{{ loginfmt }}", description: "Display the value from the prior page's form input where name=\"loginfmt\" (Pages with this variable must not be the 1st page used in a sequence)" },
+    { variable: "{{  username  }}", description: "Display the value from the prior page's form input where name=\"username\" (Pages with this variable must not be the 1st page used in a sequence)" },
+    { variable: "{{ email }}", description: "Display the value from the prior page's form input where name=\"email\" (Pages with this variable must not be the 1st page used in a sequence)" },
+  ]
 
   /*
   config = {
@@ -97,6 +108,12 @@ export class PageComponent implements OnInit {
 
   return() {
     this.router.navigate([`/workspaces/${this.workspaceId}/pages`])
+  }
+
+  showVariables() {
+    const modalRef = this.modalService.open(VariableHelpComponent, { size: 'lg', backdrop: 'static'});
+    modalRef.componentInstance.title = 'Page Variables';
+    modalRef.componentInstance.variables = this.variables;
   }
 
   previewHTML() {

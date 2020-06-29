@@ -90,6 +90,7 @@ import { DetailComponent } from './campaigns/detail/detail.component';
 import { AnonymousComponent } from './results/anonymous/anonymous.component';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import { ChangeUserRoleComponent } from './users-roles/change-user-role/change-user-role.component';
+import { VariableHelpComponent } from './variable-help/variable-help.component';
 
 
 @NgModule({
@@ -152,6 +153,7 @@ import { ChangeUserRoleComponent } from './users-roles/change-user-role/change-u
     DetailComponent,
     AnonymousComponent,
     ChangeUserRoleComponent,
+    VariableHelpComponent,
   ],
   imports: [
     BrowserModule,
@@ -231,7 +233,8 @@ import { ChangeUserRoleComponent } from './users-roles/change-user-role/change-u
     LineChartComponent,
     DetailComponent,
     AnonymousComponent,
-    ChangeUserRoleComponent
+    ChangeUserRoleComponent,
+    VariableHelpComponent
   ]
 })
 export class AppModule { }

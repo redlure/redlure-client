@@ -6,6 +6,7 @@ import { EmailsApiService } from '../emails-api.service'
 import { AlertService } from '../../alert/alert.service'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { first } from 'rxjs/operators'
+import { VariableHelpComponent } from '../../variable-help/variable-help.component';
 
 @Component({
   selector: 'app-email',
@@ -40,6 +41,26 @@ export class EmailComponent implements OnInit {
     mode: 'htmlmixed',
     indentUnit: 4,
   }
+
+  variables = [
+    { variable: "{{ url }}", description: "Unique URL to a campaign's inital landing page. Example: http[s]://domain.com/page1?id=XXXXX" },
+    { variable: "{{ payload_url }}", description: "Unique URL to a campaign's chosen payload, hosted on a worker. Example: http[s]://domain.com/enablemacros.xls?id=XXXXX" },
+    { variable: "{{ fname }}", description: "The first name of the email recipient" },
+    { variable: "{{ lname }}", description: "The last name of the email recipient" },
+    { variable: "{{ name }}", description: "Combined first and last name of the recipient" },
+    { variable: "{{ email }}", description: "The email address of the recipient" },
+    { variable: "{{ id }}", description: "The unique tracking ID used to identify the recipient" }
+  ]
+
+  descriptions = [
+    
+    "Unique URL to a campaign's chosen payload, hosted on a worker. Example: http[s]://domain.com/enablemacros.xls?id=XXXXX",
+    "The first name of the email recipient",
+    "The last name of the email recipient",
+    "Combined first and last name of the recipient",
+    "The email address of the recipient",
+    "The unique tracking ID used to identify the recipient"
+  ]
 
   /*
   config = {
@@ -94,6 +115,12 @@ export class EmailComponent implements OnInit {
 
   return() {
     this.router.navigate([`/workspaces/${this.workspaceId}/emails`])
+  }
+
+  showVariables() {
+    const modalRef = this.modalService.open(VariableHelpComponent, { size: 'lg', backdrop: 'static'});
+    modalRef.componentInstance.title = 'Email Variables';
+    modalRef.componentInstance.variables = this.variables;
   }
 
   previewHTML() {

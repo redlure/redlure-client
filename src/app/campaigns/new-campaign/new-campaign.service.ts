@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { attachEmbeddedView } from '@angular/core/src/view';
 
 @Injectable()
 export class NewCampaignService {
@@ -22,6 +23,7 @@ export class NewCampaignService {
     startDate: null,
     batchNumber: null,
     batchInterval: null,
+    attachment: File = null
   };
 
 
@@ -63,6 +65,14 @@ export class NewCampaignService {
       if (element) { this.newCampaign.pages[element.index] = element.page.id; } else { this.newCampaign.pages[element.index] = "" }
     });
     //console.log(this.newCampaign)
+  }
+
+  getAttachmentName() {
+    if (this.newCampaign.attachment) {
+      return this.newCampaign.attachment.name;
+    } else {
+      return "";
+    }
   }
 
 }

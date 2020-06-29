@@ -81,8 +81,8 @@ export class SendSelectComponent implements OnInit {
     this.loading = true;
     let nc = this.newCampaignService.newCampaign;
     this.campaignsApiService.postCampaign(this.workspaceId, nc.name, nc.email, nc.profile,
-      nc.list, nc.batchNumber, nc.batchInterval, nc.startDate, nc.domain,
-      nc.server, nc.port, nc.ssl, nc.pages, nc.redirectUrl, nc.payloadUrl, nc.payloadFile
+      nc.list, nc.batchNumber, nc.batchInterval, nc.startDate, nc.domain, nc.server,
+      nc.port, nc.ssl, nc.pages, nc.redirectUrl, nc.payloadUrl, nc.payloadFile, nc.attachment
       ).pipe(first())
       .subscribe(
           data => {
@@ -98,7 +98,6 @@ export class SendSelectComponent implements OnInit {
           error => {
               console.log(error)
           });
-
   }
 
 }

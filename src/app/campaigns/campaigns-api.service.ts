@@ -6,6 +6,7 @@ import { ApiService } from '../login/api.service'
 import { Campaign } from './campaign.model';
 import { HttpErrorHandler, HandleError } from '../http-error-handler.service';
 import { RequestOptions, Headers } from '@angular/http';
+import { attachEmbeddedView } from '@angular/core/src/view';
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +34,7 @@ export class CampaignsApiService {
   // POST a new campaign to the server
   postCampaign(id: String, name: String, email: String, profile: String, list: String, batchNumber: Number,
     batchInterval: Number, startTime: Date, domain: String, server: String, port: Number, ssl: Boolean,
-    pages: String[], redirectUrl: String, payloadUrl: String, payloadFile: String) {
+    pages: String[], redirectUrl: String, payloadUrl: String, payloadFile: String, attachment?: File) {
 
     const url = `${this.apiService.getUrl()}/workspaces/${id}/campaigns`;
     let formData: FormData = new FormData();
@@ -51,6 +52,9 @@ export class CampaignsApiService {
     formData.append('Batch_Size', String(batchNumber));
     formData.append('Payload_URL', String(payloadUrl));
     formData.append('Payload_File', String(payloadFile));
+    if (attachment){
+      formData.append('Attachment', attachment, attachment.name);
+    }
 
 
     pages.forEach(page => {

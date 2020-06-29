@@ -15,6 +15,10 @@ export class ScenarioSelectComponent implements OnInit {
   failMsg = "";
   workspaceId: String;
   serverFiles = []
+  file: File;
+  attach: Boolean;
+  fileName = 'No Attachment';
+  fileSize = 0;
   @Output() emitter: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
@@ -29,9 +33,15 @@ export class ScenarioSelectComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.newCampaignService.getAttachmentName() == "") {
+      this.attach = true;
+    } else {
+      this.attach = false;
+    }
     this.myForm = this.formBuilder.group({
       name: [this.newCampaignService.newCampaign.name, Validators.required],
       email: [this.newCampaignService.newCampaign.email, Validators.required],
+      attachment: [this.newCampaignService.getAttachmentName()],
       page1: [this.newCampaignService.newCampaign.pages[0]],
       page2: [this.newCampaignService.newCampaign.pages[1]],
       page3: [this.newCampaignService.newCampaign.pages[2]],
@@ -84,6 +94,29 @@ export class ScenarioSelectComponent implements OnInit {
     }
   }
 
+  attachFile(file) {
+    if (file.target.files.length > 0) {
+      this.file = file.target.files[0];
+      this.fileName = this.file.name;
+      this.fileSize = this.file.size;
+      this.f.attachment.setValue(this.file.name);
+      this.attach = false;
+    }
+
+  }
+
+  removeAttachment() {
+    this.attach = true;
+    this.file = void 0;
+    this.newCampaignService.newCampaign.attachment = null;
+    this.f.attachment.setValue("");
+  }
+
+  get attachmentName() {
+    return this.newCampaignService.newCampaign.attachment.name;
+  }
+
+
   onSubmit() {
     this.submitted = true;
 
@@ -99,6 +132,8 @@ export class ScenarioSelectComponent implements OnInit {
     this.newCampaignService.newCampaign.redirectUrl = this.f.redirectUrl.value;
     this.newCampaignService.newCampaign.payloadUrl = this.f.payloadUrl.value;
     this.newCampaignService.newCampaign.payloadFile = this.f.payloadFile.value;
+
+    this.newCampaignService.newCampaign.attachment = this.file;
 
     if (this.f.page1.value) { this.newCampaignService.newCampaign.pages[0] = this.f.page1.value; }
     if (this.f.page2.value) { this.newCampaignService.newCampaign.pages[1] = this.f.page2.value; }

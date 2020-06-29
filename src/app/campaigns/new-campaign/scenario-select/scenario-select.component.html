@@ -30,10 +30,29 @@
           <option disabled selected value> -- Select a email -- </option>
           <option *ngFor="let email of newCampaignService.allModules['emails']" [value]="email.id">{{ email.name }}</option>
         </select>
+
         <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
           <div *ngIf="f.email.errors.required">Email is required</div>
         </div>
       </div>
+
+
+      <!-- Attachment Button -->
+      <div class="input-group form-group">
+        <div class="input-group-prepend">
+          <div *ngIf="attach">
+            <button type="button" class="btn btn-outline-dark" (click)="file.click()">Attach <i class="fas fa-paperclip"></i></button>
+            <input style="display: none" class="btn btn-outline-dark fas fa-paperclip" type="file" id="browse" (change)="attachFile($event)" #file>
+          </div>
+          
+          <div *ngIf="!attach">
+            <button type="button" class="btn btn-outline-danger" (click)="removeAttachment()">Remove <i class="fas fa-unlink"></i></button>
+          </div>
+        </div>
+
+        <input readonly type="text" formControlName="attachment" class="form-control" style="background-color: white;"/>
+      </div>
+
 
       <hr>
 

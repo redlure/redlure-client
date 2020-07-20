@@ -22,6 +22,13 @@
               "src/favicon.ico",
               "src/assets"
             ],
+            "allowedCommonJsDependencies": [
+              "lodash",
+              "codemirror/mode/htmlmixed/htmlmixed",
+              "chart.js",
+              "papaparse",
+              "@ctrl/ngx-codemirror"
+            ],
             "styles": [
               "src/styles.css",
               "node_modules/font-awesome/css/font-awesome.css",
@@ -31,7 +38,6 @@
               "node_modules/datatables.net-buttons-bs4/css/buttons.bootstrap4.css",
               "node_modules/codemirror/lib/codemirror.css",
               "node_modules/codemirror/theme/material-darker.css"
-
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.js",
@@ -44,8 +50,7 @@
               "node_modules/datatables.net-buttons/js/buttons.html5.js",
               "node_modules/datatables.net-buttons/js/buttons.print.js",
               "node_modules/datatables.net-buttons-bs4/js/buttons.bootstrap4.js"
-            ],
-            "es5BrowserSupport": true
+            ]
           },
           "configurations": {
             "production": {
@@ -69,6 +74,10 @@
                   "type": "initial",
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
                 }
               ]
             }

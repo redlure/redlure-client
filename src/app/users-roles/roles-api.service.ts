@@ -5,7 +5,6 @@ import {map, catchError} from 'rxjs/operators'
 import { ApiService } from '../login/api.service'
 import { Role } from './role.model';
 import { HttpErrorHandler, HandleError } from '../http-error-handler.service';
-import { RequestOptions, Headers } from '@angular/http';
 
 
 @Injectable()

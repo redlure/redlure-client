@@ -5,7 +5,6 @@ import {map, catchError} from 'rxjs/operators'
 import { ApiService } from '../login/api.service'
 import { List } from './list.model';
 import { HttpErrorHandler, HandleError } from '../http-error-handler.service';
-import { RequestOptions, Headers } from '@angular/http';
 import { Target } from './targets/target.model'
 
 

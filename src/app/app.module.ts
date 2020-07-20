@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
-import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ApiService } from './login/api.service'
@@ -66,7 +65,6 @@ import { NewKeyComponent } from './domains-servers/new-key/new-key.component';
 import { ResultsApiService } from './results/results-api.service'
 
 import { ChartsModule } from 'ng2-charts';
-import { JoditAngularModule } from 'jodit-angular';
 import { FormComponent } from './results/form/form.component';
 import { PasswordResetComponent } from './users-roles/password-reset/password-reset.component';
 import { ServerProcessesComponent } from './domains-servers/server-processes/server-processes.component';
@@ -159,13 +157,11 @@ import { VariableHelpComponent } from './variable-help/variable-help.component';
     BrowserModule,
     NgbModule.forRoot(),
     HttpClientModule,
-    HttpModule,
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
     MDBBootstrapModule.forRoot(),
     MDBBootstrapModule,
-    JoditAngularModule,
     ChartsModule,
     //NgbdTableSortableModule,
     DataTablesModule,

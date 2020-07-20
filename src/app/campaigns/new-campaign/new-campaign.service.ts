@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { attachEmbeddedView } from '@angular/core/src/view';
 
 @Injectable()
 export class NewCampaignService {

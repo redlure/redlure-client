@@ -6,7 +6,6 @@ import { ApiService } from '../login/api.service'
 import { Campaign } from './campaign.model';
 import { HttpErrorHandler, HandleError } from '../http-error-handler.service';
 import { RequestOptions, Headers } from '@angular/http';
-import { attachEmbeddedView } from '@angular/core/src/view';
 
 @Injectable({
   providedIn: 'root'

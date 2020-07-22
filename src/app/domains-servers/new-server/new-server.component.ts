@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Router, ActivatedRoute } from '@angular/router';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ServersApiService } from '../servers-api.service'
 import { first } from 'rxjs/operators'
 import { Server } from '../server.model'
@@ -31,7 +31,7 @@ export class NewServerComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if (this.editServer){
+    if (this.editServer) {
       this.title = "Edit Server: " + this.editServer.alias;
       this.submitText = "Update";
     } else {
@@ -57,35 +57,35 @@ export class NewServerComponent implements OnInit {
   postNew() {
     this.serversApiService.postServer(this.f.ip.value, this.f.alias.value, this.f.port.value)
       .pipe(first())
-        .subscribe(
-            data => {
-                this.newServer = data;
-                this.emitter.emit(this.newServer);
-                this.loading = false;
-                this.closeModal();
-                //this.router.navigate(['workspaces/' + data['id']])
-            },
-            error => {
-                this.loading = false;
-                console.log(error)
-            });
+      .subscribe(
+        data => {
+          this.newServer = data;
+          this.emitter.emit(this.newServer);
+          this.loading = false;
+          this.closeModal();
+          //this.router.navigate(['workspaces/' + data['id']])
+        },
+        error => {
+          this.loading = false;
+          console.log(error)
+        });
   }
 
   updateExisting() {
     this.serversApiService.putServer(this.editServer.id, this.f.ip.value, this.f.alias.value, this.f.port.value)
       .pipe(first())
-        .subscribe(
-          data => {
-            this.loading = false;
-            if (data['success'] == false) {
-              this.alertService.newAlert("danger", data['msg'])
-            } else {
-              this.editServer.ip = this.f.ip.value;
-              this.editServer.alias = this.f.alias.value;
-              this.editServer.port = this.f.port.value;
-              this.closeModal();
-            }
-          
+      .subscribe(
+        data => {
+          this.loading = false;
+          if (data['success'] == false) {
+            this.alertService.newAlert("danger", data['msg'])
+          } else {
+            this.editServer.ip = this.f.ip.value;
+            this.editServer.alias = this.f.alias.value;
+            this.editServer.port = this.f.port.value;
+            this.closeModal();
+          }
+
         });
   }
 
@@ -94,16 +94,16 @@ export class NewServerComponent implements OnInit {
 
     // stop here if form is invalid
     if (this.myForm.invalid) {
-        return;
+      return;
     }
-    
+
     this.loading = true;
     if (this.title == "New Server") {
       this.postNew();
     } else {
       this.updateExisting();
     }
-  
+
   }
 
 }

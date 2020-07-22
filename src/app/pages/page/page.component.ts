@@ -1,7 +1,6 @@
-import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef, AfterViewChecked, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router'
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { Page } from '../page.model'
 import { PagesApiService } from '../pages-api.service'
 import { AlertService } from '../../alert/alert.service'
 import { CloneSiteComponent } from './clone-site/clone-site.component'
@@ -46,7 +45,7 @@ export class PageComponent implements OnInit {
   variables = [
     { variable: "{{ next_url }}", description: "Link inlcuding unique recipient ID to the campaign's next configured page, in sequence" },
     { variable: "{{ payload_url }}", description: "Link inlcuding unique recipient ID to a campaign's selected payload. Example: <a href=\"{{ payload_url }}\" style=\"cursor: pointer;\">Download here</a>" },
-    { variable: "{{ serve_payload }}", description: "Add this variable to anywhere to your page to have a campaign's selected payload automatically download when browsed to. Uses: <meta http-equiv=\"refresh\" content=\"0; url={{ payload_url }}\">"},
+    { variable: "{{ serve_payload }}", description: "Add this variable to anywhere to your page to have a campaign's selected payload automatically download when browsed to. Uses: <meta http-equiv=\"refresh\" content=\"0; url={{ payload_url }}\">" },
     { variable: "{{ loginfmt }}", description: "Display the value from the prior page's form input where name=\"loginfmt\" (Pages with this variable must not be the 1st page used in a sequence)" },
     { variable: "{{  username  }}", description: "Display the value from the prior page's form input where name=\"username\" (Pages with this variable must not be the 1st page used in a sequence)" },
     { variable: "{{ email }}", description: "Display the value from the prior page's form input where name=\"email\" (Pages with this variable must not be the 1st page used in a sequence)" },
@@ -92,7 +91,7 @@ export class PageComponent implements OnInit {
       this.title2 = "W PAGE"
       this.saveBtnText = "Create"
     }
-   }
+  }
 
   ngAfterViewChecked() {
     this.changeDetector.detectChanges();
@@ -111,7 +110,7 @@ export class PageComponent implements OnInit {
   }
 
   showVariables() {
-    const modalRef = this.modalService.open(VariableHelpComponent, { size: 'lg', backdrop: 'static'});
+    const modalRef = this.modalService.open(VariableHelpComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.title = 'Page Variables';
     modalRef.componentInstance.variables = this.variables;
   }
@@ -129,7 +128,7 @@ export class PageComponent implements OnInit {
       this.currentStyle = {
         'display': 'block'
       }
-        let doc =  this.iframe.nativeElement.contentDocument || this.iframe.nativeElement.contentWindow;
+      let doc = this.iframe.nativeElement.contentDocument || this.iframe.nativeElement.contentWindow;
       doc.open();
       doc.write(this.f.htmlContent.value)
       doc.close();
@@ -140,10 +139,10 @@ export class PageComponent implements OnInit {
 
   cloneSite() {
     const modalRef = this.modalService.open(CloneSiteComponent);
-    modalRef.componentInstance.emitter.subscribe( 
+    modalRef.componentInstance.emitter.subscribe(
       data => {
         this.f.htmlContent.setValue(data);
-      }        
+      }
     );
   }
 
@@ -154,9 +153,9 @@ export class PageComponent implements OnInit {
 
     // stop here if form is invalid
     if (this.myForm.invalid) {
-        return;
+      return;
     }
-    
+
     this.loading = true
 
     if (this.pageId == "new") {
@@ -170,7 +169,7 @@ export class PageComponent implements OnInit {
     this.pagesApiService.postPage(
       this.workspaceId, this.f.name.value, this.f.htmlContent.value, this.f.url.value
     ).pipe(first())
-    .subscribe(
+      .subscribe(
         data => {
           this.loading = false
           if (data['success'] == false) {
@@ -180,7 +179,7 @@ export class PageComponent implements OnInit {
           }
         },
         error => {
-            console.log(error)
+          console.log(error)
         });
   }
 
@@ -188,7 +187,7 @@ export class PageComponent implements OnInit {
     this.pagesApiService.putPage(
       this.workspaceId, this.pageId, this.f.name.value, this.f.htmlContent.value, this.f.url.value
     ).pipe(first())
-    .subscribe(
+      .subscribe(
         data => {
           this.loading = false
           if (data['success'] == false) {
@@ -198,7 +197,7 @@ export class PageComponent implements OnInit {
           }
         },
         error => {
-            console.log(error)
+          console.log(error)
         });
   }
 

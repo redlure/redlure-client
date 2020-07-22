@@ -1,9 +1,9 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {map, catchError} from 'rxjs/operators'
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators'
 import { ApiService } from '../login/api.service'
-import {Workspace} from './workspace.model';
+import { Workspace } from './workspace.model';
 import { HttpErrorHandler, HandleError } from '../http-error-handler.service';
 
 
@@ -15,16 +15,16 @@ export class WorkspacesApiService {
     private apiService: ApiService,
     private http: HttpClient,
     httpErrorHandler: HttpErrorHandler) {
-      this.handleError = httpErrorHandler.createHandleError('WorkspacesApiService');
+    this.handleError = httpErrorHandler.createHandleError('WorkspacesApiService');
   }
 
   // GET list of all workspaces from the server
   getWorkspaces(): Observable<Workspace[]> {
     const url = `${this.apiService.getUrl()}/workspaces`;
-    return this.http.get<Workspace[]>(url, {withCredentials: true})
+    return this.http.get<Workspace[]>(url, { withCredentials: true })
       .pipe(
         catchError(this.handleError('getWorkspaces', []))
-      );  
+      );
   }
 
   // POST a new workspace to the server
@@ -32,25 +32,25 @@ export class WorkspacesApiService {
     const url = `${this.apiService.getUrl()}/workspaces`;
     let formData: FormData = new FormData()
     formData.append('Name', String(name))
-    return this.http.post<any>(url, formData, {withCredentials: true})
+    return this.http.post<any>(url, formData, { withCredentials: true })
       .pipe(
         catchError(this.handleError('postWorkspace', name))
-      );  
+      );
   }
 
   // DELETE a workspace from the server
   deleteWorkspace(id: Number): Observable<Workspace> {
     const url = `${this.apiService.getUrl()}/workspaces/${id}`;
-    return this.http.delete<any>(url, {withCredentials: true})
+    return this.http.delete<any>(url, { withCredentials: true })
       .pipe(
         catchError(this.handleError('deleteWorkspace'))
-      );  
+      );
   }
 
   //GET a specific workspace from the server
   getWorkspace(id: String): Observable<Workspace> {
     const url = `${this.apiService.getUrl()}/workspaces/${id}`;
-    return this.http.get<Workspace>(url, {withCredentials: true});
+    return this.http.get<Workspace>(url, { withCredentials: true });
   }
 
 }

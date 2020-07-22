@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Router, ActivatedRoute } from '@angular/router';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { WorkspacesApiService } from '../workspaces-api.service'
 import { first } from 'rxjs/operators'
 import { Workspace } from '../workspace.model'
@@ -46,27 +46,27 @@ export class NewWorkspaceComponent implements OnInit {
 
     // stop here if form is invalid
     if (this.myForm.invalid) {
-        return;
+      return;
     }
-    
+
     this.loading = true;
     this.workspacesApiService.postWorkspace(this.f.name.value)
       .pipe(first())
-        .subscribe(
-            data => {
-                this.loading = false;
-                if (data['success'] == false) {
-                  this.alertService.newAlert("warning", this.f.name.value + " is an existing workspace")
-                } else {
-                  this.newWorkspace = data;
-                  this.emitter.emit(this.newWorkspace);
-                  this.closeModal()
-                }
-            },
-            error => {
-                this.loading = false;
-            });
-            
-}
+      .subscribe(
+        data => {
+          this.loading = false;
+          if (data['success'] == false) {
+            this.alertService.newAlert("warning", this.f.name.value + " is an existing workspace")
+          } else {
+            this.newWorkspace = data;
+            this.emitter.emit(this.newWorkspace);
+            this.closeModal()
+          }
+        },
+        error => {
+          this.loading = false;
+        });
+
+  }
 
 }

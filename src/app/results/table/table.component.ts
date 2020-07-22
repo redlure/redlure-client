@@ -1,4 +1,4 @@
-import { Component, Directive, EventEmitter, Input, Output, QueryList, ViewChildren, OnInit, ViewChild, OnDestroy, AfterViewInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
@@ -33,9 +33,9 @@ export class TableComponent implements OnInit {
     //this.copyOfResults = this.results.map(obj => ({...obj}));
     this.dtOptions = {
       dom: "<'row'<'col-sm-12' l>>" +
-           "<'row'<'col-sm-6'B><'col-sm-6'f>>" +
-           "<'row'<'col-sm-12't>>" +
-           "<'row'<'col-sm-6'i><'col-sm-6'p>>",
+        "<'row'<'col-sm-6'B><'col-sm-6'f>>" +
+        "<'row'<'col-sm-12't>>" +
+        "<'row'<'col-sm-6'i><'col-sm-6'p>>",
       buttons: [
         {
           extend: "csv",

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Router, ActivatedRoute } from '@angular/router';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Profile } from '../profile.model'
 import { first } from 'rxjs/operators'
 import { ProfilesApiService } from '../profiles-api.service'
@@ -47,31 +47,31 @@ export class TestProfileComponent implements OnInit {
 
     // stop here if form is invalid
     if (this.myForm.invalid) {
-        return;
+      return;
     }
-    
+
     this.loading = true;
     this.profilesApiService.testProfile(this.workspaceId, String(this.editProfile.id), this.f.email.value)
       .pipe(first())
-        .subscribe(
-            data => {
-                this.loading = false;
-                if (data['success']) {
-                  this.sendFail = false;
-                  this.sendSuccess = true;
-                } else {
-                  this.sendFail = true;
-                  this.sendSuccess = false;
-                }
-  
+      .subscribe(
+        data => {
+          this.loading = false;
+          if (data['success']) {
+            this.sendFail = false;
+            this.sendSuccess = true;
+          } else {
+            this.sendFail = true;
+            this.sendSuccess = false;
+          }
 
-                //this.router.navigate(['workspaces/' + data['id']])
-            },
-            error => {
-                this.loading = false;
-                console.log(error)
-            });
-            
+
+          //this.router.navigate(['workspaces/' + data['id']])
+        },
+        error => {
+          this.loading = false;
+          console.log(error)
+        });
+
   }
 
 }

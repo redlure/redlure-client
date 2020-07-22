@@ -1,8 +1,7 @@
-import { Component, Input, Output, OnInit, EventEmitter, ViewChild, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { ServersApiService } from '../servers-api.service';
-import { first } from 'rxjs/operators';
 import { AlertService } from '../../alert/alert.service';
 import { Subject } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
@@ -79,18 +78,18 @@ export class ServerFilesComponent implements OnInit, OnDestroy {
   deleteFile(file) {
     this.loading = true;
     this.serversApiService.deleteFile(this.editServer.id, file)
-    .subscribe(data => {
-      this.loading = false;
-      if (data['success'] == true) {
-        const index: number = this.files.indexOf(file);
-        if (index !== -1) {
-          this.files.splice(index, 1);
-          this.rerender()
+      .subscribe(data => {
+        this.loading = false;
+        if (data['success'] == true) {
+          const index: number = this.files.indexOf(file);
+          if (index !== -1) {
+            this.files.splice(index, 1);
+            this.rerender()
+          }
+        } else {
+          this.alertService.newAlert('warning', 'Error deleting file')
         }
-      } else {
-        this.alertService.newAlert('warning', 'Error deleting file')
-      }
-    });
+      });
   }
 
   deleteAll() {

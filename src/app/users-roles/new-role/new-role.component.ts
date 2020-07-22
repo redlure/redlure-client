@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Router, ActivatedRoute } from '@angular/router';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { RolesApiService } from '../roles-api.service'
 import { first } from 'rxjs/operators'
 import { AlertService } from '../../alert/alert.service'
@@ -23,7 +23,6 @@ export class NewRoleComponent implements OnInit {
   constructor(
     public activeModal: NgbActiveModal,
     private formBuilder: FormBuilder,
-    private router: Router,
     private rolesApiService: RolesApiService,
     private alertService: AlertService,
   ) { }
@@ -46,26 +45,26 @@ export class NewRoleComponent implements OnInit {
 
     // stop here if form is invalid
     if (this.myForm.invalid) {
-        return;
+      return;
     }
-    
+
     this.loading = true;
     this.rolesApiService.postRole(this.f.name.value, this.f.type.value)
       .pipe(first())
-        .subscribe(
-            data => {
-                this.loading = false;
-                if (data['success'] == false) {
-                  this.alertService.newAlert("warning", this.f.name.value + " is an existing role")
-                } else {
-                  this.newRole = data;
-                  this.emitter.emit(this.newRole);
-                  this.closeModal()
-                }
-            },
-            error => {
-                this.loading = false;
-                console.log(error)
-            });
-    }
+      .subscribe(
+        data => {
+          this.loading = false;
+          if (data['success'] == false) {
+            this.alertService.newAlert("warning", this.f.name.value + " is an existing role")
+          } else {
+            this.newRole = data;
+            this.emitter.emit(this.newRole);
+            this.closeModal()
+          }
+        },
+        error => {
+          this.loading = false;
+          console.log(error)
+        });
+  }
 }

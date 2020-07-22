@@ -18,7 +18,7 @@ import { ImportModuleComponent } from '../import-module/import-module.component'
   selector: 'app-profiles',
   templateUrl: './profiles.component.html',
   styleUrls: ['./profiles.component.css'],
-  providers: [ ProfilesApiService, MessageService ]
+  providers: [ProfilesApiService, MessageService]
 })
 export class ProfilesComponent implements OnInit {
   workspaceId: String;
@@ -34,57 +34,57 @@ export class ProfilesComponent implements OnInit {
     private messageService: MessageService
   ) {
     this.route.params.subscribe(params => this.workspaceId = params['workspaceId'])
-   }
+  }
 
   ngOnInit() {
     this.messageService.setMessage('No profiles created yet')
     this.getProfiles()
   }
 
-  onSelect(profile){
+  onSelect(profile) {
     this.editProfile = profile
   }
 
-  openNew(){
+  openNew() {
     const modalRef = this.modalService.open(NewProfileComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.emitter.subscribe(data => this.profiles.unshift(data));
   }
 
-  openEdit(profile){
+  openEdit(profile) {
     this.onSelect(profile)
     const modalRef = this.modalService.open(EditProfileComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.editProfile = this.editProfile;
-    modalRef.componentInstance.emitter.subscribe( 
+    modalRef.componentInstance.emitter.subscribe(
       data => {
         const index: number = this.profiles.indexOf(this.editProfile);
         if (index !== -1) {
           this.profiles[index] = data
-        }        
+        }
       }
     );
   }
 
-  openTest(profile){
+  openTest(profile) {
     this.onSelect(profile)
     const modalRef = this.modalService.open(TestProfileComponent, { backdrop: 'static' });
     modalRef.componentInstance.editProfile = this.editProfile;
   }
 
-  openDelete(profile){
+  openDelete(profile) {
     this.onSelect(profile)
     const modalRef = this.modalService.open(DelProfileComponent, { backdrop: 'static' });
     modalRef.componentInstance.editProfile = this.editProfile;
-    modalRef.componentInstance.emitter.subscribe( 
+    modalRef.componentInstance.emitter.subscribe(
       data => {
         const index: number = this.profiles.indexOf(data);
         if (index !== -1) {
           this.profiles.splice(index, 1);
-        }        
+        }
       }
     );
   }
 
-  cloneProfile(profile){
+  cloneProfile(profile) {
     this.loading = true;
     this.onSelect(profile)
     const newProfile = Object.assign({}, this.editProfile);
@@ -93,7 +93,7 @@ export class ProfilesComponent implements OnInit {
       this.workspaceId, newProfile.name, newProfile.from_address, newProfile.smtp_host, newProfile.smtp_port,
       newProfile.username, newProfile.password, newProfile.tls, newProfile.ssl
     ).pipe(first())
-    .subscribe(
+      .subscribe(
         data => {
           this.loading = false;
           if (data['success'] == false) {
@@ -103,7 +103,7 @@ export class ProfilesComponent implements OnInit {
           }
         },
         error => {
-            console.log(error)
+          console.log(error)
         });
   }
 

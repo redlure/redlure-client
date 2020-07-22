@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {catchError} from 'rxjs/operators'
+import { catchError } from 'rxjs/operators'
 import { HttpErrorHandler, HandleError } from '../http-error-handler.service';
-import { map, tap } from 'rxjs/operators';
 import { ApiService } from './api.service'
 
 
@@ -17,36 +15,36 @@ export class LoginApiService {
     private apiService: ApiService,
     private http: HttpClient,
     httpErrorHandler: HttpErrorHandler
-    ) {
-      this.handleError = httpErrorHandler.createHandleError('LoginApiService');
+  ) {
+    this.handleError = httpErrorHandler.createHandleError('LoginApiService');
   }
 
   ngOnInit() {
 
   }
 
-   // POST: login to the server
-   login(username: String, password: String) {
+  // POST: login to the server
+  login(username: String, password: String) {
     this.loginUrl = `${this.apiService.getUrl()}/login`
     let formData: FormData = new FormData()
     formData.append('Username', String(username))
     formData.append('Password', String(password))
-    return this.http.post<any>(this.loginUrl, formData, {withCredentials: true})
-    .pipe(
-      catchError(this.handleError('login'))
-    );  
+    return this.http.post<any>(this.loginUrl, formData, { withCredentials: true })
+      .pipe(
+        catchError(this.handleError('login'))
+      );
   }
 
   // GET: logout from the server
   logout() {
     this.logoutUrl = `${this.apiService.getUrl()}/logout`
-    return this.http.get<any>(this.logoutUrl, {withCredentials: true})
-    .pipe(
-      catchError(this.handleError('logout'))
-    );  
+    return this.http.get<any>(this.logoutUrl, { withCredentials: true })
+      .pipe(
+        catchError(this.handleError('logout'))
+      );
   }
-        
-        
+
+
 }
 
 @Injectable()

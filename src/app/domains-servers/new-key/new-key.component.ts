@@ -1,4 +1,4 @@
-import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
+import { Component, Output, OnInit, EventEmitter } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { ServersApiService } from '../servers-api.service'
@@ -28,13 +28,13 @@ export class NewKeyComponent implements OnInit {
   refreshApiKey() {
     this.serversApiService.refreshApiKey()
       .pipe(first())
-        .subscribe(
-          data => {
-            this.apiKey = data["key"]
-            this.emitter.emit(this.apiKey)
-            this.closeModal()
-          }
-        )
-  } 
+      .subscribe(
+        data => {
+          this.apiKey = data["key"]
+          this.emitter.emit(this.apiKey)
+          this.closeModal()
+        }
+      )
+  }
 
 }

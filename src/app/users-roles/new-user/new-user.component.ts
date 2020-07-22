@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Router, ActivatedRoute } from '@angular/router';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UsersApiService } from '../users-api.service'
 import { first } from 'rxjs/operators'
 import { AlertService } from '../../alert/alert.service'
@@ -23,7 +23,6 @@ export class NewUserComponent implements OnInit {
   constructor(
     public activeModal: NgbActiveModal,
     private formBuilder: FormBuilder,
-    private router: Router,
     private usersApiService: UsersApiService,
     private alertService: AlertService,
   ) { }
@@ -48,32 +47,32 @@ export class NewUserComponent implements OnInit {
 
     // stop here if form is invalid
     if (this.myForm.invalid) {
-        return;
+      return;
     }
 
     if (this.f.password.value != this.f.password2.value) {
       this.match = false;
       return;
     }
-    
+
     this.match = true;
     this.loading = true;
     this.usersApiService.postUser(this.f.username.value, this.f.password.value, this.f.role.value)
       .pipe(first())
-        .subscribe(
-            data => {
-                this.loading = false;
-                if (data['success'] == false) {
-                  this.alertService.newAlert("warning", this.f.username.value + " is an existing user")
-                } else {
-                  this.newUser = data;
-                  this.emitter.emit(this.newUser);
-                  this.closeModal()
-                }
-            },
-            error => {
-                this.loading = false;
-                console.log(error)
-            });
-    }
+      .subscribe(
+        data => {
+          this.loading = false;
+          if (data['success'] == false) {
+            this.alertService.newAlert("warning", this.f.username.value + " is an existing user")
+          } else {
+            this.newUser = data;
+            this.emitter.emit(this.newUser);
+            this.closeModal()
+          }
+        },
+        error => {
+          this.loading = false;
+          console.log(error)
+        });
+  }
 }

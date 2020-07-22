@@ -3,7 +3,6 @@ import { ResultsApiService } from '../results-api.service';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
-import { get } from 'https';
 import { FormComponent } from '../form/form.component';
 
 
@@ -34,15 +33,15 @@ export class AnonymousComponent implements OnInit {
     this.getGenericSubs()
   }
 
-  closeModal(){
+  closeModal() {
     this.activeModal.close();
   }
 
-  onResultSelect(event){
+  onResultSelect(event) {
     this.selectedForm = event;
   }
 
-  getGenericSubs(){
+  getGenericSubs() {
     this.loading = true;
     this.resultsApiService.getGenericResults()
       .subscribe(data => {
@@ -62,7 +61,7 @@ export class AnonymousComponent implements OnInit {
           this.events.splice(index, 1);
           this.rerender();
         }
-    });
+      });
   }
 
   deleteAll() {
@@ -72,7 +71,7 @@ export class AnonymousComponent implements OnInit {
         this.loading = false;
         this.events = [];
         this.rerender();
-    });
+      });
   }
 
   // open the FormComponent to show submitted FormData

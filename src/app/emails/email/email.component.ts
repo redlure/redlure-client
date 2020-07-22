@@ -1,7 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router'
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { Email } from '../email.model'
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { EmailsApiService } from '../emails-api.service'
 import { AlertService } from '../../alert/alert.service'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -53,7 +52,7 @@ export class EmailComponent implements OnInit {
   ]
 
   descriptions = [
-    
+
     "Unique URL to a campaign's chosen payload, hosted on a worker. Example: http[s]://domain.com/enablemacros.xls?id=XXXXX",
     "The first name of the email recipient",
     "The last name of the email recipient",
@@ -103,7 +102,7 @@ export class EmailComponent implements OnInit {
       this.title2 = "W EMAIL"
       this.saveBtnText = "Create"
     }
-   }
+  }
 
   ngOnInit() {
     this.myForm = this.formBuilder.group({
@@ -118,7 +117,7 @@ export class EmailComponent implements OnInit {
   }
 
   showVariables() {
-    const modalRef = this.modalService.open(VariableHelpComponent, { size: 'lg', backdrop: 'static'});
+    const modalRef = this.modalService.open(VariableHelpComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.title = 'Email Variables';
     modalRef.componentInstance.variables = this.variables;
   }
@@ -136,7 +135,7 @@ export class EmailComponent implements OnInit {
       this.currentStyle = {
         'display': 'block'
       }
-        let doc =  this.iframe.nativeElement.contentDocument || this.iframe.nativeElement.contentWindow;
+      let doc = this.iframe.nativeElement.contentDocument || this.iframe.nativeElement.contentWindow;
       doc.open();
       doc.write(this.f.htmlContent.value)
       doc.close();
@@ -145,7 +144,7 @@ export class EmailComponent implements OnInit {
     }
   }
 
-  trackChange(event){
+  trackChange(event) {
     this.track = event.target.checked;
   }
 
@@ -156,9 +155,9 @@ export class EmailComponent implements OnInit {
 
     // stop here if form is invalid
     if (this.myForm.invalid) {
-        return;
+      return;
     }
-    
+
     this.loading = true
 
     if (this.emailId == "new") {
@@ -172,7 +171,7 @@ export class EmailComponent implements OnInit {
     this.emailsApiService.postEmail(
       this.workspaceId, this.f.name.value, this.f.htmlContent.value, this.f.subject.value, this.track
     ).pipe(first())
-    .subscribe(
+      .subscribe(
         data => {
           this.loading = false
           if (data['success'] == false) {
@@ -182,7 +181,7 @@ export class EmailComponent implements OnInit {
           }
         },
         error => {
-            console.log(error)
+          console.log(error)
         });
   }
 
@@ -190,7 +189,7 @@ export class EmailComponent implements OnInit {
     this.emailsApiService.putEmail(
       this.workspaceId, this.emailId, this.f.name.value, this.f.htmlContent.value, this.f.subject.value, this.track
     ).pipe(first())
-    .subscribe(
+      .subscribe(
         data => {
           this.loading = false
           if (data['success'] == false) {
@@ -200,7 +199,7 @@ export class EmailComponent implements OnInit {
           }
         },
         error => {
-            console.log(error)
+          console.log(error)
         });
   }
 

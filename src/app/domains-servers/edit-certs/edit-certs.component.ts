@@ -1,10 +1,9 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { DomainsApiService } from '../domains-api.service'
 import { first } from 'rxjs/operators'
-import { Domain } from '../domain.model'
 
 @Component({
   selector: 'app-edit-certs',

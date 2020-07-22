@@ -5,5 +5,5 @@ export class Server {
         public alias: String,
         public port: Number,
         public status: String
-    ){}
+    ) { }
 }

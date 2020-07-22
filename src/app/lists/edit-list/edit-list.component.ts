@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Router, ActivatedRoute } from '@angular/router';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ListsApiService } from '../lists-api.service'
 import { first } from 'rxjs/operators'
 import { List } from '../list.model'
@@ -61,7 +61,7 @@ export class EditListComponent implements OnInit, AfterViewInit, OnDestroy {
       last_name: [''],
       email: ['', Validators.email]
     });
-    
+
     this.list = cloneDeep(this.editList)
     this.targets = this.list.targets
     this.workspaceId = this.router.url.split('/')[2];
@@ -89,11 +89,12 @@ export class EditListComponent implements OnInit, AfterViewInit, OnDestroy {
     this.file = file.target.files[0];
     let reader = new FileReader();
     reader.onload = () => {
-      var csv:string = reader.result as string;
-      parse(csv, {complete: (result) => {
-         this.csvToTable(result.data)
-         this.rerender();
-        }  
+      var csv: string = reader.result as string;
+      parse(csv, {
+        complete: (result) => {
+          this.csvToTable(result.data)
+          this.rerender();
+        }
       });
     }
     reader.readAsText(this.file);
@@ -112,13 +113,13 @@ export class EditListComponent implements OnInit, AfterViewInit, OnDestroy {
     headers.forEach((txt, index) => {
       txt = txt.toLowerCase();
 
-      if(txt == 'email') {
+      if (txt == 'email') {
         emailCol = index;
 
-      } else if(txt == 'first') {
+      } else if (txt == 'first') {
         fnameCol = index;
 
-      } else if(txt == 'last') {
+      } else if (txt == 'last') {
         lnameCol = index;
 
       } else {
@@ -127,25 +128,25 @@ export class EditListComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     });
 
-    if(emailCol == null) {
+    if (emailCol == null) {
       this.alertService.newAlert('danger', 'CSV does not include email column');
-      exit= true; 
+      exit = true;
     }
 
-    if(exit){
+    if (exit) {
       return;
     }
-    
+
     csv.forEach((row, index) => {
       var email: string = '';
       var fname: string = '';
       var lname: string = '';
 
-      if(index != 0){
+      if (index != 0) {
         row.forEach((txt, index) => {
-         if(index == emailCol) { email = txt; }
-         if(index == fnameCol) { fname = txt; }
-         if(index == lnameCol) { lname = txt; }
+          if (index == emailCol) { email = txt; }
+          if (index == fnameCol) { fname = txt; }
+          if (index == lnameCol) { lname = txt; }
         });
 
         this.newTarget = {
@@ -154,13 +155,13 @@ export class EditListComponent implements OnInit, AfterViewInit, OnDestroy {
           last_name: lname,
           email: email
         }
-        
-        if(this.newTarget.email != '') {this.targets.push(this.newTarget);}
+
+        if (this.newTarget.email != '') { this.targets.push(this.newTarget); }
       }
     });
   }
 
-  deleteTarget(target){
+  deleteTarget(target) {
     const index: number = this.targets.indexOf(target);
     this.targets.splice(index, 1);
     this.rerender();
@@ -194,30 +195,30 @@ export class EditListComponent implements OnInit, AfterViewInit, OnDestroy {
 
     // stop here if form is invalid
     if (this.myForm.invalid || this.targets.length == 0) {
-        return;
+      return;
     }
 
     this.loading = true;
     this.listsApiService.putList(this.workspaceId, String(this.editList.id), this.f.name.value, this.targets)
       .pipe(first())
-        .subscribe(
-            data => {
-                this.loading = false;
-                if (data['success'] == false){ 
-                  this.sendAlert(this.f.name.value)
-                } else {
-                  this.editList = data;
-                  this.emitter.emit(this.editList);
-                  this.closeModal()
-                }
-            },
-            error => {
-                this.loading = false;
-                console.log(error)
-            });
-    }
+      .subscribe(
+        data => {
+          this.loading = false;
+          if (data['success'] == false) {
+            this.sendAlert(this.f.name.value)
+          } else {
+            this.editList = data;
+            this.emitter.emit(this.editList);
+            this.closeModal()
+          }
+        },
+        error => {
+          this.loading = false;
+          console.log(error)
+        });
+  }
 
-    sendAlert(name) {
-      this.alertService.newAlert("warning", "A list with the name" + name + " already exists in the database")
-    }
+  sendAlert(name) {
+    this.alertService.newAlert("warning", "A list with the name" + name + " already exists in the database")
+  }
 }

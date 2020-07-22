@@ -1,12 +1,9 @@
-import { Component, OnInit, HostListener,  ViewChildren, OnDestroy, QueryList } from '@angular/core';
+import { Component, OnInit, ViewChildren, OnDestroy, QueryList } from '@angular/core';
 import { ResultsApiService } from './results-api.service';
 import { AlertService } from '../alert/alert.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
-import { Result } from './result.model';
-import { Target } from '../lists/targets/target.model';
 import { FormComponent } from './form/form.component';
-import { Observable } from 'rxjs';
 import { TableComponent } from './table/table.component';
 import { GraphsComponent } from './graphs/graphs.component';
 import { DataService } from './data.service';
@@ -18,7 +15,7 @@ import { AnonymousComponent } from './anonymous/anonymous.component';
 @Component({
   selector: 'app-results',
   templateUrl: './results.component.html',
-  providers: [ MessageService ]
+  providers: [MessageService]
 })
 export class ResultsComponent implements OnInit, OnDestroy {
   allResults: any[]; //all results returned by server
@@ -37,9 +34,9 @@ export class ResultsComponent implements OnInit, OnDestroy {
   clicked: number = 0;
   downloaded: number = 0;
   submitted: number = 0;
-  
+
   intervalVar: any;
-  
+
   workspaceId: String;
   campaigns: any[];
   campaignHeaders = ["ID", "Name", "Status", "Server", "Domain", "Start Date", "End Date"];
@@ -61,7 +58,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
     private messageService: MessageService,
   ) {
     this.route.params.subscribe(params => this.workspaceId = params['workspaceId']);
-   }
+  }
 
 
   ngOnInit() {
@@ -72,16 +69,16 @@ export class ResultsComponent implements OnInit, OnDestroy {
     // hard coded to render there
     this.dtOptions = {
       dom: "<'row'<'col-sm-6 text-left'l><'col-sm-6'f>>" +
-           "<'row'<'col-sm-12't>>" +
-           "<'row'<'col-sm-6 text-left'i><'col-sm-6'p>>"
+        "<'row'<'col-sm-12't>>" +
+        "<'row'<'col-sm-6 text-left'i><'col-sm-6'p>>"
     }
 
     this.getResults(false);
-    
+
     this.intervalVar = setInterval(() => {
       this.getResults(true);
     }, 20000);
-    
+
   }
 
   ngOnDestroy() {
@@ -94,17 +91,17 @@ export class ResultsComponent implements OnInit, OnDestroy {
   rerender(table): void {
     this.dtElements.forEach((dtElement: DataTableDirective) => {
       let tableId = dtElement['el'].nativeElement.id
-        dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-          if (tableId == table) {
-            dtInstance.destroy();
-          } 
-        });
+      dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        if (tableId == table) {
+          dtInstance.destroy();
+        }
       });
-    this.dtTrigger[table].next(); 
+    });
+    this.dtTrigger[table].next();
   }
-  
 
-  onResultSelect(event){
+
+  onResultSelect(event) {
     this.selectedForm = event;
   }
 
@@ -119,7 +116,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
       //this.submitEvents = this.getForms();
       this.calcStats();
       this.loading = false;
-      if(rerender) {
+      if (rerender) {
         this.rerender('campaignTable');
         this.rerender('formTable');
       } else {
@@ -169,15 +166,15 @@ export class ResultsComponent implements OnInit, OnDestroy {
       this.results = this.results.filter(result => results.indexOf(result) < 0);
       this.submitEvents = this.getForms();
     }
-    
+
     // if in checked tracker, remove. else add campaign
     const index = this.checked.indexOf(campaignId, 0);
     if (index > -1) {
       this.checked.splice(index, 1);
-    } else { 
+    } else {
       this.checked.push(campaignId);
     }
-    
+
     this.calcStats();
     this.rerender('formTable')
   }
@@ -207,7 +204,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
         let results = this.allResults.filter(result => result.campaign_id === campaign.id);
         this.results = this.results.concat(results);
       });
-    // else reset each campaign to its previous state
+      // else reset each campaign to its previous state
     } else {
       this.campaigns.forEach(campaign => {
         let results = this.allResults.filter(result => result.campaign_id === campaign.id);
@@ -224,24 +221,24 @@ export class ResultsComponent implements OnInit, OnDestroy {
 
 
   // return an email address given a result ID
-  getEmail(id){
+  getEmail(id) {
     return this.results.filter(result => result.id === id)[0].person.email;
   }
 
-  
+
   // return the campaign ID given a result ID
-  getCId(id){
+  getCId(id) {
     return this.results.filter(result => result.id === id)[0].campaign_id;
   }
 
 
   // get all events with formdata and make an array of those events
-  getForms(){
+  getForms() {
     // map filter was not working here for some reason -> resorted to writing own filter with foreach
     var submissions = [];
-  
+
     this.results.forEach(result => {
-      result.events.forEach(event =>{
+      result.events.forEach(event => {
         if (event.action == "Submitted") {
           submissions.push(event);
         }
@@ -272,7 +269,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
     var filteredResults: any[] = [];
     // if status is 'Sent' we really want all results
     if (status == 'Sent') {
-      filteredResults = this.results.filter(function(result) {
+      filteredResults = this.results.filter(function (result) {
         return result.status != 'Scheduled';
       });
     } else {
@@ -281,7 +278,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
         status = 'Sent'
       }
       // filter the array of results
-      filteredResults = this.results.filter(function(result) {
+      filteredResults = this.results.filter(function (result) {
         return result.status == status;
       });
     }
@@ -292,7 +289,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
     modalRef.componentInstance.campaigns = this.campaigns;
   }
 
-  openAnon(){
+  openAnon() {
     const modalRef = this.modalService.open(AnonymousComponent, { size: 'lg', backdrop: 'static' });
   }
 

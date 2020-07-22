@@ -1,4 +1,4 @@
-import { Component, Input, Output, OnInit, EventEmitter, ViewChild, OnDestroy } from '@angular/core';
+import { Component, Input, Output, OnInit, EventEmitter, ViewChild } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { RolesApiService } from '../roles-api.service';
@@ -31,9 +31,7 @@ export class EditRoleComponent implements OnInit {
 
   constructor(
     public activeModal: NgbActiveModal,
-    private router: Router,
     private rolesApiService: RolesApiService,
-    private alertService: AlertService,
     private workspacesApiService: WorkspacesApiService,
   ) { }
 
@@ -42,7 +40,7 @@ export class EditRoleComponent implements OnInit {
       this.workspaces = data;
       this.dtTrigger.next();
     });
-    this.currentWorkspaceIds = this.editRole.workspaces.map( data => data.id);
+    this.currentWorkspaceIds = this.editRole.workspaces.map(data => data.id);
   }
 
   closeModal() {
@@ -62,17 +60,17 @@ export class EditRoleComponent implements OnInit {
     this.loading = true;
     this.rolesApiService.putRole(String(this.editRole.id), this.currentWorkspaceIds)
       .pipe(first())
-        .subscribe(
-            data => {
-                this.loading = false;
-                this.editRole = data
-                this.emitter.emit(this.editRole)
-                this.closeModal()
-            },
-            error => {
-                console.log(error)
-            });
-            
+      .subscribe(
+        data => {
+          this.loading = false;
+          this.editRole = data
+          this.emitter.emit(this.editRole)
+          this.closeModal()
+        },
+        error => {
+          console.log(error)
+        });
+
   }
 
   ngOnDestroy(): void {

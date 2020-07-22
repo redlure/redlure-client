@@ -1,8 +1,6 @@
 import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Router, ActivatedRoute } from '@angular/router';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { first } from 'rxjs/operators'
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { EmailsApiService } from '../emails/emails-api.service';
 import { ProfilesApiService } from '../profiles/profiles-api.service';
 import { ListsApiService } from '../lists/lists-api.service';
@@ -107,11 +105,11 @@ export class ImportModuleComponent implements OnInit {
   workspaceChosen() {
     if (this.type == "Profile") {
       this.getProfiles();
-    } else if(this.type == "Email") {
+    } else if (this.type == "Email") {
       this.getEmails();
-    } else if(this.type == "List") {
+    } else if (this.type == "List") {
       this.getLists();
-    } else if(this.type == "Page") {
+    } else if (this.type == "Page") {
       this.getPages();
     }
   }

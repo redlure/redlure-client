@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChildren, OnDestroy, QueryList } from '@angular/core';
+import { Component, Input, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UsersApiService } from './users-api.service';
 import { RolesApiService } from './roles-api.service';
@@ -60,7 +60,7 @@ export class UsersRolesComponent implements OnInit {
   // deprecated; now using forkJoin in ngInit
   getRoles(): void {
     this.rolesApiService.getRoles()
-      .subscribe(roles => { 
+      .subscribe(roles => {
         this.roles = roles;
         this.getUsers();
       });
@@ -73,7 +73,7 @@ export class UsersRolesComponent implements OnInit {
     modalRef.componentInstance.roles = JSON.parse(JSON.stringify(this.roles));
   }
 
-  addUserModal(){
+  addUserModal() {
     const modalRef = this.modalService.open(NewUserComponent, { backdrop: 'static' });
     modalRef.componentInstance.roles = this.roles;
     modalRef.componentInstance.emitter.subscribe(data => {
@@ -82,28 +82,28 @@ export class UsersRolesComponent implements OnInit {
     });
   }
 
-  deleteUserModal(user){
+  deleteUserModal(user) {
     this.onUserSelect(user);
     const modalRef = this.modalService.open(DelUserComponent, { backdrop: 'static' });
     modalRef.componentInstance.editUser = this.editUser;
-    modalRef.componentInstance.emitter.subscribe( 
+    modalRef.componentInstance.emitter.subscribe(
       data => {
         const index: number = this.users.indexOf(data);
         if (index !== -1) {
           this.users.splice(index, 1);
           this.rerender('userTable');
-        }        
+        }
       }
     );
   }
 
-  resetPassword(user){
+  resetPassword(user) {
     this.onUserSelect(user);
     const modalRef = this.modalService.open(PasswordResetComponent, { backdrop: 'static' });
     modalRef.componentInstance.editUser = this.editUser;
   }
 
-  addRoleModal(){
+  addRoleModal() {
     const modalRef = this.modalService.open(NewRoleComponent, { backdrop: 'static' });
     modalRef.componentInstance.emitter.subscribe(data => {
       this.roles.push(data);
@@ -111,34 +111,34 @@ export class UsersRolesComponent implements OnInit {
     });
   }
 
-  deleteRoleModal(role){
+  deleteRoleModal(role) {
     this.onRoleSelect(role);
     const modalRef = this.modalService.open(DelRoleComponent, { backdrop: 'static' });
     modalRef.componentInstance.editRole = this.editRole;
-    modalRef.componentInstance.emitter.subscribe( 
+    modalRef.componentInstance.emitter.subscribe(
       data => {
         const index: number = this.roles.indexOf(data);
         if (index !== -1) {
           this.roles.splice(index, 1);
           //refresh users, some may have been deleted when role was deleted
           this.getUsers();
-        }   
+        }
         this.rerender('userTable');
         this.rerender('roleTable');
       }
     );
   }
 
-  editRoleModal(role){
+  editRoleModal(role) {
     this.onRoleSelect(role);
     const modalRef = this.modalService.open(EditRoleComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.editRole = this.editRole;
-    modalRef.componentInstance.emitter.subscribe( 
+    modalRef.componentInstance.emitter.subscribe(
       data => {
         const index: number = this.roles.indexOf(this.editRole);
         if (index !== -1) {
           this.roles[index] = data
-        }        
+        }
       }
     );
   }
@@ -148,19 +148,19 @@ export class UsersRolesComponent implements OnInit {
     this.dtTrigger["roleTable"] = new Subject<any>();
     //this.getUsers()
     //this.getRoles()
-    
+
     this.userLoading = true;
     this.roleLoading = true;
 
     forkJoin([this.usersApiService.getUsers(), this.rolesApiService.getRoles()])
-     .subscribe(data => {
-      this.users = data[0];
-      this.roles = data[1];
-      this.dtTrigger['userTable'].next();
-      this.dtTrigger['roleTable'].next();
-      this.userLoading = false;
-      this.roleLoading = false;
-     });
+      .subscribe(data => {
+        this.users = data[0];
+        this.roles = data[1];
+        this.dtTrigger['userTable'].next();
+        this.dtTrigger['roleTable'].next();
+        this.userLoading = false;
+        this.roleLoading = false;
+      });
   }
 
   ngOnDestroy(): void {
@@ -172,14 +172,14 @@ export class UsersRolesComponent implements OnInit {
   rerender(table): void {
     this.dtElements.forEach((dtElement: DataTableDirective) => {
       let tableId = dtElement['el'].nativeElement.id
-        dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-          if (tableId == table) {
-            dtInstance.destroy();
-            //console.log('destroying ' + table)
-          } 
-        });
+      dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        if (tableId == table) {
+          dtInstance.destroy();
+          //console.log('destroying ' + table)
+        }
       });
-      this.dtTrigger[table].next();
-  }  
+    });
+    this.dtTrigger[table].next();
+  }
 
 }

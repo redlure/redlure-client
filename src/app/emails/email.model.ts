@@ -7,5 +7,5 @@ export class Email {
         public track: Boolean,
         public createdAt: Date,
         public updatedAt: Date
-    ){}
+    ) { }
 }

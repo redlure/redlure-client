@@ -1,7 +1,6 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Router, ActivatedRoute } from '@angular/router';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UsersApiService } from '../users-api.service'
 import { first } from 'rxjs/operators'
 import { AlertService } from '../../alert/alert.service'
@@ -43,7 +42,7 @@ export class PasswordResetComponent implements OnInit {
 
     // stop here if form is invalid
     if (this.myForm.invalid) {
-        return;
+      return;
     }
 
     // check if passwords match
@@ -51,25 +50,25 @@ export class PasswordResetComponent implements OnInit {
       this.match = false;
       return;
     }
-    
+
     this.loading = true;
     this.match = true;
     this.usersApiService.resetPassword(this.editUser['id'], this.f.password.value)
       .pipe(first())
-        .subscribe(
-            data => {
-                this.loading = false;
-                if (data['success'] == false) {
-                  this.alertService.newAlert("warning", "Failed to reset password")
-                } else {
-                  this.alertService.newAlert("success", "Password updated")
-                  this.closeModal()
-                }
-            },
-            error => {
-                this.loading = false;
-                console.log(error)
-            });
-    }
+      .subscribe(
+        data => {
+          this.loading = false;
+          if (data['success'] == false) {
+            this.alertService.newAlert("warning", "Failed to reset password")
+          } else {
+            this.alertService.newAlert("success", "Password updated")
+            this.closeModal()
+          }
+        },
+        error => {
+          this.loading = false;
+          console.log(error)
+        });
+  }
 
 }

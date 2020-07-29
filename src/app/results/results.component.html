@@ -1,5 +1,6 @@
 <workspace-navbar></workspace-navbar>
 <app-alert></app-alert>
+
 <body style="margin: 20px">
   <!--Header row-->
   <div class="row" style="margin-top: 20px;">
@@ -9,14 +10,20 @@
         <b class="h3-suffix">ULTS</b>
       </h3>
 
-      <div *ngIf="loading" class="loadingio-spinner-dual-ball-jmseu88834m"><div class="ldio-c46ivvx8kf">
-        <div></div><div></div><div></div>
-        </div></div>
+      <div *ngIf="loading" class="loadingio-spinner-dual-ball-jmseu88834m">
+        <div class="ldio-c46ivvx8kf">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
 
     </div>
     <div class="col-md d-flex justify-content-end">
-      <button [disabled]="loading" (click)="getResults(true)" class="btn btn-outline-primary login_btn">Refresh <i class="fas fa-sync-alt"></i></button>
-      <button (click)="openVisuals()" class="btn btn-outline-dark login_btn" style="margin-left: 4px">Graph <i class="fas fa-chart-pie"></i></button>
+      <button [disabled]="loading" (click)="getResults(true)" class="btn btn-outline-primary login_btn">Refresh <i
+          class="fas fa-sync-alt"></i></button>
+      <button (click)="openVisuals()" class="btn btn-outline-dark login_btn" style="margin-left: 4px">Graph <i
+          class="fas fa-chart-pie"></i></button>
     </div>
   </div>
   <!-- End Header-->
@@ -25,14 +32,16 @@
   <div class="container">
     <!--Stats Row-->
     <div class="row">
-      <div *ngIf="errored > 0" class="col result-btn btn-outline-dark" (click)="openTable('Error')" style="cursor: pointer;">
+      <div *ngIf="errored > 0" class="col result-btn btn-outline-dark" (click)="openTable('Error')"
+        style="cursor: pointer;">
         <div class="centerBlock">
           <p class="results">{{ errored }}</p>
           <hr class="border-dark">
           Error
         </div>
       </div>
-      <div *ngIf="scheduled > 0" class="col result-btn btn-outline-info" (click)="openTable('Scheduled')" style="cursor: pointer;">
+      <div *ngIf="scheduled > 0" class="col result-btn btn-outline-info" (click)="openTable('Scheduled')"
+        style="cursor: pointer;">
         <div class="centerBlock">
           <p class="results">{{ scheduled }}</p>
           <hr class="border-info">
@@ -46,7 +55,8 @@
           Sent
         </div>
       </div>
-      <div class="col result-btn btn-outline-success border-left border-dark" (click)="openTable('Unopened')" style="cursor: pointer;">
+      <div class="col result-btn btn-outline-success border-left border-dark" (click)="openTable('Unopened')"
+        style="cursor: pointer;">
         <div class="centerBlock">
           <p class="results">{{ unopened }}</p>
           <hr class="border-success">
@@ -76,9 +86,9 @@
       </div>
       <div class="col result-btn btn-outline-danger" (click)="openTable('Submitted')" style="cursor: pointer;">
         <div class="centerBlock">
-        <p class="results">{{ submitted }}</p>
-        <hr class="border-danger">
-        Submitted
+          <p class="results">{{ submitted }}</p>
+          <hr class="border-danger">
+          Submitted
         </div>
       </div>
     </div>
@@ -89,25 +99,19 @@
   <hr class="border-dark">
 
   <div class="container-fluid">
-    <!--<div class="row row-sm">
-      <div class="col-8 border-right border-dark" style="text-align: center"></div>
-      <div class="col" style="text-align: end;">
-        <button (click)="openAnon()" class="btn btn-sm btn-outline-dark">Anon <i class="fas fa-mask"></i></button>
-      </div>
-    </div>-->
-    <!--Tables Row-->
     <div class="row">
-      
       <div class="col-8 border-right border-dark" style="text-align: center">
         <div class="row h4 text-dark justify-content-md-center">
           Campaigns
         </div>
-        <table id="campaignTable" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger['campaignTable']" class="table table-bordered table-striped table-hover table-sm">
+        <table id="campaignTable" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger['campaignTable']"
+          class="table table-bordered table-striped table-hover table-sm">
           <thead class="thead-dark">
             <tr>
               <th scope="col">
                 <div class="custom-control custom-checkbox">
-                  <input type="checkbox" id="cbHead" class="custom-control-input" (change)="toggleSelectAll($event)" [checked]="selectAll">                           
+                  <input type="checkbox" id="cbHead" class="custom-control-input" (change)="toggleSelectAll($event)"
+                    [checked]="selectAll">
                   <label class="custom-control-label" for="cbHead"></label>
                 </div>
               </th>
@@ -118,7 +122,8 @@
             <tr *ngFor="let campaign of campaigns; let i = index">
               <td align="left" style="width: 1px;">
                 <div class="custom-control custom-checkbox">
-                  <input type="checkbox" id="cb{{ i }}" class="custom-control-input" [(ngModel)]="campaign.state" (change)="toggleSelect($event, campaign.id)">
+                  <input type="checkbox" id="cb{{ i }}" class="custom-control-input" [(ngModel)]="campaign.state"
+                    (change)="toggleSelect($event, campaign.id)">
                   <label class="custom-control-label" for="cb{{ i }}"></label>
                 </div>
               </td>
@@ -137,13 +142,14 @@
 
       <div class="col">
         <div class="row">
-          <div class="col"></div>
           <div class="col h4 text-dark justify-content-md-center">Credential Vault</div>
-          <div class="col" style="text-align: end;"><button (click)="openAnon()" class="btn btn-sm btn-outline-dark">Anon Forms <i class="fas fa-address-card"></i></button></div>
+          <div class="col" style="text-align: end;"><button (click)="openAnon()"
+              class="btn btn-sm btn-outline-dark">Anon Forms <i class="fas fa-address-card"></i></button></div>
         </div>
 
-        <div style="overflow: auto">
-          <table id="formTable" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger['formTable']" class="table table-bordered table-striped table-hover table-sm">
+        <div style="overflow: hidden">
+          <table id="formTable" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger['formTable']"
+            class="table table-bordered table-striped table-hover table-sm">
             <thead class="thead-dark">
               <tr>
                 <th scope="col" *ngFor="let head of credHeaders; let i = index">{{ head }}</th>
@@ -157,10 +163,7 @@
             </tbody>
           </table>
         </div>
-
-
       </div>
     </div>
-
   </div>
 </body>

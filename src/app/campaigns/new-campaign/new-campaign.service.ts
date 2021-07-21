@@ -19,6 +19,7 @@ export class NewCampaignService {
     payloadUrl: "",
     payloadFile: "",
     redirectUrl: "",
+    safetyUrl: "",
     startDate: null,
     batchNumber: null,
     batchInterval: null,
@@ -59,6 +60,7 @@ export class NewCampaignService {
     this.newCampaign.payloadUrl = campaign.payloadUrl;
     this.newCampaign.payloadFile = campaign.payloadFile;
     this.newCampaign.redirectUrl = campaign.redirectUrl;
+    this.newCampaign.safetyUrl = campaign.safetyUrl;
 
     campaign.pages.forEach(element => {
       if (element) { this.newCampaign.pages[element.index] = element.page.id; } else { this.newCampaign.pages[element.index] = "" }

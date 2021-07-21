@@ -49,6 +49,7 @@ export class ScenarioSelectComponent implements OnInit {
       payloadUrl: [this.newCampaignService.newCampaign.payloadUrl, Validators.pattern(RegExp('^\/'))],
       payloadFile: [this.newCampaignService.newCampaign.payloadFile],
       redirectUrl: [this.newCampaignService.newCampaign.redirectUrl],
+      safetyUrl: [this.newCampaignService.newCampaign.safetyUrl],
     });
 
     // set form fields to "" instad of undefined so that default option shows
@@ -130,6 +131,7 @@ export class ScenarioSelectComponent implements OnInit {
     this.newCampaignService.newCampaign.name = this.f.name.value;
     this.newCampaignService.newCampaign.email = this.f.email.value;
     this.newCampaignService.newCampaign.redirectUrl = this.f.redirectUrl.value;
+    this.newCampaignService.newCampaign.safetyUrl = this.f.safetyUrl.value;
     this.newCampaignService.newCampaign.payloadUrl = this.f.payloadUrl.value;
     this.newCampaignService.newCampaign.payloadFile = this.f.payloadFile.value;
 

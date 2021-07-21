@@ -33,7 +33,7 @@ export class CampaignsApiService {
   // POST a new campaign to the server
   postCampaign(id: String, name: String, email: String, profile: String, list: String, batchNumber: Number,
     batchInterval: Number, startTime: Date, domain: String, server: String, port: Number, ssl: Boolean,
-    pages: String[], redirectUrl: String, payloadUrl: String, payloadFile: String, attachment?: File) {
+    pages: String[], redirectUrl: String, safetyUrl: String, payloadUrl: String, payloadFile: String, attachment?: File) {
 
     const url = `${this.apiService.getUrl()}/workspaces/${id}/campaigns`;
     let formData: FormData = new FormData();
@@ -46,6 +46,7 @@ export class CampaignsApiService {
     formData.append('Port', String(port));
     formData.append('SSL', String(ssl));
     formData.append('Redirect_URL', String(redirectUrl));
+    formData.append('Safety_URL', String(safetyUrl));
     formData.append('Start_Time', String(startTime));
     formData.append('Interval', String(batchInterval));
     formData.append('Batch_Size', String(batchNumber));

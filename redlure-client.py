@@ -4,7 +4,7 @@ import subprocess
 import os
 import shlex
 
-CLIENT_VERSION = '0.1'
+CLIENT_VERSION = '0.11'
 
 def gen_certs():
     proc = subprocess.Popen(shlex.split('openssl req -x509 -newkey rsa:4096 -nodes -subj "/" -out redlure-cert.pem -keyout redlure-key.pem -days 365'))

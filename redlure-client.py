@@ -4,6 +4,7 @@ import subprocess
 import os
 import shlex
 
+CLIENT_VERSION = '0.1'
 
 def gen_certs():
     proc = subprocess.Popen(shlex.split('openssl req -x509 -newkey rsa:4096 -nodes -subj "/" -out redlure-cert.pem -keyout redlure-key.pem -days 365'))
@@ -11,6 +12,8 @@ def gen_certs():
 
 
 def main():
+    print(f'[*] redlure-client v{CLIENT_VERSION}')
+    print('[*] Ensure this version is supported by your console (check console startup output)')
     # base ng command that will start the client
     cmd = f'ng serve --disable-host-check --host {Config.HOST} --port {Config.PORT}'
 

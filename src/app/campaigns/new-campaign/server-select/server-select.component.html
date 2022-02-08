@@ -11,12 +11,12 @@
         <div class="input-group-prepend">
             <span class="span-domain input-group-text">Domain</span>
         </div>
-        <select class="form-control" formControlName="domain" [ngClass]="{ 'is-invalid': submitted && f.domain.errors }">
+        <select class="form-control" formControlName="domain" [ngClass]="{ 'is-invalid': submitted && formControls.domain.errors }">
           <option disabled selected value> -- Select a domain -- </option>
           <option *ngFor="let domain of newCampaignService.allModules['domains']" [value]="domain.id" >{{ domain.domain }} ({{ domain.ip }})</option>
         </select>
-        <div *ngIf="submitted && f.domain.errors" class="invalid-feedback">
-          <div *ngIf="f.domain.errors.required">Domain is required</div>
+        <div *ngIf="submitted && formControls.domain.errors" class="invalid-feedback">
+          <div *ngIf="formControls.domain.errors.required">Domain is required</div>
         </div>
       </div>
 
@@ -26,12 +26,12 @@
         <div class="input-group-prepend">
             <span class="span-domain input-group-text">Server</span>
         </div>
-        <select class="form-control" formControlName="server" [ngClass]="{ 'is-invalid': submitted && f.server.errors }">
+        <select class="form-control" formControlName="server" [ngClass]="{ 'is-invalid': submitted && formControls.server.errors }">
           <option disabled selected value> -- Select a server -- </option>
           <option *ngFor="let server of newCampaignService.allModules['servers']" [value]="server.id">{{ server.alias }} ({{ server.ip }})</option>
         </select>
-        <div *ngIf="submitted && f.server.errors" class="invalid-feedback">
-          <div *ngIf="f.server.errors.required">Server is required</div>
+        <div *ngIf="submitted && formControls.server.errors" class="invalid-feedback">
+          <div *ngIf="formControls.server.errors.required">Server is required</div>
         </div>
       </div>
 
@@ -40,9 +40,9 @@
         <div class="input-group-prepend">
           <span class="span-domain input-group-text">Port</span>
         </div>
-        <input default=443 type="text" formControlName="port" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.port.errors }"/>
-        <div *ngIf="submitted && f.port.errors" class="invalid-feedback">
-          <div *ngIf="f.port.errors.required">Port is required</div>
+        <input default=443 type="text" formControlName="port" class="form-control" [ngClass]="{ 'is-invalid': submitted && formControls.port.errors }"/>
+        <div *ngIf="submitted && formControls.port.errors" class="invalid-feedback">
+          <div *ngIf="formControls.port.errors.required">Port is required</div>
         </div>
       </div>
 

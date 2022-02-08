@@ -38,33 +38,30 @@ export class NewRoleComponent implements OnInit {
     this.activeModal.close();
   }
 
-  get f() { return this.myForm.controls; }
+  get formControls() { return this.myForm.controls; }
 
   onSubmit() {
     this.submitted = true;
 
-    // stop here if form is invalid
-    if (this.myForm.invalid) {
-      return;
+    if (this.myForm.valid) {
+      this.loading = true;
+      this.rolesApiService.postRole(this.formControls.name.value, this.formControls.type.value)
+        .pipe(first())
+        .subscribe(
+          data => {
+            this.loading = false;
+            if (data['success'] == false) {
+              this.alertService.newAlert("warning", this.formControls.name.value + " is an existing role")
+            } else {
+              this.newRole = data;
+              this.emitter.emit(this.newRole);
+              this.closeModal()
+            }
+          },
+          error => {
+            this.loading = false;
+            console.log(error)
+          });
     }
-
-    this.loading = true;
-    this.rolesApiService.postRole(this.f.name.value, this.f.type.value)
-      .pipe(first())
-      .subscribe(
-        data => {
-          this.loading = false;
-          if (data['success'] == false) {
-            this.alertService.newAlert("warning", this.f.name.value + " is an existing role")
-          } else {
-            this.newRole = data;
-            this.emitter.emit(this.newRole);
-            this.closeModal()
-          }
-        },
-        error => {
-          this.loading = false;
-          console.log(error)
-        });
   }
 }

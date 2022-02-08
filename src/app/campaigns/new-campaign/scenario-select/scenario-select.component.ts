@@ -53,18 +53,18 @@ export class ScenarioSelectComponent implements OnInit {
 
     // set form fields to "" instad of undefined so that default option shows
     if (this.newCampaignService.newCampaign.pages.length < 4) {
-      this.f.page4.setValue("")
+      this.formControls.page4.setValue("")
     }
     if (this.newCampaignService.newCampaign.pages.length < 3) {
-      this.f.page3.setValue("")
+      this.formControls.page3.setValue("")
     }
     if (this.newCampaignService.newCampaign.pages.length < 2) {
-      this.f.page2.setValue("")
+      this.formControls.page2.setValue("")
     }
 
   }
 
-  get f() { return this.myForm.controls; }
+  get formControls() { return this.myForm.controls; }
 
   closeModal() {
     this.activeModal.close();
@@ -81,16 +81,16 @@ export class ScenarioSelectComponent implements OnInit {
     }
   }
 
-  deletePage(index){
+  deletePage(index) {
     this.newCampaignService.newCampaign.pages.splice(index, 1);
     if (index == 0) {
-      this.f.page1.setValue("")
-    } else if(index == 1) {
-      this.f.page2.setValue("")
-    } else if(index == 2) {
-      this.f.page3.setValue("")
-    } else if(index == 3) {
-      this.f.page4.setValue("")
+      this.formControls.page1.setValue("")
+    } else if (index == 1) {
+      this.formControls.page2.setValue("")
+    } else if (index == 2) {
+      this.formControls.page3.setValue("")
+    } else if (index == 3) {
+      this.formControls.page4.setValue("")
     }
   }
 
@@ -99,7 +99,7 @@ export class ScenarioSelectComponent implements OnInit {
       this.file = file.target.files[0];
       this.fileName = this.file.name;
       this.fileSize = this.file.size;
-      this.f.attachment.setValue(this.file.name);
+      this.formControls.attachment.setValue(this.file.name);
       this.attach = false;
     }
 
@@ -109,7 +109,7 @@ export class ScenarioSelectComponent implements OnInit {
     this.attach = true;
     this.file = void 0;
     this.newCampaignService.newCampaign.attachment = null;
-    this.f.attachment.setValue("");
+    this.formControls.attachment.setValue("");
   }
 
   get attachmentName() {
@@ -120,28 +120,22 @@ export class ScenarioSelectComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
 
-    // stop here if form is invalid
-    if (this.myForm.invalid) {
-        return;
+    if (this.myForm.valid) {
+      this.newCampaignService.newCampaign.name = this.formControls.name.value;
+      this.newCampaignService.newCampaign.email = this.formControls.email.value;
+      this.newCampaignService.newCampaign.redirectUrl = this.formControls.redirectUrl.value;
+      this.newCampaignService.newCampaign.payloadUrl = this.formControls.payloadUrl.value;
+      this.newCampaignService.newCampaign.payloadFile = this.formControls.payloadFile.value;
+
+      this.newCampaignService.newCampaign.attachment = this.file;
+
+      if (this.formControls.page1.value) { this.newCampaignService.newCampaign.pages[0] = this.formControls.page1.value; }
+      if (this.formControls.page2.value) { this.newCampaignService.newCampaign.pages[1] = this.formControls.page2.value; }
+      if (this.formControls.page3.value) { this.newCampaignService.newCampaign.pages[2] = this.formControls.page3.value; }
+      if (this.formControls.page4.value) { this.newCampaignService.newCampaign.pages[3] = this.formControls.page4.value; }
+
+      this.emitter.emit("next");
+      this.activeModal.close();
     }
-
-    //set values to newCampaign object
-
-    this.newCampaignService.newCampaign.name = this.f.name.value;
-    this.newCampaignService.newCampaign.email = this.f.email.value;
-    this.newCampaignService.newCampaign.redirectUrl = this.f.redirectUrl.value;
-    this.newCampaignService.newCampaign.payloadUrl = this.f.payloadUrl.value;
-    this.newCampaignService.newCampaign.payloadFile = this.f.payloadFile.value;
-
-    this.newCampaignService.newCampaign.attachment = this.file;
-
-    if (this.f.page1.value) { this.newCampaignService.newCampaign.pages[0] = this.f.page1.value; }
-    if (this.f.page2.value) { this.newCampaignService.newCampaign.pages[1] = this.f.page2.value; }
-    if (this.f.page3.value) { this.newCampaignService.newCampaign.pages[2] = this.f.page3.value; }
-    if (this.f.page4.value) { this.newCampaignService.newCampaign.pages[3] = this.f.page4.value; }
-
-    this.emitter.emit("next");
-    this.activeModal.close();
   }
-
 }

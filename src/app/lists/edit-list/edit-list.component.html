@@ -12,9 +12,9 @@
         <div class="input-group-prepend">
           <span class="input-group-text">Name</span>
         </div>
-        <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.name.errors }"/>
-        <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
-          <div *ngIf="f.name.errors.required">Name is required</div>
+        <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && formControls.name.errors }"/>
+        <div *ngIf="submitted && formControls.name.errors" class="invalid-feedback">
+          <div *ngIf="formControls.name.errors.required">Name is required</div>
         </div>
       </div>
     </div>

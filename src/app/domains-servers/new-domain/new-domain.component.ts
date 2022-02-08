@@ -36,30 +36,27 @@ export class NewDomainComponent implements OnInit {
     this.activeModal.close();
   }
 
-  get f() { return this.myForm.controls; }
+  get formControls() { return this.myForm.controls; }
 
   onSubmit() {
     this.submitted = true;
 
-    // stop here if form is invalid
-    if (this.myForm.invalid) {
-      return;
+    if (this.myForm.valid) {
+      this.loading = true;
+      this.domainsApiService.postDomain(this.formControls.domain.value, this.formControls.certPath.value, this.formControls.keyPath.value)
+        .pipe(first())
+        .subscribe(
+          data => {
+            this.newDomain = data;
+            this.emitter.emit(this.newDomain);
+            this.loading = false;
+            this.closeModal()
+            //this.router.navigate(['workspaces/' + data['id']])
+          },
+          error => {
+            this.loading = false;
+            console.log(error)
+          });
     }
-
-    this.loading = true;
-    this.domainsApiService.postDomain(this.f.domain.value, this.f.certPath.value, this.f.keyPath.value)
-      .pipe(first())
-      .subscribe(
-        data => {
-          this.newDomain = data;
-          this.emitter.emit(this.newDomain);
-          this.loading = false;
-          this.closeModal()
-          //this.router.navigate(['workspaces/' + data['id']])
-        },
-        error => {
-          this.loading = false;
-          console.log(error)
-        });
   }
 }

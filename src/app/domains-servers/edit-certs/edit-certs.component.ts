@@ -35,7 +35,7 @@ export class EditCertsComponent implements OnInit {
     }
 
     this.myForm = this.formBuilder.group({
-      certPath: [this.cert,Validators.required],
+      certPath: [this.cert, Validators.required],
       keyPath: [this.key, Validators.required]
     });
   }
@@ -44,29 +44,25 @@ export class EditCertsComponent implements OnInit {
     this.activeModal.close();
   }
 
-  get f() { return this.myForm.controls; }
+  get formControls() { return this.myForm.controls; }
 
   onSubmit() {
     this.submitted = true;
-
-    // stop here if form is invalid
-    if (this.myForm.invalid) {
-        return;
-    }
-    
-    this.loading = true;
-    this.domainsApiService.putDomain(String(this.editDomain.id), this.editDomain.domain, this.f.certPath.value, this.f.keyPath.value)
-      .pipe(first())
+    if (this.myForm.valid) {
+      this.loading = true;
+      this.domainsApiService.putDomain(String(this.editDomain.id), this.editDomain.domain, this.formControls.certPath.value, this.formControls.keyPath.value)
+        .pipe(first())
         .subscribe(
-            data => {
-                this.editDomain = data;
-                this.emitter.emit(this.editDomain);
-                this.loading = false;
-                this.closeModal()
-            },
-            error => {
-                this.loading = false;
-                console.log(error)
-            });
+          data => {
+            this.editDomain = data;
+            this.emitter.emit(this.editDomain);
+            this.loading = false;
+            this.closeModal()
+          },
+          error => {
+            this.loading = false;
+            console.log(error)
+          });
     }
+  }
 }

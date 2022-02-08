@@ -73,7 +73,7 @@ export class PageComponent implements OnInit {
   ) {
     this.route.params.subscribe(params => this.workspaceId = params['workspaceId'])
     this.route.params.subscribe(params => this.pageId = params['pageId'])
-    if (this.pageId != 'new') {
+    if (this.pageId !== 'new') {
       this.editPage = router.getCurrentNavigation().extras.state
       if (this.editPage == null) {
         this.router.navigate([`/workspaces/${this.workspaceId}/pages`])
@@ -130,7 +130,7 @@ export class PageComponent implements OnInit {
       }
       let doc = this.iframe.nativeElement.contentDocument || this.iframe.nativeElement.contentWindow;
       doc.open();
-      doc.write(this.f.htmlContent.value)
+      doc.write(this.formControls.htmlContent.value)
       doc.close();
       let frame = document.getElementById('frame')
       frame.style.height = window.innerHeight * .7 + 'px'
@@ -141,39 +141,36 @@ export class PageComponent implements OnInit {
     const modalRef = this.modalService.open(CloneSiteComponent);
     modalRef.componentInstance.emitter.subscribe(
       data => {
-        this.f.htmlContent.setValue(data);
+        this.formControls.htmlContent.setValue(data);
       }
     );
   }
 
-  get f() { return this.myForm.controls; }
+  get formControls() { return this.myForm.controls; }
 
   onSubmit() {
     this.submitted = true;
 
-    // stop here if form is invalid
-    if (this.myForm.invalid) {
-      return;
-    }
+    if (this.myForm.valid) {
+      this.loading = true
 
-    this.loading = true
-
-    if (this.pageId == "new") {
-      this.postPage()
-    } else {
-      this.putPage()
+      if (this.pageId == "new") {
+        this.postPage()
+      } else {
+        this.putPage()
+      }
     }
   }
 
   postPage() {
     this.pagesApiService.postPage(
-      this.workspaceId, this.f.name.value, this.f.htmlContent.value, this.f.url.value
+      this.workspaceId, this.formControls.name.value, this.formControls.htmlContent.value, this.formControls.url.value
     ).pipe(first())
       .subscribe(
         data => {
           this.loading = false
           if (data['success'] == false) {
-            this.alertService.newAlert("warning", "A page named " + this.f.name.value + " already exists in the database")
+            this.alertService.newAlert("warning", "A page named " + this.formControls.name.value + " already exists in the database")
           } else {
             this.router.navigate([`/workspaces/${this.workspaceId}/pages`])
           }
@@ -185,13 +182,13 @@ export class PageComponent implements OnInit {
 
   putPage() {
     this.pagesApiService.putPage(
-      this.workspaceId, this.pageId, this.f.name.value, this.f.htmlContent.value, this.f.url.value
+      this.workspaceId, this.pageId, this.formControls.name.value, this.formControls.htmlContent.value, this.formControls.url.value
     ).pipe(first())
       .subscribe(
         data => {
           this.loading = false
           if (data['success'] == false) {
-            this.alertService.newAlert("warning", "A page named " + this.f.name.value + " already exists in the database")
+            this.alertService.newAlert("warning", "A page named " + this.formControls.name.value + " already exists in the database")
           } else {
             this.router.navigate([`/workspaces/${this.workspaceId}/pages`])
           }

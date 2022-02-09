@@ -11,12 +11,12 @@
         <div class="input-group-prepend">
             <span class="input-group-text span-redir">Workspace</span>
         </div>
-        <select (change)="workspaceChosen()" class="form-control" formControlName="workspace" [ngClass]="{ 'is-invalid': submitted && f.workspace.errors }">
+        <select (change)="workspaceChosen()" class="form-control" formControlName="workspace" [ngClass]="{ 'is-invalid': submitted && formControls.workspace.errors }">
           <option disabled selected value> -- Select a workspace -- </option>
           <option *ngFor="let workspace of workspaces" [value]="workspace.id">{{ workspace.name }}</option>
         </select>
-        <div *ngIf="submitted && f.workspace.errors" class="invalid-feedback">
-          <div *ngIf="f.workspace.errors.required">Workspace is required</div>
+        <div *ngIf="submitted && formControls.workspace.errors" class="invalid-feedback">
+          <div *ngIf="formControls.workspace.errors.required">Workspace is required</div>
         </div>
       </div>
 
@@ -25,12 +25,12 @@
         <div class="input-group-prepend">
             <span class="input-group-text span-redir">Template</span>
         </div>
-        <select (change)="templateChosen()" class="form-control" formControlName="template" [ngClass]="{ 'is-invalid': submitted && f.template.errors }">
+        <select (change)="templateChosen()" class="form-control" formControlName="template" [ngClass]="{ 'is-invalid': submitted && formControls.template.errors }">
           <option disabled selected value> -- Select a template -- </option>
           <option *ngFor="let template of templates" [ngValue]="template">{{ template.name }}</option>
         </select>
-        <div *ngIf="submitted && f.template.errors" class="invalid-feedback">
-          <div *ngIf="f.template.errors.required">Template is required</div>
+        <div *ngIf="submitted && formControls.template.errors" class="invalid-feedback">
+          <div *ngIf="formControls.template.errors.required">Template is required</div>
         </div>
       </div>
 

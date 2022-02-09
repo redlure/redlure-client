@@ -83,26 +83,23 @@ export class EditProfileComponent implements OnInit, AfterViewInit, AfterViewChe
       this.editProfile.ssl = false;
     }
 
-    // stop here if form is invalid
-    if (this.myForm.invalid) {
-      return;
+    if (this.myForm.valid) {
+      this.loading = true;
+      this.profilesApiService.putProfile(this.workspaceId, String(this.editProfile.id), this.f.name.value, this.f.fromAddress.value, this.f.smtpHost.value,
+        this.f.smtpPort.value, this.f.username.value, this.f.password.value, this.editProfile.tls, this.editProfile.ssl)
+        .pipe(first())
+        .subscribe(
+          data => {
+            this.editProfile = data;
+            this.emitter.emit(this.editProfile);
+            this.loading = false;
+            this.closeModal()
+          },
+          error => {
+            this.loading = false;
+            console.log(error)
+          });
     }
-
-    this.loading = true;
-    this.profilesApiService.putProfile(this.workspaceId, String(this.editProfile.id), this.f.name.value, this.f.fromAddress.value, this.f.smtpHost.value,
-      this.f.smtpPort.value, this.f.username.value, this.f.password.value, this.editProfile.tls, this.editProfile.ssl)
-      .pipe(first())
-      .subscribe(
-        data => {
-          this.editProfile = data;
-          this.emitter.emit(this.editProfile);
-          this.loading = false;
-          this.closeModal()
-        },
-        error => {
-          this.loading = false;
-          console.log(error)
-        });
   }
 
   togglePassword(setting) {

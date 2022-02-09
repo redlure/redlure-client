@@ -11,9 +11,9 @@
           <div class="input-group-prepend">
             <span class="span-domain input-group-text">Domain</span>
           </div>
-          <input type="text" formControlName="domain" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.domain.errors }"/>
-          <div *ngIf="submitted && f.domain.errors" class="invalid-feedback">
-            <div *ngIf="f.domain.errors.required">Domain Name is required</div>
+          <input type="text" formControlName="domain" class="form-control" [ngClass]="{ 'is-invalid': submitted && formControls.domain.errors }"/>
+          <div *ngIf="submitted && formControls.domain.errors" class="invalid-feedback">
+            <div *ngIf="formControls.domain.errors.required">Domain Name is required</div>
           </div>
         </div>
         

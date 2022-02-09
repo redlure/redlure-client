@@ -1,68 +1,76 @@
 <div class="modal-header">
-    <h4 class="modal-title">New User</h4>
-    <button class="btn btn-outline-danger" (click)="closeModal()">Close</button>
-  </div>
-  <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
-    <div class="modal-body">
-      <div class="container">
+  <h4 class="modal-title">New User</h4>
+  <button class="btn btn-outline-danger" (click)="closeModal()">Close</button>
+</div>
+<form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+  <div class="modal-body">
+    <div class="container">
 
-        <!--Username Field-->
-        <div class="input-group form-group">
-          <div class="input-group-prepend">
-            <span class="span-user input-group-text">Username</span>
-          </div>
-          <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }"/>
-          <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-            <div *ngIf="f.username.errors.required">Username is required</div>
-          </div>
+      <!--Username Field-->
+      <div class="input-group form-group">
+        <div class="input-group-prepend">
+          <span class="span-user input-group-text">Username</span>
         </div>
-        
-          
-        <!--Password Field-->
-        <div class="input-group form-group">
-          <div class="input-group-prepend">
-              <span class="span-user input-group-text">Password</span>
-          </div>
-          <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }"/>
-          <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-            <div *ngIf="f.password.errors.required">Password is required</div>
-          </div>
-        </div>
-
-        <!--Confirm Password Field-->
-        <div class="input-group form-group">
-          <div class="input-group-prepend">
-              <span class="input-group-text span-user">Confirm Password</span>
-          </div>
-          <input type="password" formControlName="password2" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password2.errors }"/>
-          <div *ngIf="submitted && f.password2.errors" class="invalid-feedback">
-            <div *ngIf="f.password2.errors.required">Password is required</div>
-          </div>
-          <div *ngIf="match == false" class="invalid-login">
-            Passwords do not match
-          </div>
-        </div>
-          
-        <!--Role Field-->
-        <div class="input-group form-group">
-          <div class="input-group-prepend">
-              <span class="span-user input-group-text">Role</span>
-          </div>
-          <select class="form-control" formControlName="role" [ngClass]="{ 'is-invalid': submitted && f.role.errors }">
-            <option disabled selected value> -- Select a role -- </option>
-            <option *ngFor="let role of roles">{{ role.name }}</option>
-          </select>
-          <div *ngIf="submitted && f.role.errors" class="invalid-feedback">
-            <div *ngIf="f.role.errors.required">Role is required</div>
-          </div>
-        </div>
-
+        <input type="text" formControlName="username" class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && formControls.username?.errors }" />
+        <div *ngIf="submitted && formControls.username?.errors" class="invalid-feedback">
+          <div *ngIf="formControls.username?.errors.required">Username is required</div>
         </div>
       </div>
-    <div class="modal-footer">
-      <div *ngIf="loading" class="loadingio-spinner-dual-ball-jmseu88834m"><div class="ldio-c46ivvx8kf">
-        <div></div><div></div><div></div>
-        </div></div>
-      <button ngbAutofocus class="btn btn-outline-dark float-right login_btn">Create</button>
+
+
+      <!--Password Field-->
+      <div class="input-group form-group">
+        <div class="input-group-prepend">
+          <span class="span-user input-group-text">Password</span>
+        </div>
+        <input type="password" formControlName="password" class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && formControls.password?.errors }" />
+        <div *ngIf="submitted && formControls?.password.errors" class="invalid-feedback">
+          <div *ngIf="formControls.password?.errors.required">Password is required</div>
+        </div>
+      </div>
+
+      <!--Confirm Password Field-->
+      <div class="input-group form-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text span-user">Confirm Password</span>
+        </div>
+        <input type="password" formControlName="password2" class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && formControls.password2?.errors }" />
+        <div *ngIf="submitted && formControls.password2?.errors" class="invalid-feedback">
+          <div *ngIf="formControls.password2.errors?.required">Password is required</div>
+        </div>
+        <div *ngIf="match == false" class="invalid-login">
+          Passwords do not match
+        </div>
+      </div>
+
+      <!--Role Field-->
+      <div class="input-group form-group">
+        <div class="input-group-prepend">
+          <span class="span-user input-group-text">Role</span>
+        </div>
+        <select class="form-control" formControlName="role"
+          [ngClass]="{ 'is-invalid': submitted && formControls.role?.errors }">
+          <option disabled selected value> -- Select a role -- </option>
+          <option *ngFor="let role of roles">{{ role.name }}</option>
+        </select>
+        <div *ngIf="submitted && formControls.role?.errors" class="invalid-feedback">
+          <div *ngIf="formControls.role?.errors.required">Role is required</div>
+        </div>
+      </div>
+
     </div>
-  </form>
+  </div>
+  <div class="modal-footer">
+    <div *ngIf="loading" class="loadingio-spinner-dual-ball-jmseu88834m">
+      <div class="ldio-c46ivvx8kf">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+    <button ngbAutofocus class="btn btn-outline-dark float-right login_btn">Create</button>
+  </div>
+</form>

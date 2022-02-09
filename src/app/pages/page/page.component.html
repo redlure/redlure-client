@@ -22,9 +22,9 @@
             <div class="input-group-prepend">
               <span class="span-profile input-group-text">Name</span>
             </div>
-            <input placeholder="Page Name" type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.name.errors }"/>
-            <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
-              <div *ngIf="f.name.errors.required">Name is required</div>
+            <input placeholder="Page Name" type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && formControls.name.errors }"/>
+            <div *ngIf="submitted && formControls.name.errors" class="invalid-feedback">
+              <div *ngIf="formControls.name.errors.required">Name is required</div>
             </div>
           </div>
         </div>
@@ -35,10 +35,10 @@
             <div class="input-group-prepend">
               <span class="span-profile input-group-text">URL Path</span>
             </div>
-            <input placeholder="/path/after/domain" type="text" formControlName="url" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.url.errors }"/>
-            <div *ngIf="submitted && f.url.errors" class="invalid-feedback">
-              <div *ngIf="f.url.errors.required">URL is required</div>
-              <div *ngIf="f.url.errors.pattern">URL must start with /</div>
+            <input placeholder="/path/after/domain" type="text" formControlName="url" class="form-control" [ngClass]="{ 'is-invalid': submitted && formControls.url.errors }"/>
+            <div *ngIf="submitted && formControls.url.errors" class="invalid-feedback">
+              <div *ngIf="formControls.url.errors.required">URL is required</div>
+              <div *ngIf="formControls.url.errors.pattern">URL must start with /</div>
             </div>
           </div>
         </div>

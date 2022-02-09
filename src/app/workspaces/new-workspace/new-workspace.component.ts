@@ -39,34 +39,29 @@ export class NewWorkspaceComponent implements OnInit {
     this.activeModal.close();
   }
 
-  get f() { return this.myForm.controls; }
+  get formControls() { return this.myForm.controls; }
 
   onSubmit() {
     this.submitted = true;
 
-    // stop here if form is invalid
-    if (this.myForm.invalid) {
-      return;
+    if (this.myForm.valid) {
+      this.loading = true;
+      this.workspacesApiService.postWorkspace(this.formControls.name.value)
+        .pipe(first())
+        .subscribe(
+          data => {
+            this.loading = false;
+            if (data['success'] == false) {
+              this.alertService.newAlert("warning", this.formControls.name.value + " is an existing workspace")
+            } else {
+              this.newWorkspace = data;
+              this.emitter.emit(this.newWorkspace);
+              this.closeModal()
+            }
+          },
+          error => {
+            this.loading = false;
+          });
     }
-
-    this.loading = true;
-    this.workspacesApiService.postWorkspace(this.f.name.value)
-      .pipe(first())
-      .subscribe(
-        data => {
-          this.loading = false;
-          if (data['success'] == false) {
-            this.alertService.newAlert("warning", this.f.name.value + " is an existing workspace")
-          } else {
-            this.newWorkspace = data;
-            this.emitter.emit(this.newWorkspace);
-            this.closeModal()
-          }
-        },
-        error => {
-          this.loading = false;
-        });
-
   }
-
 }

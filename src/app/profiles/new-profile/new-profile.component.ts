@@ -57,7 +57,7 @@ export class NewProfileComponent implements OnInit {
     this.activeModal.close();
   }
 
-  get f() { return this.myForm.controls; }
+  get formControls() { return this.myForm.controls; }
 
   onSubmit() {
     this.submitted = true;
@@ -70,30 +70,27 @@ export class NewProfileComponent implements OnInit {
       this.ssl = false;
     }
 
-    // stop here if form is invalid
-    if (this.myForm.invalid) {
-      return;
+    if (this.myForm.valid) {
+      this.loading = true;
+      this.profilesApiService.postProfile(this.workspaceId, this.formControls.name.value, this.formControls.fromAddress.value, this.formControls.smtpHost.value,
+        this.formControls.smtpPort.value, this.formControls.username.value, this.formControls.password.value, this.tls, this.ssl)
+        .pipe(first())
+        .subscribe(
+          data => {
+            this.loading = false;
+            if (data['success'] == false) {
+              this.sendAlert(this.formControls.name.value)
+            } else {
+              this.newProfile = data;
+              this.emitter.emit(this.newProfile);
+              this.closeModal()
+            }
+          },
+          error => {
+            this.loading = false;
+            console.log(error)
+          });
     }
-
-    this.loading = true;
-    this.profilesApiService.postProfile(this.workspaceId, this.f.name.value, this.f.fromAddress.value, this.f.smtpHost.value,
-      this.f.smtpPort.value, this.f.username.value, this.f.password.value, this.tls, this.ssl)
-      .pipe(first())
-      .subscribe(
-        data => {
-          this.loading = false;
-          if (data['success'] == false) {
-            this.sendAlert(this.f.name.value)
-          } else {
-            this.newProfile = data;
-            this.emitter.emit(this.newProfile);
-            this.closeModal()
-          }
-        },
-        error => {
-          this.loading = false;
-          console.log(error)
-        });
   }
 
   sendAlert(name) {

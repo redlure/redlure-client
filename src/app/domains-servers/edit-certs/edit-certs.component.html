@@ -11,9 +11,9 @@
         <div class="input-group-prepend">
             <span class="span-domain input-group-text">Cert Path</span>
         </div>
-        <input type="text" formControlName="certPath" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.certPath.errors }"/>
-        <div *ngIf="submitted && f.certPath.errors" class="invalid-feedback">
-          <div *ngIf="f.domain.certPath.required">Cert Path is required</div>
+        <input type="text" formControlName="certPath" class="form-control" [ngClass]="{ 'is-invalid': submitted && formControls.certPath.errors }"/>
+        <div *ngIf="submitted && formControls.certPath.errors" class="invalid-feedback">
+          <div *ngIf="formControls.domain.certPath.required">Cert Path is required</div>
         </div>      
       </div>
         
@@ -22,9 +22,9 @@
         <div class="input-group-prepend">
             <span class="span-domain input-group-text">Key Path</span>
         </div>
-        <input type="text" formControlName="keyPath" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.keyPath.errors }"/>
-        <div *ngIf="submitted && f.keyPath.errors" class="invalid-feedback">
-          <div *ngIf="f.keyPath.errors.required">Key Path is required</div>
+        <input type="text" formControlName="keyPath" class="form-control" [ngClass]="{ 'is-invalid': submitted && formControls.keyPath.errors }"/>
+        <div *ngIf="submitted && formControls.keyPath.errors" class="invalid-feedback">
+          <div *ngIf="formControls.keyPath.errors.required">Key Path is required</div>
         </div>      
       </div>
 

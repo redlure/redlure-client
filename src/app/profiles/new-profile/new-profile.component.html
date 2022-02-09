@@ -11,9 +11,9 @@
           <div class="input-group-prepend">
             <span class="span-profile input-group-text">Name</span>
           </div>
-          <input type="text" formControlName="name" placeholder="Profile Name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.name.errors }"/>
-          <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
-            <div *ngIf="f.name.errors.required">Name is required</div>
+          <input type="text" formControlName="name" placeholder="Profile Name" class="form-control" [ngClass]="{ 'is-invalid': submitted && formControls.name.errors }"/>
+          <div *ngIf="submitted && formControls.name.errors" class="invalid-feedback">
+            <div *ngIf="formControls.name.errors.required">Name is required</div>
           </div>
         </div>
 
@@ -22,9 +22,9 @@
           <div class="input-group-prepend">
             <span class="span-profile input-group-text">Sender</span>
           </div>
-          <input type="text" formControlName="fromAddress" placeholder="Sender Name <sender@phish.com>" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.fromAddress.errors }"/>
-          <div *ngIf="submitted && f.fromAddress.errors" class="invalid-feedback">
-            <div *ngIf="f.fromAddress.errors.required">Email is required</div>
+          <input type="text" formControlName="fromAddress" placeholder="Sender Name <sender@phish.com>" class="form-control" [ngClass]="{ 'is-invalid': submitted && formControls.fromAddress.errors }"/>
+          <div *ngIf="submitted && formControls.fromAddress.errors" class="invalid-feedback">
+            <div *ngIf="formControls.fromAddress.errors.required">Email is required</div>
           </div>
         </div>
 
@@ -36,9 +36,9 @@
           <div class="input-group-prepend">
             <span class="span-profile input-group-text">Host</span>
           </div>
-          <input type="text" formControlName="smtpHost" placeholder="mx.mydomain.com" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.smtpHost.errors }"/>
-          <div *ngIf="submitted && f.smtpHost.errors" class="invalid-feedback">
-            <div *ngIf="f.smtpHost.errors.required">SMTP Host is required</div>
+          <input type="text" formControlName="smtpHost" placeholder="mx.mydomain.com" class="form-control" [ngClass]="{ 'is-invalid': submitted && formControls.smtpHost.errors }"/>
+          <div *ngIf="submitted && formControls.smtpHost.errors" class="invalid-feedback">
+            <div *ngIf="formControls.smtpHost.errors.required">SMTP Host is required</div>
           </div>
         </div>
 
@@ -47,10 +47,10 @@
           <div class="input-group-prepend">
             <span class="span-profile input-group-text">Port</span>
           </div>
-          <input type="text" formControlName="smtpPort" placeholder="587" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.smtpPort.errors }"/>
-          <div *ngIf="submitted && f.smtpPort.errors" class="invalid-feedback">
-            <div *ngIf="f.smtpPort.errors.required">SMTP Port is required</div>
-            <div *ngIf="f.smtpPort.errors.pattern">SMTP Port must be a number</div>
+          <input type="text" formControlName="smtpPort" placeholder="587" class="form-control" [ngClass]="{ 'is-invalid': submitted && formControls.smtpPort.errors }"/>
+          <div *ngIf="submitted && formControls.smtpPort.errors" class="invalid-feedback">
+            <div *ngIf="formControls.smtpPort.errors.required">SMTP Port is required</div>
+            <div *ngIf="formControls.smtpPort.errors.pattern">SMTP Port must be a number</div>
           </div>
         </div>
 
@@ -59,9 +59,9 @@
           <div class="input-group-prepend">
             <span class="span-profile input-group-text">Username</span>
           </div>
-          <input type="text" formControlName="username" placeholder="sender@phish.com" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }"/>
-          <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-            <div *ngIf="f.username.errors.required">Username is required</div>
+          <input type="text" formControlName="username" placeholder="sender@phish.com" class="form-control" [ngClass]="{ 'is-invalid': submitted && formControls.username.errors }"/>
+          <div *ngIf="submitted && formControls.username.errors" class="invalid-feedback">
+            <div *ngIf="formControls.username.errors.required">Username is required</div>
           </div>
         </div>
 
@@ -70,13 +70,13 @@
           <div class="input-group-prepend">
             <span class="span-profile input-group-text">Password</span>
           </div>
-          <input type="{{ passwordType }}" formControlName="password" placeholder="Password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }"/>
+          <input type="{{ passwordType }}" formControlName="password" placeholder="Password" class="form-control" [ngClass]="{ 'is-invalid': submitted && formControls.password.errors }"/>
           <div class="input-group-append">
             <button *ngIf="passwordType == 'password'" class="btn btn-sm btn-outline-dark fas fa-eye" (click)="togglePassword('text')" title="Show password"></button>
             <button *ngIf="passwordType == 'text'" class="btn btn-sm btn-outline-dark fas fa-eye-slash" (click)="togglePassword('password')" title="Hide password"></button>
           </div>
-          <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-            <div *ngIf="f.password.errors.required">Password is required</div>
+          <div *ngIf="submitted && formControls.password.errors" class="invalid-feedback">
+            <div *ngIf="formControls.password.errors.required">Password is required</div>
           </div>
         </div>
 

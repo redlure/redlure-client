@@ -13,9 +13,9 @@
         <div class="input-group-prepend">
           <span class="input-group-text span-redir">Name</span>
         </div>
-        <input placeholder="Campaign Name" type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.name.errors }"/>
-        <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
-          <div *ngIf="f.name.errors.required">Name is required</div>
+        <input placeholder="Campaign Name" type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && formControls.name.errors }"/>
+        <div *ngIf="submitted && formControls.name.errors" class="invalid-feedback">
+          <div *ngIf="formControls.name.errors.required">Name is required</div>
         </div>
       </div>
 
@@ -26,13 +26,13 @@
         <div class="input-group-prepend">
             <span class="input-group-text span-redir">Email</span>
         </div>
-        <select class="form-control" formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+        <select class="form-control" formControlName="email" [ngClass]="{ 'is-invalid': submitted && formControls.email.errors }">
           <option disabled selected value> -- Select a email -- </option>
           <option *ngFor="let email of newCampaignService.allModules['emails']" [value]="email.id">{{ email.name }}</option>
         </select>
 
-        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-          <div *ngIf="f.email.errors.required">Email is required</div>
+        <div *ngIf="submitted && formControls.email.errors" class="invalid-feedback">
+          <div *ngIf="formControls.email.errors.required">Email is required</div>
         </div>
       </div>
 
@@ -110,12 +110,12 @@
         <div class="input-group-prepend">
             <span class="input-group-text span-redir">Payload</span>
         </div>
-        <select [value]="newCampaignService.newCampaign.payloadFile" class="form-control" formControlName="payloadFile" [required]="f.payloadUrl.value ? true : null" [ngClass]="{ 'is-invalid': submitted && f.payloadFile.errors }">
+        <select [value]="newCampaignService.newCampaign.payloadFile" class="form-control" formControlName="payloadFile" [required]="formControls.payloadUrl.value ? true : null" [ngClass]="{ 'is-invalid': submitted && formControls.payloadFile.errors }">
           <option selected value> -- Select a file -- </option>
           <option *ngFor="let file of newCampaignService.serverFiles">{{ file }}</option>
         </select>
-        <div *ngIf="submitted && f.payloadFile.errors" class="invalid-feedback">
-          <div *ngIf="f.payloadFile.errors.required">A payload must be provided for hosting at the given URL</div>
+        <div *ngIf="submitted && formControls.payloadFile.errors" class="invalid-feedback">
+          <div *ngIf="formControls.payloadFile.errors.required">A payload must be provided for hosting at the given URL</div>
         </div>
       </div>
 
@@ -124,10 +124,10 @@
         <div class="input-group-prepend">
           <span class="input-group-text">Payload URL</span>
         </div>
-        <input placeholder="/download/file.ext" type="text" formControlName="payloadUrl" class="form-control" [required]="f.payloadFile.value ? true : null" [ngClass]="{ 'is-invalid': submitted && f.payloadUrl.errors }"/>
-        <div *ngIf="submitted && f.payloadUrl.errors" class="invalid-feedback">
-          <div *ngIf="f.payloadUrl.errors.pattern">URL must start with /</div>
-          <div *ngIf="f.payloadUrl.errors.required">URL is required to host the selected payload on</div>
+        <input placeholder="/download/file.ext" type="text" formControlName="payloadUrl" class="form-control" [required]="formControls.payloadFile.value ? true : null" [ngClass]="{ 'is-invalid': submitted && formControls.payloadUrl.errors }"/>
+        <div *ngIf="submitted && formControls.payloadUrl.errors" class="invalid-feedback">
+          <div *ngIf="formControls.payloadUrl.errors.pattern">URL must start with /</div>
+          <div *ngIf="formControls.payloadUrl.errors.required">URL is required to host the selected payload on</div>
         </div>
       </div>
     

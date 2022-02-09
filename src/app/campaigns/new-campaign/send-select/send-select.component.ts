@@ -34,7 +34,7 @@ export class SendSelectComponent implements OnInit {
   }
 
   ngOnInit() {
-    var converted = new Date(new Date(this.newCampaignService.allModules["console_time"]).getTime() + new Date(this.newCampaignService.allModules["console_time"]).getTimezoneOffset()* 60000)
+    var converted = new Date(new Date(this.newCampaignService.allModules["console_time"]).getTime() + new Date(this.newCampaignService.allModules["console_time"]).getTimezoneOffset() * 60000)
     const offset = converted.valueOf() - this.newCampaignService.allModules["client_time"].valueOf()
     this.consoleTime = new Date(Date.now() + offset);
     this.myForm = this.formBuilder.group({
@@ -46,7 +46,7 @@ export class SendSelectComponent implements OnInit {
     });
   }
 
-  get f() { return this.myForm.controls; }
+  get formControls() { return this.myForm.controls; }
 
   closeModal() {
     this.activeModal.close();
@@ -60,20 +60,15 @@ export class SendSelectComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
 
-    // stop here if form is invalid
-    if (this.myForm.invalid) {
-        return;
+    if (this.myForm.valid) {
+      this.newCampaignService.newCampaign.profile = this.formControls.profile.value;
+      this.newCampaignService.newCampaign.list = this.formControls.targetList.value;
+      this.newCampaignService.newCampaign.batchInterval = this.formControls.batchInterval.value;
+      this.newCampaignService.newCampaign.batchNumber = this.formControls.batchNumber.value;
+      this.newCampaignService.newCampaign.startDate = this.formControls.startDate.value;
+
+      this.postCampaign();
     }
-
-    //set values to newCampaign object
-
-    this.newCampaignService.newCampaign.profile = this.f.profile.value;
-    this.newCampaignService.newCampaign.list = this.f.targetList.value;
-    this.newCampaignService.newCampaign.batchInterval = this.f.batchInterval.value;
-    this.newCampaignService.newCampaign.batchNumber = this.f.batchNumber.value;
-    this.newCampaignService.newCampaign.startDate = this.f.startDate.value;
-
-    this.postCampaign();
   }
 
 
@@ -82,36 +77,36 @@ export class SendSelectComponent implements OnInit {
     let nc = this.newCampaignService.newCampaign;
     this.campaignsApiService.postCampaign(this.workspaceId, nc.name, nc.email, nc.profile,
       nc.list, nc.batchNumber, nc.batchInterval, nc.startDate, nc.domain, nc.server,
-      nc.port, nc.ssl, nc.pages, nc.redirectUrl, nc.safetyUrl, nc.payloadUrl, nc.payloadFile, nc.attachment
-      ).pipe(first())
+      nc.port, nc.ssl, nc.pages, nc.redirectUrl, nc.payloadUrl, nc.payloadFile, nc.attachment
+    ).pipe(first())
       .subscribe(
-          data => {
-            this.loading = false;
-            if (data['success'] == false) {
-              this.failed = true;;
-              this.failMsg = data['msg'];
-            } else {
-              this.emitter.emit(data['campaign']);
-              this,this.activeModal.close();
-            }
-          },
-          error => {
-              console.log(error)
-          });
+        data => {
+          this.loading = false;
+          if (data['success'] == false) {
+            this.failed = true;;
+            this.failMsg = data['msg'];
+          } else {
+            this.emitter.emit(data['campaign']);
+            this, this.activeModal.close();
+          }
+        },
+        error => {
+          console.log(error)
+        });
   }
 
 }
 
 // Validator for Date and Time
 export const DateTimeValidator = (fc: FormControl) => {
-  if (fc.value == "" || fc.value == null){
+  if (fc.value == "" || fc.value == null) {
     return true
   }
   const date = new Date(fc.value);
   const isValid = !isNaN(date.valueOf());
   return isValid ? null : {
-      isValid: {
-          valid: false
-      }
+    isValid: {
+      valid: false
+    }
   };
 }

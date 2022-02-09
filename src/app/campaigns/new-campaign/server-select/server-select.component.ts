@@ -20,7 +20,7 @@ export class ServerSelectComponent implements OnInit {
   failMsg = "";
   workspaceId: String;
   @Output() emitter: EventEmitter<any> = new EventEmitter<any>();
- 
+
 
   constructor(
     private modalService: NgbModal,
@@ -43,7 +43,7 @@ export class ServerSelectComponent implements OnInit {
     });
   }
 
-  getData(){
+  getData() {
     this.campaignsApiService.getAllModules(this.workspaceId)
       .subscribe(data => {
         this.newCampaignService.allModules = data;
@@ -56,94 +56,89 @@ export class ServerSelectComponent implements OnInit {
   }
 
   sslChange(event) {
-   this.newCampaignService.newCampaign.ssl = event.target.checked;
+    this.newCampaignService.newCampaign.ssl = event.target.checked;
   }
 
-  get f() { return this.myForm.controls; }
+  get formControls() { return this.myForm.controls; }
 
   validateCerts() {
-    this.campaignsApiService.validateCerts(this.workspaceId, this.f.domain.value, this.f.server.value)
-    .pipe(first())
+    this.campaignsApiService.validateCerts(this.workspaceId, this.formControls.domain.value, this.formControls.server.value)
+      .pipe(first())
       .subscribe(
-          data => {
-              this.loading = false;
-              if(data['exists']) {
-                this.newCampaignService.newCampaign['server'] = this.f.server.value;
-                this.newCampaignService.newCampaign['domain'] = this.f.domain.value;
-                this.newCampaignService.newCampaign['port'] = this.f.port.value;
-                this.emitter.emit(true);
-                this.closeModal()
-              } else {
-                this.failed = true;
-                this.failMsg = data['msg']
-              }
-          },
-          error => {
-              this.loading = false;
-              console.log(error)
-      });
+        data => {
+          this.loading = false;
+          if (data['exists']) {
+            this.newCampaignService.newCampaign['server'] = this.formControls.server.value;
+            this.newCampaignService.newCampaign['domain'] = this.formControls.domain.value;
+            this.newCampaignService.newCampaign['port'] = this.formControls.port.value;
+            this.emitter.emit(true);
+            this.closeModal()
+          } else {
+            this.failed = true;
+            this.failMsg = data['msg']
+          }
+        },
+        error => {
+          this.loading = false;
+          console.log(error)
+        });
   }
 
   validateIps() {
-    this.campaignsApiService.validateIps(this.workspaceId, this.f.domain.value, this.f.server.value)
-    .pipe(first())
+    this.campaignsApiService.validateIps(this.workspaceId, this.formControls.domain.value, this.formControls.server.value)
+      .pipe(first())
       .subscribe(
-          data => {
-              if(data['success']) {
-                if (this.newCampaignService.newCampaign.ssl) {
-                  this.validateCerts()
-                } else {
-                  this.newCampaignService.newCampaign['server'] = this.f.server.value;
-                  this.newCampaignService.newCampaign['domain'] = this.f.domain.value;
-                  this.newCampaignService.newCampaign['port'] = this.f.port.value;
-                  this.emitter.emit(true);
-                  this.closeModal()
-                }
-                
-              } else {
-                this.loading = false;
-                this.failed = true;
-                this.failMsg = data['msg']
-              }
-          },
-          error => {
-              this.loading = false;
-              console.log(error)
-      });
+        data => {
+          if (data['success']) {
+            if (this.newCampaignService.newCampaign.ssl) {
+              this.validateCerts()
+            } else {
+              this.newCampaignService.newCampaign['server'] = this.formControls.server.value;
+              this.newCampaignService.newCampaign['domain'] = this.formControls.domain.value;
+              this.newCampaignService.newCampaign['port'] = this.formControls.port.value;
+              this.emitter.emit(true);
+              this.closeModal()
+            }
+
+          } else {
+            this.loading = false;
+            this.failed = true;
+            this.failMsg = data['msg']
+          }
+        },
+        error => {
+          this.loading = false;
+          console.log(error)
+        });
   }
 
   onSubmit() {
     this.submitted = true;
 
-    // stop here if form is invalid
-    if (this.myForm.invalid) {
-        return;
-    }
+    if (this.myForm.valid) {
+      this.loading = true;
 
-    this.loading = true;
-
-    //const server = this.newCampaignService.allModules['servers'].find( ({ alias }) => alias === this.f.server.value );
-    this.serversApiService.refreshServerStatus(this.f.server.value)
-      .pipe(first())
+      //const server = this.newCampaignService.allModules['servers'].find( ({ alias }) => alias === this.formControls.server.value );
+      this.serversApiService.refreshServerStatus(this.formControls.server.value)
+        .pipe(first())
         .subscribe(
-            data => {
-                if(data['status'] == 'Online') {
-                  this.validateIps()
-                  this.serversApiService.getFiles(this.f.server.value)
-                  .subscribe(files => {
-                    this.newCampaignService.serverFiles = files['files'];
-                  });
-                } else {
-                  this.loading = false
-                  this.failed = true;
-                  this.failMsg = "Server is not currently online";
-                }
-            },
-            error => {
-                this.loading = false;
-                console.log(error)
-            });
-
+          data => {
+            if (data['status'] == 'Online') {
+              this.validateIps()
+              this.serversApiService.getFiles(this.formControls.server.value)
+                .subscribe(files => {
+                  this.newCampaignService.serverFiles = files['files'];
+                });
+            } else {
+              this.loading = false
+              this.failed = true;
+              this.failMsg = "Server is not currently online";
+            }
+          },
+          error => {
+            this.loading = false;
+            console.log(error)
+          });
+    }
   }
-
 }

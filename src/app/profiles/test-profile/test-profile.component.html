@@ -9,10 +9,10 @@
         <div class="input-group-prepend">
             <span class="input-group-text">Email</span>
         </div>
-        <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }"/>
-        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-            <div *ngIf="f.email.errors.required">Email is required</div>
-            <div *ngIf="f.email.errors.email">Email must be an formatted as an email address</div>
+        <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && formControls.email.errors }"/>
+        <div *ngIf="submitted && formControls.email.errors" class="invalid-feedback">
+            <div *ngIf="formControls.email.errors.required">Email is required</div>
+            <div *ngIf="formControls.email.errors.email">Email must be an formatted as an email address</div>
         </div>
       </div>
 

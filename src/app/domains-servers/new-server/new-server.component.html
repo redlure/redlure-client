@@ -11,9 +11,9 @@
           <div class="input-group-prepend">
             <span class="span-server input-group-text">IP Address</span>
           </div>
-          <input type="text" formControlName="ip" placeholder="127.0.0.1" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.ip.errors }"/>
-          <div *ngIf="submitted && f.ip.errors" class="invalid-feedback">
-            <div *ngIf="f.ip.errors.required">IP Address is required</div>
+          <input type="text" formControlName="ip" placeholder="127.0.0.1" class="form-control" [ngClass]="{ 'is-invalid': submitted && formControls.ip.errors }"/>
+          <div *ngIf="submitted && formControls.ip.errors" class="invalid-feedback">
+            <div *ngIf="formControls.ip.errors.required">IP Address is required</div>
           </div>
         </div>
 
@@ -22,9 +22,9 @@
           <div class="input-group-prepend">
             <span class="span-server input-group-text">Alias</span>
           </div>
-          <input type="text" formControlName="alias" placeholder="Worker-1" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.alias.errors }"/>
-          <div *ngIf="submitted && f.alias.errors" class="invalid-feedback">
-            <div *ngIf="f.alias.errors.required">Alias is required</div>
+          <input type="text" formControlName="alias" placeholder="Worker-1" class="form-control" [ngClass]="{ 'is-invalid': submitted && formControls.alias.errors }"/>
+          <div *ngIf="submitted && formControls.alias.errors" class="invalid-feedback">
+            <div *ngIf="formControls.alias.errors.required">Alias is required</div>
           </div>
         </div>
 
@@ -33,10 +33,10 @@
           <div class="input-group-prepend">
             <span class="span-server input-group-text">Port</span>
           </div>
-          <input type="text" formControlName="port" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.port.errors }"/>
-          <div *ngIf="submitted && f.port.errors" class="invalid-feedback">
-            <div *ngIf="f.port.errors.required">Port is required</div>
-            <div *ngIf="f.port.errors.pattern">Port must be numeric</div>
+          <input type="text" formControlName="port" class="form-control" [ngClass]="{ 'is-invalid': submitted && formControls.port.errors }"/>
+          <div *ngIf="submitted && formControls.port.errors" class="invalid-feedback">
+            <div *ngIf="formControls.port.errors.required">Port is required</div>
+            <div *ngIf="formControls.port.errors.pattern">Port must be numeric</div>
           </div>
         </div>
 

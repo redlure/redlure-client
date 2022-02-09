@@ -30,15 +30,15 @@ export class ImportModuleComponent implements OnInit {
     private workspacesApiService: WorkspacesApiService
   ) { }
 
-  get f() { return this.myForm.controls; }
+  get formControls() { return this.myForm.controls; }
 
   ngOnInit() {
     this.myForm = this.formBuilder.group({
       workspace: ["", Validators.required],
       template: ["", Validators.required]
     });
-    this.f.workspace.disable();
-    this.f.template.disable();
+    this.formControls.workspace.disable();
+    this.formControls.template.disable();
     this.getWorkspaces();
 
   }
@@ -50,47 +50,47 @@ export class ImportModuleComponent implements OnInit {
         workspaces => {
           this.workspaces = workspaces;
           this.loading = false;
-          this.f.workspace.enable();
+          this.formControls.workspace.enable();
         });
   }
 
   getProfiles(): void {
     this.loading = true;
-    this.profilesApiService.getProfiles(this.f.workspace.value)
+    this.profilesApiService.getProfiles(this.formControls.workspace.value)
       .subscribe(profiles => {
         this.templates = profiles;
         this.loading = false;
-        this.f.template.enable();
+        this.formControls.template.enable();
       })
   }
 
   getEmails(): void {
     this.loading = true;
-    this.emailsApiService.getEmails(this.f.workspace.value)
+    this.emailsApiService.getEmails(this.formControls.workspace.value)
       .subscribe(emails => {
         this.templates = emails;
         this.loading = false;
-        this.f.template.enable();
+        this.formControls.template.enable();
       })
   }
 
   getPages(): void {
     this.loading = true;
-    this.pagesApiService.getPages(this.f.workspace.value)
+    this.pagesApiService.getPages(this.formControls.workspace.value)
       .subscribe(pages => {
         this.templates = pages;
         this.loading = false;
-        this.f.template.enable();
+        this.formControls.template.enable();
       })
   }
 
   getLists(): void {
     this.loading = true;
-    this.listsApiService.getLists(this.f.workspace.value)
+    this.listsApiService.getLists(this.formControls.workspace.value)
       .subscribe(lists => {
         this.templates = lists;
         this.loading = false;
-        this.f.template.enable();
+        this.formControls.template.enable();
       })
   }
 
@@ -115,7 +115,7 @@ export class ImportModuleComponent implements OnInit {
   }
 
   onSubmit() {
-    this.emitter.emit(this.f.template.value)
+    this.emitter.emit(this.formControls.template.value)
     this.closeModal()
   }
 

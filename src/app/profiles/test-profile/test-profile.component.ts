@@ -40,38 +40,30 @@ export class TestProfileComponent implements OnInit {
     this.activeModal.close();
   }
 
-  get f() { return this.myForm.controls; }
+  get formControls() { return this.myForm.controls; }
 
   onSubmit() {
     this.submitted = true;
 
-    // stop here if form is invalid
-    if (this.myForm.invalid) {
-      return;
+    if (this.myForm.valid) {
+      this.loading = true;
+      this.profilesApiService.testProfile(this.workspaceId, String(this.editProfile.id), this.formControls.email.value)
+        .pipe(first())
+        .subscribe(
+          data => {
+            this.loading = false;
+            if (data['success']) {
+              this.sendFail = false;
+              this.sendSuccess = true;
+            } else {
+              this.sendFail = true;
+              this.sendSuccess = false;
+            }
+          },
+          error => {
+            this.loading = false;
+            console.log(error)
+          });
     }
-
-    this.loading = true;
-    this.profilesApiService.testProfile(this.workspaceId, String(this.editProfile.id), this.f.email.value)
-      .pipe(first())
-      .subscribe(
-        data => {
-          this.loading = false;
-          if (data['success']) {
-            this.sendFail = false;
-            this.sendSuccess = true;
-          } else {
-            this.sendFail = true;
-            this.sendSuccess = false;
-          }
-
-
-          //this.router.navigate(['workspaces/' + data['id']])
-        },
-        error => {
-          this.loading = false;
-          console.log(error)
-        });
-
   }
-
 }

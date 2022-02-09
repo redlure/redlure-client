@@ -52,10 +52,10 @@ export class NewServerComponent implements OnInit {
     this.activeModal.close();
   }
 
-  get f() { return this.myForm.controls; }
+  get formControls() { return this.myForm.controls; }
 
   postNew() {
-    this.serversApiService.postServer(this.f.ip.value, this.f.alias.value, this.f.port.value)
+    this.serversApiService.postServer(this.formControls.ip.value, this.formControls.alias.value, this.formControls.port.value)
       .pipe(first())
       .subscribe(
         data => {
@@ -72,7 +72,7 @@ export class NewServerComponent implements OnInit {
   }
 
   updateExisting() {
-    this.serversApiService.putServer(this.editServer.id, this.f.ip.value, this.f.alias.value, this.f.port.value)
+    this.serversApiService.putServer(this.editServer.id, this.formControls.ip.value, this.formControls.alias.value, this.formControls.port.value)
       .pipe(first())
       .subscribe(
         data => {
@@ -80,9 +80,9 @@ export class NewServerComponent implements OnInit {
           if (data['success'] == false) {
             this.alertService.newAlert("danger", data['msg'])
           } else {
-            this.editServer.ip = this.f.ip.value;
-            this.editServer.alias = this.f.alias.value;
-            this.editServer.port = this.f.port.value;
+            this.editServer.ip = this.formControls.ip.value;
+            this.editServer.alias = this.formControls.alias.value;
+            this.editServer.port = this.formControls.port.value;
             this.closeModal();
           }
 
@@ -92,18 +92,14 @@ export class NewServerComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
 
-    // stop here if form is invalid
-    if (this.myForm.invalid) {
-      return;
+    if (this.myForm.valid) {
+      this.loading = true;
+      if (this.title == "New Server") {
+        this.postNew();
+      } else {
+        this.updateExisting();
+      }
     }
-
-    this.loading = true;
-    if (this.title == "New Server") {
-      this.postNew();
-    } else {
-      this.updateExisting();
-    }
-
   }
 
 }

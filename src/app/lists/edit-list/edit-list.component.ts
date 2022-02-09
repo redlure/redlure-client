@@ -142,7 +142,7 @@ export class EditListComponent implements OnInit, AfterViewInit, OnDestroy {
       var fname: string = '';
       var lname: string = '';
 
-      if (index != 0) {
+      if (index !== 0) {
         row.forEach((txt, index) => {
           if (index == emailCol) { email = txt; }
           if (index == fnameCol) { fname = txt; }
@@ -156,7 +156,7 @@ export class EditListComponent implements OnInit, AfterViewInit, OnDestroy {
           email: email
         }
 
-        if (this.newTarget.email != '') { this.targets.push(this.newTarget); }
+        if (this.newTarget.email !== '') { this.targets.push(this.newTarget); }
       }
     });
   }
@@ -168,18 +168,18 @@ export class EditListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   insertTarget() {
-    if (!this.f.email.errors && this.f.email.value != "") {
+    if (!this.formControls.email.errors && this.formControls.email.value != "") {
       this.newTarget = {
         id: null,
-        first_name: this.f.first_name.value,
-        last_name: this.f.last_name.value,
-        email: this.f.email.value
+        first_name: this.formControls.first_name.value,
+        last_name: this.formControls.last_name.value,
+        email: this.formControls.email.value
       }
 
       this.targets.push(this.newTarget);
-      this.f.first_name.setValue("");
-      this.f.last_name.setValue("");
-      this.f.email.setValue("");
+      this.formControls.first_name.setValue("");
+      this.formControls.last_name.setValue("");
+      this.formControls.email.setValue("");
       this.rerender();
     }
   }
@@ -188,7 +188,7 @@ export class EditListComponent implements OnInit, AfterViewInit, OnDestroy {
     this.activeModal.close();
   }
 
-  get f() { return this.myForm.controls; }
+  get formControls() { return this.myForm.controls; }
 
   onSubmit() {
     this.submitted = true;
@@ -199,13 +199,13 @@ export class EditListComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     this.loading = true;
-    this.listsApiService.putList(this.workspaceId, String(this.editList.id), this.f.name.value, this.targets)
+    this.listsApiService.putList(this.workspaceId, String(this.editList.id), this.formControls.name.value, this.targets)
       .pipe(first())
       .subscribe(
         data => {
           this.loading = false;
           if (data['success'] == false) {
-            this.sendAlert(this.f.name.value)
+            this.sendAlert(this.formControls.name.value)
           } else {
             this.editList = data;
             this.emitter.emit(this.editList);

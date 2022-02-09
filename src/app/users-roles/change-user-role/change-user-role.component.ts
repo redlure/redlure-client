@@ -33,7 +33,7 @@ export class ChangeUserRoleComponent implements OnInit {
     });
   }
 
-  get f() { return this.myForm.controls; }
+  get formControls() { return this.myForm.controls; }
 
   closeModal() {
     this.activeModal.close();
@@ -41,7 +41,7 @@ export class ChangeUserRoleComponent implements OnInit {
 
   onSubmit(){
     this.loading = true;
-    this.usersApiService.changeUserRole(this.editUser['id'], this.f.role.value)
+    this.usersApiService.changeUserRole(this.editUser['id'], this.formControls.role.value)
     .pipe(first())
         .subscribe(
             data => {
@@ -50,7 +50,7 @@ export class ChangeUserRoleComponent implements OnInit {
                 this.alertService.newAlert("danger", data['msg'])
               } else {
                 //this.alertService.newAlert("success", "Role updated")
-                let role = this.roles.find(i => i['id'] === Number(this.f.role.value))
+                let role = this.roles.find(i => i['id'] === Number(this.formControls.role.value))
                 this.editUser['role'] = role
                 this.closeModal()
               }

@@ -52,7 +52,6 @@ export class EmailComponent implements OnInit {
   ]
 
   descriptions = [
-
     "Unique URL to a campaign's chosen payload, hosted on a worker. Example: http[s]://domain.com/enablemacros.xls?id=XXXXX",
     "The first name of the email recipient",
     "The last name of the email recipient",
@@ -60,17 +59,6 @@ export class EmailComponent implements OnInit {
     "The email address of the recipient",
     "The unique tracking ID used to identify the recipient"
   ]
-
-  /*
-  config = {
-    'iframe': true,
-    "disablePlugins": "table, resizer, inlinePopup, cleanHtml",
-    "height": window.innerHeight * .75,
-    "width": '100%',
-    allowResizeX: false,
-    allowResizeY: false
-  }
-  */
 
   constructor(
     private route: ActivatedRoute,
@@ -82,7 +70,7 @@ export class EmailComponent implements OnInit {
   ) {
     this.route.params.subscribe(params => this.workspaceId = params['workspaceId'])
     this.route.params.subscribe(params => this.emailId = params['emailId'])
-    if (this.emailId != 'new') {
+    if (this.emailId !== 'new') {
       this.editEmail = router.getCurrentNavigation().extras.state
       if (this.editEmail == null) {
         this.router.navigate([`/workspaces/${this.workspaceId}/emails`])
@@ -137,7 +125,7 @@ export class EmailComponent implements OnInit {
       }
       let doc = this.iframe.nativeElement.contentDocument || this.iframe.nativeElement.contentWindow;
       doc.open();
-      doc.write(this.f.htmlContent.value)
+      doc.write(this.formControls.htmlContent.value)
       doc.close();
       let frame = document.getElementById('frame')
       frame.style.height = window.innerHeight * .7 + 'px'
@@ -148,34 +136,31 @@ export class EmailComponent implements OnInit {
     this.track = event.target.checked;
   }
 
-  get f() { return this.myForm.controls; }
+  get formControls() { return this.myForm.controls; }
 
   onSubmit() {
     this.submitted = true;
 
-    // stop here if form is invalid
-    if (this.myForm.invalid) {
-      return;
-    }
+    if (this.myForm.valid) {
+      this.loading = true
 
-    this.loading = true
-
-    if (this.emailId == "new") {
-      this.postEmail()
-    } else {
-      this.putEmail()
+      if (this.emailId == "new") {
+        this.postEmail()
+      } else {
+        this.putEmail()
+      }
     }
   }
 
   postEmail() {
     this.emailsApiService.postEmail(
-      this.workspaceId, this.f.name.value, this.f.htmlContent.value, this.f.subject.value, this.track
+      this.workspaceId, this.formControls.name.value, this.formControls.htmlContent.value, this.formControls.subject.value, this.track
     ).pipe(first())
       .subscribe(
         data => {
           this.loading = false
           if (data['success'] == false) {
-            this.alertService.newAlert("warning", "An email named " + this.f.name.value + " already exists in the database")
+            this.alertService.newAlert("warning", "An email named " + this.formControls.name.value + " already exists in the database")
           } else {
             this.router.navigate([`/workspaces/${this.workspaceId}/emails`])
           }
@@ -187,13 +172,13 @@ export class EmailComponent implements OnInit {
 
   putEmail() {
     this.emailsApiService.putEmail(
-      this.workspaceId, this.emailId, this.f.name.value, this.f.htmlContent.value, this.f.subject.value, this.track
+      this.workspaceId, this.emailId, this.formControls.name.value, this.formControls.htmlContent.value, this.formControls.subject.value, this.track
     ).pipe(first())
       .subscribe(
         data => {
           this.loading = false
           if (data['success'] == false) {
-            this.alertService.newAlert("warning", "An email named " + this.f.name.value + " already exists in the database")
+            this.alertService.newAlert("warning", "An email named " + this.formControls.name.value + " already exists in the database")
           } else {
             this.router.navigate([`/workspaces/${this.workspaceId}/emails`])
           }

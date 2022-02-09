@@ -9,9 +9,9 @@
           <div class="input-group-prepend">
               <span class="input-group-text">URL</span>
           </div>
-          <input type="text" formControlName="link" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.link.errors }"/>
-          <div *ngIf="submitted && f.link.errors" class="invalid-feedback">
-              <div *ngIf="f.link.errors.required">URL is required</div>
+          <input type="text" formControlName="link" class="form-control" [ngClass]="{ 'is-invalid': submitted && formControls.link.errors }"/>
+          <div *ngIf="submitted && formControls.link.errors" class="invalid-feedback">
+              <div *ngIf="formControls.link.errors.required">URL is required</div>
           </div>
         </div>
 

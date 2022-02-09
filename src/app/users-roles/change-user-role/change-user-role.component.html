@@ -11,12 +11,12 @@
         <div class="input-group-prepend">
             <span class="input-group-text">Role</span>
         </div>
-        <select class="form-control" formControlName="role" [ngClass]="{ 'is-invalid': submitted && f.role.errors }">
+        <select class="form-control" formControlName="role" [ngClass]="{ 'is-invalid': submitted && formControls.role.errors }">
           <option disabled selected value>-- Select a role --</option>
           <option *ngFor="let role of roles" [value]="role.id"> {{ role.name }}</option>
         </select>
-        <div *ngIf="submitted && f.role.errors" class="invalid-feedback">
-          <div *ngIf="f.role.errors.required">Role is required</div>
+        <div *ngIf="submitted && formControls.role.errors" class="invalid-feedback">
+          <div *ngIf="formControls.role.errors.required">Role is required</div>
         </div>
       </div>
     

@@ -22,9 +22,9 @@
             <div class="input-group-prepend">
               <span class="span-profile input-group-text">Name</span>
             </div>
-            <input placeholder="Email Name" type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.name.errors }"/>
-            <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
-              <div *ngIf="f.name.errors.required">Name is required</div>
+            <input placeholder="Email Name" type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && formControls.name.errors }"/>
+            <div *ngIf="submitted && formControls.name.errors" class="invalid-feedback">
+              <div *ngIf="formControls.name.errors.required">Name is required</div>
             </div>
           </div>
         </div>
@@ -35,9 +35,9 @@
             <div class="input-group-prepend">
               <span class="span-profile input-group-text">Subject</span>
             </div>
-            <input placeholder="You have mail!" type="text" formControlName="subject" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.subject.errors }"/>
-            <div *ngIf="submitted && f.subject.errors" class="invalid-feedback">
-              <div *ngIf="f.subject.errors.required">URL is required</div>
+            <input placeholder="You have mail!" type="text" formControlName="subject" class="form-control" [ngClass]="{ 'is-invalid': submitted && formControls.subject.errors }"/>
+            <div *ngIf="submitted && formControls.subject.errors" class="invalid-feedback">
+              <div *ngIf="formControls.subject.errors.required">URL is required</div>
             </div>
           </div>
         </div>

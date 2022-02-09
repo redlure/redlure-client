@@ -36,36 +36,32 @@ export class CloneSiteComponent implements OnInit {
     this.activeModal.close();
   }
 
-  get f() { return this.myForm.controls; }
+  get formControls() { return this.myForm.controls; }
 
   onSubmit() {
     this.submitted = true;
 
-    // stop here if form is invalid
-    if (this.myForm.invalid) {
-        return;
-    }
-    
-    this.loading = true;
-    this.pagesApiService.cloneSite(this.f.link.value)
-      .pipe(first())
+    if (this.myForm.valid) {
+      this.loading = true;
+      this.pagesApiService.cloneSite(this.formControls.link.value)
+        .pipe(first())
         .subscribe(
-            data => {
-                this.loading = false;
-                if (data['success'] == false) {
-                  this.failMsg = data['message']
-                  this.fail = true
-                } else {
-                  this.fail = false
-                  this.emitter.emit(data['html'])
-                  this.closeModal()
-                }
-            },
-            error => {
-                this.loading = false;
-                console.log(error)
-            });
-            
-}
+          data => {
+            this.loading = false;
+            if (data['success'] == false) {
+              this.failMsg = data['message']
+              this.fail = true
+            } else {
+              this.fail = false
+              this.emitter.emit(data['html'])
+              this.closeModal()
+            }
+          },
+          error => {
+            this.loading = false;
+            console.log(error)
+          });
 
+    }
+  }
 }

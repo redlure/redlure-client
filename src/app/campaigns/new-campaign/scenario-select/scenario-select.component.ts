@@ -49,6 +49,7 @@ export class ScenarioSelectComponent implements OnInit {
       payloadUrl: [this.newCampaignService.newCampaign.payloadUrl, Validators.pattern(RegExp('^\/'))],
       payloadFile: [this.newCampaignService.newCampaign.payloadFile],
       redirectUrl: [this.newCampaignService.newCampaign.redirectUrl],
+      safetyUrl: [this.newCampaignService.newCampaign.safetyUrl],
     });
 
     // set form fields to "" instad of undefined so that default option shows

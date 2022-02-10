@@ -81,7 +81,7 @@
       </div>
 
       <hr>
-      <p><strong>Optional Setting:</strong><br>Redirect victims to a URL after submitting a form on the last page of your campaign.</p>
+      <p><strong>Optional Setting:</strong><br>Redirect victims to a URL after submitting a <b>form</b> on the last page of your campaign.</p>
 
       <!--Redirect URL Field-->
       <div class="input-group form-group">
@@ -89,6 +89,17 @@
           <span class="input-group-text span-redir">Redirect URL</span>
         </div>
         <input placeholder="https://google.com" type="text" formControlName="redirectUrl" class="form-control"/>
+      </div>
+
+      <hr>
+      <p><strong>Optional Setting:</strong><br>Redirect requests without an explicit valid landing page URI to a legitmate URL.</p>
+
+      <!--Safety URL Field-->
+      <div class="input-group form-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text span-redir">Safety URL</span>
+        </div>
+        <input placeholder="https://google.com" type="text" formControlName="safetyUrl" class="form-control"/>
       </div>
 
       <hr>

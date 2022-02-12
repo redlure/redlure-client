@@ -125,6 +125,7 @@ export class ScenarioSelectComponent implements OnInit {
       this.newCampaignService.newCampaign.name = this.formControls.name.value;
       this.newCampaignService.newCampaign.email = this.formControls.email.value;
       this.newCampaignService.newCampaign.redirectUrl = this.formControls.redirectUrl.value;
+      this.newCampaignService.newCampaign.safetyUrl = this.formControls.safetyUrl.value;
       this.newCampaignService.newCampaign.payloadUrl = this.formControls.payloadUrl.value;
       this.newCampaignService.newCampaign.payloadFile = this.formControls.payloadFile.value;
 

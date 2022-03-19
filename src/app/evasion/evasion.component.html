@@ -8,14 +8,14 @@
           <b class="h3-suffix">SION</b>
         </h3>
   
-        <div *ngIf="blockListLoading" class="loadingio-spinner-dual-ball-jmseu88834m"><div class="ldio-c46ivvx8kf">
+        <div *ngIf="loading" class="loadingio-spinner-dual-ball-jmseu88834m"><div class="ldio-c46ivvx8kf">
           <div></div><div></div><div></div>
           </div></div>
       </div>
 
       <div class="col-md d-flex justify-content-end">
-        <button (click)="showInfo()" style="margin-right: 2px;" class="btn btn-outline-dark float-right">Info</button>
-        <button (click)="addBlockEntry()" class="btn btn-outline-dark float-right">New Entry</button>
+        <button (click)="showInfo()" style="margin-right: 2px;" class="btn btn-outline-primary float-right">Info <i class="fas fa-info-circle"></i></button>
+        <button (click)="addBlockEntry()" class="btn btn-outline-dark float-right">New Entry <i class="fas fa-ban"></i></button>
       </div>
 
     </div>
@@ -23,22 +23,20 @@
     <br>
 
     <div class="table-responsive">
-        <table id="blockListTable" datatable [dtTrigger]="dtTrigger['blockListTable']" class="table table-hover table-striped col-auto table-sm">
+        <table id="blocklistTable" datatable [dtTrigger]="dtTrigger['blocklistTable']" class="table table-hover table-striped col-auto table-sm">
           <thead class="thead-dark">
             <tr>
-              <th scope="col" *ngFor="let head of blockListHeaders; let i = index">{{ head }}</th>
+              <th scope="col" *ngFor="let head of blocklistHeaders; let i = index">{{ head }}</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let blockEntry of data; let i = index">
+            <tr *ngFor="let blocklistEntry of blocklist; let i = index">
               <th scope="row">{{ i +1 }}</th>
-              <td>{{ blockEntry.cidr }}</td>
-              <td>{{ blockEntry.note }}</td>
+              <td>{{ blocklistEntry.cidr }}</td>
+              <td>{{ blocklistEntry.note }}</td>
               <td class="btn-group">
                 <button class="btn btn-outline-dark fas fa-edit" title="Change Role" style="float: right;" (click)="editBlockEntry(blockEntry)"></button>
                 <button class="btn btn-outline-danger fas fa-trash-alt" title="Delete" style="float: right;" (click)="deleteBlockEntry(blockEntry)"></button>
-                <!--<a style="cursor: pointer;" title="Reset Password" data-toggle="tooltip" (click)="resetPassword(user)"><i class="ico text-dark fas fa-unlock"></i></a>
-                <a style="cursor: pointer;" title="Delete" data-toggle="tooltip" (click)="deleteUserModal(user)"><i class="ico text-danger fas fa-trash-alt"></i></a>-->
               </td>
             </tr>
           </tbody>

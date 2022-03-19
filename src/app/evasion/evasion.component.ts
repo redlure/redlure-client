@@ -3,7 +3,9 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MessageService } from '../empty-object/message.service';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
-
+import { BlocklistEntry } from './blocklist.model';
+import { EvasionApiService } from './evasion-api.service';
+import { Console } from 'console';
 
 
 @Component({
@@ -12,23 +14,19 @@ import { Subject } from 'rxjs';
   providers: [ MessageService ]
 })
 export class EvasionComponent implements OnInit {
-  blockList: Object[];
-  blockListHeaders = ["#", "IP CIDR", "Notes", "Actions"];
-  blockListLoading = false;
-
-  data = [
-    {'cidr': '192.168.187.100/32', 'note': 'blah'},
-    {'cidr': '192.168.0.0/16', 'note': 'hah'},
-    {'cidr': '192.168.187.10/25', 'note': 'fake'},
-    {'cidr': '192.168.187.101/32', 'note': 'data!'},
-  ]
+  blocklist: BlocklistEntry[];
+  blocklistHeaders = ["#", "IP CIDR", "Notes", "Actions"];
+  loading = false;
 
   @ViewChildren(DataTableDirective)
   dtElements: QueryList<DataTableDirective>;
   dtTrigger: Subject<any>[] = [];
   dtOptions: DataTables.Settings[] = [];
 
-  constructor() { }
+  constructor(
+    private evasionApiService: EvasionApiService,
+    private modalService: NgbModal
+  ) { }
 
   addBlockEntry() {
 
@@ -42,17 +40,27 @@ export class EvasionComponent implements OnInit {
 
   }
 
+  getBlocklist(): void {
+    this.loading = true;
+    this.evasionApiService.getBlocklist()
+      .subscribe(
+        blocklist => {
+          console.log(blocklist)
+          this.blocklist = blocklist;
+          this.loading = false;
+        });
+  }
+
   ngOnInit(): void {
-    this.dtTrigger["blockListTable"] = new Subject<any>();
-    this.blockListLoading = true;
-    // insert GET req logic
-    this.dtTrigger['blockListTable'].next();
-    this.blockListLoading = false;
+    this.dtTrigger["blocklistTable"] = new Subject<any>();
+    this.getBlocklist();
+    this.dtTrigger['blocklistTable'].next();
+    this.loading = false;
   }
 
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
-    this.dtTrigger["blockListTable"].unsubscribe();
+    this.dtTrigger["blocklistTable"].unsubscribe();
   }
 
 }

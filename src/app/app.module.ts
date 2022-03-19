@@ -90,7 +90,9 @@ import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import { ChangeUserRoleComponent } from './users-roles/change-user-role/change-user-role.component';
 import { VariableHelpComponent } from './variable-help/variable-help.component';
 import { EvasionComponent } from './evasion/evasion.component';
-
+import { NewBlocklistEntryComponent } from './evasion/new-blocklist-entry/new-blocklist-entry.component';
+import { EvasionInfoComponent } from './evasion/evasion-info/evasion-info.component';
+import { EvasionApiService } from './evasion/evasion-api.service';
 
 @NgModule({
   declarations: [
@@ -154,6 +156,8 @@ import { EvasionComponent } from './evasion/evasion.component';
     ChangeUserRoleComponent,
     VariableHelpComponent,
     EvasionComponent,
+    NewBlocklistEntryComponent,
+    EvasionInfoComponent,
   ],
   imports: [
     BrowserModule,
@@ -189,7 +193,8 @@ import { EvasionComponent } from './evasion/evasion.component';
     ResultsApiService,
     DataService,
     NewCampaignService,
-    UserProfileApiService
+    UserProfileApiService,
+    EvasionApiService
   ],
   bootstrap: [AppComponent],
   entryComponents: [
@@ -232,7 +237,9 @@ import { EvasionComponent } from './evasion/evasion.component';
     DetailComponent,
     AnonymousComponent,
     ChangeUserRoleComponent,
-    VariableHelpComponent
+    VariableHelpComponent,
+    NewBlocklistEntryComponent,
+    EvasionInfoComponent
   ]
 })
 export class AppModule { }

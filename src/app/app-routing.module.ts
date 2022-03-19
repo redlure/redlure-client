@@ -13,6 +13,7 @@ import { EmailComponent } from './emails/email/email.component';
 import { ListsComponent } from './lists/lists.component'
 import { CampaignsComponent } from './campaigns/campaigns.component'
 import { ResultsComponent } from './results/results.component';
+import { EvasionComponent } from './evasion/evasion.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'workspaces', component: WorkspacesComponent },
   { path: 'domains-servers', component: DomainsServersComponent },
   { path: 'users-roles', component: UsersRolesComponent },
+  { path: 'evasion', component: EvasionComponent },
   { path: 'workspaces/:workspaceId/profiles', component: ProfilesComponent },
   { path: 'workspaces/:workspaceId/pages', component: PagesComponent },
   { path: 'workspaces/:workspaceId/pages/:pageId', component: PageComponent },

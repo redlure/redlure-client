@@ -89,6 +89,7 @@ import { AnonymousComponent } from './results/anonymous/anonymous.component';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import { ChangeUserRoleComponent } from './users-roles/change-user-role/change-user-role.component';
 import { VariableHelpComponent } from './variable-help/variable-help.component';
+import { EvasionComponent } from './evasion/evasion.component';
 
 
 @NgModule({
@@ -152,6 +153,7 @@ import { VariableHelpComponent } from './variable-help/variable-help.component';
     AnonymousComponent,
     ChangeUserRoleComponent,
     VariableHelpComponent,
+    EvasionComponent,
   ],
   imports: [
     BrowserModule,
